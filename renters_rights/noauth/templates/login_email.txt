@@ -1,0 +1,7 @@
+{% load i18n %} 
+{% trans "Hello"%},
+
+{% blocktrans %}Your code for logging into {{site_uri}} is {{code}}.{% endblocktrans %}
+{% blocktrans %}Please go to {{code_uri}} to log in.{% endblocktrans %}
+
+{% trans "Thanks for using the site!"%}

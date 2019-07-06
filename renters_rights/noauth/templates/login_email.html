@@ -1,0 +1,8 @@
+{% load i18n %} 
+
+{% trans "Hello"%},<br>
+<br>
+{% blocktrans %}Your code for logging into {{site_name}} is {{code}}.{% endblocktrans %}<br>
+{% blocktrans %}Please go to <a href="{{code_uri}}?code={{code}}&email={{email}}">{{login_uri}}</a> to log in.{% endblocktrans %}<br>
+<br>
+{% trans "Thanks for using the site!"%}

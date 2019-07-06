@@ -1,0 +1,53 @@
+- model: noauth.user
+  pk: 1
+  fields:
+    password: pbkdf2_sha256$120000$mAweSgeLl2gP$EnzkWSXKsa+5VYpihsJpQyBfT3CVD11GFr6EWBVp3Pg=
+    last_login: null
+    is_superuser: true
+    username: admin
+    first_name: ''
+    last_name: ''
+    email: admin@localhost
+    is_staff: true
+    is_active: true
+    date_joined: 2018-09-21 21:42:00.264807+00:00
+    groups: []
+    user_permissions: []
+    created_at: 2018-09-21 21:42:00.264807+00:00
+    modified_at: 2018-09-21 21:42:00.264807+00:00
+
+- model: noauth.user
+  pk: 2
+  fields:
+    password: pbkdf2_sha256$120000$mAweSgeLl2gP$EnzkWSXKsa+5VYpihsJpQyBfT3CVD11GFr6EWBVp3Pg=
+    last_login: null
+    is_superuser: false
+    username: user1
+    first_name: 'User 1'
+    last_name: 'Last'
+    email: admin@localhost
+    is_staff: false
+    is_active: true
+    date_joined: 2018-09-21 21:42:00.264807+00:00
+    groups: []
+    user_permissions: []
+    created_at: 2018-09-21 21:42:00.264807+00:00
+    modified_at: 2018-09-21 21:42:00.264807+00:00
+
+- model: noauth.user
+  pk: 3
+  fields:
+    password: pbkdf2_sha256$120000$mAweSgeLl2gP$EnzkWSXKsa+5VYpihsJpQyBfT3CVD11GFr6EWBVp3Pg=
+    last_login: null
+    is_superuser: false
+    username: user2
+    first_name: 'User 2'
+    last_name: 'Last'
+    email: admin@localhost
+    is_staff: false
+    is_active: true
+    date_joined: 2018-09-21 21:42:00.264807+00:00
+    groups: []
+    user_permissions: []
+    created_at: 2018-09-21 21:42:00.264807+00:00
+    modified_at: 2018-09-21 21:42:00.264807+00:00

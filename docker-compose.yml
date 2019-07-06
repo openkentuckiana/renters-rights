@@ -1,0 +1,33 @@
+version: "3.2"
+services:
+  db:
+    image: mdillon/postgis:10
+    environment:
+      POSTGRES_DB: renters_rights
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pass
+    ports:
+      - "5432:5432"
+    networks:
+      - main
+  app:
+    stdin_open: true
+    tty: true
+    build:
+      context: .
+      args:
+        pipenv_arg: --dev
+    environment:
+      - DJANGO_SETTINGS_MODULE=renters_rights.settings.local
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./renters_rights:/app
+    networks:
+      - main
+    depends_on:
+      - db
+    ports:
+      - "80:80"
+
+networks:
+  main:

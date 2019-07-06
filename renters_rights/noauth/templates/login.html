@@ -1,0 +1,12 @@
+{% load i18n %}
+
+<!doctype html>
+<html>
+    <body>
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+	    <button>{% trans "Submit" %}</button>
+        </form>
+    </body>
+</html>
