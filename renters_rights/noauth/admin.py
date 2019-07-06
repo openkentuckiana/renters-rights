@@ -14,10 +14,7 @@ class AuthCodeAdmin(admin.ModelAdmin):
 class NoAuthUserAdmin(UserAdmin):
     fieldsets = (
         (None, {"fields": ("username", "password")}),
-        (
-            _("Personal info"),
-            {"fields": ("first_name", "last_name", "email")},
-        ),
+        (_("Personal info"), {"fields": ("first_name", "last_name", "email")}),
         (
             _("Permissions"),
             {

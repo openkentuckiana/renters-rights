@@ -3,6 +3,6 @@
 #pipenv run black renters_rights/
 #pipenv run isort -rc --atomic renters_rights
 
-docker-compose run app black renters_rights
-docker-compose run app isort -rc --atomic renters_rights
+docker-compose run app black .
+docker-compose run app isort -rc --atomic .
 git add .

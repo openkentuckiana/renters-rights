@@ -21,13 +21,6 @@ from PIL import Image
 from lib.models import BaseModel, SoftDeleteModel
 
 
-
-
-
-
-
-
-
 def generate_file_path(instance, filename):
     """Generates a file upload path."""
     return f'uploads/{datetime.datetime.utcnow().strftime("%Y/%m/%d")}/{filename}'

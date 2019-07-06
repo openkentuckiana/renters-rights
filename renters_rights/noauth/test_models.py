@@ -12,10 +12,7 @@ from .models import DEFAULT_CODE_LENGTH, AuthCode, User
 
 class AuthCodeModelTests(TestCase):
     def setUp(self):
-        self.u = User.objects.create(
-            is_active=True,
-            email="eleanor@shellstrop.com",
-        )
+        self.u = User.objects.create(is_active=True, email="eleanor@shellstrop.com")
 
     def test_create_code_for_user_returns_none_for_inactive_user(self):
         self.u.is_active = False

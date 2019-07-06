@@ -42,7 +42,9 @@ class CodeView(View):
             code = form.cleaned_data["code"]
             auth_code = self._validate_and_get_auth_code(email, code)
             if auth_code:
-                import pdb; pdb.set_trace()
+                import pdb
+
+                pdb.set_trace()
                 login(request, auth_code.user)
                 return redirect(auth_code.next_page)
 

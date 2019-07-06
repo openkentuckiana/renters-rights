@@ -5,14 +5,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('noauth', '0001_initial'),
-    ]
+    dependencies = [("noauth", "0001_initial")]
 
     operations = [
         migrations.AlterField(
-            model_name='authcode',
-            name='next_page',
-            field=models.TextField(blank=True, default='/', editable=False, null=True),
-        ),
+            model_name="authcode",
+            name="next_page",
+            field=models.TextField(blank=True, default="/", editable=False, null=True),
+        )
     ]
