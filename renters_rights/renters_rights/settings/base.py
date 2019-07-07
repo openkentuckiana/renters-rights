@@ -139,7 +139,9 @@ USE_TZ = True
 
 STATIC_URL = "/dj-static/"
 
-LOCALE_PATHS = ["locale"]
+LOCALE_PATHS = [
+    os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "locale"))
+]
 
 # User registration
 DEFAULT_FROM_EMAIL = get_env_variable("DEFAULT_FROM_EMAIL", "admin@swapsite.com")

@@ -3,6 +3,16 @@
 #pipenv run black renters_rights/
 #pipenv run isort -rc --atomic renters_rights
 
-docker-compose run app black .
-docker-compose run app isort -rc --atomic .
-git add .
+docker-compose run --rm app black .; bs=$?
+docker-compose run --rm app isort -rc --atomic .; iss=$?
+
+if [[ $bs -eq 0 ]] && [[ iss -eq 0 ]]
+then
+    git add .
+else
+    echo
+    echo "There were problems formatting files."
+    echo "Please fix the problems before committing."
+    echo
+    exit 1
+fi
