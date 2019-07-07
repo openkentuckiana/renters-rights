@@ -1,4 +1,5 @@
 import datetime
+import logging
 import sys
 import uuid
 from io import BytesIO
@@ -17,7 +18,9 @@ from localflavor.us.models import USStateField, USZipCodeField
 from phonenumber_field.modelfields import PhoneNumberField
 from PIL import Image
 
-from lib.models import BaseModel, SoftDeleteModel
+from lib.models import UserOwnedModel
+
+logger = logging.getLogger(__name__)
 
 DOCUMENT = "D"
 PICTURE = "P"
@@ -28,7 +31,44 @@ def generate_file_path(instance, filename):
     return f'uploads/{datetime.datetime.utcnow().strftime("%Y/%m/%d")}/{filename}'
 
 
-class UnitImage(BaseModel):
+class Unit(UserOwnedModel):
+    """
+    Items that users are willing to give up.
+    """
+
+    # Location info
+    unit_address_1 = models.CharField(_("Unit Address 1"), max_length=100)
+    unit_address_2 = models.CharField(_("Unit Address 2"), max_length=100, blank=True)
+    unit_city = models.CharField(_("Unit City"), max_length=100, blank=True)
+    unit_state = USStateField(_("Unit State"), blank=True)
+    unit_zip_code = USZipCodeField(_("Unit ZIP Code"), blank=True)
+
+    # Landlord info
+    landlord_address_1 = models.CharField(
+        _("Landlord Address 1"), max_length=100, blank=True
+    )
+    landlord_address_2 = models.CharField(
+        _("Landlord Address 2"), max_length=100, blank=True
+    )
+    landlord_city = models.CharField(_("Landlord City"), max_length=100, blank=True)
+    landlord_state = USStateField(_("Landlord State"), blank=True)
+    landlord_zip_code = USZipCodeField(_("Landlord ZIP Code"), blank=True)
+    landlord_phone_number = PhoneNumberField(_("Landlord Phone Number"), blank=True)
+
+    # Lease info
+    lease_start_date = models.DateField(
+        _("Lease Start Start Date"), blank=True, null=True
+    )
+    lease_end_date = models.DateField(_("Lease Start End Date"), blank=True, null=True)
+    rent_due_date = models.PositiveIntegerField(
+        _("Day Rent Date"), blank=True, null=True
+    )
+
+    def __str__(self):
+        return f"{self.unit_address_1}"
+
+
+class UnitImage(UserOwnedModel):
     IMAGE_TYPE_CHOICES = [(DOCUMENT, "Document"), (PICTURE, "Picture")]
 
     image = models.ImageField(upload_to=generate_file_path)
@@ -38,9 +78,10 @@ class UnitImage(BaseModel):
     image_type = models.CharField(
         max_length=1, choices=IMAGE_TYPE_CHOICES, default=PICTURE
     )
+    unit = models.ForeignKey(Unit, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.image.name} - {self.unit.name}"
+        return f"{self.image.name}"
 
     def save(self, *args, **kwargs):
         min_size = settings.UNIT_IMAGE_MIN_HEIGHT_AND_WIDTH
@@ -98,47 +139,10 @@ class UnitImage(BaseModel):
 @receiver(post_delete, sender=UnitImage)
 def delete_thumbnails(sender, instance, using, **kwargs):
     """Post-delete signal handler to delete thumbnail images."""
-    default_storage.delete(instance.image.path)
+    try:
+        default_storage.delete(instance.image.path)
 
-    for size in instance.thumbnail_sizes:
-        default_storage.delete(f"{instance.image.path.split('.')[0]}-{size}.jpg")
-
-
-class Unit(SoftDeleteModel):
-    """
-    Items that users are willing to give up.
-    """
-
-    owner = models.ForeignKey("noauth.User", on_delete=models.CASCADE)
-    images = models.ManyToManyField(UnitImage, related_name="images")
-    documents = models.ManyToManyField(UnitImage, related_name="documents")
-
-    # Location info
-    unit_address_1 = models.CharField(max_length=100)
-    unit_address_2 = models.CharField(max_length=100, blank=True)
-    unit_city = models.CharField(max_length=100, blank=True)
-    unit_state = USStateField(blank=True)
-    unit_zip_code = USZipCodeField(blank=True)
-
-    # Landlord info
-    landlord_address_1 = models.CharField(max_length=100, blank=True)
-    landlord_address_2 = models.CharField(max_length=100, blank=True)
-    landlord_city = models.CharField(max_length=100, blank=True)
-    landlord_state = USStateField(blank=True)
-    landlord_zip_code = USZipCodeField(blank=True)
-    landlord_phone_number = PhoneNumberField(blank=True)
-
-    # Lease info
-    lease_start_date = models.DateField(blank=True, null=True)
-    lease_end_date = models.DateField(blank=True, null=True)
-    rent_due_date = models.PositiveIntegerField(blank=True, null=True)
-
-    def __str__(self):
-        return f"{self.unit_address_1}"
-
-    def delete(self):
-        for file in self.documents.all():
-            file.delete()
-        for file in self.images.all():
-            file.delete()
-        super().delete()
+        for size in instance.thumbnail_sizes:
+            default_storage.delete(f"{instance.image.path.split('.')[0]}-{size}.jpg")
+    except Exception:
+        logger.exception("Could not delete image(s) %s", instance.image.path)

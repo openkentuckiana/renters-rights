@@ -1,6 +1,12 @@
-from django import forms
+import logging
 
-from units.models import DOCUMENT, PICTURE, Unit, UnitImage
+from django import forms
+from django.db import transaction
+from django.utils.translation import gettext_lazy as _
+
+from units.models import DOCUMENT, PICTURE, Unit, UnitImage, delete_thumbnails
+
+logger = logging.getLogger(__name__)
 
 
 class UnitForm(forms.ModelForm):
@@ -24,30 +30,49 @@ class UnitForm(forms.ModelForm):
         ]
 
     documents = forms.ImageField(
-        widget=forms.ClearableFileInput(attrs={"multiple": True}), required=False
+        label=_("Documents"),
+        widget=forms.ClearableFileInput(attrs={"multiple": True}),
+        required=False,
     )
 
-    images = forms.ImageField(
-        widget=forms.ClearableFileInput(attrs={"multiple": True}), required=False
+    pictures = forms.ImageField(
+        label=_("Pictures"),
+        widget=forms.ClearableFileInput(attrs={"multiple": True}),
+        required=False,
     )
 
-    def save(self, commit=True):
+    @transaction.atomic
+    def save(self):
+        instance = super().save()
 
-        instance = super().save(commit=False)
-        old_m2m = self.save_m2m
+        documents = []
+        pictures = []
 
-        def save_m2m():
-            old_m2m()
-
+        try:
             for file in self.files.getlist("documents"):
-                instance.documents.create(image=file, image_type=DOCUMENT)
-            for file in self.files.getlist("images"):
-                instance.images.create(image=file, image_type=PICTURE)
-
-        self.save_m2m = save_m2m
-
-        if commit:
-            instance.save()
-            self.save_m2m()
+                documents.append(
+                    UnitImage.objects.create(
+                        image=file,
+                        image_type=DOCUMENT,
+                        owner=instance.owner,
+                        unit=instance,
+                    )
+                )
+            for file in self.files.getlist("pictures"):
+                pictures.append(
+                    UnitImage.objects.create(
+                        image=file,
+                        image_type=PICTURE,
+                        owner=instance.owner,
+                        unit=instance,
+                    )
+                )
+        except Exception:
+            logger.debug(
+                "Failed to create unit or unit images. Deleting any uploaded images and thumbnails."
+            )
+            for i in documents + pictures:
+                delete_thumbnails(None, i, None)
+            raise
 
         return instance

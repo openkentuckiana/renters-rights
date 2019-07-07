@@ -1,7 +1,5 @@
 from django.db import models
 
-from .managers import SoftDeleteManager
-
 
 class BaseModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -11,11 +9,8 @@ class BaseModel(models.Model):
         abstract = True
 
 
-class SoftDeleteModel(BaseModel):
-    deleted_at = models.DateTimeField(null=True, default=None)
-
-    objects = SoftDeleteManager()
-    objects_with_deleted = SoftDeleteManager(deleted=True)
+class UserOwnedModel(BaseModel):
+    owner = models.ForeignKey("noauth.User", on_delete=models.CASCADE)
 
     class Meta:
         abstract = True

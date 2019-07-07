@@ -139,6 +139,8 @@ USE_TZ = True
 
 STATIC_URL = "/dj-static/"
 
+LOCALE_PATHS = ["locale"]
+
 # User registration
 DEFAULT_FROM_EMAIL = get_env_variable("DEFAULT_FROM_EMAIL", "admin@swapsite.com")
 AUTH_USER_MODEL = "noauth.User"
@@ -149,3 +151,19 @@ NOAUTH_CODE_TTL_MINUTES = 10
 # Sizes in-between will be used to generate thumbnails.
 UNIT_IMAGE_SIZES = [200, 500, 1500]
 UNIT_IMAGE_MIN_HEIGHT_AND_WIDTH = UNIT_IMAGE_SIZES[-2]
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {"console": {"class": "logging.StreamHandler"}},
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
+        },
+        "units": {"handlers": ["console"], "level": os.getenv("LOG_LEVEL", "INFO")},
+    },
+}
+
+PHONENUMBER_DB_FORMAT = "RFC3966"
+PHONENUMBER_DEFAULT_REGION = "US"
