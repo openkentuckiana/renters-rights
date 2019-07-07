@@ -1,8 +1,5 @@
 #!/bin/sh
 
-#pipenv run black renters_rights/
-#pipenv run isort -rc --atomic renters_rights
-
 docker-compose run --rm app black .; bs=$?
 docker-compose run --rm app isort -rc --atomic .; iss=$?
 
