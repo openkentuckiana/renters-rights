@@ -55,7 +55,8 @@ INSTALLED_APPS = [
     "django.contrib.gis",
     "localflavor",
     "maintenance_mode",
-    "items",
+    "phonenumber_field",
+    "units",
     "noauth",
 ]
 
@@ -68,6 +69,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "maintenance_mode.middleware.MaintenanceModeMiddleware",
+    "units.middleware.TurbolinksMiddleware",
 ]
 
 ROOT_URLCONF = "renters_rights.urls"

@@ -1,9 +1,7 @@
 import datetime
-import string
 import sys
 import uuid
 from io import BytesIO
-from random import choices
 
 from django.conf import settings
 from django.contrib.postgres.fields import ArrayField
@@ -14,11 +12,15 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
-from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
+from localflavor.us.models import USStateField, USZipCodeField
+from phonenumber_field.modelfields import PhoneNumberField
 from PIL import Image
 
 from lib.models import BaseModel, SoftDeleteModel
+
+DOCUMENT = "D"
+PICTURE = "P"
 
 
 def generate_file_path(instance, filename):
@@ -27,14 +29,18 @@ def generate_file_path(instance, filename):
 
 
 class UnitImage(BaseModel):
+    IMAGE_TYPE_CHOICES = [(DOCUMENT, "Document"), (PICTURE, "Picture")]
+
     image = models.ImageField(upload_to=generate_file_path)
-    item = models.ForeignKey("Item", on_delete=models.CASCADE)
     full_size_height = models.PositiveIntegerField(default=0)
     full_size_width = models.PositiveIntegerField(default=0)
     thumbnail_sizes = ArrayField(models.SmallIntegerField(), blank=True, null=True)
+    image_type = models.CharField(
+        max_length=1, choices=IMAGE_TYPE_CHOICES, default=PICTURE
+    )
 
     def __str__(self):
-        return f"{self.image.name} - {self.item.name}"
+        return f"{self.image.name} - {self.unit.name}"
 
     def save(self, *args, **kwargs):
         min_size = settings.UNIT_IMAGE_MIN_HEIGHT_AND_WIDTH
@@ -98,19 +104,41 @@ def delete_thumbnails(sender, instance, using, **kwargs):
         default_storage.delete(f"{instance.image.path.split('.')[0]}-{size}.jpg")
 
 
-class Item(SoftDeleteModel):
+class Unit(SoftDeleteModel):
     """
     Items that users are willing to give up.
     """
 
-    name = models.CharField(max_length=100)
-    slug = models.SlugField(unique=True, max_length=60)
-    description = models.TextField(blank=True, null=True)
     owner = models.ForeignKey("noauth.User", on_delete=models.CASCADE)
+    images = models.ManyToManyField(UnitImage, related_name="images")
+    documents = models.ManyToManyField(UnitImage, related_name="documents")
+
+    # Location info
+    unit_address_1 = models.CharField(max_length=100)
+    unit_address_2 = models.CharField(max_length=100, blank=True)
+    unit_city = models.CharField(max_length=100, blank=True)
+    unit_state = USStateField(blank=True)
+    unit_zip_code = USZipCodeField(blank=True)
+
+    # Landlord info
+    landlord_address_1 = models.CharField(max_length=100, blank=True)
+    landlord_address_2 = models.CharField(max_length=100, blank=True)
+    landlord_city = models.CharField(max_length=100, blank=True)
+    landlord_state = USStateField(blank=True)
+    landlord_zip_code = USZipCodeField(blank=True)
+    landlord_phone_number = PhoneNumberField(blank=True)
+
+    # Lease info
+    lease_start_date = models.DateField(blank=True, null=True)
+    lease_end_date = models.DateField(blank=True, null=True)
+    rent_due_date = models.PositiveIntegerField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.unit_address_1}"
 
-    def save(self, *args, **kwargs):
-        self.slug = f"{slugify(self.name)[:45]}-{''.join(choices(string.ascii_lowercase + string.digits, k=10))}"
-        super().save(*args, **kwargs)
+    def delete(self):
+        for file in self.documents.all():
+            file.delete()
+        for file in self.images.all():
+            file.delete()
+        super().delete()

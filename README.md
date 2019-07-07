@@ -52,4 +52,4 @@ Advanced Topics
 
 If you need to debug Swap Python code, add the following `import pdb; pdb.set_trace()` at the point where you would like your breakpoint. The app will stop execution when it reaches this line.
 
-To interact with `pdb`, open a new terminal and run `docker-attach swap_app_1` (where `swap_app_1` is the name of the container you see when running `docker ps`).
+To interact with `pdb`, open a new terminal and run `docker attach renters-rights_app_1` (where `renters-rights_app_1` is the name of the container you see when running `make status`).

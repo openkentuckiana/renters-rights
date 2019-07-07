@@ -3,9 +3,10 @@
 <!doctype html>
 <html>
     <body>
-        <form method="post">
+        <h1>TEST!</h1>
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form }}
+            {{ form.as_ul }}
 	    <button>{% trans "Submit" %}</button>
         </form>
     </body>
