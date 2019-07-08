@@ -65,4 +65,11 @@ cli:
 tail:
 	@docker-compose logs -ft
 
+attach:
+	docker attach renters-rights_app_1
+
+format:
+	@docker-compose run --rm app black . -l 128
+	@docker-compose run --rm app isort -rc --atomic .
+
 .PHONY: start stop status restart clean build test makemigrations migrate fixtures flushdb cli tail
