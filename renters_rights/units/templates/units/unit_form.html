@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<div>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <button type="submit">{% trans "Submit" %}</button>
+        <a href="/units/">{% trans "Cancel" %}</a>
+    </form>
+</div>
+
+{% endblock %}

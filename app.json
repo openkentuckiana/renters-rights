@@ -17,6 +17,7 @@
       "plan": "heroku-postgresql"
     }
   ],
+  "stack": "container",
   "buildpacks": [
 
   ]

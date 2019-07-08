@@ -14,9 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="unitimage",
             name="unit",
-            field=models.ForeignKey(
-                default=0, on_delete=django.db.models.deletion.CASCADE, to="units.Unit"
-            ),
+            field=models.ForeignKey(default=0, on_delete=django.db.models.deletion.CASCADE, to="units.Unit"),
             preserve_default=False,
         ),
     ]

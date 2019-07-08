@@ -26,12 +26,7 @@ class User(AbstractUser, BaseModel):
 
 
 class AuthCode(BaseModel):
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        related_name="auth_codes",
-        editable=False,
-        on_delete=models.CASCADE,
-    )
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="auth_codes", editable=False, on_delete=models.CASCADE)
     code = models.CharField(max_length=20, editable=False)
     timestamp = models.DateTimeField(editable=False, auto_now=True)
     next_page = models.TextField(editable=False)
@@ -61,16 +56,9 @@ class AuthCode(BaseModel):
                 "site_name": settings.SITE_NAME,
             }
 
-            subject, to = (
-                _(f"Your {settings.SITE_NAME} log in code"),
-                auth_code.user.email,
-            )
-            msg = EmailMultiAlternatives(
-                subject, render_to_string(template, context), None, [to]
-            )
-            msg.attach_alternative(
-                render_to_string(html_template, context), "text/html"
-            )
+            subject, to = (_(f"Your {settings.SITE_NAME} log in code"), auth_code.user.email)
+            msg = EmailMultiAlternatives(subject, render_to_string(template, context), None, [to])
+            msg.attach_alternative(render_to_string(html_template, context), "text/html")
             msg.send()
             return True
 
@@ -85,13 +73,9 @@ class AuthCode(BaseModel):
         """
         try:
             valid_timestamp_start = timezone.now() - datetime.timedelta(
-                minutes=getattr(
-                    settings, "NOAUTH_CODE_TTL_MINUTES", DEFAULT_CODE_TTL_MINUTES
-                )
+                minutes=getattr(settings, "NOAUTH_CODE_TTL_MINUTES", DEFAULT_CODE_TTL_MINUTES)
             )
-            return AuthCode.objects.get(
-                user__username=email, code=code, timestamp__gte=valid_timestamp_start
-            )
+            return AuthCode.objects.get(user__username=email, code=code, timestamp__gte=valid_timestamp_start)
         except ObjectDoesNotExist:
             return None
 
@@ -109,13 +93,9 @@ class AuthCode(BaseModel):
         next_page = next_page or "/"
 
         valid_timestamp_start = timezone.now() - datetime.timedelta(
-            minutes=getattr(
-                settings, "NOAUTH_CODE_TTL_MINUTES", DEFAULT_CODE_TTL_MINUTES
-            )
+            minutes=getattr(settings, "NOAUTH_CODE_TTL_MINUTES", DEFAULT_CODE_TTL_MINUTES)
         )
-        if not AuthCode.objects.filter(
-            user=user, timestamp__gte=valid_timestamp_start
-        ).exists():
+        if not AuthCode.objects.filter(user=user, timestamp__gte=valid_timestamp_start).exists():
             code = cls.generate_code()
             AuthCode.objects.filter(user=user).delete()
             return AuthCode.objects.create(user=user, code=code, next_page=next_page)

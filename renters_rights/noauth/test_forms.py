@@ -34,12 +34,7 @@ class LoginFormTests(TestCase):
         data = {"email": "jane@unknown.com"}
         form = LoginForm(data)
         response = self.client.post(reverse("noauth:login"), data)
-        self.assertFormError(
-            response,
-            "form",
-            "email",
-            _("Your email domain is not authorized to sign into this site."),
-        )
+        self.assertFormError(response, "form", "email", _("Your email domain is not authorized to sign into this site."))
 
 
 class CodeFormTests(TestCase):

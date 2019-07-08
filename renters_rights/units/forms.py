@@ -30,16 +30,10 @@ class UnitForm(forms.ModelForm):
         ]
 
     documents = forms.ImageField(
-        label=_("Documents"),
-        widget=forms.ClearableFileInput(attrs={"multiple": True}),
-        required=False,
+        label=_("Documents"), widget=forms.ClearableFileInput(attrs={"multiple": True}), required=False
     )
 
-    pictures = forms.ImageField(
-        label=_("Pictures"),
-        widget=forms.ClearableFileInput(attrs={"multiple": True}),
-        required=False,
-    )
+    pictures = forms.ImageField(label=_("Pictures"), widget=forms.ClearableFileInput(attrs={"multiple": True}), required=False)
 
     @transaction.atomic
     def save(self):
@@ -50,27 +44,11 @@ class UnitForm(forms.ModelForm):
 
         try:
             for file in self.files.getlist("documents"):
-                documents.append(
-                    UnitImage.objects.create(
-                        image=file,
-                        image_type=DOCUMENT,
-                        owner=instance.owner,
-                        unit=instance,
-                    )
-                )
+                documents.append(UnitImage.objects.create(image=file, image_type=DOCUMENT, owner=instance.owner, unit=instance))
             for file in self.files.getlist("pictures"):
-                pictures.append(
-                    UnitImage.objects.create(
-                        image=file,
-                        image_type=PICTURE,
-                        owner=instance.owner,
-                        unit=instance,
-                    )
-                )
+                pictures.append(UnitImage.objects.create(image=file, image_type=PICTURE, owner=instance.owner, unit=instance))
         except Exception:
-            logger.debug(
-                "Failed to create unit or unit images. Deleting any uploaded images and thumbnails."
-            )
+            logger.debug("Failed to create unit or unit images. Deleting any uploaded images and thumbnails.")
             for i in documents + pictures:
                 delete_thumbnails(None, i, None)
             raise

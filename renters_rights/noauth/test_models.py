@@ -21,9 +21,7 @@ class AuthCodeModelTests(TestCase):
 
     def test_create_code_for_user_creates_new_code(self):
         expected_auth_code = AuthCode._create_code_for_user(self.u)
-        actual_auth_code = AuthCode.objects.get(
-            user=self.u, code=expected_auth_code.code
-        )
+        actual_auth_code = AuthCode.objects.get(user=self.u, code=expected_auth_code.code)
         assert_that(expected_auth_code.code, equal_to(actual_auth_code.code))
 
     def test_generate_code_creates_code_of_default_length(self):
@@ -36,23 +34,17 @@ class AuthCodeModelTests(TestCase):
         assert_that(len(code), equal_to(19))
 
     @mock.patch("noauth.models.AuthCode._create_code_for_user")
-    def test_send_auth_code_returns_false_when_auth_code_not_created(
-        self, m_create_code_for_user
-    ):
+    def test_send_auth_code_returns_false_when_auth_code_not_created(self, m_create_code_for_user):
         m_create_code_for_user.return_value = False
         self.assertFalse(AuthCode.send_auth_code(self.u))
 
     @mock.patch("noauth.models.AuthCode._create_code_for_user")
-    def test_send_auth_code_returns_false_when_auth_code_not_created(
-        self, m_create_code_for_user
-    ):
+    def test_send_auth_code_returns_false_when_auth_code_not_created(self, m_create_code_for_user):
         auth_code = AuthCode(code="123", user=self.u)
         m_create_code_for_user.return_value = auth_code
         self.assertTrue(AuthCode.send_auth_code(self.u))
         self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(
-            mail.outbox[0].subject, _(f"Your {settings.SITE_NAME} log in code")
-        )
+        self.assertEqual(mail.outbox[0].subject, _(f"Your {settings.SITE_NAME} log in code"))
 
         context = {
             "code": auth_code.code,
@@ -60,10 +52,5 @@ class AuthCodeModelTests(TestCase):
             "email": auth_code.user.email,
             "site_name": settings.SITE_NAME,
         }
-        assert_that(
-            mail.outbox[0].body, equal_to(render_to_string("login_email.txt", context))
-        )
-        assert_that(
-            mail.outbox[0].alternatives[0][0],
-            equal_to(render_to_string("login_email.html", context)),
-        )
+        assert_that(mail.outbox[0].body, equal_to(render_to_string("login_email.txt", context)))
+        assert_that(mail.outbox[0].alternatives[0][0], equal_to(render_to_string("login_email.html", context)))

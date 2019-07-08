@@ -42,18 +42,10 @@ class CodeView(View):
             code = form.cleaned_data["code"]
             auth_code = self._validate_and_get_auth_code(email, code)
             if auth_code:
-                import pdb
-
-                pdb.set_trace()
                 login(request, auth_code.user)
                 return redirect(auth_code.next_page)
 
-            form.add_error(
-                None,
-                ValidationError(
-                    _("Invalid e-mail address or code."), code="invalid_email_or_code"
-                ),
-            )
+            form.add_error(None, ValidationError(_("Invalid e-mail address or code."), code="invalid_email_or_code"))
 
         return render(request, self.template_name, {"form": form})
 
@@ -91,19 +83,12 @@ class LoginView(FormView):
             self.success_url += f"?email={user.username}"
             return super().form_valid(form)
         else:
-            form.add_error(
-                None,
-                _(
-                    "Please check your inbox and spam folder for a previously-sent code."
-                ),
-            )
+            form.add_error(None, _("Please check your inbox and spam folder for a previously-sent code."))
             return super().form_invalid(form)
 
     def create_user(self, email):
         # password should never be used by a user to log in. Just make it long and random.
-        password = "".join(
-            choice(string.ascii_letters + string.digits) for i in range(50)
-        )
+        password = "".join(choice(string.ascii_letters + string.digits) for i in range(50))
         return User.objects.create_user(email, email, password)
 
     def get_user(self, email):

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load model_strings %}
+
+{% block content %}
+
+<a href="/unit/new/">Add new unit</a>
+
+{% for u in unit_list %}
+    <div class="unit" style="border: 1px solid gray;">
+        <h3>{{ u.unit_address_1 }}</h3>
+        <div class="unit-info">
+            {% field_name model 'unit_address_1' %}: {{ u.unit_address_1 }}<br>
+            {% field_name model 'unit_address_2' %}: {{ u.unit_address_2 }}<br>
+            {% field_name model 'unit_city' %}: {{ u.unit_city }}<br>
+            {% field_name model 'unit_state' %}: {{ u.unit_state }}<br>
+            {% field_name model 'unit_zip_code' %}: {{ u.unit_zip_code }}<br>
+        </div>
+
+        <div class="landlord-info">
+            {% field_name model 'landlord_address_1' %}: {{ u.landlord_address_1 }}<br>
+            {% field_name model 'landlord_address_2' %}: {{ u.landlord_address_2 }}<br>
+            {% field_name model 'landlord_city' %}: {{ u.landlord_city }}<br>
+            {% field_name model 'landlord_state' %}: {{ u.landlord_state }}<br>
+            {% field_name model 'landlord_zip_code' %}: {{ u.landlord_zip_code }}<br>
+            {% field_name model 'landlord_phone_number' %}: {{ u.landlord_phone_number }}<br>
+        </div>
+
+        <div class="lease-info">
+            {% field_name model 'lease_start_date' %}: {{ u.lease_start_date|date:"SHORT_DATE_FORMAT" }}<br>
+            {% field_name model 'lease_end_date' %}: {{ u.lease_end_date|date:"SHORT_DATE_FORMAT" }}<br>
+            {% field_name model 'rent_due_date' %}: {{ u.rent_due_date|date:"SHORT_DATE_FORMAT" }}<br>
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock %}

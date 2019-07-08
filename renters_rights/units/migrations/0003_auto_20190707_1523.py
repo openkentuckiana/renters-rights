@@ -7,21 +7,14 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ("units", "0002_auto_20190707_0228"),
-    ]
+    dependencies = [migrations.swappable_dependency(settings.AUTH_USER_MODEL), ("units", "0002_auto_20190707_0228")]
 
     operations = [
         migrations.RemoveField(model_name="unit", name="deleted_at"),
         migrations.AddField(
             model_name="unitimage",
             name="owner",
-            field=models.ForeignKey(
-                default=4,
-                on_delete=django.db.models.deletion.CASCADE,
-                to=settings.AUTH_USER_MODEL,
-            ),
+            field=models.ForeignKey(default=4, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
             preserve_default=False,
         ),
     ]

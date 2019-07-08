@@ -1,6 +1,6 @@
 #!/bin/sh
 
-docker-compose run --rm app black .; bs=$?
+docker-compose run --rm app black . -l 128; bs=$?
 docker-compose run --rm app isort -rc --atomic .; iss=$?
 
 if [[ $bs -eq 0 ]] && [[ iss -eq 0 ]]

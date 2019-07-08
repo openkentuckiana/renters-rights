@@ -30,9 +30,7 @@ class CodeViewTests(TestCase):
         self.assertTrue(isinstance(form, CodeForm))
 
     @mock.patch("noauth.views.CodeView._validate_and_get_redirect_uri")
-    def test_get_with_code_and_email_calls_validate_method(
-        self, m_validate_and_get_redirect_uri
-    ):
+    def test_get_with_code_and_email_calls_validate_method(self, m_validate_and_get_redirect_uri):
         m_validate_and_get_redirect_uri.return_value = None
 
         self.client.get(f'{reverse("noauth:code")}?email=a&code=1')
@@ -42,22 +40,14 @@ class CodeViewTests(TestCase):
     @mock.patch("noauth.views.CodeView._validate_and_get_redirect_uri")
     def test_post_form_with_valid_data_redirects(self, m_validate_and_get_redirect_uri):
         m_validate_and_get_redirect_uri.return_value = reverse("noauth:code")
-        response = self.client.post(
-            reverse("noauth:code"), {"email": "a@example.com", "code": "1"}
-        )
+        response = self.client.post(reverse("noauth:code"), {"email": "a@example.com", "code": "1"})
         self.assertRedirects(response, reverse("noauth:code"))
 
     @mock.patch("noauth.views.CodeView._validate_and_get_redirect_uri")
-    def test_post_with_invalid_data_returns_error(
-        self, m_validate_and_get_redirect_uri
-    ):
+    def test_post_with_invalid_data_returns_error(self, m_validate_and_get_redirect_uri):
         m_validate_and_get_redirect_uri.return_value = None
-        response = self.client.post(
-            reverse("noauth:code"), {"email": "a@example.com", "code": "1"}
-        )
-        self.assertFormError(
-            response, "form", None, _("Invalid e-mail address or code.")
-        )
+        response = self.client.post(reverse("noauth:code"), {"email": "a@example.com", "code": "1"})
+        self.assertFormError(response, "form", None, _("Invalid e-mail address or code."))
 
     @override_settings(NOAUTH_CODE_TTL_MINUTES=5)
     def test_validate_and_get_redirect_uri_returns_default_path(self):
@@ -110,12 +100,7 @@ class LoginViewTests(TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.d = District.objects.create(email_domain="anagonye.com")
-        cls.u = User.objects.create(
-            is_active=True,
-            district=cls.d,
-            email="chidi@anagonye.com",
-            username="chidi@anagonye.com",
-        )
+        cls.u = User.objects.create(is_active=True, district=cls.d, email="chidi@anagonye.com", username="chidi@anagonye.com")
 
     @mock.patch("noauth.models.AuthCode.send_auth_code")
     def test_posting_a_user_that_does_not_exist_creates_user(self, m_send_auth_code):
@@ -130,27 +115,17 @@ class LoginViewTests(TestCase):
         self, m_send_auth_code
     ):
         m_send_auth_code.return_value = True
-        response = self.client.post(
-            reverse("noauth:login"), {"email": LoginViewTests.u.email}
-        )
+        response = self.client.post(reverse("noauth:login"), {"email": LoginViewTests.u.email})
         m_send_auth_code.assert_called_once_with(LoginViewTests.u)
-        self.assertRedirects(
-            response, reverse("noauth:code") + f"?email={LoginViewTests.u.username}"
-        )
+        self.assertRedirects(response, reverse("noauth:code") + f"?email={LoginViewTests.u.username}")
 
     @mock.patch("noauth.models.AuthCode.send_auth_code")
-    def test_posting_a_user_who_has_received_an_auth_code_returns_error(
-        self, m_send_auth_code
-    ):
+    def test_posting_a_user_who_has_received_an_auth_code_returns_error(self, m_send_auth_code):
         m_send_auth_code.return_value = False
-        response = self.client.post(
-            reverse("noauth:login"), {"email": LoginViewTests.u.email}
-        )
+        response = self.client.post(reverse("noauth:login"), {"email": LoginViewTests.u.email})
         m_send_auth_code.assert_called_once_with(LoginViewTests.u)
         assert_that(response.context["form"].errors, has_key("__all__"))
         assert_that(
             response.context["form"].errors["__all__"],
-            contains(
-                _("Please check your inbox and spam folder for a previously-sent code.")
-            ),
+            contains(_("Please check your inbox and spam folder for a previously-sent code.")),
         )

@@ -10,30 +10,14 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RemoveField(model_name="unitimage", name="unit"),
         migrations.AddField(
-            model_name="unit",
-            name="documents",
-            field=models.ManyToManyField(
-                related_name="documents", to="units.UnitImage"
-            ),
+            model_name="unit", name="documents", field=models.ManyToManyField(related_name="documents", to="units.UnitImage")
         ),
         migrations.AddField(
-            model_name="unit",
-            name="images",
-            field=models.ManyToManyField(related_name="images", to="units.UnitImage"),
+            model_name="unit", name="images", field=models.ManyToManyField(related_name="images", to="units.UnitImage")
         ),
+        migrations.AlterField(model_name="unit", name="lease_end_date", field=models.DateField(blank=True, null=True)),
+        migrations.AlterField(model_name="unit", name="lease_start_date", field=models.DateField(blank=True, null=True)),
         migrations.AlterField(
-            model_name="unit",
-            name="lease_end_date",
-            field=models.DateField(blank=True, null=True),
-        ),
-        migrations.AlterField(
-            model_name="unit",
-            name="lease_start_date",
-            field=models.DateField(blank=True, null=True),
-        ),
-        migrations.AlterField(
-            model_name="unit",
-            name="rent_due_date",
-            field=models.PositiveIntegerField(blank=True, null=True),
+            model_name="unit", name="rent_due_date", field=models.PositiveIntegerField(blank=True, null=True)
         ),
     ]

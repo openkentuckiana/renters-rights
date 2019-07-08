@@ -20,71 +20,35 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="Unit",
             fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        auto_created=True,
-                        primary_key=True,
-                        serialize=False,
-                        verbose_name="ID",
-                    ),
-                ),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
                 ("created_at", models.DateTimeField(auto_now_add=True)),
                 ("modified_at", models.DateTimeField(auto_now=True)),
                 ("deleted_at", models.DateTimeField(default=None, null=True)),
                 ("unit_address_1", models.CharField(max_length=100)),
                 ("unit_address_2", models.CharField(blank=True, max_length=100)),
                 ("unit_city", models.CharField(blank=True, max_length=100)),
-                (
-                    "unit_state",
-                    localflavor.us.models.USStateField(blank=True, max_length=2),
-                ),
-                (
-                    "unit_zip_code",
-                    localflavor.us.models.USZipCodeField(blank=True, max_length=10),
-                ),
+                ("unit_state", localflavor.us.models.USStateField(blank=True, max_length=2)),
+                ("unit_zip_code", localflavor.us.models.USZipCodeField(blank=True, max_length=10)),
                 ("landlord_address_1", models.CharField(blank=True, max_length=100)),
                 ("landlord_address_2", models.CharField(blank=True, max_length=100)),
                 ("landlord_city", models.CharField(blank=True, max_length=100)),
-                (
-                    "landlord_state",
-                    localflavor.us.models.USStateField(blank=True, max_length=2),
-                ),
-                (
-                    "landlord_zip_code",
-                    localflavor.us.models.USZipCodeField(blank=True, max_length=10),
-                ),
+                ("landlord_state", localflavor.us.models.USStateField(blank=True, max_length=2)),
+                ("landlord_zip_code", localflavor.us.models.USZipCodeField(blank=True, max_length=10)),
                 (
                     "landlord_phone_number",
-                    phonenumber_field.modelfields.PhoneNumberField(
-                        blank=True, max_length=128, region=None
-                    ),
+                    phonenumber_field.modelfields.PhoneNumberField(blank=True, max_length=128, region=None),
                 ),
                 ("lease_start_date", models.DateField(null=True)),
                 ("lease_end_date", models.DateField(null=True)),
                 ("rent_due_date", models.PositiveIntegerField(null=True)),
-                (
-                    "owner",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to=settings.AUTH_USER_MODEL,
-                    ),
-                ),
+                ("owner", models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
             options={"abstract": False},
         ),
         migrations.CreateModel(
             name="UnitImage",
             fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        auto_created=True,
-                        primary_key=True,
-                        serialize=False,
-                        verbose_name="ID",
-                    ),
-                ),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
                 ("created_at", models.DateTimeField(auto_now_add=True)),
                 ("modified_at", models.DateTimeField(auto_now=True)),
                 ("image", models.ImageField(upload_to=units.models.generate_file_path)),
@@ -93,26 +57,11 @@ class Migration(migrations.Migration):
                 (
                     "thumbnail_sizes",
                     django.contrib.postgres.fields.ArrayField(
-                        base_field=models.SmallIntegerField(),
-                        blank=True,
-                        null=True,
-                        size=None,
+                        base_field=models.SmallIntegerField(), blank=True, null=True, size=None
                     ),
                 ),
-                (
-                    "image_type",
-                    models.CharField(
-                        choices=[("D", "Document"), ("P", "Picture")],
-                        default="P",
-                        max_length=1,
-                    ),
-                ),
-                (
-                    "unit",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to="units.Unit"
-                    ),
-                ),
+                ("image_type", models.CharField(choices=[("D", "Document"), ("P", "Picture")], default="P", max_length=1)),
+                ("unit", models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="units.Unit")),
             ],
             options={"abstract": False},
         ),
