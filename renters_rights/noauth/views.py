@@ -79,7 +79,7 @@ class LoginView(FormView):
         if not user:
             user = self.create_user(email)
 
-        if AuthCode.send_auth_code(user):
+        if AuthCode.send_auth_code(user, self.request.build_absolute_uri()):
             self.success_url += f"?email={user.username}"
             return super().form_valid(form)
         else:
