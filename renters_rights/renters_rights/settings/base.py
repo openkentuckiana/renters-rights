@@ -37,6 +37,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "7a9+m*y!4!951^c1ocyzp)bs51b(2*vc_==qh3^s%yx-ie*!@#"
 
+LOGIN_URL = "/auth/login"
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -165,3 +167,10 @@ LOGGING = {
 
 PHONENUMBER_DB_FORMAT = "RFC3966"
 PHONENUMBER_DEFAULT_REGION = "US"
+
+# HTTP Basic auth. Username and password must both be set to have an effect.
+# Good for test sites, pre-release, etc.
+BASIC_AUTH_USERNAME = os.getenv("BASIC_AUTH_USERNAME", "")
+BASIC_AUTH_PASSWORD = os.getenv("BASIC_AUTH_PASSWORD", "")
+if BASIC_AUTH_USERNAME and BASIC_AUTH_PASSWORD:
+    MIDDLEWARE.insert(0, "lib.middleware.AllowedIPAddressesMiddleware")

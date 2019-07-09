@@ -1,7 +1,10 @@
 from django.db import models
 
+from lib.managers import UserOwnedModelManager
+
 
 class BaseModel(models.Model):
+    objects = UserOwnedModelManager()
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 

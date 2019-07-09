@@ -4,7 +4,29 @@
   },
   "env": {
     "SECRET_KEY": {
+      "description": "Django's secret key.",
       "generator": "secret"
+    },
+    "AWS_ACCESS_KEY_ID": {
+      "description": "AWS access key ID used for uploading files to S3."
+    },
+    "AWS_SECRET_ACCESS_KEY": {
+      "description": "AWS secret access key used for uploading files to S3."
+    },
+    "AWS_STORAGE_BUCKET_NAME": {
+      "description": "AWS S3 bucket to which files should be uploaded."
+    },
+    "WEB_CONCURRENCY": {
+      "description": "The number of processes to run.",
+      "value": "1"
+    },
+    "BASIC_AUTH_USERNAME": {
+      "description": "Basic auth username. BASIC_AUTH_PASSWORD must also be set to have an effect.",
+      "value": ""
+    },
+    "BASIC_AUTH_PASSWORD": {
+      "description": "Basic auth password. BASIC_AUTH_USERNAME must also be set to have an effect.",
+      "value": ""
     }
   },
   "formation": {
@@ -19,6 +41,5 @@
   ],
   "stack": "container",
   "buildpacks": [
-
   ]
 }
