@@ -25,6 +25,14 @@ def get_env_variable(var_name, default=None):
         raise ImproperlyConfigured(f"Set the {var_name} environment variable")
 
 
+def str_to_bool(str_value):
+    true = str_value.lower() in ("yes", "true", "t", "1")
+    false = str_value.lower() in ("no", "false", "f", "0")
+    if true or false:
+        return true or false
+    raise Exception("Bad string boolean value")
+
+
 SITE_NAME = get_env_variable("SITE_NAME", "Swap")
 SITE_URL = get_env_variable("SITE_URL", "https://swapsite.com/")
 

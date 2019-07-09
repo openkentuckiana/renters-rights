@@ -2,8 +2,6 @@
 
 from __future__ import absolute_import
 
-from os import environ
-
 import django_heroku
 
 from .base import *
@@ -11,7 +9,7 @@ from .base import *
 django_heroku.settings(locals())
 DATABASES["default"]["ENGINE"] = "django.contrib.gis.db.backends.postgis"
 
-DEBUG = os.environ.get("DJANGO_DEBUG", False)
+DEBUG = str_to_bool(os.environ.get("DJANGO_DEBUG", "False"))
 
 ########## HOST CONFIGURATION
 ALLOWED_HOSTS = get_env_variable("ALLOWED_HOSTS").split(",")
@@ -37,8 +35,8 @@ EMAIL_PORT = get_env_variable("EMAIL_PORT")
 EMAIL_SUBJECT_PREFIX = "[%s] " % SITE_NAME
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-use-tls
-EMAIL_USE_TLS = get_env_variable("EMAIL_USE_TLS")
-EMAIL_USE_SSL = get_env_variable("EMAIL_USE_SSL")
+EMAIL_USE_TLS = str_to_bool(get_env_variable("EMAIL_USE_TLS"))
+EMAIL_USE_SSL = str_to_bool(get_env_variable("EMAIL_USE_SSL"))
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#server-email
 SERVER_EMAIL = EMAIL_HOST_USER
