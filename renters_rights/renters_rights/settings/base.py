@@ -46,7 +46,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "7a9+m*y!4!951^c1ocyzp)bs51b(2*vc_==qh3^s%yx-ie*!@#"
 
-LOGIN_URL = "/auth/login"
+LOGIN_URL = "/auth/login/"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
