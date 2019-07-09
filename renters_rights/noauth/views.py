@@ -27,12 +27,16 @@ class CodeView(View):
         email = self.request.GET.get("email")
         code = self.request.GET.get("code")
 
-        if email and code:
-            next_page = self._validate_and_get_auth_code(email, code)
-            if next_page:
-                return redirect(next_page)
+        form = self.form_class(initial={"email": email, "code": code})
 
-        form = self.form_class(initial={"email": email})
+        if email and code:
+            auth_code = self._validate_and_get_auth_code(email, code)
+            if auth_code:
+                login(request, auth_code.user)
+                return redirect(auth_code.next_page)
+
+            form.add_error(None, ValidationError(_("Invalid e-mail address or code."), code="invalid_email_or_code"))
+
         return render(request, self.template_name, {"form": form})
 
     def post(self, request, *args, **kwargs):
