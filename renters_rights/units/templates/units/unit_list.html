@@ -32,6 +32,12 @@
             {% field_name model 'lease_end_date' %}: {{ u.lease_end_date|date:"SHORT_DATE_FORMAT" }}<br>
             {% field_name model 'rent_due_date' %}: {{ u.rent_due_date|date:"SHORT_DATE_FORMAT" }}<br>
         </div>
+
+        <div class="images">
+            {% for i in u.unitimage_set.all %}
+                <img src="{{ i.image.url }}" width="500"><br>
+            {% endfor %}
+        </div>
     </div>
 {% endfor %}
 
