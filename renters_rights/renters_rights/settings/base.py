@@ -25,11 +25,12 @@ def get_env_variable(var_name, default=None):
         raise ImproperlyConfigured(f"Set the {var_name} environment variable")
 
 
-def str_to_bool(str_value):
+def str_to_bool(value):
+    str_value = str(value)
     true = str_value.lower() in ("yes", "true", "t", "1")
     false = str_value.lower() in ("no", "false", "f", "0")
     if true or false:
-        return true or false
+        return true or not false
     raise Exception("Bad string boolean value")
 
 
