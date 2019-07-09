@@ -35,7 +35,7 @@ class AuthCode(BaseModel):
         return f"{self.user.username} - {self.code}"
 
     @classmethod
-    def send_auth_code(cls, user, absolute_url):
+    def send_auth_code(cls, user, code_uri):
         """
         Send an auth code to a user via email.
         :param user: The user to whom the auth code should be sent.
@@ -51,7 +51,7 @@ class AuthCode(BaseModel):
         else:
             context = {
                 "code": auth_code.code,
-                "code_uri": f"{absolute_url[:-1]}{reverse('noauth:code')}",
+                "code_uri": code_uri,
                 "email": auth_code.user.email,
                 "site_name": settings.SITE_NAME,
             }

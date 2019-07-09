@@ -4,7 +4,7 @@ from secrets import choice
 from django.contrib.auth import login
 from django.forms import ValidationError
 from django.shortcuts import redirect, render
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic.edit import FormView
@@ -79,7 +79,7 @@ class LoginView(FormView):
         if not user:
             user = self.create_user(email)
 
-        if AuthCode.send_auth_code(user, self.request.build_absolute_uri()):
+        if AuthCode.send_auth_code(user, self.request.build_absolute_uri(reverse("noauth:code"))):
             self.success_url += f"?email={user.username}"
             return super().form_valid(form)
         else:
