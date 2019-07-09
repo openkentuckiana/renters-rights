@@ -77,3 +77,6 @@ venv.bak/
 
 # JetBrains
 .idea
+
+# Project-specific
+renters_rights/staticfiles/ 
