@@ -14,7 +14,7 @@ DATABASES["default"]["ENGINE"] = "django.contrib.gis.db.backends.postgis"
 DEBUG = os.environ.get("DJANGO_DEBUG", False)
 
 ########## HOST CONFIGURATION
-ALLOWED_HOSTS = get_env_variable(ALLOWED_HOSTS).split("")
+ALLOWED_HOSTS = get_env_variable("ALLOWED_HOSTS").split(",")
 ########## END HOST CONFIGURATION
 
 ########## EMAIL CONFIGURATION
