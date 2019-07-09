@@ -45,43 +45,19 @@ class UnitDetailView(DetailView, ProtectedView):
 
 class UnitCreate(CreateView, ProtectedView):
     template_name = "units/unit_form.html"
-    model = Unit
-    fields = [
-        "unit_address_1",
-        "unit_address_2",
-        "unit_city",
-        "unit_state",
-        "unit_zip_code",
-        "landlord_address_1",
-        "landlord_address_2",
-        "landlord_city",
-        "landlord_state",
-        "landlord_zip_code",
-        "landlord_phone_number",
-        "lease_start_date",
-        "lease_end_date",
-        "rent_due_date",
-    ]
-    success_url = "/"
+    form_class = UnitForm
+    success_url = "/units/"
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super().form_valid(form)
 
 
-# class UnitCreate(CreateView, ProtectedView):
-#     template_name = "units/unit_form.html"
-#     form_class = UnitForm
-#     success_url = "/"
 #
-#     def form_valid(self, form):
-#         form.instance.owner = self.request.user
-#         return super().form_valid(form)
-
 # class UnitUpdate(UpdateView, ProtectedView):
 #     template_name = "units/unit_form.html"
 #     form_class = UnitForm
-#     success_url = "/"
+#     success_url = "/units/"
 #
 #     def form_valid(self, form):
 #         form.instance.owner = self.request.user
