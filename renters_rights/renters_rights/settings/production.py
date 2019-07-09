@@ -9,7 +9,7 @@ from .base import *
 django_heroku.settings(locals())
 DATABASES["default"]["ENGINE"] = "django.contrib.gis.db.backends.postgis"
 
-DEBUG = str_to_bool(os.environ.get("DJANGO_DEBUG", "False"))
+DEBUG = str_to_bool(os.environ.get("DJANGO_DEBUG", False))
 
 ########## HOST CONFIGURATION
 ALLOWED_HOSTS = get_env_variable("ALLOWED_HOSTS").split(",")
@@ -60,3 +60,18 @@ AWS_SECRET_ACCESS_KEY = get_env_variable("AWS_SECRET_ACCESS_KEY")
 AWS_STORAGE_BUCKET_NAME = get_env_variable("AWS_STORAGE_BUCKET_NAME")
 AWS_DEFAULT_ACL = None
 ########## END STORAGE CONFIGURATION
+
+if DEBUG:
+    ########## TOOLBAR CONFIGURATION
+    MIDDLEWARE += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
+
+    INSTALLED_APPS += ("debug_toolbar",)
+
+    DEBUG_TOOLBAR_PATCH_SETTINGS = False
+
+    # This should NEVER be used outside of debug mode, and should never be exposed to the public internet
+    INTERNAL_IPS = type(str("c"), (), {"__contains__": lambda *a: True})()
+    ########## END TOOLBAR CONFIGURATION
+
+    MEDIA_URL = "/media/"
+    MEDIA_ROOT = "/tmp/"
