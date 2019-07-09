@@ -11,10 +11,10 @@ from .base import *
 django_heroku.settings(locals())
 DATABASES["default"]["ENGINE"] = "django.contrib.gis.db.backends.postgis"
 
-DEBUG = False
+DEBUG = os.environ.get("DJANGO_DEBUG", False)
 
 ########## HOST CONFIGURATION
-ALLOWED_HOSTS = [".herokuapp.com"]
+ALLOWED_HOSTS = get_env_variable(ALLOWED_HOSTS).split("")
 ########## END HOST CONFIGURATION
 
 ########## EMAIL CONFIGURATION
@@ -22,22 +22,23 @@ ALLOWED_HOSTS = [".herokuapp.com"]
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host
-EMAIL_HOST = environ.get("EMAIL_HOST", "smtp.gmail.com")
+EMAIL_HOST = get_env_variable("EMAIL_HOST")
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host-password
-EMAIL_HOST_PASSWORD = environ.get("EMAIL_HOST_PASSWORD", "")
+EMAIL_HOST_PASSWORD = get_env_variable("EMAIL_HOST_PASSWORD")
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host-user
-EMAIL_HOST_USER = environ.get("EMAIL_HOST_USER", "your_email@example.com")
+EMAIL_HOST_USER = get_env_variable("EMAIL_HOST_USER")
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-port
-EMAIL_PORT = environ.get("EMAIL_PORT", 587)
+EMAIL_PORT = get_env_variable("EMAIL_PORT")
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-subject-prefix
 EMAIL_SUBJECT_PREFIX = "[%s] " % SITE_NAME
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-use-tls
-EMAIL_USE_TLS = True
+EMAIL_USE_TLS = get_env_variable("EMAIL_USE_TLS")
+EMAIL_USE_SSL = get_env_variable("EMAIL_USE_SSL")
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#server-email
 SERVER_EMAIL = EMAIL_HOST_USER

@@ -3,9 +3,37 @@
   "scripts": {
   },
   "env": {
+    "ALLOWED_HOSTS": {
+      "description": "A comma-seperated list of strings representing the host/domain names that this Django site can serve.",
+      "value": ".herokuapp.com"
+    },
     "SECRET_KEY": {
       "description": "Django's secret key.",
       "generator": "secret"
+    },
+    "EMAIL_HOST": {
+      "description": "The host to use for sending email.",
+      "value": ""
+    },
+    "EMAIL_HOST_PASSWORD": {
+      "description": "Password to use for the SMTP server defined in EMAIL_HOST. This setting is used in conjunction with EMAIL_HOST_USER when authenticating to the SMTP server. If either of these settings is empty, Django won’t attempt authentication.",
+      "value": ""
+    },
+    "EMAIL_HOST_USER": {
+      "description": "Username to use for the SMTP server defined in EMAIL_HOST. If empty, Django won’t attempt authentication.",
+      "value": ""
+    },
+    "EMAIL_PORT": {
+      "description": "Port to use for the SMTP server defined in EMAIL_HOST.",
+      "value": "25"
+    },
+    "EMAIL_USE_TLS": {
+      "description": "Whether to use a TLS (secure) connection when talking to the SMTP server. This is used for explicit TLS connections, generally on port 587. If you are experiencing hanging connections, see the implicit TLS setting EMAIL_USE_SSL.",
+      "value": "False"
+    },
+    "EMAIL_USE_SSL": {
+      "description": "Whether to use an implicit TLS (secure) connection when talking to the SMTP server. In most email documentation this type of TLS connection is referred to as SSL. It is generally used on port 465. If you are experiencing problems, see the explicit TLS setting EMAIL_USE_TLS.",
+      "value": "False"
     },
     "AWS_ACCESS_KEY_ID": {
       "description": "AWS access key ID used for uploading files to S3."
