@@ -72,6 +72,3 @@ if DEBUG:
     # This should NEVER be used outside of debug mode, and should never be exposed to the public internet
     INTERNAL_IPS = type(str("c"), (), {"__contains__": lambda *a: True})()
     ########## END TOOLBAR CONFIGURATION
-
-    MEDIA_URL = "/media/"
-    MEDIA_ROOT = "/tmp/"
