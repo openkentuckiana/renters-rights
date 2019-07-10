@@ -91,10 +91,11 @@ class UnitImage(UserOwnedModel):
         self.thumbnail_sizes = []
 
         settings.UNIT_IMAGE_SIZES.sort()
-        im = Image.open(self.image).convert("RGB")
-        original_width, original_height = im.size
+        im_original = Image.open(self.image).convert("RGB")
+        original_width, original_height = im_original.size
 
         for size in settings.UNIT_IMAGE_SIZES:
+            im = im_original.copy()
             output = BytesIO()
 
             if original_width > size or original_height > size:
