@@ -126,9 +126,16 @@ class UnitImage(UserOwnedModel):
 def delete_thumbnails(sender, instance, using, **kwargs):
     """Post-delete signal handler to delete thumbnail images."""
     try:
-        default_storage.delete(instance.image.path)
+        try:
+            default_storage.delete(instance.image.name)
 
-        for size in instance.thumbnail_sizes:
-            default_storage.delete(f"{instance.image.path.split('.')[0]}-{size}.jpg")
+            for size in instance.thumbnail_sizes:
+                default_storage.delete(f"{instance.image.name.split('.')[0]}-{size}.jpg")
+        except Exception:
+            # Local dev, use full path
+            default_storage.delete(instance.image.path)
+
+            for size in instance.thumbnail_sizes:
+                default_storage.delete(f"{instance.image.path.split('.')[0]}-{size}.jpg")
     except Exception:
         logger.exception("Could not delete image(s) %s", instance.image.path)
