@@ -15,7 +15,8 @@ ADD Pipfile.lock .
 
 # arg to pass to pipenv. useful for passing in `dev` when dev dependencies are needed.
 ARG pipenv_arg=
-RUN pipenv install --system --skip-lock $pipenv_arg
+RUN CC="cc -mavx2" pipenv install --system --skip-lock $pipenv_arg
+#RUN pipenv install --system --skip-lock $pipenv_arg
 
 ADD ./renters_rights/ /app
 
