@@ -91,20 +91,21 @@ class UnitImage(UserOwnedModel):
         self.thumbnail_sizes = []
 
         settings.UNIT_IMAGE_SIZES.sort()
+        im = Image.open(self.image).convert("RGB")
+        original_width, original_height = im.size
+
         for size in settings.UNIT_IMAGE_SIZES:
             output = BytesIO()
 
-            im = Image.open(self.image).convert("RGB")
-            original_width, original_height = im.size
             if original_width > size or original_height > size:
                 factor = max(size / original_width, size / original_height)
-                im = im.resize((round(original_width * factor), round(original_height * factor)))
+                im = im.resize((round(original_width * factor), round(original_height * factor)), Image.LANCZOS)
 
             # if this is the smallest size, make a square thumbnail.
             if size == settings.UNIT_IMAGE_SIZES[0]:
                 im = im.crop((0, 0, size, size))
 
-            im.save(output, format="JPEG", quality=100)
+            im.save(output, format="JPEG", quality=75)
 
             output.seek(0)
 
