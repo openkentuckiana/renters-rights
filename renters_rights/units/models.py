@@ -3,13 +3,14 @@ import logging
 import string
 import sys
 import uuid
+from concurrent.futures import wait
+from concurrent.futures.thread import ThreadPoolExecutor
 from io import BytesIO
 from random import choices
 
 from django.conf import settings
 from django.contrib.postgres.fields import ArrayField
 from django.core.exceptions import ValidationError
-from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
@@ -69,6 +70,35 @@ class Unit(UserOwnedModel):
         super().save(*args, **kwargs)
 
 
+def resize_unit_image(size, original_image, unit_image, file_path):
+    im = original_image.copy()
+    original_width, original_height = im.size
+    output = BytesIO()
+
+    if original_width > size or original_height > size:
+        factor = max(size / original_width, size / original_height)
+        im = im.resize((round(original_width * factor), round(original_height * factor)), Image.LANCZOS)
+
+    # if this is the smallest size, make a square thumbnail.
+    if size == settings.UNIT_IMAGE_SIZES[0]:
+        im = im.crop((0, 0, size, size))
+
+    im.save()
+
+    output.seek(0)
+
+    if size != settings.UNIT_IMAGE_SIZES[-1]:
+        default_storage.save()
+        unit_image.thumbnail_sizes.append(size)
+    else:
+        unit_image.full_size_width = im.size[0]
+        unit_image.full_size_height = im.size[1]
+
+        unit_image.image = InMemoryUploadedFile(
+            output, "ImageField", f"{file_path}.jpg", "image/jpeg", sys.getsizeof(output), None
+        )
+
+
 class UnitImage(UserOwnedModel):
     IMAGE_TYPE_CHOICES = [(DOCUMENT, "Document"), (PICTURE, "Picture")]
 
@@ -83,6 +113,8 @@ class UnitImage(UserOwnedModel):
         return f"{self.image.name}"
 
     def save(self, *args, **kwargs):
+        # if self.image.name == "IMG_0502.jpg":
+        #     raise Exception("NO!")
         min_size = settings.UNIT_IMAGE_MIN_HEIGHT_AND_WIDTH
         if self.image.height < min_size or self.image.width < min_size:
             raise ValidationError(_(f"Images must be over {min_size} pixels tall and wide. Please upload a larger image."))
@@ -92,34 +124,12 @@ class UnitImage(UserOwnedModel):
 
         settings.UNIT_IMAGE_SIZES.sort()
         im_original = Image.open(self.image).convert("RGB")
-        original_width, original_height = im_original.size
 
-        for size in settings.UNIT_IMAGE_SIZES:
-            im = im_original.copy()
-            output = BytesIO()
-
-            if original_width > size or original_height > size:
-                factor = max(size / original_width, size / original_height)
-                im = im.resize((round(original_width * factor), round(original_height * factor)), Image.LANCZOS)
-
-            # if this is the smallest size, make a square thumbnail.
-            if size == settings.UNIT_IMAGE_SIZES[0]:
-                im = im.crop((0, 0, size, size))
-
-            im.save(output, format="JPEG", quality=75)
-
-            output.seek(0)
-
-            if size != settings.UNIT_IMAGE_SIZES[-1]:
-                default_storage.save(f"{file_path}-{size}.jpg", ContentFile(output.read()))
-                self.thumbnail_sizes.append(size)
-            else:
-                self.full_size_width = im.size[0]
-                self.full_size_height = im.size[1]
-
-                self.image = InMemoryUploadedFile(
-                    output, "ImageField", f"{file_path}.jpg", "image/jpeg", sys.getsizeof(output), None
-                )
+        with ThreadPoolExecutor(max_workers=settings.MAX_THREAD_POOL_WORKERS) as executor:
+            futures = []
+            for s in settings.UNIT_IMAGE_SIZES:
+                futures.append(executor.submit(resize_unit_image, s, im_original, self, file_path))
+            wait(futures)
 
         super().save(*args, **kwargs)
 
