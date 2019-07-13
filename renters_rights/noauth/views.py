@@ -79,6 +79,7 @@ class LoginView(FormView):
 
     def form_valid(self, form):
         email = form.cleaned_data["email"]
+        # TODO - Email cleanup and normalization - lowercase, etc. Look at django-auth.
         user = self.get_user(email)
         if not user:
             user = self.create_user(email)

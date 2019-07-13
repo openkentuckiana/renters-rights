@@ -34,6 +34,10 @@ def str_to_bool(value):
     raise Exception("Bad string boolean value")
 
 
+def str_to_int(value):
+    return value if isinstance(value, int) else int(value)
+
+
 SITE_NAME = get_env_variable("SITE_NAME", "Swap")
 SITE_URL = get_env_variable("SITE_URL", "https://swapsite.com/")
 
@@ -186,6 +190,8 @@ BASIC_AUTH_PASSWORD = os.getenv("BASIC_AUTH_PASSWORD", "")
 if BASIC_AUTH_USERNAME and BASIC_AUTH_PASSWORD:
     MIDDLEWARE.insert(0, "lib.middleware.AllowedIPAddressesMiddleware")
 
-MAX_THREAD_POOL_WORKERS = os.getenv("MAX_THREAD_POOL_WORKERS", None)
+MAX_THREAD_POOL_WORKERS = (
+    str_to_int(os.getenv("MAX_THREAD_POOL_WORKERS", None)) if os.getenv("MAX_THREAD_POOL_WORKERS", None) else None
+)
 MAX_DOCUMENTS_PER_UNIT = os.getenv("MAX_DOCUMENTS_PER_UNIT", 5)
 MAX_PICTURES_PER_UNIT = os.getenv("MAX_PICTURES_PER_UNIT", 20)
