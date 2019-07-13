@@ -35,7 +35,7 @@
 
         <div class="images">
             {% for i in u.unitimage_set.all %}
-                <img src="{{ i.image.url }}" width="500"><br>
+                <img src="{{ i.thumbnail }}" width="200"><br>
             {% endfor %}
         </div>
     </div>

@@ -11,6 +11,7 @@ from random import choices
 from django.conf import settings
 from django.contrib.postgres.fields import ArrayField
 from django.core.exceptions import ValidationError
+from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
@@ -83,17 +84,19 @@ def resize_unit_image(size, original_image, unit_image, file_path):
     if size == settings.UNIT_IMAGE_SIZES[0]:
         im = im.crop((0, 0, size, size))
 
-    im.save()
+    im.save(output, format="JPEG", quality=75)
 
     output.seek(0)
 
     if size != settings.UNIT_IMAGE_SIZES[-1]:
-        default_storage.save()
+        default_storage.save(f"{file_path}-{size}.jpg", ContentFile(output.read()))
         unit_image.thumbnail_sizes.append(size)
     else:
         unit_image.full_size_width = im.size[0]
         unit_image.full_size_height = im.size[1]
 
+        print("BRET")
+        print(file_path)
         unit_image.image = InMemoryUploadedFile(
             output, "ImageField", f"{file_path}.jpg", "image/jpeg", sys.getsizeof(output), None
         )
@@ -108,6 +111,11 @@ class UnitImage(UserOwnedModel):
     thumbnail_sizes = ArrayField(models.SmallIntegerField(), blank=True, null=True)
     image_type = models.CharField(max_length=1, choices=IMAGE_TYPE_CHOICES, default=PICTURE)
     unit = models.ForeignKey(Unit, on_delete=models.CASCADE)
+
+    @property
+    def thumbnail(self):
+        # breakpoint()
+        return default_storage.url(f"{self.image.name.split('.')[0]}-{self.thumbnail_sizes[0]}.jpg")
 
     def __str__(self):
         return f"{self.image.name}"
@@ -130,6 +138,9 @@ class UnitImage(UserOwnedModel):
             for s in settings.UNIT_IMAGE_SIZES:
                 futures.append(executor.submit(resize_unit_image, s, im_original, self, file_path))
             wait(futures)
+            for f in futures:
+                if f.exception():
+                    raise f.exception()
 
         super().save(*args, **kwargs)
 
