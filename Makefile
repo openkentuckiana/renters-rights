@@ -59,7 +59,7 @@ fixtures:
 flushdb:
 	@docker-compose run --rm app ./wait-for-it.sh db:5432 --timeout=60 -- python ./manage.py flush
 
-cli:
+bash:
 	@docker-compose run --rm app bash
 
 tail:
@@ -67,6 +67,9 @@ tail:
 
 attach:
 	docker attach renters-rights_app_1
+
+bash-running:
+    docker exec -it renters-rights_app_1 bash
 
 format:
 	@docker-compose run --rm app black . -l 128

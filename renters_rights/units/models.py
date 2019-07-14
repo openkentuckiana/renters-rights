@@ -71,37 +71,6 @@ class Unit(UserOwnedModel):
         super().save(*args, **kwargs)
 
 
-def resize_unit_image(size, original_image, unit_image, file_path):
-    im = original_image.copy()
-    original_width, original_height = im.size
-    output = BytesIO()
-
-    if original_width > size or original_height > size:
-        factor = max(size / original_width, size / original_height)
-        im = im.resize((round(original_width * factor), round(original_height * factor)), Image.LANCZOS)
-
-    # if this is the smallest size, make a square thumbnail.
-    if size == settings.UNIT_IMAGE_SIZES[0]:
-        im = im.crop((0, 0, size, size))
-
-    im.save(output, format="JPEG", quality=75)
-
-    output.seek(0)
-
-    if size != settings.UNIT_IMAGE_SIZES[-1]:
-        default_storage.save(f"{file_path}-{size}.jpg", ContentFile(output.read()))
-        unit_image.thumbnail_sizes.append(size)
-    else:
-        unit_image.full_size_width = im.size[0]
-        unit_image.full_size_height = im.size[1]
-
-        print("BRET")
-        print(file_path)
-        unit_image.image = InMemoryUploadedFile(
-            output, "ImageField", f"{file_path}.jpg", "image/jpeg", sys.getsizeof(output), None
-        )
-
-
 class UnitImage(UserOwnedModel):
     IMAGE_TYPE_CHOICES = [(DOCUMENT, "Document"), (PICTURE, "Picture")]
 
@@ -114,33 +83,52 @@ class UnitImage(UserOwnedModel):
 
     @property
     def thumbnail(self):
-        # breakpoint()
         return default_storage.url(f"{self.image.name.split('.')[0]}-{self.thumbnail_sizes[0]}.jpg")
 
     def __str__(self):
         return f"{self.image.name}"
 
     def save(self, *args, **kwargs):
-        # if self.image.name == "IMG_0502.jpg":
-        #     raise Exception("NO!")
         min_size = settings.UNIT_IMAGE_MIN_HEIGHT_AND_WIDTH
+        max_size = settings.UNIT_IMAGE_MAX_HEIGHT_AND_WIDTH
         if self.image.height < min_size or self.image.width < min_size:
             raise ValidationError(_(f"Images must be over {min_size} pixels tall and wide. Please upload a larger image."))
 
         file_path = f'uploads/{datetime.datetime.utcnow().strftime("%Y/%m/%d")}/{str(uuid.uuid4())}'
         self.thumbnail_sizes = []
 
-        settings.UNIT_IMAGE_SIZES.sort()
-        im_original = Image.open(self.image).convert("RGB")
+        im = Image.open(self.image).convert("RGB")
+        original_width, original_height = im.size
+        output = BytesIO()
 
-        with ThreadPoolExecutor(max_workers=settings.MAX_THREAD_POOL_WORKERS) as executor:
-            futures = []
-            for s in settings.UNIT_IMAGE_SIZES:
-                futures.append(executor.submit(resize_unit_image, s, im_original, self, file_path))
-            wait(futures)
-            for f in futures:
-                if f.exception():
-                    raise f.exception()
+        # Process images from larges to smallest so we can continually resize the same image.
+        sizes = settings.UNIT_IMAGE_SIZES
+        sizes.sort(reverse=True)
+        for size in sizes:
+            if original_width > size or original_height > size:
+                factor = max(size / original_width, size / original_height)
+                im = im.resize((round(original_width * factor), round(original_height * factor)), Image.LANCZOS)
+
+            # if this is the smallest size, make a square thumbnail.
+            if size == min_size:
+                im = im.crop((0, 0, size, size))
+
+            im.save(output, format="JPEG", quality=75)
+
+            output.seek(0)
+
+            if size != max_size:
+                default_storage.save(f"{file_path}-{size}.jpg", ContentFile(output.read()))
+                self.thumbnail_sizes.append(size)
+            else:
+                self.full_size_width = im.size[0]
+                self.full_size_height = im.size[1]
+
+                self.image = InMemoryUploadedFile(
+                    output, "ImageField", f"{file_path}.jpg", "image/jpeg", sys.getsizeof(output), None
+                )
+
+            output.truncate()
 
         super().save(*args, **kwargs)
 

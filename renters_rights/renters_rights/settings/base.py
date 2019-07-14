@@ -168,7 +168,8 @@ NOAUTH_CODE_TTL_MINUTES = 10
 # Largest size will be used to resize original image.
 # Sizes in-between will be used to generate thumbnails.
 UNIT_IMAGE_SIZES = [200, 500, 1000]
-UNIT_IMAGE_MIN_HEIGHT_AND_WIDTH = UNIT_IMAGE_SIZES[-2]
+UNIT_IMAGE_MAX_HEIGHT_AND_WIDTH = UNIT_IMAGE_SIZES[-1]
+UNIT_IMAGE_MIN_HEIGHT_AND_WIDTH = UNIT_IMAGE_SIZES[0]
 
 LOGGING = {
     "version": 1,

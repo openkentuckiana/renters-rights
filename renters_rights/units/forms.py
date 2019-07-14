@@ -50,19 +50,21 @@ class UnitForm(forms.ModelForm):
     def save(self, **kwargs):
         instance = super().save()
 
-        def create_image(file, image_type, owner, unit):
-            UnitImage.objects.create(image=file, image_type=image_type, owner=owner, unit=unit)
+        def create_image(img, image_type, owner, unit):
+            UnitImage.objects.create(image=img, image_type=image_type, owner=owner, unit=unit)
 
         documents = []
         pictures = []
 
         try:
-            with ThreadPoolExecutor() as executor:
+            # Multithreading image creation can really speed up this request, but uses o(n) memory, which can be
+            # problematic on Heroku
+            with ThreadPoolExecutor(max_workers=settings.MAX_THREAD_POOL_WORKERS) as executor:
                 futures = []
-                for file in self.files.getlist("documents"):
-                    futures.append(executor.submit(create_image, file, DOCUMENT, instance.owner, instance))
-                for file in self.files.getlist("pictures"):
-                    futures.append(executor.submit(create_image, file, PICTURE, instance.owner, instance))
+                for image in self.files.getlist("documents"):
+                    futures.append(executor.submit(create_image, image, DOCUMENT, instance.owner, instance))
+                for image in self.files.getlist("pictures"):
+                    futures.append(executor.submit(create_image, image, PICTURE, instance.owner, instance))
                 wait(futures, return_when=FIRST_EXCEPTION)
                 for f in futures:
                     if f.exception():
