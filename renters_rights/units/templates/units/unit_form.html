@@ -67,9 +67,9 @@ submit.onclick = function(event) {
       if (evt.lengthComputable) {
         var percentComplete = evt.loaded / evt.total * 100;
         if (percentComplete === 100) {
-            percentage.innerHTML("Processing...");
+            percentage.innerHTML = "Processing...";
         } else {
-            percentage.innerHTML("Uploaded " + percentComplete + "%");
+            percentage.innerHTML = "Uploaded " + percentComplete + "%";
         }
       }
     }

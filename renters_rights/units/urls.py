@@ -1,7 +1,6 @@
 from django.urls import path
 
-from .views import (AnotherView, IndexView, UnitCreate, UnitDetailView,
-                    UnitListView)
+from .views import AnotherView, IndexView, UnitCreate, UnitDetailView, UnitListView
 
 urlpatterns = [
     path("", IndexView.as_view()),

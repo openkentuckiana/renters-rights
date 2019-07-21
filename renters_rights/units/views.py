@@ -1,6 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import (CreateView, DetailView, ListView, UpdateView,
-                                  View)
+from django.views.generic import CreateView, DetailView, ListView, UpdateView, View
 
 from lib.mixins import AjaxableResponseMixin
 from lib.views import ProtectedView
