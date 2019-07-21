@@ -12,6 +12,7 @@
         <button type="submit" id="unit_form_submit">{% trans "Submit" %}</button>
         <a href="/units/">{% trans "Cancel" %}</a>
     </form>
+    <span id="percentage"></span>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/screw-filereader@1.4.3/index.min.js"></script>
 
@@ -46,7 +47,7 @@ var resize = function(file) {
 const submit = document.getElementById("unit_form_submit");
 submit.onclick = function(event) {
     event.preventDefault();
-    //submit.disabled = true;
+    submit.disabled = true;
 
     var x = new XMLHttpRequest();
     x.upload.addEventListener("progress", updateProgress);
@@ -56,15 +57,20 @@ submit.onclick = function(event) {
             const formTable = document.getElementById("unit_form_table");
             formTable.innerHTML = x.responseText;
         } else {
-            # Either a success or a major failure. We can display an error in a flash message.
+            // Either a success or a major failure. We can display an error in a flash message.
             window.location.href = '/units';
         }
     }
 
+    const percentage = document.getElementById("percentage");
     function updateProgress (evt) {
       if (evt.lengthComputable) {
         var percentComplete = evt.loaded / evt.total * 100;
-        console.log(percentComplete);
+        if (percentComplete === 100) {
+            percentage.innerHTML("Processing...");
+        } else {
+            percentage.innerHTML("Uploaded " + percentComplete + "%");
+        }
       }
     }
 
