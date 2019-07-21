@@ -56,7 +56,7 @@ submit.onclick = function(event) {
         if (x.readyState === 4 && x.status === 400) {
             const formTable = document.getElementById("unit_form_table");
             formTable.innerHTML = x.responseText;
-        } else {
+        } else if (x.readyState === 4) {
             // Either a success or a major failure. We can display an error in a flash message.
             window.location.href = '/units';
         }
