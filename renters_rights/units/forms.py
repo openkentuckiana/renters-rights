@@ -47,6 +47,8 @@ class UnitForm(forms.ModelForm):
                 _("You may only upload a maximum of %(max_pics)s pictures") % {"max_pics": settings.MAX_PICTURES_PER_UNIT}
             )
 
+        return super().clean()
+
     def save(self, **kwargs):
         instance = super().save()
 

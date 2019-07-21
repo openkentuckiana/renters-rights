@@ -4,14 +4,87 @@
 {% block content %}
 
 <div>
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" id="unit_form">
         {% csrf_token %}
-        <table>
+        <table id="unit_form_table">
             {{ form.as_table }}
         </table>
-        <button type="submit">{% trans "Submit" %}</button>
+        <button type="submit" id="unit_form_submit">{% trans "Submit" %}</button>
         <a href="/units/">{% trans "Cancel" %}</a>
     </form>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/screw-filereader@1.4.3/index.min.js"></script>
+
+<script type="text/javascript">
+
+var resize = function(file) {
+    return new Promise(function(resolve, reject) {
+        file.image().then(img => {
+            const canvas = document.createElement('canvas')
+            const ctx = canvas.getContext('2d')
+            const maxWidth = 1500
+            const maxHeight = 1500
+
+            const ratio = Math.min(maxWidth / img.width, maxHeight / img.height)
+            const width = img.width * ratio + .5 | 0
+            const height = img.height * ratio + .5 | 0
+
+            canvas.width = width
+            canvas.height = height
+
+            ctx.drawImage(img, 0, 0, width, height)
+
+            canvas.toBlob(blob => {
+              const resizedFile = new File([blob], file.name, file);
+              resizedFile.uploadType = file.uploadType;
+              resolve(resizedFile)
+            })
+        })
+    })
+}
+
+const submit = document.getElementById("unit_form_submit");
+submit.onclick = function(event) {
+    event.preventDefault();
+    //submit.disabled = true;
+
+    var x = new XMLHttpRequest();
+    x.upload.addEventListener("progress", updateProgress);
+
+    x.onreadystatechange = function () {
+        if (x.readyState === 4 && x.status === 400) {
+            const formTable = document.getElementById("unit_form_table");
+            formTable.innerHTML = x.responseText;
+        } else {
+            # Either a success or a major failure. We can display an error in a flash message.
+            window.location.href = '/units';
+        }
+    }
+
+    function updateProgress (evt) {
+      if (evt.lengthComputable) {
+        var percentComplete = evt.loaded / evt.total * 100;
+        console.log(percentComplete);
+      }
+    }
+
+    const formData = new FormData(document.getElementById("unit_form"));
+    formData.delete("documents");
+    formData.delete("pictures");
+
+    const documentInput = document.getElementById("id_documents");
+    const documents = Array.from(documentInput.files).map(d => { d.uploadType = "documents"; return d; });
+    const picturesInput = document.getElementById("id_pictures");
+    const pictures = Array.from(picturesInput.files).map(p => { p.uploadType = "pictures"; return p; });
+    const images = documents.concat(pictures);
+
+    Promise.all(images.map(resize)).then(resizedFiles => {
+        resizedFiles.forEach(f => formData.append(f.uploadType, f, f.name + ".png"));
+        x.open('POST', ".", true);
+        x.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+        x.send(formData);
+    });
+}
+</script>
 
 {% endblock %}

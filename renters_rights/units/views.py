@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import (CreateView, DetailView, ListView, UpdateView,
                                   View)
 
+from lib.mixins import AjaxableResponseMixin
 from lib.views import ProtectedView
 from units.forms import UnitForm
 from units.models import Unit
@@ -43,7 +44,7 @@ class UnitDetailView(DetailView, ProtectedView):
         return Unit.objects.for_user(self.request.user)
 
 
-class UnitCreate(CreateView, ProtectedView):
+class UnitCreate(AjaxableResponseMixin, CreateView, ProtectedView):
     template_name = "units/unit_form.html"
     form_class = UnitForm
     success_url = "/units/"

@@ -3,8 +3,6 @@ import logging
 import string
 import sys
 import uuid
-from concurrent.futures import wait
-from concurrent.futures.thread import ThreadPoolExecutor
 from io import BytesIO
 from random import choices
 
@@ -99,12 +97,16 @@ class UnitImage(UserOwnedModel):
 
         im = Image.open(self.image).convert("RGB")
         original_width, original_height = im.size
-        output = BytesIO()
+        print("Dimensions", original_width, original_height)
+        img_file = BytesIO()
+        im.save(img_file, "png")
+        print("Size", img_file.tell())
 
         # Process images from larges to smallest so we can continually resize the same image.
         sizes = settings.UNIT_IMAGE_SIZES
         sizes.sort(reverse=True)
         for size in sizes:
+            output = BytesIO()
             if original_width > size or original_height > size:
                 factor = max(size / original_width, size / original_height)
                 im = im.resize((round(original_width * factor), round(original_height * factor)), Image.LANCZOS)
@@ -127,8 +129,6 @@ class UnitImage(UserOwnedModel):
                 self.image = InMemoryUploadedFile(
                     output, "ImageField", f"{file_path}.jpg", "image/jpeg", sys.getsizeof(output), None
                 )
-
-            output.truncate()
 
         super().save(*args, **kwargs)
 

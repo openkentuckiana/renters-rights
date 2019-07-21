@@ -69,7 +69,7 @@ attach:
 	docker attach renters-rights_app_1
 
 bash-running:
-    docker exec -it renters-rights_app_1 bash
+	docker exec -it renters-rights_app_1 bash
 
 format:
 	@docker-compose run --rm app black . -l 128
