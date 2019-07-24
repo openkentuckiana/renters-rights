@@ -1,9 +1,15 @@
 from django.conf import settings
+from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
-urlpatterns = [path("", include("units.urls")), path("admin/", admin.site.urls), path("auth/", include("noauth.urls"))]
+urlpatterns = [
+    path("", include("units.urls")),
+    path("admin/", admin.site.urls),
+    path("auth/", include("noauth.urls")),
+    url(r"^s3direct/", include("s3direct.urls")),
+]
 
 if settings.DEBUG:
     import debug_toolbar

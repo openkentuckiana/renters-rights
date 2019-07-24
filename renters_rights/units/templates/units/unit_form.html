@@ -9,14 +9,17 @@
         <table id="unit_form_table">
             {{ form.as_table }}
         </table>
-        <button type="submit" id="unit_form_submit">{% trans "Submit" %}</button>
+        <button id="unit_form_submit">{% trans "Submit" %}</button>
         <a href="/units/">{% trans "Cancel" %}</a>
     </form>
-    <span id="percentage"></span>
+    <span id="status"></span>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/screw-filereader@1.4.3/index.min.js"></script>
 
 <script type="text/javascript">
+
+const submit = document.getElementById("unit_form_submit");
+const status = document.getElementById("status");
 
 var resize = function(file) {
     return new Promise(function(resolve, reject) {
@@ -36,7 +39,7 @@ var resize = function(file) {
             ctx.drawImage(img, 0, 0, width, height)
 
             canvas.toBlob(blob => {
-              const resizedFile = new File([blob], file.name, file);
+              const resizedFile = new File([blob], file.name + ".png", file);
               resizedFile.uploadType = file.uploadType;
               resolve(resizedFile)
             })
@@ -44,52 +47,117 @@ var resize = function(file) {
     })
 }
 
-const submit = document.getElementById("unit_form_submit");
-submit.onclick = function(event) {
-    event.preventDefault();
-    submit.disabled = true;
+var getSignatures = function(files) {
+    return new Promise(function(resolve, reject) {
+        var x = new XMLHttpRequest();
+        x.responseType = 'json';
+
+        x.onreadystatechange = function () {
+            if (x.readyState === 4 && x.status === 200) {
+                for (let f of files) {
+                    resp = x.response;
+                    f.s3Data = resp[f.name];
+                    f.url = "http://s3.amazonaws.com/renters-rights-uploads-prod/"  //resp[f.name].url + f.name;
+                }
+                resolve(files);
+            } else if (x.readyState === 4) {
+                reject(x.response);
+            }
+        }
+
+        x.open("POST", "./sign-files/", true);
+        x.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+        x.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+        x.send(JSON.stringify({ "files": files.map(f => f.name) }));
+    })
+}
+
+var uploadFile = function(file) {
+    return new Promise(function(resolve, reject) {
+        var x = new XMLHttpRequest();
+
+        x.onreadystatechange = function() {
+            if(x.readyState === 4) {
+                if(x.status === 200 || x.status === 204) {
+                    resolve(file);
+                } else {
+                    reject(x.response);
+                }
+            }
+        }
+
+        var postData = new FormData();
+        for(key in file.s3Data.fields){
+            postData.append(key, file.s3Data.fields[key]);
+        }
+        postData.append('file', file);
+
+        x.open("POST", file.url);
+        x.send(postData);
+    })
+}
+
+var submitForm = function(resizedFiles) {
+    status.innerHTML = "Processing...";
 
     var x = new XMLHttpRequest();
-    x.upload.addEventListener("progress", updateProgress);
 
     x.onreadystatechange = function () {
         if (x.readyState === 4 && x.status === 400) {
             const formTable = document.getElementById("unit_form_table");
             formTable.innerHTML = x.responseText;
+            status.innerHTML = "";
+            return false;
         } else if (x.readyState === 4) {
-            // Either a success or a major failure. We can display an error in a flash message.
+            return true;
             window.location.href = '/units';
         }
-    }
-
-    const percentage = document.getElementById("percentage");
-    function updateProgress (evt) {
-      if (evt.lengthComputable) {
-        var percentComplete = evt.loaded / evt.total * 100;
-        if (percentComplete === 100) {
-            percentage.innerHTML = "Processing...";
-        } else {
-            percentage.innerHTML = "Uploaded " + percentComplete + "%";
-        }
-      }
     }
 
     const formData = new FormData(document.getElementById("unit_form"));
     formData.delete("documents");
     formData.delete("pictures");
 
+    const documents = [];
+    const pictures = [];
+    for (const f of resizedFiles) {
+        if (f.uploadType === "documents") {
+            documents.push(f);
+        } else {
+            pictures.push(f);
+        }
+    }
+
+    formData.
+
+    x.open('POST', ".");
+    x.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+    x.send(formData);
+}
+
+submit.onclick = function(event) {
+    event.preventDefault();
+    //submit.disabled = true;
+
     const documentInput = document.getElementById("id_documents");
-    const documents = Array.from(documentInput.files).map(d => { d.uploadType = "documents"; return d; });
+    let documents = Array.from(documentInput.files).map(d => { d.uploadType = "documents"; return d; });
     const picturesInput = document.getElementById("id_pictures");
-    const pictures = Array.from(picturesInput.files).map(p => { p.uploadType = "pictures"; return p; });
+    let pictures = Array.from(picturesInput.files).map(p => { p.uploadType = "pictures"; return p; });
     const images = documents.concat(pictures);
 
-    Promise.all(images.map(resize)).then(resizedFiles => {
-        resizedFiles.forEach(f => formData.append(f.uploadType, f, f.name + ".png"));
-        x.open('POST', ".", true);
-        x.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-        x.send(formData);
-    });
+    status.innerHTML = "Resizing images.";
+    Promise.all(images.map(resize))
+        .then(resizedFiles => getSignatures(resizedFiles))
+        .then(resizedFiles => {
+            status.innerHTML = "Uploading images.";
+            Promise.all(resizedFiles.map(f => uploadFile(f)))
+                .then(uploadedFiles => {
+                    let result = submitForm(resizedFiles);
+                    if (!result) {
+                        submit.disabled = false;
+                    }
+            })
+        })
 }
 </script>
 

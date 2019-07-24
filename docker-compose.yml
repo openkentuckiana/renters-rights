@@ -28,6 +28,13 @@ services:
       - db
     ports:
       - "80:80"
+  s3:
+    image: adobe/s3mock
+    ports:
+      - "9090:9090"
+      - "9091:9091"
+    networks:
+      - main
 
 networks:
   main:
