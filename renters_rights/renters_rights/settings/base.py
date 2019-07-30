@@ -200,4 +200,4 @@ MAX_PICTURES_PER_UNIT = os.getenv("MAX_PICTURES_PER_UNIT", 20)
 
 AWS_ACCESS_KEY_ID = get_env_variable("AWS_ACCESS_KEY_ID", "AKIAUJOM2RNOOPUTTUDL")
 AWS_SECRET_ACCESS_KEY = get_env_variable("AWS_SECRET_ACCESS_KEY", "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")
-AWS_STORAGE_BUCKET_NAME = get_env_variable("AWS_STORAGE_BUCKET_NAME", "renters-rights-uploads-prod")
+AWS_UPLOAD_BUCKET_NAME = get_env_variable("AWS_UPLOAD_BUCKET_NAME", "renters-rights-uploads-prod")

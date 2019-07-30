@@ -79,7 +79,7 @@ class UnitForm(forms.ModelForm):
             s3 = boto3.client(
                 "s3", aws_access_key_id=settings.AWS_ACCESS_KEY_ID, aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY
             )
-            s3_response_object = s3.get_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=path)
+            s3_response_object = s3.get_object(Bucket=settings.AWS_UPLOAD_BUCKET_NAME, Key=path)
             thing = s3_response_object["Body"].read()
 
             # return ImageFile(ContentFile(thing))

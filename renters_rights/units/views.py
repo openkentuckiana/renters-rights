@@ -64,7 +64,7 @@ def sign_files(request):
     resp = {}
     for f in json.loads(request.body)["files"]:
         resp[f] = s3.generate_presigned_post(
-            Bucket=settings.AWS_STORAGE_BUCKET_NAME,
+            Bucket=settings.AWS_UPLOAD_BUCKET_NAME,
             Key=f,
             Fields={
                 "acl": "private",
