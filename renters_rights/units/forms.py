@@ -1,10 +1,17 @@
+import io
 import logging
+import sys
 from concurrent.futures import FIRST_EXCEPTION, wait
 from concurrent.futures.thread import ThreadPoolExecutor
 
+import boto3
 from django import forms
 from django.conf import settings
+from django.core.files.base import ContentFile
+from django.core.files.images import ImageFile
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.utils.translation import gettext_lazy as _
+from PIL import Image
 
 from units.models import DOCUMENT, PICTURE, Unit, UnitImage, delete_thumbnails
 
@@ -37,6 +44,10 @@ class UnitForm(forms.ModelForm):
 
     pictures = forms.ImageField(label=_("Pictures"), widget=forms.ClearableFileInput(attrs={"multiple": True}), required=False)
 
+    s3_documents = forms.CharField(widget=forms.HiddenInput(), required=False)
+
+    s3_pictures = forms.CharField(widget=forms.HiddenInput(), required=False)
+
     def clean(self):
         if len(self.files.getlist("documents")) > settings.MAX_DOCUMENTS_PER_UNIT:
             raise forms.ValidationError(
@@ -47,12 +58,36 @@ class UnitForm(forms.ModelForm):
                 _("You may only upload a maximum of %(max_pics)s pictures") % {"max_pics": settings.MAX_PICTURES_PER_UNIT}
             )
 
+        if len(self.data.get("s3_documents", "").split(",")) > settings.MAX_DOCUMENTS_PER_UNIT:
+            raise forms.ValidationError(
+                _("You may only upload a maximum of %(max_docs)d documents") % {"max_docs": settings.MAX_DOCUMENTS_PER_UNIT}
+            )
+        if len(self.data.get("s3_pictures", []).split(",")) > settings.MAX_PICTURES_PER_UNIT:
+            raise forms.ValidationError(
+                _("You may only upload a maximum of %(max_pics)s pictures") % {"max_pics": settings.MAX_PICTURES_PER_UNIT}
+            )
+
         return super().clean()
 
     def save(self, **kwargs):
         instance = super().save()
 
-        def create_image(img, image_type, owner, unit):
+        def download_image(path):
+            if not path:
+                breakpoint()
+                return None
+            s3 = boto3.client(
+                "s3", aws_access_key_id=settings.AWS_ACCESS_KEY_ID, aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY
+            )
+            s3_response_object = s3.get_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=path)
+            thing = s3_response_object["Body"].read()
+
+            # return ImageFile(ContentFile(thing))
+            return InMemoryUploadedFile(ContentFile(thing), None, path, "image/png", len(thing), None)
+
+        def create_image(img, image_type, owner, unit, download=False):
+            if download:
+                img = download_image(img)
             UnitImage.objects.create(image=img, image_type=image_type, owner=owner, unit=unit)
 
         documents = []
@@ -65,8 +100,12 @@ class UnitForm(forms.ModelForm):
                 futures = []
                 for image in self.files.getlist("documents"):
                     futures.append(executor.submit(create_image, image, DOCUMENT, instance.owner, instance))
+                for path in self.data.get("s3_documents", "").split(","):
+                    futures.append(executor.submit(create_image, path, DOCUMENT, instance.owner, instance, True))
                 for image in self.files.getlist("pictures"):
                     futures.append(executor.submit(create_image, image, PICTURE, instance.owner, instance))
+                for path in self.data.get("s3_pictures", "").split(","):
+                    futures.append(executor.submit(create_image, path, DOCUMENT, instance.owner, instance, True))
                 wait(futures, return_when=FIRST_EXCEPTION)
                 for f in futures:
                     if f.exception():
