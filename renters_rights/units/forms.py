@@ -71,6 +71,9 @@ class UnitForm(forms.ModelForm):
         def download_image(path):
             if not path:
                 return None
+
+            path = f"{instance.owner.username}/{path}"
+
             s3 = boto3.client(
                 "s3", aws_access_key_id=settings.AWS_ACCESS_KEY_ID, aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY
             )
@@ -81,6 +84,8 @@ class UnitForm(forms.ModelForm):
             return InMemoryUploadedFile(ContentFile(thing), None, path, "image/png", len(thing), None)
 
         def create_image(img, image_type, owner, unit, download=False):
+            if not img:
+                return
             if download:
                 img = download_image(img)
             UnitImage.objects.create(image=img, image_type=image_type, owner=owner, unit=unit)

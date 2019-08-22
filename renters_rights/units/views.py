@@ -2,6 +2,7 @@ import json
 
 import boto3
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.generic import CreateView, DetailView, ListView, View
@@ -53,6 +54,7 @@ class UnitCreate(AjaxableResponseMixin, CreateView, ProtectedView):
         return super().form_valid(form)
 
 
+@login_required
 def sign_files(request):
     s3 = boto3.client("s3", aws_access_key_id=settings.AWS_ACCESS_KEY_ID, aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY)
 
@@ -60,9 +62,9 @@ def sign_files(request):
     for f in json.loads(request.body)["files"]:
         resp[f] = s3.generate_presigned_post(
             Bucket=settings.AWS_UPLOAD_BUCKET_NAME,
-            Key=f,
-            Fields={"acl": "private", "Content-Type": "image/png", "content_length_range": (5000, 15000000)},
-            Conditions=[{"acl": "private"}, {"Content-Type": "image/png"}, {"content_length_range": (5000, 15000000)}],
+            Key=f"{request.user.username}/{f}",
+            Fields={"acl": "private", "Content-Type": "image/png"},
+            Conditions=[{"acl": "private"}, {"Content-Type": "image/png"}, ["content-length-range", 5000, 15000000]],
             ExpiresIn=3600,
         )
 

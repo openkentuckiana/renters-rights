@@ -57,8 +57,7 @@ var getSignatures = function(files) {
                 for (let f of files) {
                     resp = x.response;
                     f.s3Data = resp[f.name];
-                    //f.url = "https://s3.amazonaws.com/renters-rights-uploads-prod/"  //resp[f.name].url + f.name;
-                    f.url = resp[f.name].url + f.name;
+                    f.url = resp[f.name].url
                 }
                 resolve(files);
             } else if (x.readyState === 4) {
@@ -98,7 +97,7 @@ var uploadFile = function(file) {
     })
 }
 
-var submitForm = function(resizedFiles) {
+var submitForm = function(uploadedFiles) {
     status.innerHTML = "Processing...";
 
     var x = new XMLHttpRequest();
@@ -118,8 +117,8 @@ var submitForm = function(resizedFiles) {
     const formData = new FormData(document.getElementById("unit_form"));
     formData.delete("documents");
     formData.delete("pictures");
-    formData.append("s3_documents", resizedFiles.filter(f => f.uploadType == "documents").map(f => f.name).join(","))
-    formData.append("s3_pictures", resizedFiles.filter(f => f.uploadType == "pictures").map(f => f.name).join(","))
+    formData.append("s3_documents", uploadedFiles.filter(f => f.uploadType == "documents").map(f => f.name).join(","))
+    formData.append("s3_pictures", uploadedFiles.filter(f => f.uploadType == "pictures").map(f => f.name).join(","))
 
     x.open('POST', ".");
     x.setRequestHeader("X-Requested-With", "XMLHttpRequest");
@@ -143,7 +142,7 @@ submit.onclick = function(event) {
             status.innerHTML = "Uploading images.";
             Promise.all(resizedFiles.map(f => uploadFile(f)))
                 .then(uploadedFiles => {
-                    submit.disabled = submitForm(resizedFiles);
+                    submit.disabled = submitForm(uploadedFiles);
             })
         })
 }
