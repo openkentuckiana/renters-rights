@@ -57,7 +57,8 @@ var getSignatures = function(files) {
                 for (let f of files) {
                     resp = x.response;
                     f.s3Data = resp[f.name];
-                    f.url = "http://s3.amazonaws.com/renters-rights-uploads-prod/"  //resp[f.name].url + f.name;
+                    //f.url = "https://s3.amazonaws.com/renters-rights-uploads-prod/"  //resp[f.name].url + f.name;
+                    f.url = resp[f.name].url + f.name;
                 }
                 resolve(files);
             } else if (x.readyState === 4) {

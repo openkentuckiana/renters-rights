@@ -1,5 +1,4 @@
 import io
-from wsgiref.util import FileWrapper
 
 from django.http import HttpResponse
 from django.template import Context, Template
