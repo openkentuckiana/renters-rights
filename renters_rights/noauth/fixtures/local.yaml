@@ -5,8 +5,8 @@
     last_login: null
     is_superuser: true
     username: admin
-    first_name: ''
-    last_name: ''
+    first_name: 'Admin'
+    last_name: 'User'
     email: admin@localhost
     is_staff: true
     is_active: true

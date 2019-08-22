@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load model_strings %}
+
+{% block content %}
+
+{% for d in document_list %}
+    {{ d.name }}<br>
+{% endfor %}
+
+{% endblock %}

@@ -1,6 +1,4 @@
-import io
 import logging
-import sys
 from concurrent.futures import FIRST_EXCEPTION, wait
 from concurrent.futures.thread import ThreadPoolExecutor
 
@@ -8,10 +6,8 @@ import boto3
 from django import forms
 from django.conf import settings
 from django.core.files.base import ContentFile
-from django.core.files.images import ImageFile
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.utils.translation import gettext_lazy as _
-from PIL import Image
 
 from units.models import DOCUMENT, PICTURE, Unit, UnitImage, delete_thumbnails
 
@@ -74,7 +70,6 @@ class UnitForm(forms.ModelForm):
 
         def download_image(path):
             if not path:
-                breakpoint()
                 return None
             s3 = boto3.client(
                 "s3", aws_access_key_id=settings.AWS_ACCESS_KEY_ID, aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY

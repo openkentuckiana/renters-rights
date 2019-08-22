@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load model_strings %}
+{% load bound_field %}
+
+{% block content %}
+
+<div>
+    <form method="post" id="document_form">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <fieldset>
+            <legend>{% trans "Select unit" %}</legend>
+            <table>
+                <tr>
+                    <th>
+                        <label for="{{ form.unit.id_for_label }}">{{form.unit.label}}</label>
+                    </th>
+                    <td>
+                        {% if form.unit.errors %}
+                            <ul>
+                                {% for error in form.unit.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                        {{ form.unit }}
+                        {% if form.unit.help_text %}
+                            <br />{{ form.unit.help_text }}
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <fieldset>
+            <legend>{% trans "Your current contact info" %}</legend>
+            <table>
+                <tr>
+                    <th>
+                        <label for="{{ form.use_unit_address.id_for_label }}">{{form.use_unit_address.label}}</label>
+                    </th>
+                    <td>
+                        {% if form.use_unit_address.errors %}
+                            <ul>
+                                {% for error in form.use_unit_address.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                        {{ form.use_unit_address }}
+                        {% if form.use_unit_address.help_text %}
+                            <br />{{ form.use_unit_address.help_text }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="{{ form.sender_address_1.id_for_label }}">{{form.sender_address_1.label}}</label>
+                    </th>
+                    <td>
+                        {{ form.sender_address_1 }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="{{ form.sender_address_2.id_for_label }}">{{form.sender_address_2.label}}</label>
+                    </th>
+                    <td>
+                        {{ form.sender_address_2 }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="{{ form.sender_city.id_for_label }}">{{form.sender_city.label}}</label>
+                    </th>
+                    <td>
+                        {{ form.sender_city }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="{{ form.sender_state.id_for_label }}">{{form.sender_state.label}}</label>
+                    </th>
+                    <td>
+                        {{ form.sender_state }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="{{ form.sender_zip_code.id_for_label }}">{{form.sender_zip_code.label}}</label>
+                    </th>
+                    <td>
+                        {{ form.sender_zip_code }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="{{ form.sender_email.id_for_label }}">{{form.sender_email.label}}</label>
+                    </th>
+                    <td>
+                        {{ form.sender_email }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="{{ form.sender_phone.id_for_label }}">{{form.sender_phone.label}}</label>
+                    </th>
+                    <td>
+                        {{ form.sender_phone }}
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        {% if form.dynamic_fields %}
+            <fieldset>
+                <legend>{% trans "Additional info" %}</legend>
+
+                <table>
+                    {% for f in form.dynamic_fields %}
+                        <tr>
+                            <th>
+                                <label for="{{ f.id_for_label }}">{{f.label}}</label>
+                            </th>
+                            <td>
+                                {% bound_field form f.label.lower %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </fieldset>
+        {% endif %}
+
+
+        <button>{% trans "Download PDF" %}</button>
+        <a href="/documents/">{% trans "Cancel" %}</a>
+    </form>
+    <span id="status"></span>
+</div>
+
+{% endblock %}

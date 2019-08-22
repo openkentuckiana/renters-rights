@@ -18,7 +18,7 @@ help:
 	@echo ""
 	@echo "See contents of Makefile for more targets."
 
-begin: makemigrations migrate fixtures start
+begin: build makemigrations migrate fixtures start
 	git config core.hooksPath .githooks
 
 start:
@@ -27,6 +27,10 @@ start:
 
 stop:
 	@docker-compose stop
+
+# This will remove the DB
+down:
+	@docker-compose down -v
 
 status:
 	@docker-compose ps

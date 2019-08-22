@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<style type="text/css">
+		#sender {
+			float: left;
+		}
+
+		#recipient {
+			float: right;
+		}
+
+		#date {
+			float: right;
+			clear: both;
+		}
+
+		#text {
+			clear: both;
+		}
+	</style>
+</head>
+
+<body>
+
+<div id="sender">
+	{{user.first_name}} {{user.last_name}}<br>
+	{{sender_address_1}}<br>
+	{% if sender_address_2 %}
+		{{sender_address_2}}<br>
+	{% endif %}
+	{{sender_city}}, {{sender_state}} {{sender_zip}}<br>
+	{% if sender_email %}
+		{{sender_email}}<br>
+	{% endif %}
+</div>
+
+<div id="recipient">
+	{{unit.landlord_address_1}}<br>
+	{% if unit.landlord_address_2 %}
+		{{unit.landlord_address_1}}<br>
+	{% endif %}
+	{{unit.landlord_city}}, {{unit.landlord_state}} {{unit.landlord_zip}}<br>
+	<br>
+	<br>
+	<br>
+	{% now "jS F Y" %}<br>
+	<br>
+	<br>
+</div>
+
+<div id="text">
+	To Whom It May Concern,<br>
+	<br>
+	{{ body }}
+	<br>
+	<br>
+	Sincerely,<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	{{user.first_name}} {{user.last_name}}
+</div>
+</body>
+</html>

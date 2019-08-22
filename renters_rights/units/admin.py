@@ -6,7 +6,6 @@ from .models import Unit, UnitImage
 class UnitAdmin(admin.ModelAdmin):
     list_display = ("unit_address_1", "owner")
     list_display_links = ("unit_address_1",)
-    pass
 
 
 class UnitImageAdmin(admin.ModelAdmin):

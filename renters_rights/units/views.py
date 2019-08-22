@@ -4,7 +4,7 @@ import boto3
 from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import render
-from django.views.generic import CreateView, DetailView, ListView, UpdateView, View
+from django.views.generic import CreateView, DetailView, ListView, View
 
 from lib.mixins import AjaxableResponseMixin
 from lib.views import ProtectedView
@@ -18,11 +18,6 @@ class IndexView(View):
             return render(request, "index-logged-out.html")
 
         return render(request, "index.html")
-
-
-class AnotherView(View):
-    def get(self, request):
-        return render(request, "another.html")
 
 
 class UnitListView(ListView):
@@ -66,28 +61,9 @@ def sign_files(request):
         resp[f] = s3.generate_presigned_post(
             Bucket=settings.AWS_UPLOAD_BUCKET_NAME,
             Key=f,
-            Fields={
-                "acl": "private",
-                "Content-Type": "image/png",
-                # "content_length_range": (5000, 5000000),
-            },
-            Conditions=[
-                {"acl": "private"},
-                {"Content-Type": "image/png"},
-                # {"content_length_range": (5000, 5000000)}
-            ],
+            Fields={"acl": "private", "Content-Type": "image/png", "content_length_range": (5000, 15000000)},
+            Conditions=[{"acl": "private"}, {"Content-Type": "image/png"}, {"content_length_range": (5000, 15000000)}],
             ExpiresIn=3600,
         )
 
     return JsonResponse(resp)
-
-
-#
-# class UnitUpdate(UpdateView, ProtectedView):
-#     template_name = "units/unit_form.html"
-#     form_class = UnitForm
-#     success_url = "/units/"
-#
-#     def form_valid(self, form):
-#         form.instance.owner = self.request.user
-#         return super().form_valid(form)

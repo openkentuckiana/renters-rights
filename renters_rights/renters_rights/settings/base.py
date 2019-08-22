@@ -57,7 +57,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -70,9 +69,11 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.gis",
     "localflavor",
+    "modeltranslation",
     "maintenance_mode",
     "phonenumber_field",
     "units",
+    "documents",
     "noauth",
 ]
 
@@ -184,6 +185,9 @@ LOGGING = {
 
 PHONENUMBER_DB_FORMAT = "RFC3966"
 PHONENUMBER_DEFAULT_REGION = "US"
+
+gettext = lambda s: s
+LANGUAGES = (("en", gettext("English")),)
 
 # HTTP Basic auth. Username and password must both be set to have an effect.
 # Good for test sites, pre-release, etc.

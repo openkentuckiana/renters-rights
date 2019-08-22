@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import AnotherView, IndexView, UnitCreate, UnitDetailView, UnitListView, sign_files
+from .views import IndexView, UnitCreate, UnitDetailView, UnitListView, sign_files
 
 urlpatterns = [
     path("", IndexView.as_view()),
@@ -8,5 +8,4 @@ urlpatterns = [
     path("unit/new/", UnitCreate.as_view()),
     path("unit/new/sign-files/", sign_files),
     path("unit/<slug:slug>/", UnitDetailView.as_view(), name="unit-detail"),
-    path("another/", AnotherView.as_view()),
 ]
