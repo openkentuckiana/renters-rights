@@ -49,6 +49,7 @@ class Unit(UserOwnedModel):
     unit_zip_code = USZipCodeField(_("Unit ZIP Code"), blank=True)
 
     # Landlord info
+    landlord_name = models.CharField(_("Landlord Name"), max_length=100, blank=True)
     landlord_address_1 = models.CharField(_("Landlord Address 1"), max_length=100, blank=True)
     landlord_address_2 = models.CharField(_("Landlord Address 2"), max_length=100, blank=True)
     landlord_city = models.CharField(_("Landlord City"), max_length=100, blank=True)

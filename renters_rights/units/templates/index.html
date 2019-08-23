@@ -4,7 +4,8 @@
 
 <div>
     Home page.<br>
-    <a href="/units/">Units</a>
+    <a href="{% url 'unit-list' %}">Units</a><br>
+    <a href="{% url 'documents:document-list' %}">Documents</a>
 </div>
 
 {% endblock %}

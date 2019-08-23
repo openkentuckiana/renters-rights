@@ -25,12 +25,19 @@
 <body>
 
 <div id="sender">
-	{{user.first_name}} {{user.last_name}}<br>
+	{% if sender_first_name and sender_last_name %}
+		{{sender_first_name}} {{sender_last_name}}<br>
+	{% else %}
+		{{user.first_name}} {{user.last_name}}<br>
+	{% endif %}
 	{{sender_address_1}}<br>
 	{% if sender_address_2 %}
 		{{sender_address_2}}<br>
 	{% endif %}
-	{{sender_city}}, {{sender_state}} {{sender_zip}}<br>
+	{{sender_city}}, {{sender_state}} {{sender_zip_code}}<br>
+	{% if sender_phone %}
+		{{sender_phone}}<br>
+	{% endif %}
 	{% if sender_email %}
 		{{sender_email}}<br>
 	{% endif %}
@@ -39,7 +46,7 @@
 <div id="recipient">
 	{{unit.landlord_address_1}}<br>
 	{% if unit.landlord_address_2 %}
-		{{unit.landlord_address_1}}<br>
+		{{unit.landlord_address_2}}<br>
 	{% endif %}
 	{{unit.landlord_city}}, {{unit.landlord_state}} {{unit.landlord_zip}}<br>
 	<br>
@@ -53,7 +60,16 @@
 <div id="text">
 	To Whom It May Concern,<br>
 	<br>
-	{{ body }}
+	<br>
+	This letter regards the rental unit located at:<br>
+	{{unit.unit_address_1}}<br>
+	{% if unit.unit_address_2 %}
+		{{unit.unit_address_2}}<br>
+	{% endif %}
+	{{unit.unit_city}}, {{unit.unit_state}} {{unit.unit_zip}}<br>
+	<br>
+	<br>
+	{{ body|linebreaksbr }}
 	<br>
 	<br>
 	Sincerely,<br>

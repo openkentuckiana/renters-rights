@@ -9,8 +9,7 @@ from units.models import Unit
 
 
 # Heavily inspired by https://github.com/jessykate/django-survey
-class DocumentForm(forms.Form):
-
+class BaseDocumentForm(forms.Form):
     use_unit_address = forms.BooleanField(label=_("Use unit address?"), required=False)
 
     sender_address_1 = forms.CharField(label=_("Address 1"), max_length=100, required=False)
@@ -22,35 +21,26 @@ class DocumentForm(forms.Form):
     sender_phone = PhoneNumberField(label=_("Phone Number"), required=False)
 
     def __init__(self, user, *args, **kwargs):
-        # expects a survey object to be passed in initially
-        document_template = kwargs.pop("document_template")
-        self.document_template = document_template
         super().__init__(*args, **kwargs)
+
+        if not user.first_name and not user.last_name:
+            self.fields["sender_first_name"] = forms.CharField(label=_("Your First Name"))
+            self.fields["sender_last_name"] = forms.CharField(label=_("Your Last Name"))
 
         self.fields["unit"] = ModelChoiceField(queryset=Unit.objects.for_user(user))
 
-        data = kwargs.get("data")
-        for f in document_template.document_fields.all():
-            field_name = f.name.lower()
-
-            if f.field_type == DocumentField.TEXT:
-                self.fields[field_name] = forms.CharField(label=f.name)
-            elif f.field_type == DocumentField.INTEGER:
-                self.fields[field_name] = forms.IntegerField(label=f.name)
-            elif f.field_type == DocumentField.DATE:
-                self.fields[field_name] = forms.DateField(label=f.name)
-
-            if f.required:
-                self.fields[field_name].required = True
-                self.fields[field_name].widget.attrs["class"] = "required"
-            else:
-                self.fields[field_name].required = False
-
-            if data:
-                self.fields[field_name].initial = data.get(field_name)
+    @property
+    def name_fields(self):
+        static_fields = ("sender_first_name", "sender_last_name")
+        return [v for (f, v) in self.fields.items() if f in static_fields]
 
     @property
-    def dynamic_fields(self):
+    def additional_fields(self):
+        """
+        Gets fields that are defined in addition to the base fields. Either by a subclass or a document template..
+
+        :return: A list of fields that have been added to the form's set of base fields.
+        """
         static_fields = (
             "unit",
             "use_unit_address",
@@ -61,5 +51,173 @@ class DocumentForm(forms.Form):
             "sender_zip_code",
             "sender_email",
             "sender_phone",
+            "sender_first_name",
+            "sender_last_name",
         )
-        return [v for (f, v) in self.fields.items() if f not in static_fields]
+        return [self.__getitem__(f) for (f, v) in self.fields.items() if f not in static_fields]
+
+
+class DocumentForm(BaseDocumentForm):
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(user, *args, **kwargs)
+        # expects a survey object to be passed in initially
+        document_template = kwargs.pop("document_template")
+        self.document_template = document_template
+
+        # data = kwargs.get("data")
+        for f in document_template.document_fields.all():
+            field_name = f.name.lower()
+
+            if f.field_type == DocumentField.TEXT:
+                self.fields[field_name] = forms.CharField(label=f.name, required=f.required)
+            elif f.field_type == DocumentField.INTEGER:
+                self.fields[field_name] = forms.IntegerField(label=f.name, required=f.required)
+            elif f.field_type == DocumentField.DATE:
+                self.fields[field_name] = forms.DateField(label=f.name, required=f.required)
+
+            if f.required:
+                self.fields[field_name].required = True
+                self.fields[field_name].widget.attrs["class"] = "required"
+            else:
+                self.fields[field_name].required = False
+
+            # if data:
+            #     self.fields[field_name].initial = data.get(field_name)
+
+
+class PhotosDocumentForm(BaseDocumentForm):
+    pass
+
+
+class SmallClaimsDocumentForm(BaseDocumentForm):
+    kentucky_counties = (
+        (c, c)
+        for c in (
+            "Adair",
+            "Allen",
+            "Anderson",
+            "Ballard",
+            "Barren",
+            "Bath",
+            "Bell",
+            "Boone",
+            "Bourbon",
+            "Boyd",
+            "Boyle",
+            "Bracken",
+            "Breathitt",
+            "Breckinridge",
+            "Bullitt",
+            "Butler",
+            "Caldwell",
+            "Calloway",
+            "Campbell",
+            "Carlisle",
+            "Carroll",
+            "Carter",
+            "Casey",
+            "Christian",
+            "Clark",
+            "Clay",
+            "Clinton",
+            "Crittenden",
+            "Cumberland",
+            "Daviess",
+            "Edmonson",
+            "Elliott",
+            "Estill",
+            "Fayette",
+            "Fleming",
+            "Floyd",
+            "Franklin",
+            "Fulton",
+            "Gallatin",
+            "Garrard",
+            "Grant",
+            "Graves",
+            "Grayson",
+            "Green",
+            "Greenup",
+            "Hancock",
+            "Hardin",
+            "Harlan",
+            "Harrison",
+            "Hart",
+            "Henderson",
+            "Henry",
+            "Hickman",
+            "Hopkins",
+            "Jackson",
+            "Jefferson",
+            "Jessamine",
+            "Johnson",
+            "Kenton",
+            "Knott",
+            "Knox",
+            "Larue",
+            "Laurel",
+            "Lawrence",
+            "Lee",
+            "Leslie",
+            "Letcher",
+            "Lewis",
+            "Lincoln",
+            "Livingston",
+            "Logan",
+            "Lyon",
+            "McCracken",
+            "McCreary",
+            "McLean",
+            "Madison",
+            "Magoffin",
+            "Marion",
+            "Marshall",
+            "Martin",
+            "Mason",
+            "Meade",
+            "Menifee",
+            "Mercer",
+            "Metcalfe",
+            "Monroe",
+            "Montgomery",
+            "Morgan",
+            "Muhlenberg",
+            "Nelson",
+            "Nicholas",
+            "Ohio",
+            "Oldham",
+            "Owen",
+            "Owsley",
+            "Pendleton",
+            "Perry",
+            "Pike",
+            "Powell",
+            "Pulaski",
+            "Robertson",
+            "Rockcastle",
+            "Rowan",
+            "Russell",
+            "Scott",
+            "Shelby",
+            "Simpson",
+            "Spencer",
+            "Taylor",
+            "Todd",
+            "Trigg",
+            "Trimble",
+            "Union",
+            "Warren",
+            "Washington",
+            "Wayne",
+            "Webster",
+            "Whitley",
+            "Wolfe",
+            "Woodford",
+        )
+    )
+
+    county = forms.ChoiceField(label=_("County where you are filing"), choices=kentucky_counties)
+    is_landlord_company = forms.BooleanField(label=_("Is your landlord a company?"), required=False)
+    claims_sum = forms.DecimalField(label=_("How much are you asking for?"), decimal_places=2, min_value=0, max_value=2500)
+    court_costs = forms.DecimalField(label=_("How much do you think court costs are (ex $50)?"), decimal_places=2, min_value=0)
+    claims = forms.CharField(label=_("Your claims against your landlord"), widget=forms.Textarea)

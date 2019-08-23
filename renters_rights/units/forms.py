@@ -72,6 +72,7 @@ class UnitForm(forms.ModelForm):
             if not path:
                 return None
 
+            # Make sure we only get images from the user's folder
             path = f"{instance.owner.username}/{path}"
 
             s3 = boto3.client(

@@ -6,7 +6,8 @@
 {% block content %}
 
 {% for d in document_list %}
-    {{ d.name }}<br>
+    <a href="{% url 'documents:document-form' d.id %}">{{ d.name }}</a><br>
 {% endfor %}
-
+    <a href="{% url 'documents:photos-document-form' %}">{% trans 'Photos Report'%}</a><br>
+    <a href="{% url 'documents:small-claims-document-form' %}">{% trans 'Small Claims Form'%}</a><br>
 {% endblock %}
