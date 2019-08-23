@@ -11,4 +11,4 @@ release:
     - ./manage.py migrate
   image: web
 run:
-  web: gunicorn renters_rights.wsgi --access-logfile=- --log-file=-
+  web: gunicorn renters_rights.wsgi --access-logfile -
