@@ -63,3 +63,24 @@ Advanced Topics
 If you need to debug Renters' Rights Python code, add the following `breakpoint()` at the point where you would like your breakpoint. The app will stop execution when it reaches this line.
 
 To interact with `pdb`, open a new terminal and run `make attach`.
+
+Deploying to your Heroku account
+-----------------
+If you want to run your own instance of this application, you can easily deploy it to your Heroku account.
+
+Start by clicking this button:
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
+You'll need to fill in the required configuration variables, particularly the ones for your SMTP (email) provider and for S3.
+
+You will also need to create an administrator account to use to log in:
+
+- Navigate to your app in the Heroku console (e.g. `https://dashboard.heroku.com/apps/<APP NAME>`)
+- Select `Run Console` from the `More` menu
+- Enter `bash` and click `Run`
+- Wait for the console to connect
+- Run `./manage.py createsuperuser`
+- Enter the required information
+- Log in at [https://<APP NAME>.herokuapp.com/admin/](https://<APP NAME>.herokuapp.com/admin/) 
+
+TODO: Instructions for configuring S3. Recommendations for SMTP host. 

@@ -68,10 +68,3 @@ if DEBUG:
     # This should NEVER be used outside of debug mode, and should never be exposed to the public internet
     INTERNAL_IPS = type(str("c"), (), {"__contains__": lambda *a: True})()
     ########## END TOOLBAR CONFIGURATION
-
-ALLOWED_HOSTS = ["localhost"]
-ADDITIONAL_ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", None)
-if ADDITIONAL_ALLOWED_HOSTS:
-    for h in ADDITIONAL_ALLOWED_HOSTS.split(","):
-        if h not in ALLOWED_HOSTS:
-            ALLOWED_HOSTS.append(h)
