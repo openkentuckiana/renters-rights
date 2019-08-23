@@ -1,7 +1,7 @@
 # Thanks to https://gist.github.com/miketheman/e17a9e5c6fedac4c34383931c01beb28
 
 CURRENT_DIRECTORY := $(shell pwd)
-#GIT_SHA := $(shell git rev-parse HEAD)
+GIT_SHA := $(shell git rev-parse HEAD)
 
 help:
 	@echo "Docker Compose Help"

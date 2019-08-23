@@ -21,7 +21,7 @@ The application will evolve to include additional features, but the initial vers
 Some additional features that have been discussed:
 
 * Links to other renter resources, such as agencies and online tools
-* Email reminders about important events (e.g. rent due dates, lease termination dates, etc.) 
+* Email reminders about important events (e.g. rent due dates, lease termination dates, etc.)    
 
 Getting up and running
 -----------------
