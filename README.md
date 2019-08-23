@@ -7,7 +7,21 @@ Renters' Rights
 
 About
 -----------------
-TBD
+This application is built to help renters take advantage of their rights.
+It was created by [Code for Kentuckiana](https://codeforkentuckiana.org) in conjunction with partners from the [Metropolitan Housing Coalition](http://www.metropolitanhousing.org) and the [Kentucky Equal Justice Center](https://www.kyequaljustice.org).
+
+The application will evolve to include additional features, but the initial version will support:
+
+* Uploading and storing documents, such as leases
+* Uploading and storing timestamp-verified images of rental unit conditions
+* Generation of a verified photo report (to provide third-party documentation of condition to landlords)
+* Generation of form letters (e.g. lease termination, request for repair, etc.)
+* Generation of Kentucky Small Claims Court complaints
+
+Some additional features that have been discussed:
+
+* Links to other renter resources, such as agencies and online tools
+* Email reminders about important events (e.g. rent due dates, lease termination dates, etc.) 
 
 Getting up and running
 -----------------
@@ -40,12 +54,6 @@ To stop the app, run `make stop`.
 ### Viewing Logs
 To view logs, run `make tail`.
 If you want to start the app and automatically show logs, you can combine the `begin` and `tail` commands: `make begin tail`.
-
-Contributing
------------------
-If you would like to contribute to this codebase, you need to have a couple of additional Python libraries installed on your machine: [`isort`](https://pypi.org/project/isort/) and [`black`](https://github.com/ambv/black). These libraries are used to do some code formatting during `git commit`.
-
-You can install both of these libraries by running `pipenv install --dev` from your shell in the `renters-rights` directory. If you don't have `pipenv` installed, you can install it by following the [installation instructions](https://pipenv.readthedocs.io/en/latest/#install-pipenv-today).
 
 Advanced Topics
 -----------------
