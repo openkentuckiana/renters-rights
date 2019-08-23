@@ -204,5 +204,5 @@ AWS_S3_ENDPOINT_URL = None
 AWS_S3_CUSTOM_DOMAIN = None
 AWS_ACCESS_KEY_ID = get_env_variable("AWS_ACCESS_KEY_ID", "INVALID")
 AWS_SECRET_ACCESS_KEY = get_env_variable("AWS_SECRET_ACCESS_KEY", "INVALID")
-AWS_UPLOAD_BUCKET_NAME = get_env_variable("AWS_UPLOAD_BUCKET_NAME", "renters-rights-uploads-prod")
-AWS_STORAGE_BUCKET_NAME = get_env_variable("AWS_UPLOAD_BUCKET_NAME", "renters-rights-prod")
+AWS_UPLOAD_BUCKET_NAME = get_env_variable("AWS_UPLOAD_BUCKET_NAME", "renters-rights-uploads-test")
+AWS_STORAGE_BUCKET_NAME = get_env_variable("AWS_STORAGE_BUCKET_NAME", "renters-rights-test")

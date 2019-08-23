@@ -54,9 +54,6 @@ SECRET_KEY = get_env_variable("SECRET_KEY")
 
 ########## STORAGE CONFIGURATION
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-AWS_ACCESS_KEY_ID = get_env_variable("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = get_env_variable("AWS_SECRET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME = get_env_variable("AWS_STORAGE_BUCKET_NAME")
 AWS_DEFAULT_ACL = None
 ########## END STORAGE CONFIGURATION
 
