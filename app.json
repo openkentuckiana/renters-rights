@@ -3,6 +3,18 @@
   "scripts": {
   },
   "env": {
+    "BASIC_AUTH_USERNAME": {
+      "description": "Basic auth username. Good for beta/stating sites. BASIC_AUTH_PASSWORD must also be set to have an effect. Blank means no basic auth on the site (Django auth still works).",
+      "value": ""
+    },
+    "BASIC_AUTH_PASSWORD": {
+      "description": "Basic auth password. Good for beta/stating sites. BASIC_AUTH_USERNAME must also be set to have an effect. Blank means no basic auth on the site (Django auth still works).",
+      "value": ""
+    },
+    "DJANGO_DEBUG": {
+      "description": "Tells Django to run in debug mode. Production sites should never run in debug mode.",
+      "value": "False"
+    },
     "ALLOWED_HOSTS": {
       "description": "A comma-seperated list of strings representing the host/domain names that this Django site can serve.",
       "value": ".herokuapp.com"
@@ -42,19 +54,18 @@
       "description": "AWS secret access key used for uploading files to S3."
     },
     "AWS_STORAGE_BUCKET_NAME": {
-      "description": "AWS S3 bucket to which files should be uploaded."
+      "description": "AWS S3 bucket where uploaded files will be stored."
+    },
+    "AWS_UPLOAD_BUCKET_NAME": {
+      "description": "AWS S3 bucket where uploaded files will be uploaded before being moved to AWS_STORAGE_BUCKET_NAME. Can have a short TTL."
     },
     "WEB_CONCURRENCY": {
-      "description": "The number of processes to run.",
+      "description": "The number of app dynos to run.",
       "value": "1"
     },
-    "BASIC_AUTH_USERNAME": {
-      "description": "Basic auth username. BASIC_AUTH_PASSWORD must also be set to have an effect.",
-      "value": ""
-    },
-    "BASIC_AUTH_PASSWORD": {
-      "description": "Basic auth password. BASIC_AUTH_USERNAME must also be set to have an effect.",
-      "value": ""
+    "MAX_THREAD_POOL_WORKERS": {
+      "description": "Number of threads to use when processing (resizing) uploaded images. Speeds things up, but you can hit dyno memory limits quickly.",
+      "value": "1"
     }
   },
   "formation": {
@@ -64,7 +75,10 @@
   },
   "addons": [
     {
-      "plan": "heroku-postgresql"
+      "plan": "heroku-redis:hobby-dev"
+    },
+    {
+      "plan": "heroku-postgresql:hobby-dev"
     }
   ],
   "stack": "container",
