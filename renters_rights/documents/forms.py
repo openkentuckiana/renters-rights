@@ -59,10 +59,10 @@ class BaseDocumentForm(forms.Form):
 
 class DocumentForm(BaseDocumentForm):
     def __init__(self, user, *args, **kwargs):
-        super().__init__(user, *args, **kwargs)
         # expects a survey object to be passed in initially
         document_template = kwargs.pop("document_template")
         self.document_template = document_template
+        super().__init__(user, *args, **kwargs)
 
         # data = kwargs.get("data")
         for f in document_template.document_fields.all():

@@ -1,7 +1,7 @@
 Renters' Rights
 ===============
 
-[![Build Status](https://travis-ci.com/codeforkentuckiana/swap.svg?token=SpHpFMasorhC4oT8tCio&branch=master)](https://travis-ci.com/codeforkentuckiana/swap) [![codecov](https://codecov.io/gh/codeforkentuckiana/swap/branch/master/graph/badge.svg?token=0nA3LW7RQO)](https://codecov.io/gh/codeforkentuckiana/swap)
+[![Build Status](https://travis-ci.com/codeforkentuckiana/renters-rights.svg?token=SpHpFMasorhC4oT8tCio&branch=master)](https://travis-ci.com/codeforkentuckiana/renters-rights) [![codecov](https://codecov.io/gh/codeforkentuckiana/renters-rights/branch/master/graph/badge.svg?token=0nA3LW7RQO)](https://codecov.io/gh/codeforkentuckiana/renters-rights)
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
@@ -23,10 +23,10 @@ Source: [https://opensource.com/resources/what-docker](https://opensource.com/re
 ### Installing Docker
 Download the [Mac](https://store.docker.com/editions/community/docker-ce-desktop-mac) or [Windows](https://store.docker.com/editions/community/docker-ce-desktop-windows) installer and follow the installation insturctions.
 
-Note that for Windows, Docker requires 64bit Windows 10 Pro, Enterprise, or Education, and Docker also requires that virtualization be enabled. Check out the [what to know before you install](https://docs.docker.com/docker-for-windows/install/#what-to-know-before-you-install) document for more info. It is competely possible to run Swap without Docker, and we can work on documentation and scripts to make that process easier if we have contributors who can't run Docker. Docker is just handy because it makes it so developers don't have to install or manage installations, and because it mimicks the production environment.
+Note that for Windows, Docker requires 64bit Windows 10 Pro, Enterprise, or Education, and Docker also requires that virtualization be enabled. Check out the [what to know before you install](https://docs.docker.com/docker-for-windows/install/#what-to-know-before-you-install) document for more info. It is completely possible to run Renters' Rights without Docker, and we can work on documentation and scripts to make that process easier if we have contributors who can't run Docker. Docker is just handy because it makes it so developers don't have to install or manage installations, and because it mimicks the production environment.
 
 ### Running the App
-Open a terminal (Terminal on Mac, Git Command Prompt on Windows), navigate to the Swap directory, and run this command: `make begin`.
+Open a terminal (Terminal on Mac, Git Command Prompt on Windows), navigate to the Renters' Rights directory, and run this command: `make begin`.
 
 This command will start the application in debug mode along with a Postgres database instance. Each of these runs in its own container, which you'll see start. `make begin` will also set up the database by running [migrations](https://docs.djangoproject.com/en/2.1/topics/migrations/) and installing [fixtures](https://docs.djangoproject.com/en/2.1/howto/initial-data/#providing-data-with-fixtures).
 
@@ -45,13 +45,13 @@ Contributing
 -----------------
 If you would like to contribute to this codebase, you need to have a couple of additional Python libraries installed on your machine: [`isort`](https://pypi.org/project/isort/) and [`black`](https://github.com/ambv/black). These libraries are used to do some code formatting during `git commit`.
 
-You can install both of these libraries by running `pipenv install --dev` from your shell in the `swap` directory. If you don't have `pipenv` installed, you can install it by following the [installation instructions](https://pipenv.readthedocs.io/en/latest/#install-pipenv-today).
+You can install both of these libraries by running `pipenv install --dev` from your shell in the `renters-rights` directory. If you don't have `pipenv` installed, you can install it by following the [installation instructions](https://pipenv.readthedocs.io/en/latest/#install-pipenv-today).
 
 Advanced Topics
 -----------------
 ### Debugging via `pdb`
 `pdb` is the Python debugger, and it provides a useful way to interact with a running program.
 
-If you need to debug Swap Python code, add the following `import pdb; pdb.set_trace()` at the point where you would like your breakpoint. The app will stop execution when it reaches this line.
+If you need to debug Renters' Rights Python code, add the following `breakpoint()` at the point where you would like your breakpoint. The app will stop execution when it reaches this line.
 
-To interact with `pdb`, open a new terminal and run `docker attach renters-rights_app_1` (where `renters-rights_app_1` is the name of the container you see when running `make status`).
+To interact with `pdb`, open a new terminal and run `make attach`.
