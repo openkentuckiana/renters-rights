@@ -200,7 +200,7 @@ MAX_THREAD_POOL_WORKERS = (
 MAX_DOCUMENTS_PER_UNIT = os.getenv("MAX_DOCUMENTS_PER_UNIT", 5)
 MAX_PICTURES_PER_UNIT = os.getenv("MAX_PICTURES_PER_UNIT", 20)
 
-AWS_ACCESS_KEY_ID = get_env_variable("AWS_ACCESS_KEY_ID", "")
-AWS_SECRET_ACCESS_KEY = get_env_variable("AWS_SECRET_ACCESS_KEY", "")
+AWS_ACCESS_KEY_ID = get_env_variable("AWS_ACCESS_KEY_ID", "INVALID")
+AWS_SECRET_ACCESS_KEY = get_env_variable("AWS_SECRET_ACCESS_KEY", "INVALID")
 AWS_UPLOAD_BUCKET_NAME = get_env_variable("AWS_UPLOAD_BUCKET_NAME", "renters-rights-uploads-prod")
 AWS_STORAGE_BUCKET_NAME = get_env_variable("AWS_UPLOAD_BUCKET_NAME", "renters-rights-prod")
