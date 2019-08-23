@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelChoiceField
 from django.utils.translation import gettext_lazy as _
-from localflavor.us.forms import USStateField, USZipCodeField
+from localflavor.us.forms import USStateSelect, USZipCodeField
 from phonenumber_field.formfields import PhoneNumberField
 
 from documents.models import DocumentField
@@ -15,7 +15,7 @@ class BaseDocumentForm(forms.Form):
     sender_address_1 = forms.CharField(label=_("Address 1"), max_length=100, required=False)
     sender_address_2 = forms.CharField(label=_("Address 2"), max_length=100, required=False)
     sender_city = forms.CharField(label=_("City"), max_length=100, required=False)
-    sender_state = USStateField(label=_("State"), required=False)
+    sender_state = USStateSelect(label=_("State"), required=False)
     sender_zip_code = USZipCodeField(label=_("ZIP Code"), required=False)
     sender_email = forms.EmailField(label=_("Email Address"), required=False)
     sender_phone = PhoneNumberField(label=_("Phone Number"), required=False)

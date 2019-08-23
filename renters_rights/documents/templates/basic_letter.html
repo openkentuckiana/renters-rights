@@ -68,7 +68,9 @@
 	{% if unit.unit_address_2 %}
 		{{unit.unit_address_2}}<br>
 	{% endif %}
-	{{unit.unit_city}}, {{unit.unit_state}} {{unit.unit_zip}}<br>
+	{% if unit.unit_city and unit.unit_state and unit.unit_zip %}
+		{{unit.unit_city}}, {{unit.unit_state}} {{unit.unit_zip}}<br>
+	{% endif %}
 	<br>
 	<br>
 	{{ body|linebreaksbr }}
