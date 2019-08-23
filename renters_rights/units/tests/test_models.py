@@ -9,15 +9,11 @@ from hamcrest import assert_that, equal_to, starts_with
 from PIL import Image
 
 from noauth.models import User
+from units.models import Unit, UnitImage
+from units.tests import UnitBaseTestCase
 
-from .models import Unit, UnitImage
 
-
-class UnitModelTests(TestCase):
-    @classmethod
-    def setUpTestData(cls):
-        cls.u = User.objects.create(is_active=True, email="eleanor@shellstrop.com")
-
+class UnitModelTests(UnitBaseTestCase):
     def test_slug_generated(self):
         forty_five_character_name = "a" * 45
         i = Unit.objects.create(unit_address_1=forty_five_character_name, owner=UnitModelTests.u)
@@ -29,20 +25,7 @@ class UnitModelTests(TestCase):
         assert_that(i.slug, starts_with(f"{sixty_character_name[:45]}-"))
 
 
-class UnitImageModelTests(TestCase):
-    @classmethod
-    def setUpTestData(cls):
-        cls.u = User.objects.create(is_active=True, email="eleanor@shellstrop.com")
-        cls.unit = Unit.objects.create(unit_address_1="u", owner=cls.u)
-
-    @staticmethod
-    def get_image_file(name="test.png", ext="png", size=(50, 50), color=(256, 0, 0)):
-        file_obj = BytesIO()
-        image = Image.new("RGBA", size=size, color=color)
-        image.save(file_obj, ext)
-        file_obj.seek(0)
-        return File(file_obj, name=name)
-
+class UnitImageModelTests(UnitBaseTestCase):
     @override_settings(UNIT_IMAGE_MIN_HEIGHT_AND_WIDTH=50)
     def test_validate_image_height(self):
         with self.assertRaisesRegexp(
