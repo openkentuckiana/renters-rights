@@ -92,7 +92,7 @@ var uploadFile = function(file) {
         }
         postData.append('file', file);
 
-        x.open("POST", file.url);
+        x.open("POST", file.url, true);
         x.send(postData);
     })
 }

@@ -38,8 +38,8 @@ def str_to_int(value):
     return value if isinstance(value, int) else int(value)
 
 
-SITE_NAME = get_env_variable("SITE_NAME", "Swap")
-SITE_URL = get_env_variable("SITE_URL", "https://swapsite.com/")
+SITE_NAME = get_env_variable("SITE_NAME", "Renters' Rights")
+SITE_URL = get_env_variable("SITE_URL", "https://rr.com/")
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -128,7 +128,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
@@ -138,7 +137,6 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
@@ -152,7 +150,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = "/dj-static/"
@@ -195,7 +192,7 @@ LANGUAGES = (("en", gettext("English")),)
 BASIC_AUTH_USERNAME = os.getenv("BASIC_AUTH_USERNAME", "")
 BASIC_AUTH_PASSWORD = os.getenv("BASIC_AUTH_PASSWORD", "")
 if BASIC_AUTH_USERNAME and BASIC_AUTH_PASSWORD:
-    MIDDLEWARE.insert(0, "lib.middleware.AllowedIPAddressesMiddleware")
+    MIDDLEWARE.insert(0, "lib.middleware.BasicAuthMiddleware")
 
 MAX_THREAD_POOL_WORKERS = (
     str_to_int(os.getenv("MAX_THREAD_POOL_WORKERS", None)) if os.getenv("MAX_THREAD_POOL_WORKERS", None) else None
@@ -206,3 +203,4 @@ MAX_PICTURES_PER_UNIT = os.getenv("MAX_PICTURES_PER_UNIT", 20)
 AWS_ACCESS_KEY_ID = get_env_variable("AWS_ACCESS_KEY_ID", "AKIAUJOM2RNOOPUTTUDL")
 AWS_SECRET_ACCESS_KEY = get_env_variable("AWS_SECRET_ACCESS_KEY", "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")
 AWS_UPLOAD_BUCKET_NAME = get_env_variable("AWS_UPLOAD_BUCKET_NAME", "renters-rights-uploads-prod")
+AWS_STORAGE_BUCKET_NAME = get_env_variable("AWS_UPLOAD_BUCKET_NAME", "renters-rights-prod")

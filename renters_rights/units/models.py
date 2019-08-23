@@ -84,6 +84,14 @@ class UnitImage(UserOwnedModel):
     def thumbnail(self):
         return default_storage.url(f"{self.image.name.split('.')[0]}-{self.thumbnail_sizes[0]}.jpg")
 
+    @property
+    def thumbnail_internal(self):
+        """
+        Return a thumbnail URL suitable for use from within the application (e.g. in a PDF-generation script).
+        :return: A thumbnail URL that can be accessed from the application server.
+        """
+        return default_storage.url(f"{self.image.name.split('.')[0]}-{self.thumbnail_sizes[0]}.jpg").replace("localhost", "s3")
+
     def __str__(self):
         return f"{self.image.name}"
 

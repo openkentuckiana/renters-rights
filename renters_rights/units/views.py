@@ -56,7 +56,12 @@ class UnitCreate(AjaxableResponseMixin, CreateView, ProtectedView):
 
 @login_required
 def sign_files(request):
-    s3 = boto3.client("s3", aws_access_key_id=settings.AWS_ACCESS_KEY_ID, aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY)
+    s3 = boto3.client(
+        "s3",
+        aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+        aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+        endpoint_url=settings.AWS_S3_ENDPOINT_URL or None,
+    )
 
     resp = {}
     for f in json.loads(request.body)["files"]:
@@ -67,5 +72,8 @@ def sign_files(request):
             Conditions=[{"acl": "private"}, {"Content-Type": "image/png"}, ["content-length-range", 5000, 15000000]],
             ExpiresIn=3600,
         )
+        # If we're running locally, make sure to return URLs that can be access from the front-end
+        if settings.AWS_S3_ENDPOINT_URL and settings.AWS_S3_CUSTOM_DOMAIN:
+            resp[f]["url"] = resp[f]["url"].replace("http://s3", "http://localhost")
 
     return JsonResponse(resp)

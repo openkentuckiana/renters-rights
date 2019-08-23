@@ -34,7 +34,9 @@
 	{% if sender_address_2 %}
 		{{sender_address_2}}<br>
 	{% endif %}
-	{{sender_city}}, {{sender_state}} {{sender_zip_code}}<br>
+	{% if sender_city and sender_state and sender_zip_code %}
+		{{sender_city}}, {{sender_state}} {{sender_zip_code}}<br>
+	{% endif %}
 	{% if sender_phone %}
 		{{sender_phone}}<br>
 	{% endif %}

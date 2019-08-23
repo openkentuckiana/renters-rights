@@ -4,7 +4,7 @@ from django.conf import settings
 from django.http import HttpResponse
 
 
-class AllowedIPAddressesMiddleware:
+class BasicAuthMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
 

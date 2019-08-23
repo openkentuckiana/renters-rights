@@ -1,4 +1,5 @@
 """Development settings and globals."""
+import time
 
 from .base import *
 
@@ -26,3 +27,30 @@ INTERNAL_IPS = type(str("c"), (), {"__contains__": lambda *a: True})()
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = "/tmp/"
+
+########## S3 CONFIGURATION
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+AWS_S3_ENDPOINT_URL = "http://s3:4572"  # Used by boto to connect from app container to s3 container
+AWS_S3_CUSTOM_DOMAIN = f"localhost:4572/{AWS_STORAGE_BUCKET_NAME}"  # used by django-storages to generate URLs for frontend
+AWS_S3_SECURE_URLS = False  # Localstack s3 does not support SSL
+
+sleep = 1
+while sleep < 30:
+    import boto3
+
+    try:
+        s3 = boto3.client(
+            "s3",
+            aws_access_key_id=AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+            endpoint_url=AWS_S3_ENDPOINT_URL,
+        )
+        s3.create_bucket(Bucket=AWS_UPLOAD_BUCKET_NAME)
+        s3.create_bucket(Bucket=AWS_STORAGE_BUCKET_NAME)
+        break
+    except:
+        print(f"Couldn't connect to mock s3. Sleeping {sleep} before trying again.")
+        time.sleep(sleep)
+        sleep *= 2
+########## END S3 CONFIGURATION
