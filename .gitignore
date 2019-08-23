@@ -79,4 +79,4 @@ venv.bak/
 .idea
 
 # Project-specific
-renters_rights/staticfiles/ 
+staticfiles/
