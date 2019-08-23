@@ -18,8 +18,8 @@
 
 <script type="text/javascript">
 
-const submit = document.getElementById("unit_form_submit");
-const status = document.getElementById("status");
+var form_submit = document.getElementById("unit_form_submit");
+var status = document.getElementById("status");
 
 var resize = function(file) {
     return new Promise(function(resolve, reject) {
@@ -125,9 +125,9 @@ var submitForm = function(uploadedFiles) {
     x.send(formData);
 }
 
-submit.onclick = function(event) {
+form_submit.onclick = function(event) {
     event.preventDefault();
-    submit.disabled = true;
+    form_submit.disabled = true;
 
     const documentInput = document.getElementById("id_documents");
     let documents = Array.from(documentInput.files).map(d => { d.uploadType = "documents"; return d; });
@@ -142,7 +142,7 @@ submit.onclick = function(event) {
             status.innerHTML = "Uploading images.";
             Promise.all(resizedFiles.map(f => uploadFile(f)))
                 .then(uploadedFiles => {
-                    submit.disabled = submitForm(uploadedFiles);
+                    form_submit.disabled = submitForm(uploadedFiles);
             })
         })
 }

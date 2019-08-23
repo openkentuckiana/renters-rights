@@ -23,6 +23,7 @@ class UnitForm(forms.ModelForm):
             "unit_city",
             "unit_state",
             "unit_zip_code",
+            "landlord_name",
             "landlord_address_1",
             "landlord_address_2",
             "landlord_city",
