@@ -17,7 +17,7 @@
     },
     "ALLOWED_HOSTS": {
       "description": "A comma-seperated list of strings representing the host/domain names that this Django site can serve.",
-      "value": "['.herokuapp.com']"
+      "value": ".herokuapp.com"
     },
     "SECRET_KEY": {
       "description": "Django's secret key.",
