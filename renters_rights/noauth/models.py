@@ -39,6 +39,7 @@ class AuthCode(BaseModel):
         """
         Send an auth code to a user via email.
         :param user: The user to whom the auth code should be sent.
+        :param code_uri: The full URI for the code page.
         :return: True if an auth code was created and sent to the user. False if a new auth code wasn't created
         (a previous code exists and was created within the TTL).
         """

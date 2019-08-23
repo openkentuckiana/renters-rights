@@ -25,17 +25,6 @@ class LoginFormTests(TestCase):
         form = LoginForm(data)
         self.assertTrue(form.is_valid())
 
-    def test_unknown_email_domain_rejected_as_invalid(self):
-        data = {"email": "jane@unknown.com"}
-        form = LoginForm(data)
-        self.assertFalse(form.is_valid())
-
-    def test_unknown_email_domain_error_message(self):
-        data = {"email": "jane@unknown.com"}
-        form = LoginForm(data)
-        response = self.client.post(reverse("noauth:login"), data)
-        self.assertFormError(response, "form", "email", _("Your email domain is not authorized to sign into this site."))
-
 
 class CodeFormTests(TestCase):
     def test_verify_email_and_code_are_accepted(self):

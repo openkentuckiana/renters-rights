@@ -106,10 +106,6 @@ class UnitImage(UserOwnedModel):
 
         im = Image.open(self.image).convert("RGB")
         original_width, original_height = im.size
-        print("Dimensions", original_width, original_height)
-        img_file = BytesIO()
-        im.save(img_file, "png")
-        print("Size", img_file.tell())
 
         # Process images from larges to smallest so we can continually resize the same image.
         sizes = settings.UNIT_IMAGE_SIZES

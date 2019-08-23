@@ -36,19 +36,19 @@ class AuthCodeModelTests(TestCase):
     @mock.patch("noauth.models.AuthCode._create_code_for_user")
     def test_send_auth_code_returns_false_when_auth_code_not_created(self, m_create_code_for_user):
         m_create_code_for_user.return_value = False
-        self.assertFalse(AuthCode.send_auth_code(self.u))
+        self.assertFalse(AuthCode.send_auth_code(self.u, ""))
 
     @mock.patch("noauth.models.AuthCode._create_code_for_user")
     def test_send_auth_code_returns_false_when_auth_code_not_created(self, m_create_code_for_user):
         auth_code = AuthCode(code="123", user=self.u)
         m_create_code_for_user.return_value = auth_code
-        self.assertTrue(AuthCode.send_auth_code(self.u))
+        self.assertTrue(AuthCode.send_auth_code(self.u, "http://site/code?code=123"))
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].subject, _(f"Your {settings.SITE_NAME} log in code"))
 
         context = {
             "code": auth_code.code,
-            "code_uri": reverse("noauth:code"),
+            "code_uri": "http://site/code?code=123",
             "email": auth_code.user.email,
             "site_name": settings.SITE_NAME,
         }
