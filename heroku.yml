@@ -7,7 +7,6 @@ build:
     web: Dockerfile
 release:
   command:
-    - ./manage.py collectstatic
     - ./manage.py migrate
   image: web
 run:
