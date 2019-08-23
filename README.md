@@ -69,6 +69,7 @@ Deploying to your Heroku account
 If you want to run your own instance of this application, you can easily deploy it to your Heroku account.
 
 Start by clicking this button:
+
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 You'll need to fill in the required configuration variables, particularly the ones for your SMTP (email) provider and for S3.
@@ -81,6 +82,6 @@ You will also need to create an administrator account to use to log in:
 - Wait for the console to connect
 - Run `./manage.py createsuperuser`
 - Enter the required information
-- Log in at [https://<APP NAME>.herokuapp.com/admin/](https://<APP NAME>.herokuapp.com/admin/) 
+- Log in at [https://APP_NAME.herokuapp.com/admin/](https://APP_NAME.herokuapp.com/admin/) 
 
 TODO: Instructions for configuring S3. Recommendations for SMTP host. 
