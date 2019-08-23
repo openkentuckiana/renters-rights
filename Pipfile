@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 boto3 = ">=1.1.19"
-django = "==2.1.2"
+django = ">=2.1.2"
 django-debug-toolbar = "==1.10.1"
 django-heroku = "*"
 django-localflavor = "==2.1"

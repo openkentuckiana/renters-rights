@@ -1,7 +1,7 @@
 Renters' Rights
 ===============
 
-[![Build Status](https://travis-ci.com/codeforkentuckiana/renters-rights.svg?token=SpHpFMasorhC4oT8tCio&branch=master)](https://travis-ci.com/codeforkentuckiana/renters-rights) [![codecov](https://codecov.io/gh/codeforkentuckiana/renters-rights/branch/master/graph/badge.svg?token=0nA3LW7RQO)](https://codecov.io/gh/codeforkentuckiana/renters-rights)
+[![Build Status](https://travis-ci.com/codeforkyana/renters-rights.svg?branch=master)](https://travis-ci.com/codeforkyana/renters-rights) [![codecov](https://codecov.io/gh/codeforkyana/renters-rights/branch/master/graph/badge.svg)](https://codecov.io/gh/codeforkyana/renters-rights)
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
