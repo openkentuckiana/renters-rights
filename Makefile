@@ -45,6 +45,9 @@ clean: stop
 build:
 	@docker-compose build app
 
+collectstatic:
+	@docker-compose run --rm app python ./manage.py collectstatic
+
 test: 
 	@docker-compose run -e DJANGO_SETTINGS_MODULE=renters_rights.settings.test --rm app ./wait-for-it.sh db:5432 --timeout=60 -- python ./manage.py test --keepdb
 
