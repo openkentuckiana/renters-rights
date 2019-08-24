@@ -31,9 +31,6 @@ help:
 	@echo "Attach to running Django app:"
 	@echo "    make attach"
 	@echo ""
-	@echo "To run tests serially (useful to set breakpoints):"
-	@echo "    make test-noparallel"
-	@echo ""
 	@echo "See contents of Makefile for more targets."
 
 begin: build makemigrations migrate fixtures start
@@ -63,14 +60,10 @@ collectstatic:
 	@docker-compose run --rm app python ./manage.py collectstatic
 
 test: 
-	@docker-compose run -e DJANGO_SETTINGS_MODULE=renters_rights.settings.test --rm app ./wait-for-it.sh db:5432 --timeout=60 -- python ./manage.py test --keepdb --parallel
-
-# Useful for local testing where you need to hit a breakpoint
-test-noparallel:
 	@docker-compose run -e DJANGO_SETTINGS_MODULE=renters_rights.settings.test --rm app ./wait-for-it.sh db:5432 --timeout=60 -- python ./manage.py test --keepdb
 
 testwithcoverage: build 
-	@docker-compose run -e DJANGO_SETTINGS_MODULE=renters_rights.settings.test -e GIT_SHA=$(GIT_SHA) -e CODECOV_TOKEN=$(CODECOV_TOKEN) --rm app bash -c "./wait-for-it.sh db:5432 --timeout=60 -- coverage run --source='.' ./manage.py test --keepdb --noinput --parallel && codecov --commit=$(GIT_SHA)"
+	@docker-compose run -e DJANGO_SETTINGS_MODULE=renters_rights.settings.test -e GIT_SHA=$(GIT_SHA) -e CODECOV_TOKEN=$(CODECOV_TOKEN) --rm app bash -c "./wait-for-it.sh db:5432 --timeout=60 -- coverage run --source='.' ./manage.py test --keepdb --noinput && codecov --commit=$(GIT_SHA)"
 
 makemigrations:
 	@docker-compose run --rm app ./wait-for-it.sh db:5432 --timeout=60 -- python ./manage.py makemigrations

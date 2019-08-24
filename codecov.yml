@@ -1,6 +1,7 @@
 ignore:
   - "renters_rights"
   - "test_*.py"
+  - "**/migrations/*.py"
 
 fixes:
-  - "app/::renters_rights/"
+  - "::renters_rights/"
