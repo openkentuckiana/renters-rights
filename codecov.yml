@@ -3,6 +3,3 @@ ignore:
   - "**/tests/*.py"
   - "**/test_*.py"
   - "**/migrations/*.py"
-
-fixes:
-  - "::renters_rights/"
