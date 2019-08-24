@@ -11,6 +11,16 @@ from units.tests import UnitBaseTestCase
 
 
 class UnitViewTests(UnitBaseTestCase):
+    def test_index_view_logged_out(self):
+        response = self.client.get(reverse("homepage"))
+        self.assertTemplateUsed(response, "index-logged-out.html")
+
+    def test_index_view_logged_in(self):
+        c = Client()
+        c.force_login(UnitViewTests.u)
+        response = c.get(reverse("homepage"))
+        self.assertTemplateUsed(response, "index.html")
+
     def test_list_view_no_units_returned_when_not_logged_in(self):
         response = self.client.get(reverse("unit-list"))
         self.assertEqual(response.status_code, 200)

@@ -5,10 +5,8 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
-from django.urls import reverse
 from django.views.generic import CreateView, DetailView, ListView, View
 
-from lib.mixins import AjaxableResponseMixin
 from lib.views import ProtectedView
 from units.forms import UnitForm
 from units.models import Unit
