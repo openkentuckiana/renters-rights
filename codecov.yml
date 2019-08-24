@@ -3,4 +3,4 @@ ignore:
   - "test_*.py"
 
 fixes:
-  - "::renters_rights/"  # move path   e.g., "before/path" => "after/path"
+  - "app/::renters_rights/"
