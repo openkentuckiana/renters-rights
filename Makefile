@@ -62,7 +62,10 @@ collectstatic:
 test: 
 	@docker-compose run -e DJANGO_SETTINGS_MODULE=renters_rights.settings.test --rm app ./wait-for-it.sh db:5432 --timeout=60 -- python ./manage.py test --keepdb
 
-testwithcoverage: build 
+testwithcoverage: build
+	@docker-compose run -e DJANGO_SETTINGS_MODULE=renters_rights.settings.test -e GIT_SHA=$(GIT_SHA) -e CODECOV_TOKEN=$(CODECOV_TOKEN) --rm app bash -c "./wait-for-it.sh db:5432 --timeout=60 -- coverage run --source='.' ./manage.py test --keepdb --noinput && coverage html"
+
+testwithcoverage-codecov: build
 	@docker-compose run -e DJANGO_SETTINGS_MODULE=renters_rights.settings.test -e GIT_SHA=$(GIT_SHA) -e CODECOV_TOKEN=$(CODECOV_TOKEN) --rm app bash -c "./wait-for-it.sh db:5432 --timeout=60 -- coverage run --source='.' ./manage.py test --keepdb --noinput && codecov --commit=$(GIT_SHA)"
 
 makemigrations:

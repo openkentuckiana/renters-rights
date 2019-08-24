@@ -80,3 +80,5 @@ venv.bak/
 
 # Project-specific
 staticfiles/
+renters_rights/.coverage
+renters_rights/htmlcov/

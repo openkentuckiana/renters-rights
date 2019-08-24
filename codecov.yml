@@ -1,4 +1,5 @@
 ignore:
+  - "manage.py"
   - "renters_rights"
   - "**/tests/*.py"
   - "**/test_*.py"

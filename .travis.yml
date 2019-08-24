@@ -8,4 +8,4 @@ before_script:
   - sudo service postgresql stop
 
 script:
-  - make testwithcoverage
+  - make testwithcoverage-codecov

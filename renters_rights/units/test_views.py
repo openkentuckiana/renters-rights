@@ -1,7 +1,9 @@
+import json
 from unittest.mock import patch
 
 from django.test import Client
 from django.urls import reverse
+from freezegun import freeze_time
 
 from noauth.models import User
 from units.models import Unit, UnitImage
@@ -81,3 +83,38 @@ class UnitViewTests(UnitBaseTestCase):
         response = c.post(reverse("unit-create"), {"unit_address_1": "my_address"})
         self.assertRedirects(response, reverse("unit-list"))
         assert Unit.objects.get(unit_address_1="my_address") is not None
+
+    @freeze_time("2000-01-01")
+    def test_sign_files(self):
+        c = Client()
+        c.force_login(UnitViewTests.u)
+        response = c.post(
+            reverse("sign-files"), json.dumps({"files": ["file1.jpg", "file2.jpg"]}), content_type="application/json"
+        )
+        self.assertJSONEqual(
+            str(response.content, encoding="utf8"),
+            {
+                "file1.jpg": {
+                    "url": "https://renters-rights-uploads-test.s3.amazonaws.com/",
+                    "fields": {
+                        "acl": "private",
+                        "Content-Type": "image/png",
+                        "key": "eleanor@shellstrop.com/file1.jpg",
+                        "AWSAccessKeyId": "INVALID",
+                        "policy": "eyJleHBpcmF0aW9uIjogIjIwMDAtMDEtMDFUMDE6MDA6MDBaIiwgImNvbmRpdGlvbnMiOiBbeyJhY2wiOiAicHJpdmF0ZSJ9LCB7IkNvbnRlbnQtVHlwZSI6ICJpbWFnZS9wbmcifSwgWyJjb250ZW50LWxlbmd0aC1yYW5nZSIsIDUwMDAsIDE1MDAwMDAwXSwgeyJidWNrZXQiOiAicmVudGVycy1yaWdodHMtdXBsb2Fkcy10ZXN0In0sIHsia2V5IjogImVsZWFub3JAc2hlbGxzdHJvcC5jb20vZmlsZTEuanBnIn1dfQ==",
+                        "signature": "i1HURmd5vT8qSQ6pWrE7MkxhteA=",
+                    },
+                },
+                "file2.jpg": {
+                    "url": "https://renters-rights-uploads-test.s3.amazonaws.com/",
+                    "fields": {
+                        "acl": "private",
+                        "Content-Type": "image/png",
+                        "key": "eleanor@shellstrop.com/file2.jpg",
+                        "AWSAccessKeyId": "INVALID",
+                        "policy": "eyJleHBpcmF0aW9uIjogIjIwMDAtMDEtMDFUMDE6MDA6MDBaIiwgImNvbmRpdGlvbnMiOiBbeyJhY2wiOiAicHJpdmF0ZSJ9LCB7IkNvbnRlbnQtVHlwZSI6ICJpbWFnZS9wbmcifSwgWyJjb250ZW50LWxlbmd0aC1yYW5nZSIsIDUwMDAsIDE1MDAwMDAwXSwgeyJidWNrZXQiOiAicmVudGVycy1yaWdodHMtdXBsb2Fkcy10ZXN0In0sIHsia2V5IjogImVsZWFub3JAc2hlbGxzdHJvcC5jb20vZmlsZTIuanBnIn1dfQ==",
+                        "signature": "CQmgOFWj8WCawFd1JkUH3A7gcOs=",
+                    },
+                },
+            },
+        )
