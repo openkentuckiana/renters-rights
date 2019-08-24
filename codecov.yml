@@ -1,3 +1,6 @@
 ignore:
   - "renters_rights"
+  - "test_*.py"
 
+fixes:
+  - "::renters_rights/"  # move path   e.g., "before/path" => "after/path"
