@@ -1,12 +1,29 @@
+from unittest.mock import patch
+
 from django.test import Client
 from django.urls import reverse
 
+from noauth.models import User
 from units.models import Unit, UnitImage
 from units.tests import UnitBaseTestCase
 
 
 class UnitViewTests(UnitBaseTestCase):
-    def test_two_units(self):
+    def test_list_view_no_units_returned_when_not_logged_in(self):
+        response = self.client.get(reverse("unit-list"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "No units.")
+        self.assertQuerysetEqual(response.context["unit_list"], [])
+
+    def test_list_view_returns_a_signed_in_users_units_one_unit(self):
+        c = Client()
+        c.force_login(UnitViewTests.u)
+        response = c.get(reverse("unit-list"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, UnitViewTests.unit.unit_address_1)
+        assert UnitViewTests.unit in response.context["unit_list"]
+
+    def test_list_view_returns_a_signed_in_users_units_two_units(self):
         unit2 = Unit.objects.create(unit_address_1="u2", owner=UnitViewTests.u)
         i1 = UnitImage.objects.create(image=self.get_image_file(size=(200, 200)), unit=unit2, owner=UnitViewTests.u)
         i2 = UnitImage.objects.create(image=self.get_image_file(size=(200, 200)), unit=unit2, owner=UnitViewTests.u)
@@ -23,16 +40,44 @@ class UnitViewTests(UnitBaseTestCase):
         assert UnitViewTests.unit in response.context["unit_list"]
         assert unit2 in response.context["unit_list"]
 
-    def test_one_unit(self):
+    def test_list_view_does_not_return_another_users_units(self):
+        other_user = User.objects.create(is_active=True, username="tahani@al-jamil.com")
+        other_user_unit = Unit.objects.create(unit_address_1="other", owner=other_user)
+
         c = Client()
         c.force_login(UnitViewTests.u)
         response = c.get(reverse("unit-list"))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, UnitViewTests.unit.unit_address_1)
         assert UnitViewTests.unit in response.context["unit_list"]
+        assert other_user_unit not in response.context["unit_list"]
 
-    def test_no_when_not_logged_in(self):
-        response = self.client.get(reverse("unit-list"))
+    def test_detail_view_requires_login(self):
+        view_url = reverse("unit-detail", args=[self.unit.slug])
+        response = self.client.get(view_url)
+        self.assertRedirects(response, f"{reverse('noauth:log-in')}?next={view_url}")
+
+    def test_detail_view_returns_expected_unit(self):
+        c = Client()
+        c.force_login(UnitViewTests.u)
+        response = c.get(reverse("unit-detail", args=[self.unit.slug]))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "No units.")
-        self.assertQuerysetEqual(response.context["unit_list"], [])
+        self.assertContains(response, UnitViewTests.unit.unit_address_1)
+
+    def test_create_view_requires_login(self):
+        view_url = reverse("unit-create")
+        response = self.client.get(view_url)
+        self.assertRedirects(response, f"{reverse('noauth:log-in')}?next={view_url}")
+
+    def test_create_view_creates_and_redirects_to_expected_url(self):
+        c = Client()
+        c.force_login(UnitViewTests.u)
+        response = c.post(reverse("unit-create"), {"unit_address_1": "my_address"})
+        self.assertRedirects(response, reverse("unit-list"))
+
+    def test_create_view_creates_and_redirects_to_expected_url(self):
+        c = Client()
+        c.force_login(UnitViewTests.u)
+        response = c.post(reverse("unit-create"), {"unit_address_1": "my_address"})
+        self.assertRedirects(response, reverse("unit-list"))
+        assert Unit.objects.get(unit_address_1="my_address") is not None

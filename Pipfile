@@ -33,6 +33,7 @@ isort = "*"
 mock = "*"
 pre-commit = "==1.11.0"
 PyHamcrest = "*"
+tblib = "*"
 
 [requires]
 python_version = "3.7"

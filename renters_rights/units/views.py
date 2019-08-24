@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.urls import reverse
 from django.views.generic import CreateView, DetailView, ListView, View
 
 from lib.mixins import AjaxableResponseMixin
@@ -44,7 +45,7 @@ class UnitDetailView(DetailView, ProtectedView):
         return Unit.objects.for_user(self.request.user)
 
 
-class UnitCreate(AjaxableResponseMixin, CreateView, ProtectedView):
+class UnitCreate(CreateView, ProtectedView):
     template_name = "units/unit_form.html"
     form_class = UnitForm
     success_url = "/units/"

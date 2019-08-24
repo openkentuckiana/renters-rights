@@ -5,7 +5,7 @@ from .views import IndexView, UnitCreate, UnitDetailView, UnitListView, sign_fil
 urlpatterns = [
     path("", IndexView.as_view(), name="homepage"),
     path("units/", UnitListView.as_view(), name="unit-list"),
-    path("unit/new/", UnitCreate.as_view()),
-    path("unit/new/sign-files/", sign_files),
+    path("unit/new/", UnitCreate.as_view(), name="unit-create"),
+    path("unit/new/sign-files/", sign_files, name="sign_files"),
     path("unit/<slug:slug>/", UnitDetailView.as_view(), name="unit-detail"),
 ]

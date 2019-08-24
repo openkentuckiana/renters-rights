@@ -59,7 +59,7 @@ class UnitForm(forms.ModelForm):
             raise forms.ValidationError(
                 _("You may only upload a maximum of %(max_docs)d documents") % {"max_docs": settings.MAX_DOCUMENTS_PER_UNIT}
             )
-        if len(self.data.get("s3_pictures", []).split(",")) > settings.MAX_PICTURES_PER_UNIT:
+        if len(self.data.get("s3_pictures", "").split(",")) > settings.MAX_PICTURES_PER_UNIT:
             raise forms.ValidationError(
                 _("You may only upload a maximum of %(max_pics)s pictures") % {"max_pics": settings.MAX_PICTURES_PER_UNIT}
             )

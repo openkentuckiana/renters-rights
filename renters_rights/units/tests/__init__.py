@@ -11,7 +11,7 @@ from units.models import Unit
 class UnitBaseTestCase(TestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.u = User.objects.create(is_active=True, email="eleanor@shellstrop.com")
+        cls.u = User.objects.create(is_active=True, username="eleanor@shellstrop.com")
         cls.unit = Unit.objects.create(unit_address_1="u", owner=cls.u)
 
     @staticmethod

@@ -13,8 +13,26 @@ help:
 	@echo "If tests pass, add fixture data and start up the app:"
 	@echo "    make begin"
 	@echo ""
-	@echo "Really, really start over:"
+	@echo "To start app (skipping image build and fixture installation):"
+	@echo "    make start"
+	@echo ""
+	@echo "To stop app:"
+	@echo "    make stop"
+	@echo ""
+	@echo "To stop and start app:"
+	@echo "    make restart"
+	@echo ""
+	@echo "To rebuild images (needed after adding dependency):"
+	@echo "    make build"
+	@echo ""
+	@echo "Reset container database and volumes:"
 	@echo "    make clean"
+	@echo ""
+	@echo "Attach to running Django app:"
+	@echo "    make attach"
+	@echo ""
+	@echo "To run tests serially (useful to set breakpoints):"
+	@echo "    make test-noparallel"
 	@echo ""
 	@echo "See contents of Makefile for more targets."
 
@@ -27,10 +45,6 @@ start:
 
 stop:
 	@docker-compose stop
-
-# This will remove the DB
-down:
-	@docker-compose down -v
 
 status:
 	@docker-compose ps
@@ -49,10 +63,14 @@ collectstatic:
 	@docker-compose run --rm app python ./manage.py collectstatic
 
 test: 
+	@docker-compose run -e DJANGO_SETTINGS_MODULE=renters_rights.settings.test --rm app ./wait-for-it.sh db:5432 --timeout=60 -- python ./manage.py test --keepdb --parallel
+
+# Useful for local testing where you need to hit a breakpoint
+test-noparallel:
 	@docker-compose run -e DJANGO_SETTINGS_MODULE=renters_rights.settings.test --rm app ./wait-for-it.sh db:5432 --timeout=60 -- python ./manage.py test --keepdb
 
 testwithcoverage: build 
-	@docker-compose run -e DJANGO_SETTINGS_MODULE=renters_rights.settings.test -e GIT_SHA=$(GIT_SHA) -e CODECOV_TOKEN=$(CODECOV_TOKEN) --rm app bash -c "./wait-for-it.sh db:5432 --timeout=60 -- coverage run --source='.' ./manage.py test --keepdb && codecov --commit=$(GIT_SHA)"
+	@docker-compose run -e DJANGO_SETTINGS_MODULE=renters_rights.settings.test -e GIT_SHA=$(GIT_SHA) -e CODECOV_TOKEN=$(CODECOV_TOKEN) --rm app bash -c "./wait-for-it.sh db:5432 --timeout=60 -- coverage run --source='.' ./manage.py test --keepdb --noinput --parallel && codecov --commit=$(GIT_SHA)"
 
 makemigrations:
 	@docker-compose run --rm app ./wait-for-it.sh db:5432 --timeout=60 -- python ./manage.py makemigrations
