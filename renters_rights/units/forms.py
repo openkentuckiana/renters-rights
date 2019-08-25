@@ -84,10 +84,8 @@ class UnitForm(forms.ModelForm):
                 endpoint_url=settings.AWS_S3_ENDPOINT_URL,
             )
             s3_response_object = s3.get_object(Bucket=settings.AWS_UPLOAD_BUCKET_NAME, Key=path)
-            thing = s3_response_object["Body"].read()
-
-            # return ImageFile(ContentFile(thing))
-            return InMemoryUploadedFile(ContentFile(thing), None, path, "image/png", len(thing), None)
+            file = s3_response_object["Body"].read()
+            return InMemoryUploadedFile(ContentFile(file), None, path, "image/png", len(file), None)
 
         def create_image(img, image_type, owner, unit, download=False):
             if not img:
@@ -104,12 +102,13 @@ class UnitForm(forms.ModelForm):
             # problematic on Heroku
             with ThreadPoolExecutor(max_workers=settings.MAX_THREAD_POOL_WORKERS) as executor:
                 futures = []
-                for image in self.files.getlist("documents"):
-                    futures.append(executor.submit(create_image, image, DOCUMENT, instance.owner, instance))
+                if self.files:
+                    for image in self.files.getlist("documents"):
+                        futures.append(executor.submit(create_image, image, DOCUMENT, instance.owner, instance))
+                    for image in self.files.getlist("pictures"):
+                        futures.append(executor.submit(create_image, image, PICTURE, instance.owner, instance))
                 for path in self.data.get("s3_documents", "").split(","):
                     futures.append(executor.submit(create_image, path, DOCUMENT, instance.owner, instance, True))
-                for image in self.files.getlist("pictures"):
-                    futures.append(executor.submit(create_image, image, PICTURE, instance.owner, instance))
                 for path in self.data.get("s3_pictures", "").split(","):
                     futures.append(executor.submit(create_image, path, DOCUMENT, instance.owner, instance, True))
                 wait(futures, return_when=FIRST_EXCEPTION)
