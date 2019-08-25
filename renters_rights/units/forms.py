@@ -46,14 +46,15 @@ class UnitForm(forms.ModelForm):
     s3_pictures = forms.CharField(widget=forms.HiddenInput(), required=False)
 
     def clean(self):
-        if len(self.files.getlist("documents")) > settings.MAX_DOCUMENTS_PER_UNIT:
-            raise forms.ValidationError(
-                _("You may only upload a maximum of %(max_docs)d documents") % {"max_docs": settings.MAX_DOCUMENTS_PER_UNIT}
-            )
-        if len(self.files.getlist("pictures")) > settings.MAX_PICTURES_PER_UNIT:
-            raise forms.ValidationError(
-                _("You may only upload a maximum of %(max_pics)s pictures") % {"max_pics": settings.MAX_PICTURES_PER_UNIT}
-            )
+        if self.files:
+            if len(self.files.getlist("documents")) > settings.MAX_DOCUMENTS_PER_UNIT:
+                raise forms.ValidationError(
+                    _("You may only upload a maximum of %(max_docs)d documents") % {"max_docs": settings.MAX_DOCUMENTS_PER_UNIT}
+                )
+            if len(self.files.getlist("pictures")) > settings.MAX_PICTURES_PER_UNIT:
+                raise forms.ValidationError(
+                    _("You may only upload a maximum of %(max_pics)s pictures") % {"max_pics": settings.MAX_PICTURES_PER_UNIT}
+                )
 
         if len(self.data.get("s3_documents", "").split(",")) > settings.MAX_DOCUMENTS_PER_UNIT:
             raise forms.ValidationError(
