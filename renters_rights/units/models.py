@@ -26,7 +26,8 @@ from lib.models import UserOwnedModel
 logger = logging.getLogger(__name__)
 
 DOCUMENT = "D"
-PICTURE = "P"
+MOVE_IN_PICTURE = "P"
+MOVE_OUT_PICTURE = "P"
 
 
 def generate_file_path(instance, filename):
@@ -71,13 +72,13 @@ class Unit(UserOwnedModel):
 
 
 class UnitImage(UserOwnedModel):
-    IMAGE_TYPE_CHOICES = [(DOCUMENT, "Document"), (PICTURE, "Picture")]
+    IMAGE_TYPE_CHOICES = [(DOCUMENT, "Document"), (MOVE_IN_PICTURE, "Move In Picture"), (MOVE_OUT_PICTURE, "Move Out Picture")]
 
     image = models.ImageField(upload_to=generate_file_path)
     full_size_height = models.PositiveIntegerField(default=0)
     full_size_width = models.PositiveIntegerField(default=0)
     thumbnail_sizes = ArrayField(models.SmallIntegerField(), blank=True, null=True)
-    image_type = models.CharField(max_length=1, choices=IMAGE_TYPE_CHOICES, default=PICTURE)
+    image_type = models.CharField(max_length=3, choices=IMAGE_TYPE_CHOICES, default=DOCUMENT)
     unit = models.ForeignKey(Unit, on_delete=models.CASCADE)
 
     @property

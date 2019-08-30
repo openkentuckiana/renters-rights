@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<div>
+    <form method="post" enctype="multipart/form-data" id="unit_form">
+        {% csrf_token %}
+        <table id="unit_form_table">
+            {{ form.as_table }}
+        </table>
+        <button id="unit_form_submit">{% trans "Submit" %}</button>
+        <a href="{% url 'unit-list' %}">{% trans "Cancel" %}</a>
+    </form>
+    <span id="status"></span>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/screw-filereader@1.4.3/index.min.js"></script>
+<script type="text/javascript">
+
+const form_submit = document.getElementById("unit_form_submit");
+const status = document.getElementById("status");
+
+var resize = function(file) {
+    return new Promise(function(resolve, reject) {
+        file.image().then(img => {
+            const canvas = document.createElement('canvas')
+            const ctx = canvas.getContext('2d')
+            const maxWidth = 1500
+            const maxHeight = 1500
+
+            const ratio = Math.min(maxWidth / img.width, maxHeight / img.height)
+            const width = img.width * ratio + .5 | 0
+            const height = img.height * ratio + .5 | 0
+
+            canvas.width = width
+            canvas.height = height
+
+            ctx.drawImage(img, 0, 0, width, height)
+
+            canvas.toBlob(blob => {
+              const resizedFile = new File([blob], file.name + ".png", file);
+              resizedFile.uploadType = file.uploadType;
+              resolve(resizedFile)
+            })
+        })
+    })
+}
+
+var getSignatures = function(files) {
+    return new Promise(function(resolve, reject) {
+        var x = new XMLHttpRequest();
+        x.responseType = 'json';
+
+        x.onreadystatechange = function () {
+            if (x.readyState === 4 && x.status === 200) {
+                for (let f of files) {
+                    resp = x.response;
+                    f.s3Data = resp[f.name];
+                    f.url = resp[f.name].url
+                }
+                resolve(files);
+            } else if (x.readyState === 4) {
+                reject(x.response);
+            }
+        }
+
+        x.open("POST", "{% url 'sign-files' %}", true);
+        x.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+        x.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+        x.send(JSON.stringify({ "files": files.map(f => f.name) }));
+    })
+}
+
+var uploadFile = function(file) {
+    return new Promise(function(resolve, reject) {
+        var x = new XMLHttpRequest();
+
+        x.onreadystatechange = function() {
+            if(x.readyState === 4) {
+                if(x.status === 200 || x.status === 204) {
+                    resolve(file);
+                } else {
+                    reject(x.response);
+                }
+            }
+        }
+
+        var postData = new FormData();
+        for(key in file.s3Data.fields){
+            postData.append(key, file.s3Data.fields[key]);
+        }
+        postData.append('file', file);
+
+        x.open("POST", file.url, true);
+        x.send(postData);
+    })
+}
+
+var submitForm = function(uploadedFiles) {
+    status.innerHTML = "Processing...";
+
+    var x = new XMLHttpRequest();
+
+    x.onreadystatechange = function () {
+        if (x.readyState === 4 && x.status === 400) {
+            const formTable = document.getElementById("unit_form_table");
+            formTable.innerHTML = x.responseText;
+            status.innerHTML = "";
+            return false;
+        } else if (x.readyState === 4) {
+            window.location.href = '/units/';
+            return true;
+        }
+    }
+
+    const formData = new FormData(document.getElementById("unit_form"));
+    formData.delete("images");
+    formData.delete("s3_images");
+    formData.append("s3_images", uploadedFiles.map(f => f.name).join(","))
+
+    x.open('POST', ".");
+    x.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+    x.send(formData);
+}
+
+form_submit.onclick = function(event) {
+    form_submit.disabled = true;
+    event.preventDefault();
+
+    const imagesInput = document.getElementById("id_images");
+    const images = Array.from(imagesInput.files);
+
+    if (images.length == 0 || (images.length + {{form.current_image_count}}) > {{form.max_images}}) {
+        const form = document.getElementById("unit_form")
+        form.submit();
+        return;
+    }
+
+    status.innerHTML = "Resizing images.";
+    Promise.all(images.map(resize))
+        .then(resizedFiles => getSignatures(resizedFiles))
+        .then(resizedFiles => {
+            status.innerHTML = "Uploading images.";
+            Promise.all(resizedFiles.map(f => uploadFile(f)))
+                .then(uploadedFiles => {
+                    form_submit.disabled = submitForm(uploadedFiles);
+            })
+        })
+}
+</script>
+
+{% endblock %}
