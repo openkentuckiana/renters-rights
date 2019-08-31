@@ -1,15 +1,9 @@
 import logging
-from concurrent.futures import FIRST_EXCEPTION, wait
-from concurrent.futures.thread import ThreadPoolExecutor
 
-import boto3
 from django import forms
-from django.conf import settings
-from django.core.files.base import ContentFile
-from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.utils.translation import gettext_lazy as _
 
-from units.models import DOCUMENT, PICTURE, Unit, UnitImage, delete_thumbnails
+from units.models import Unit
 
 logger = logging.getLogger(__name__)
 
@@ -35,94 +29,40 @@ class UnitForm(forms.ModelForm):
             "rent_due_date",
         ]
 
-    documents = forms.ImageField(
-        label=_("Documents"), widget=forms.ClearableFileInput(attrs={"multiple": True}), required=False
-    )
 
-    pictures = forms.ImageField(label=_("Pictures"), widget=forms.ClearableFileInput(attrs={"multiple": True}), required=False)
+class UnitAddImageForm(forms.Form):
+    def __init__(self, unit, label, max_images, current_image_count, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.unit = unit
+        self.label = label
+        self.max_images = max_images
+        self.current_image_count = current_image_count
 
-    s3_documents = forms.CharField(widget=forms.HiddenInput(), required=False)
+        self.fields["images"] = forms.ImageField(
+            label=self.label, widget=forms.ClearableFileInput(attrs={"multiple": True}), required=False
+        )
 
-    s3_pictures = forms.CharField(widget=forms.HiddenInput(), required=False)
+    s3_images = forms.CharField(widget=forms.HiddenInput(), required=False)
 
     def clean(self):
-        if self.files:
-            if len(self.files.getlist("documents")) > settings.MAX_DOCUMENTS_PER_UNIT:
-                raise forms.ValidationError(
-                    _("You may only upload a maximum of %(max_docs)d documents") % {"max_docs": settings.MAX_DOCUMENTS_PER_UNIT}
-                )
-            if len(self.files.getlist("pictures")) > settings.MAX_PICTURES_PER_UNIT:
-                raise forms.ValidationError(
-                    _("You may only upload a maximum of %(max_pics)s pictures") % {"max_pics": settings.MAX_PICTURES_PER_UNIT}
-                )
+        s3_images = [i for i in self.data.get("s3_images", "").split(",") if i]
+        if not (self.files and len(self.files.getlist("images")) > 0) and not len(s3_images) > 0:
+            raise forms.ValidationError(_("Please select at least one image."))
 
-        if len(self.data.get("s3_documents", "").split(",")) > settings.MAX_DOCUMENTS_PER_UNIT:
-            raise forms.ValidationError(
-                _("You may only upload a maximum of %(max_docs)d documents") % {"max_docs": settings.MAX_DOCUMENTS_PER_UNIT}
-            )
-        if len(self.data.get("s3_pictures", "").split(",")) > settings.MAX_PICTURES_PER_UNIT:
-            raise forms.ValidationError(
-                _("You may only upload a maximum of %(max_pics)s pictures") % {"max_pics": settings.MAX_PICTURES_PER_UNIT}
-            )
+        error_message = _("You may only upload a maximum of %(max_docs)d %(item_name)s.") % {
+            "max_docs": self.max_images,
+            "item_name": self.label.lower(),
+        }
+
+        if self.current_image_count > 0:
+            error_message = _(
+                "You may only upload a maximum of %(max_docs)d %(item_name)s. You already have %(current_image_count)d."
+            ) % {"max_docs": self.max_images, "item_name": self.label.lower(), "current_image_count": self.current_image_count}
+
+        if self.files and (len(self.files.getlist("images")) + self.current_image_count) > self.max_images:
+            raise forms.ValidationError(error_message)
+
+        if (len(s3_images) + self.current_image_count) > self.max_images:
+            raise forms.ValidationError(error_message)
 
         return super().clean()
-
-    def save(self, **kwargs):
-        instance = super().save()
-
-        def download_image(path):
-            if not path:
-                return None
-
-            # Make sure we only get images from the user's folder
-            path = f"{instance.owner.username}/{path}"
-
-            s3 = boto3.client(
-                "s3",
-                aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
-                aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
-                endpoint_url=settings.AWS_S3_ENDPOINT_URL,
-            )
-            s3_response_object = s3.get_object(Bucket=settings.AWS_UPLOAD_BUCKET_NAME, Key=path)
-            file = s3_response_object["Body"].read()
-            return InMemoryUploadedFile(ContentFile(file), None, path, "image/png", len(file), None)
-
-        def create_image(img, image_type, owner, unit, download=False):
-            if not img:
-                return
-            if download:
-                img = download_image(img)
-            UnitImage.objects.create(image=img, image_type=image_type, owner=owner, unit=unit)
-
-        documents = []
-        pictures = []
-
-        try:
-            # Multithreading image creation can really speed up this request, but uses o(n) memory, which can be
-            # problematic on Heroku
-            with ThreadPoolExecutor(max_workers=settings.MAX_THREAD_POOL_WORKERS) as executor:
-                futures = []
-                if self.files:
-                    for image in self.files.getlist("documents"):
-                        futures.append(executor.submit(create_image, image, DOCUMENT, instance.owner, instance))
-                    for image in self.files.getlist("pictures"):
-                        futures.append(executor.submit(create_image, image, PICTURE, instance.owner, instance))
-                for path in self.data.get("s3_documents", "").split(","):
-                    futures.append(executor.submit(create_image, path, DOCUMENT, instance.owner, instance, True))
-                for path in self.data.get("s3_pictures", "").split(","):
-                    futures.append(executor.submit(create_image, path, DOCUMENT, instance.owner, instance, True))
-                wait(futures, return_when=FIRST_EXCEPTION)
-                for f in futures:
-                    if f.exception():
-                        raise f.exception()
-        except Exception:
-            logger.debug("Failed to create unit or unit images. Deleting any uploaded images and thumbnails.")
-            for i in documents + pictures:
-                delete_thumbnails(None, i, None)
-            try:
-                instance.delete()
-            except Exception:
-                logger.exception("Failed to delete Unit")
-            raise
-
-        return instance

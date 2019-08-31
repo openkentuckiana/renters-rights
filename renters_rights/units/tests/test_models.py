@@ -1,13 +1,17 @@
 import datetime
 import os
+from io import BytesIO
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.core.files import File
 from django.core.files.storage import default_storage
-from django.test import override_settings
-from hamcrest import assert_that, equal_to, starts_with
+from django.test import TransactionTestCase, override_settings
+from hamcrest import assert_that, equal_to, only_contains, starts_with
+from PIL import Image
 
-from units.models import Unit, UnitImage
+from noauth.models import User
+from units.models import DOCUMENT, MOVE_IN_PICTURE, MOVE_OUT_PICTURE, Unit, UnitImage
 from units.tests import UnitBaseTestCase
 
 
@@ -26,6 +30,50 @@ class UnitModelTests(UnitBaseTestCase):
         sixty_character_name = "a" * 65
         u = Unit.objects.create(unit_address_1=sixty_character_name, owner=UnitModelTests.u)
         assert_that(u.slug, starts_with(f"{sixty_character_name[:45]}-"))
+
+    @override_settings(UNIT_IMAGE_MIN_HEIGHT_AND_WIDTH=10)
+    @override_settings(UNIT_IMAGE_MAX_HEIGHT_AND_WIDTH=20)
+    @override_settings(UNIT_IMAGE_SIZES=[5, 10, 20])
+    def test_pictures_returns_only_pictures(self):
+        mi_picture = UnitImage.objects.create(
+            image=self.get_image_file(size=(20, 20)),
+            image_type=MOVE_IN_PICTURE,
+            unit=UnitModelTests.unit,
+            owner=UnitModelTests.u,
+        )
+        mo_picture = UnitImage.objects.create(
+            image=self.get_image_file(size=(20, 20)),
+            image_type=MOVE_OUT_PICTURE,
+            unit=UnitModelTests.unit,
+            owner=UnitModelTests.u,
+        )
+        document = UnitImage.objects.create(
+            image=self.get_image_file(size=(20, 20)), image_type=DOCUMENT, unit=UnitModelTests.unit, owner=UnitModelTests.u
+        )
+
+        assert_that(UnitModelTests.unit.pictures(), only_contains(mi_picture, mo_picture))
+
+    @override_settings(UNIT_IMAGE_MIN_HEIGHT_AND_WIDTH=10)
+    @override_settings(UNIT_IMAGE_MAX_HEIGHT_AND_WIDTH=20)
+    @override_settings(UNIT_IMAGE_SIZES=[5, 10, 20])
+    def test_documents_returns_only_documents(self):
+        mi_picture = UnitImage.objects.create(
+            image=self.get_image_file(size=(20, 20)),
+            image_type=MOVE_IN_PICTURE,
+            unit=UnitModelTests.unit,
+            owner=UnitModelTests.u,
+        )
+        mo_picture = UnitImage.objects.create(
+            image=self.get_image_file(size=(20, 20)),
+            image_type=MOVE_OUT_PICTURE,
+            unit=UnitModelTests.unit,
+            owner=UnitModelTests.u,
+        )
+        document = UnitImage.objects.create(
+            image=self.get_image_file(size=(20, 20)), image_type=DOCUMENT, unit=UnitModelTests.unit, owner=UnitModelTests.u
+        )
+
+        assert_that(UnitModelTests.unit.documents(), only_contains(document))
 
 
 class UnitImageModelTests(UnitBaseTestCase):

@@ -26,12 +26,13 @@ from lib.models import UserOwnedModel
 logger = logging.getLogger(__name__)
 
 DOCUMENT = "D"
-PICTURE = "P"
+MOVE_IN_PICTURE = "MIP"
+MOVE_OUT_PICTURE = "MOP"
 
 
 def generate_file_path(instance, filename):
     """Generates a file upload path."""
-    return f'uploads/{datetime.datetime.utcnow().strftime("%Y/%m/%d")}/{filename}'
+    return f"uploads/{instance.owner.slug}/{filename}"
 
 
 class Unit(UserOwnedModel):
@@ -65,19 +66,25 @@ class Unit(UserOwnedModel):
     def __str__(self):
         return f"{self.unit_address_1}"
 
+    def pictures(self):
+        return self.unitimage_set.filter(image_type__in=(MOVE_IN_PICTURE, MOVE_OUT_PICTURE)).order_by("-created_at")
+
+    def documents(self):
+        return self.unitimage_set.filter(image_type=DOCUMENT).order_by("-created_at")
+
     def save(self, *args, **kwargs):
         self.slug = f"{slugify(self.unit_address_1)[:45]}-{''.join(choices(string.ascii_lowercase + string.digits, k=10))}"
         super().save(*args, **kwargs)
 
 
 class UnitImage(UserOwnedModel):
-    IMAGE_TYPE_CHOICES = [(DOCUMENT, "Document"), (PICTURE, "Picture")]
+    IMAGE_TYPE_CHOICES = [(DOCUMENT, "Document"), (MOVE_IN_PICTURE, "Move In Picture"), (MOVE_OUT_PICTURE, "Move Out Picture")]
 
     image = models.ImageField(upload_to=generate_file_path)
     full_size_height = models.PositiveIntegerField(default=0)
     full_size_width = models.PositiveIntegerField(default=0)
     thumbnail_sizes = ArrayField(models.SmallIntegerField(), blank=True, null=True)
-    image_type = models.CharField(max_length=1, choices=IMAGE_TYPE_CHOICES, default=PICTURE)
+    image_type = models.CharField(max_length=3, choices=IMAGE_TYPE_CHOICES, default=DOCUMENT)
     unit = models.ForeignKey(Unit, on_delete=models.CASCADE)
 
     @property
@@ -95,13 +102,16 @@ class UnitImage(UserOwnedModel):
     def __str__(self):
         return f"{self.image.name}"
 
+    def upload_time(self):
+        return f"{self.created_at.strftime('%A %B %m, %Y at %I:%M %p')} GMT"
+
     def save(self, *args, **kwargs):
         min_size = settings.UNIT_IMAGE_MIN_HEIGHT_AND_WIDTH
         max_size = settings.UNIT_IMAGE_MAX_HEIGHT_AND_WIDTH
         if self.image.height < min_size or self.image.width < min_size:
             raise ValidationError(_(f"Images must be over {min_size} pixels tall and wide. Please upload a larger image."))
 
-        file_path = f'uploads/{datetime.datetime.utcnow().strftime("%Y/%m/%d")}/{str(uuid.uuid4())}'
+        file_path = f"uploads/{self.owner.slug}/{str(uuid.uuid4())}"
         self.thumbnail_sizes = []
 
         im = Image.open(self.image).convert("RGB")
