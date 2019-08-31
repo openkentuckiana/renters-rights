@@ -71,9 +71,6 @@ class UnitAddImagesFormViewBase(FormView):
         return form_kwargs
 
     def download_image(self, path, unit):
-        if not path:
-            return None
-
         # Make sure we only get images from the user's folder
         path = f"{unit.owner.username}/{path}"
 
@@ -142,7 +139,7 @@ class UnitAddMoveOutPicturesFormView(UnitAddImagesFormViewBase):
 
     def get_form_kwargs(self):
         form_kwargs = super().get_form_kwargs()
-        form_kwargs["label"] = _("Move-in Pictures")
+        form_kwargs["label"] = _("Move-out Pictures")
         form_kwargs["max_images"] = settings.MAX_MOVE_OUT_PICTURES_PER_UNIT
         form_kwargs["current_image_count"] = UnitImage.objects.for_user(
             self.request.user, unit=form_kwargs["unit"], image_type=MOVE_OUT_PICTURE
