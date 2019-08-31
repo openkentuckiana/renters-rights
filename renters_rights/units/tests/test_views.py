@@ -1,12 +1,17 @@
 import json
+from io import BytesIO
+from unittest.mock import patch
 
-from django.test import Client
+from django.core.exceptions import ValidationError
+from django.core.files import File
+from django.test import Client, TransactionTestCase, override_settings
 from django.urls import reverse
 from freezegun import freeze_time
-from hamcrest import assert_that, contains, contains_inanyorder, not_, not_none
+from hamcrest import assert_that, contains, contains_inanyorder, equal_to, has_length, not_, not_none
+from PIL import Image
 
 from noauth.models import User
-from units.models import Unit, UnitImage
+from units.models import MOVE_IN_PICTURE, Unit, UnitImage
 from units.tests import UnitBaseTestCase
 
 
@@ -37,8 +42,12 @@ class UnitViewTests(UnitBaseTestCase):
 
     def test_list_view_returns_a_signed_in_users_units_two_units(self):
         unit2 = Unit.objects.create(unit_address_1="u2", owner=UnitViewTests.u)
-        i1 = UnitImage.objects.create(image=self.get_image_file(size=(200, 200)), unit=unit2, owner=UnitViewTests.u)
-        i2 = UnitImage.objects.create(image=self.get_image_file(size=(200, 200)), unit=unit2, owner=UnitViewTests.u)
+        i1 = UnitImage.objects.create(
+            image=self.get_image_file(size=(200, 200)), image_type=MOVE_IN_PICTURE, unit=unit2, owner=UnitViewTests.u
+        )
+        i2 = UnitImage.objects.create(
+            image=self.get_image_file(size=(200, 200)), image_type=MOVE_IN_PICTURE, unit=unit2, owner=UnitViewTests.u
+        )
 
         c = Client()
         c.force_login(UnitViewTests.u)
@@ -98,7 +107,9 @@ class UnitViewTests(UnitBaseTestCase):
         c = Client()
         c.force_login(UnitViewTests.u)
         response = c.post(
-            reverse("sign-files"), json.dumps({"files": ["file1.jpg", "file2.jpg"]}), content_type="application/json"
+            reverse("sign-files", args=[UnitViewTests.unit.slug]),
+            json.dumps({"files": ["file1.jpg", "file2.jpg"]}),
+            content_type="application/json",
         )
         self.assertJSONEqual(
             str(response.content, encoding="utf8"),
@@ -127,3 +138,47 @@ class UnitViewTests(UnitBaseTestCase):
                 },
             },
         )
+
+    @override_settings(MAX_DOCUMENTS_PER_UNIT=1)
+    @override_settings(MAX_MOVE_IN_PICTURES_PER_UNIT=1)
+    @override_settings(MAX_MOVE_OUT_PICTURES_PER_UNIT=1)
+    @patch("django.db.models.query.QuerySet.count")
+    def test_sign_files_returns_400_if_over_total_file_limit(self, m_count):
+        m_count.return_value = 3
+
+        c = Client()
+        c.force_login(UnitViewTests.u)
+        response = c.post(
+            reverse("sign-files", args=[UnitViewTests.unit.slug]),
+            json.dumps({"files": ["file1.jpg"]}),
+            content_type="application/json",
+        )
+        assert_that(response.status_code, equal_to(400))
+
+
+class UnitAddDocumentsFormViewTests(TransactionTestCase):
+    @staticmethod
+    def get_image_file(name="test.png", ext="png", size=(50, 50), color=(256, 0, 0)):
+        file_obj = BytesIO()
+        image = Image.new("RGBA", size=size, color=color)
+        image.save(file_obj, ext)
+        file_obj.seek(0)
+        return File(file_obj, name=name)
+
+    @override_settings(UNIT_IMAGE_MIN_HEIGHT_AND_WIDTH=10)
+    @override_settings(UNIT_IMAGE_MAX_HEIGHT_AND_WIDTH=20)
+    @override_settings(UNIT_IMAGE_SIZES=[5, 10, 20])
+    def test_unit_form_valid_two_documents(self):
+        u = User.objects.create(is_active=True, username="eleanor@shellstrop.com")
+        unit = Unit.objects.create(unit_address_1="u", owner=u)
+
+        c = Client()
+        c.force_login(u)
+
+        i1 = UnitBaseTestCase.get_image_file()
+        i2 = UnitBaseTestCase.get_image_file()
+
+        response = c.post(reverse("unit-add-documents", args=[unit.slug]), {"images": [i1, i2]})
+        self.assertRedirects(response, reverse("unit-list"))
+        unit.refresh_from_db()
+        assert_that(unit.unitimage_set.all(), has_length(2))

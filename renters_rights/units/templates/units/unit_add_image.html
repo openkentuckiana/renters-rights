@@ -64,7 +64,7 @@ var getSignatures = function(files) {
             }
         }
 
-        x.open("POST", "{% url 'sign-files' %}", true);
+        x.open("POST", "{% url 'sign-files' form.unit.slug %}", true);
         x.setRequestHeader("X-Requested-With", "XMLHttpRequest");
         x.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
         x.send(JSON.stringify({ "files": files.map(f => f.name) }));

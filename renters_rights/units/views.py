@@ -7,7 +7,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.http import JsonResponse
+from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -15,7 +15,7 @@ from django.views.generic import CreateView, DetailView, FormView, ListView, Vie
 
 from lib.views import ProtectedView
 from units.forms import UnitAddImageForm, UnitForm
-from units.models import DOCUMENT, Unit, UnitImage
+from units.models import DOCUMENT, MOVE_IN_PICTURE, MOVE_OUT_PICTURE, Unit, UnitImage
 
 
 class IndexView(View):
@@ -59,21 +59,15 @@ class UnitCreate(CreateView, ProtectedView):
         return super().form_valid(form)
 
 
-class UnitAddDocuments(FormView):
-    """Handles the login form where users enter their email addresses to start the login process.
-    After entering an email address, the user will be sent a log in link and code they can use to log in without a password.
-    If a user doesn't exist, a user is created."""
-
+class UnitAddImagesFormViewBase(FormView):
     template_name = "units/unit_add_image.html"
     form_class = UnitAddImageForm
+    image_type = None
 
     def get_form_kwargs(self):
         form_kwargs = super().get_form_kwargs()
-        unit = Unit.objects.get_for_user(self.request.user, id=self.kwargs["unit_id"])
+        unit = Unit.objects.get_for_user(self.request.user, slug=self.kwargs["slug"])
         form_kwargs["unit"] = unit
-        form_kwargs["label"] = _("Documents")
-        form_kwargs["max_images"] = settings.MAX_DOCUMENTS_PER_UNIT
-        form_kwargs["current_image_count"] = UnitImage.objects.for_user(self.request.user, unit=unit).count()
         return form_kwargs
 
     def download_image(self, path, unit):
@@ -102,14 +96,14 @@ class UnitAddDocuments(FormView):
 
     def form_valid(self, form):
         # Multithreading image creation can really speed up this request, but uses o(n) memory, which can be
-        # problematic on Heroku
+        # problematic on Heroku)
         with ThreadPoolExecutor(max_workers=settings.MAX_THREAD_POOL_WORKERS) as executor:
             futures = []
             if form.files:
                 for image in form.files.getlist("images"):
-                    futures.append(executor.submit(self.create_image, image, DOCUMENT, form.unit))
+                    futures.append(executor.submit(self.create_image, image, self.image_type, form.unit))
             for path in form.data.get("s3_images", "").split(","):
-                futures.append(executor.submit(self.create_image, path, DOCUMENT, form.unit, True))
+                futures.append(executor.submit(self.create_image, path, self.image_type, form.unit, True))
             wait(futures, return_when=FIRST_EXCEPTION)
             for f in futures:
                 if f.exception():
@@ -117,8 +111,47 @@ class UnitAddDocuments(FormView):
         return redirect(reverse_lazy("unit-list"))
 
 
+class UnitAddDocumentsFormView(UnitAddImagesFormViewBase):
+    image_type = DOCUMENT
+
+    def get_form_kwargs(self):
+        form_kwargs = super().get_form_kwargs()
+        form_kwargs["label"] = _("Documents")
+        form_kwargs["max_images"] = settings.MAX_DOCUMENTS_PER_UNIT
+        form_kwargs["current_image_count"] = UnitImage.objects.for_user(
+            self.request.user, unit=form_kwargs["unit"], image_type=DOCUMENT
+        ).count()
+        return form_kwargs
+
+
+class UnitAddMoveInPicturesFormView(UnitAddImagesFormViewBase):
+    image_type = MOVE_IN_PICTURE
+
+    def get_form_kwargs(self):
+        form_kwargs = super().get_form_kwargs()
+        form_kwargs["label"] = _("Move-in Pictures")
+        form_kwargs["max_images"] = settings.MAX_MOVE_IN_PICTURES_PER_UNIT
+        form_kwargs["current_image_count"] = UnitImage.objects.for_user(
+            self.request.user, unit=form_kwargs["unit"], image_type=MOVE_IN_PICTURE
+        ).count()
+        return form_kwargs
+
+
+class UnitAddMoveOutPicturesFormView(UnitAddImagesFormViewBase):
+    image_type = MOVE_OUT_PICTURE
+
+    def get_form_kwargs(self):
+        form_kwargs = super().get_form_kwargs()
+        form_kwargs["label"] = _("Move-in Pictures")
+        form_kwargs["max_images"] = settings.MAX_MOVE_OUT_PICTURES_PER_UNIT
+        form_kwargs["current_image_count"] = UnitImage.objects.for_user(
+            self.request.user, unit=form_kwargs["unit"], image_type=MOVE_OUT_PICTURE
+        ).count()
+        return form_kwargs
+
+
 @login_required
-def sign_files(request):
+def sign_files(request, slug):
     s3 = boto3.client(
         "s3",
         aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
@@ -126,8 +159,16 @@ def sign_files(request):
         endpoint_url=settings.AWS_S3_ENDPOINT_URL,
     )
 
+    files = json.loads(request.body)["files"]
+
+    existing_image_count = Unit.objects.get_for_user(request.user, slug=slug).unitimage_set.count()
+    if (existing_image_count + len(files)) > (
+        settings.MAX_DOCUMENTS_PER_UNIT + settings.MAX_MOVE_IN_PICTURES_PER_UNIT + settings.MAX_MOVE_OUT_PICTURES_PER_UNIT
+    ):
+        return HttpResponseBadRequest("Too many files.")
+
     resp = {}
-    for f in json.loads(request.body)["files"]:
+    for f in files:
         resp[f] = s3.generate_presigned_post(
             Bucket=settings.AWS_UPLOAD_BUCKET_NAME,
             Key=f"{request.user.username}/{f}",

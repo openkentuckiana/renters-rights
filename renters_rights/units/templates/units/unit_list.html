@@ -10,6 +10,13 @@
 {% for u in unit_list %}
     <div class="unit" style="border: 1px solid gray;">
         <h3>{{ u.unit_address_1 }}</h3>
+
+        <div class="unit-upload-images">
+            <a href="{% url 'unit-add-documents' u.slug %}">{% trans 'Upload Documents' %}</a><br>
+            <a href="{% url 'unit-add-move-in-pictures' u.slug %}">{% trans 'Upload Move-in Pictures' %}</a><br>
+            <a href="{% url 'unit-add-move-out-pictures' u.slug %}">{% trans 'Upload Move-out Pictures' %}</a><br>
+        </div>
+
         <div class="unit-info">
             {% field_name model 'unit_address_1' %}: {{ u.unit_address_1 }}<br>
             {% field_name model 'unit_address_2' %}: {{ u.unit_address_2 }}<br>
@@ -34,8 +41,8 @@
         </div>
 
         <div class="images">
-            {% for i in u.unitimage_set.all %}
-                <img src="{{ i.thumbnail }}" width="200"><br>
+            {% for i in u.pictures %}
+                <img src="{{ i.thumbnail }}" width="200" alt="Picture uploaded {{ i.upload_time }}"><br>
             {% endfor %}
         </div>
     </div>
