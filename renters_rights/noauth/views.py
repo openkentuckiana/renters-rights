@@ -13,6 +13,10 @@ from .forms import CodeForm, LoginForm
 from .models import AuthCode, User
 
 
+def normalize_email(email):
+    return email.lower().strip() if email else None
+
+
 class CodeView(View):
     """
     Handles the code form where the user enters their email address and code to authenticate.
@@ -24,17 +28,16 @@ class CodeView(View):
     success_url = "/"
 
     def get(self, request, *args, **kwargs):
-        email = self.request.GET.get("email")
+        email = normalize_email(self.request.GET.get("email"))
         code = self.request.GET.get("code")
 
-        form = self.form_class(initial={"email": email, "code": code})
+        form = self.form_class({"email": email, "code": code}, initial={"email": email, "code": code})
 
-        if email and code:
+        if email and code and form.is_valid():
             auth_code = self._validate_and_get_auth_code(email, code)
             if auth_code:
                 login(request, auth_code.user)
                 return redirect(auth_code.next_page)
-
             form.add_error(None, ValidationError(_("Invalid e-mail address or code."), code="invalid_email_or_code"))
 
         return render(request, self.template_name, {"form": form})
@@ -42,7 +45,7 @@ class CodeView(View):
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
-            email = form.cleaned_data["email"]
+            email = normalize_email(form.cleaned_data["email"])
             code = form.cleaned_data["code"]
             auth_code = self._validate_and_get_auth_code(email, code)
             if auth_code:
@@ -78,8 +81,7 @@ class LoginView(FormView):
     success_url = reverse_lazy("noauth:code")
 
     def form_valid(self, form):
-        email = form.cleaned_data["email"]
-        # TODO - Email cleanup and normalization - lowercase, etc. Look at django-auth.
+        email = normalize_email(form.cleaned_data["email"])
         user = self.get_user(email)
         if not user:
             user = self.create_user(email)
@@ -98,6 +100,6 @@ class LoginView(FormView):
 
     def get_user(self, email):
         try:
-            return User.objects.get(email=email)
+            return User.objects.get(username=email)
         except User.DoesNotExist:
             return None

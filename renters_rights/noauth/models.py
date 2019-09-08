@@ -34,7 +34,7 @@ class AuthCode(BaseModel):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="auth_codes", editable=False, on_delete=models.CASCADE)
     code = models.CharField(max_length=20, editable=False)
     timestamp = models.DateTimeField(editable=False, auto_now=True)
-    next_page = models.TextField(editable=False)
+    next_page = models.TextField(editable=False, default="/")
 
     def __str__(self):
         return f"{self.user.username} - {self.code}"
