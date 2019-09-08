@@ -60,7 +60,7 @@ collectstatic:
 	@docker-compose run --rm app python ./manage.py collectstatic
 
 test: 
-	@docker-compose run -e DJANGO_SETTINGS_MODULE=renters_rights.settings.test --rm app ./wait-for-it.sh db:5432 --timeout=60 -- python ./manage.py test --keepdb
+	@docker-compose run -e DJANGO_SETTINGS_MODULE=renters_rights.settings.test --rm app ./wait-for-it.sh db:5432 --timeout=60 -- python ./manage.py test --keepdb $(labels)
 
 testwithcoverage:
 	@docker-compose run -e DJANGO_SETTINGS_MODULE=renters_rights.settings.test --rm app bash -c "./wait-for-it.sh db:5432 --timeout=60 -- coverage run --source='.' ./manage.py test --keepdb --noinput && coverage html"

@@ -57,6 +57,15 @@ If you want to start the app and automatically show logs, you can combine the `b
 
 Advanced Topics
 -----------------
+### Running a subset of tests
+You can use test labels as described in the [Django testing documentation](https://docs.djangoproject.com/en/2.2/topics/testing/overview/#running-tests) to run a subset of tests.
+
+For example, to run a single test:
+`make test labels=noauth.tests.test_views.CodeViewTests.test_validate_and_get_redirect_uri_returns_next_page_from_auth_code`
+
+Or to run all tests in a class:
+`make test labels=noauth.tests.test_views.CodeViewTests`
+
 ### Debugging via `pdb`
 `pdb` is the Python debugger, and it provides a useful way to interact with a running program.
 

@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from hamcrest import assert_that, equal_to, none
 
-from .models import DEFAULT_CODE_LENGTH, AuthCode, User
+from noauth.models import DEFAULT_CODE_LENGTH, AuthCode, User
 
 
 class AuthCodeModelTests(TestCase):
