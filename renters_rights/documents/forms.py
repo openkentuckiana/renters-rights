@@ -56,6 +56,25 @@ class BaseDocumentForm(forms.Form):
         )
         return [self.__getitem__(f) for (f, v) in self.fields.items() if f not in static_fields]
 
+    def clean(self):
+        super().clean()
+        use_unit_address = self.cleaned_data.get("use_unit_address")
+        sender_address_1 = self.cleaned_data.get("sender_address_1")
+        sender_city = self.cleaned_data.get("sender_city")
+        sender_state = self.cleaned_data.get("sender_state")
+        sender_zip_code = self.cleaned_data.get("sender_zip_code")
+
+        if not use_unit_address and (not sender_address_1 or not sender_city or not sender_state or not sender_zip_code):
+            raise forms.ValidationError(_("Please enter sender information"))
+        elif use_unit_address:
+            if not self.cleaned_data.get("unit"):
+                raise forms.ValidationError(_("Please select a unit"))
+            self.cleaned_data["sender_address_1"] = self.cleaned_data["unit"].unit_address_1
+            self.cleaned_data["sender_address_2"] = self.cleaned_data["unit"].unit_address_2
+            self.cleaned_data["sender_city"] = self.cleaned_data["unit"].unit_city
+            self.cleaned_data["sender_state"] = self.cleaned_data["unit"].unit_state
+            self.cleaned_data["sender_zip_code"] = self.cleaned_data["unit"].unit_zip_code
+
 
 class DocumentForm(BaseDocumentForm):
     def __init__(self, user, *args, **kwargs):
@@ -64,7 +83,6 @@ class DocumentForm(BaseDocumentForm):
         self.document_template = document_template
         super().__init__(user, *args, **kwargs)
 
-        # data = kwargs.get("data")
         for f in document_template.document_fields.all():
             field_name = f.name.lower()
 
@@ -80,9 +98,6 @@ class DocumentForm(BaseDocumentForm):
                 self.fields[field_name].widget.attrs["class"] = "required"
             else:
                 self.fields[field_name].required = False
-
-            # if data:
-            #     self.fields[field_name].initial = data.get(field_name)
 
 
 class PhotosDocumentForm(BaseDocumentForm):
