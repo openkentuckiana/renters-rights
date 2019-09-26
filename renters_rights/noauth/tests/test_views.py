@@ -1,13 +1,12 @@
 import datetime
 from unittest.mock import patch
 
-from django.test import TestCase, override_settings
+from django.test import override_settings
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from freezegun import freeze_time
 from hamcrest import assert_that, contains, equal_to, has_key, none
 
-# from districts.models import District
 from noauth.forms import CodeForm
 from noauth.models import AuthCode, User
 from noauth.tests import UnitBaseTestCase

@@ -11,10 +11,7 @@ class DocumentTemplate(models.Model):
     )
 
     def fields(self):
-        if self.pk:
-            return DocumentField.objects.filter(document=self.pk)
-        else:
-            return None
+        return DocumentField.objects.filter(document=self.pk)
 
     def __str__(self):
         return self.name

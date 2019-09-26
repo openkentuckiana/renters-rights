@@ -34,6 +34,7 @@ mock = "*"
 pre-commit = "==1.11.0"
 PyHamcrest = "*"
 tblib = "*"
+PyPDF2 = "*"
 
 [requires]
 python_version = "3.7"

@@ -1,9 +1,4 @@
-import datetime
-
 from django.test import TestCase
-from django.urls import reverse
-from django.utils import timezone
-from django.utils.translation import gettext as _
 from hamcrest import assert_that, has_key
 
 from noauth.forms import CodeForm, LoginForm

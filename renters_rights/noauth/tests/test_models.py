@@ -3,7 +3,6 @@ from django.conf import settings
 from django.core import mail
 from django.template.loader import render_to_string
 from django.test import TestCase, override_settings
-from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from hamcrest import assert_that, equal_to, none
 
