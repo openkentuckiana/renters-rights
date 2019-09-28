@@ -2,7 +2,6 @@ import json
 from io import BytesIO
 from unittest.mock import patch
 
-from django.core.exceptions import ValidationError
 from django.core.files import File
 from django.test import Client, TransactionTestCase, override_settings
 from django.urls import reverse
