@@ -95,7 +95,7 @@ class SmallClaimsDocumentFormView(FormView, ProtectedView):
         plaintiff_name = (
             f"{self.request.user.first_name} {self.request.user.first_name}"
             if (self.request.user.first_name and self.request.user.first_name)
-            else f"{form.cleaned_data.county.sender_first_name} {form.cleaned_data.county.sender_last_name}"
+            else f"{form.cleaned_data['sender_first_name']} {form.cleaned_data['sender_last_name']}"
         )
 
         data_dict = {
