@@ -28,7 +28,7 @@ class UnitViewTests(UnitBaseTestCase):
     def test_list_view_no_units_returned_when_not_logged_in(self):
         response = self.client.get(reverse("unit-list"))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "No units.")
+        self.assertContains(response, "You have not created any rental units.")
         self.assertQuerysetEqual(response.context["unit_list"], [])
 
     def test_list_view_returns_a_signed_in_users_units_one_unit(self):
