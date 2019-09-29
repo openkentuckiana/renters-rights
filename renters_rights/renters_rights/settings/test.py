@@ -7,3 +7,5 @@ EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = "/tmp/"
+
+STATICFILES_STORAGE = None
