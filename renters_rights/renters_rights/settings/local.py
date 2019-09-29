@@ -54,3 +54,5 @@ while sleep < 30:
         time.sleep(sleep)
         sleep *= 2
 ########## END S3 CONFIGURATION
+
+SASS_PROCESSOR_ENABLED = True

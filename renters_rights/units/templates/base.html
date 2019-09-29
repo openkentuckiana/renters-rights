@@ -1,7 +1,7 @@
 <!doctype html>
 
 {% load i18n %}
-{% load staticfiles %}
+{% load sass_tags %}
 {% load active_link_tags %}
 
 <html>
@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js" type="text/javascript"></script>
     <title>Renters Rights</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/site.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% sass_src 'css/site.scss' %}">
   </head>
   <body>
         <nav class="navigation">

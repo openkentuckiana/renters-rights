@@ -76,6 +76,7 @@ INSTALLED_APPS = [
     "documents",
     "noauth",
     "active_link",
+    "sass_processor",
 ]
 
 MIDDLEWARE = [
@@ -153,10 +154,18 @@ USE_L10N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    "sass_processor.finders.CssFinder",
+]
+
+
 STATIC_URL = "/s/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
+SASS_PROCESSOR_ENABLED = True
 
 LOCALE_PATHS = [os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "locale"))]
 

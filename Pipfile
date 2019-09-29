@@ -24,6 +24,9 @@ pytz = "==2018.5"
 whitenoise = "*"
 weasyprint = "*"
 django-active-link = "*"
+libsass = "*"
+django-compressor = "*"
+django-sass-processor = "*"
 
 [dev-packages]
 black = "==19.3b0"

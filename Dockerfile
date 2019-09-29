@@ -20,7 +20,8 @@ RUN pipenv install --system --skip-lock $pipenv_arg
 ADD ./renters_rights/ /app
 
 ENV DJANGO_SETTINGS_MODULE=renters_rights.settings.base
-RUN python manage.py collectstatic --noinput
+RUN python manage.py compilescss
+RUN python manage.py collectstatic --noinput --ignore=*.scss
 
 ENV DJANGO_SETTINGS_MODULE=renters_rights.settings.production
 
