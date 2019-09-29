@@ -15,11 +15,10 @@
   <body>
         <nav class="navigation">
             <ul class="nav-left">
-                <li><a href="{% url 'homepage' %}">Logo</a></li>
-                <li><a href="{% url 'homepage' %}" class="{% active_link 'homepage' %}">{% trans "Home" %}</a></li>
+                <li><a href="{% url 'homepage' %}">Home</a></li>
                 <li><a href="{% url 'unit-list' %}" class="{% active_link 'unit-list' %}">{% trans "Rental Units" %}</a></li>
                 <li><a href="{% url 'documents:document-list' %}" class="{% active_link 'documents:document-list' %}">
-                {% trans "Document Generator" %}</a></li>
+                {% trans "Documents & Letters" %}</a></li>
             </ul>
             <ul class="nav-right">
                 {% if user.is_authenticated %}
@@ -30,7 +29,13 @@
                 {% endif %}
             </ul>
         </nav>
-        <div class="messages">
+        <div class="container">
+            <div class="content">
+                {% block content %}
+                {% endblock content %}
+            </div>
+        </div>
+        <div class="message-container">
             {% if messages %}
             <ul class="messages">
                 {% for message in messages %}
@@ -38,10 +43,6 @@
                 {% endfor %}
             </ul>
             {% endif %}
-        </div>
-        <div class="container">
-            {% block content %}
-            {% endblock content %}
         </div>
   </body>
 </html>

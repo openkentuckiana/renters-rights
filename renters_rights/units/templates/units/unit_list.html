@@ -5,49 +5,54 @@
 
 {% block content %}
 
-<a href="/unit/new/">Add new unit</a>
+<h2>{% trans 'Your rental units' %}</h2>
 
-{% for u in unit_list %}
-    <div class="unit" style="border: 1px solid gray;">
-        <h3>{{ u.unit_address_1 }}</h3>
+<div class="units">
+    {% for u in unit_list %}
 
-        <div class="unit-upload-images">
-            <a href="{% url 'unit-add-documents' u.slug %}">{% trans 'Upload Documents' %}</a><br>
-            <a href="{% url 'unit-add-move-in-pictures' u.slug %}">{% trans 'Upload Move-in Pictures' %}</a><br>
-            <a href="{% url 'unit-add-move-out-pictures' u.slug %}">{% trans 'Upload Move-out Pictures' %}</a><br>
+        <h3><a href="{% url 'unit-detail' u.slug %}">{{ u.unit_address_1 }}</a></h3>
+
+        <div class="unit">
+            <div class="unit-info">
+                <div class="address-info">
+                    {% field_name model 'unit_city' %}: {{ u.unit_city }}<br>
+                    {% field_name model 'unit_state' %}: {{ u.unit_state }}<br>
+                    {% field_name model 'unit_zip_code' %}: {{ u.unit_zip_code }}<br>
+                </div>
+
+                {% if u.pictures %}
+                    <h4>{% trans 'Pictures' %}</h4>
+                    <div class="images">
+                        {% for i in u.pictures %}
+                            <img src="{{ i.thumbnail }}" alt="Picture uploaded {{ i.upload_time }}">
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if u.documents %}
+                    <h4>{% trans 'Documents' %}</h4>
+                    <div class="images">
+                        {% for i in u.documents %}
+                            <img src="{{ i.thumbnail }}" alt="Document uploaded {{ i.upload_time }}">
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="unit-actions">
+                <div class="unit-upload-images">
+                    <a href="{% url 'unit-add-documents' u.slug %}">{% trans 'Add Documents' %}</a><br>
+                    <a href="{% url 'unit-add-move-in-pictures' u.slug %}">{% trans 'Add Move-in Pictures' %}</a><br>
+                    <a href="{% url 'unit-add-move-out-pictures' u.slug %}">{% trans 'Add Move-out Pictures' %}</a><br>
+                </div>
+                <a href="{% url 'unit-detail' u.slug %}" class="unit-edit">{% trans 'Edit Details' %}</a><br>
+                <a href="{% url 'unit-detail' u.slug %}" class="unit-delete">{% trans 'Delete' %}</a><br>
+            </div>
         </div>
+    {% empty %}
+        <p>{% trans 'You have not created any rental units.' %}</p>
+    {% endfor %}
+</div>
 
-        <div class="unit-info">
-            {% field_name model 'unit_address_1' %}: {{ u.unit_address_1 }}<br>
-            {% field_name model 'unit_address_2' %}: {{ u.unit_address_2 }}<br>
-            {% field_name model 'unit_city' %}: {{ u.unit_city }}<br>
-            {% field_name model 'unit_state' %}: {{ u.unit_state }}<br>
-            {% field_name model 'unit_zip_code' %}: {{ u.unit_zip_code }}<br>
-        </div>
-
-        <div class="landlord-info">
-            {% field_name model 'landlord_address_1' %}: {{ u.landlord_address_1 }}<br>
-            {% field_name model 'landlord_address_2' %}: {{ u.landlord_address_2 }}<br>
-            {% field_name model 'landlord_city' %}: {{ u.landlord_city }}<br>
-            {% field_name model 'landlord_state' %}: {{ u.landlord_state }}<br>
-            {% field_name model 'landlord_zip_code' %}: {{ u.landlord_zip_code }}<br>
-            {% field_name model 'landlord_phone_number' %}: {{ u.landlord_phone_number }}<br>
-        </div>
-
-        <div class="lease-info">
-            {% field_name model 'lease_start_date' %}: {{ u.lease_start_date|date:"SHORT_DATE_FORMAT" }}<br>
-            {% field_name model 'lease_end_date' %}: {{ u.lease_end_date|date:"SHORT_DATE_FORMAT" }}<br>
-            {% field_name model 'rent_due_date' %}: {{ u.rent_due_date|date:"SHORT_DATE_FORMAT" }}<br>
-        </div>
-
-        <div class="images">
-            {% for i in u.pictures %}
-                <img src="{{ i.thumbnail }}" width="200" alt="Picture uploaded {{ i.upload_time }}"><br>
-            {% endfor %}
-        </div>
-    </div>
-{% empty %}
-    <p>No units.</p>
-{% endfor %}
+<a href="/unit/new/" class="new-unit-button">Add new unit</a>
 
 {% endblock %}
