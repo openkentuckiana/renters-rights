@@ -13,6 +13,7 @@ DEBUG = str_to_bool(os.environ.get("DJANGO_DEBUG", False))
 
 ########## HOST CONFIGURATION
 ALLOWED_HOSTS = get_env_variable("ALLOWED_HOSTS").split(",")
+SECURE_SSL_REDIRECT = get_env_variable("SECURE_SSL_REDIRECT", True)
 ########## END HOST CONFIGURATION
 
 ########## EMAIL CONFIGURATION
