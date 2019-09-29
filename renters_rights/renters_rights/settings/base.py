@@ -165,8 +165,6 @@ STATIC_URL = "/s/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-SASS_PROCESSOR_ENABLED = True
-
 LOCALE_PATHS = [os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "locale"))]
 
 # User registration
