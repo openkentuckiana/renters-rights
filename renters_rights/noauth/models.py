@@ -48,8 +48,8 @@ class AuthCode(BaseModel):
         :return: True if an auth code was created and sent to the user. False if a new auth code wasn't created
         (a previous code exists and was created within the TTL).
         """
-        template = "login_email.txt"
-        html_template = "login_email.html"
+        template = "log-in-email.txt"
+        html_template = "log-in-email.html"
 
         auth_code = cls._create_code_for_user(user)
         if not auth_code:

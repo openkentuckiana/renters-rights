@@ -38,7 +38,7 @@ def str_to_int(value):
     return value if isinstance(value, int) else int(value)
 
 
-SITE_NAME = get_env_variable("SITE_NAME", "Renters' Rights")
+SITE_NAME = get_env_variable("SITE_NAME", "Renters' Haven")
 SITE_URL = get_env_variable("SITE_URL", "https://rr.com/")
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -75,6 +75,7 @@ INSTALLED_APPS = [
     "units",
     "documents",
     "noauth",
+    "active_link",
 ]
 
 MIDDLEWARE = [
@@ -152,9 +153,10 @@ USE_L10N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = "/dj-static/"
+STATIC_URL = "/s/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 
 LOCALE_PATHS = [os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "locale"))]
 

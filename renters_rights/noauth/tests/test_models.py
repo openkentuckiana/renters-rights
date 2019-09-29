@@ -51,5 +51,5 @@ class AuthCodeModelTests(TestCase):
             "email": auth_code.user.email,
             "site_name": settings.SITE_NAME,
         }
-        assert_that(mail.outbox[0].body, equal_to(render_to_string("login_email.txt", context)))
-        assert_that(mail.outbox[0].alternatives[0][0], equal_to(render_to_string("login_email.html", context)))
+        assert_that(mail.outbox[0].body, equal_to(render_to_string("log-in-email.txt", context)))
+        assert_that(mail.outbox[0].alternatives[0][0], equal_to(render_to_string("log-in-email.html", context)))

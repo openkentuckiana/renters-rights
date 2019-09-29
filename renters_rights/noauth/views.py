@@ -1,8 +1,10 @@
 import string
 from secrets import choice
 
-from django.contrib.auth import login
+from django.contrib import messages
+from django.contrib.auth import login, logout
 from django.forms import ValidationError
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -71,12 +73,12 @@ class CodeView(View):
         return auth_code
 
 
-class LoginView(FormView):
+class LogInView(FormView):
     """Handles the login form where users enter their email addresses to start the login process.
     After entering an email address, the user will be sent a log in link and code they can use to log in without a password.
     If a user doesn't exist, a user is created."""
 
-    template_name = "login.html"
+    template_name = "log-in.html"
     form_class = LoginForm
     success_url = reverse_lazy("noauth:code")
 
@@ -103,3 +105,15 @@ class LoginView(FormView):
             return User.objects.get(username=email)
         except User.DoesNotExist:
             return None
+
+
+class LogOutView(View):
+    template_name = "log-out.html"
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+
+    def post(self, request, *args, **kwargs):
+        messages.add_message(request, messages.SUCCESS, _("You have been logged out."))
+        logout(request)
+        return HttpResponseRedirect(reverse("homepage"))

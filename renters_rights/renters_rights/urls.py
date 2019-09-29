@@ -11,7 +11,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("auth/", include("noauth.urls")),
     path("documents/", include("documents.urls")),
-    url(r"^s3direct/", include("s3direct.urls")),
+    # url(r"^s3direct/", include("s3direct.urls")),
 ]
 
 if settings.DEBUG:

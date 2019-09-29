@@ -1,7 +1,7 @@
 import datetime
 from unittest.mock import patch
 
-from django.test import override_settings
+from django.test import Client, override_settings
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from freezegun import freeze_time
@@ -151,3 +151,18 @@ class LoginViewTests(UnitBaseTestCase):
             response.context["form"].errors["__all__"],
             contains(_("Please check your inbox and spam folder for a previously-sent code.")),
         )
+
+
+class LogOutViewTests(UnitBaseTestCase):
+    view_url = reverse("noauth:log-out")
+
+    def test_get_returns_log_out_page(self):
+        response = self.client.get(self.view_url)
+        self.assertContains(response, _("Cancel"))
+        self.assertContains(response, _("Log Out"))
+
+    def test_posting_a_user_that_does_not_exist_creates_user(self):
+        c = Client()
+        c.force_login(LogOutViewTests.u)
+        response = c.post(self.view_url)
+        self.assertRedirects(response, reverse("homepage"))

@@ -23,6 +23,7 @@ psycopg2-binary = "*"
 pytz = "==2018.5"
 whitenoise = "*"
 weasyprint = "*"
+django-active-link = "*"
 
 [dev-packages]
 black = "==19.3b0"
