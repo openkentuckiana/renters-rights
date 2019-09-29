@@ -19,6 +19,9 @@ RUN pipenv install --system --skip-lock $pipenv_arg
 
 ADD ./renters_rights/ /app
 
+ENV DJANGO_SETTINGS_MODULE=renters_rights.settings.base
+RUN python manage.py collectstatic --noinput
+
 ENV DJANGO_SETTINGS_MODULE=renters_rights.settings.production
 
 CMD /app/docker-entrypoint.sh
