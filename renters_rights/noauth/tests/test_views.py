@@ -138,14 +138,14 @@ class LoginViewTests(UnitBaseTestCase):
     ):
         m_send_auth_code.return_value = True
         response = self.client.post(self.view_url, {"email": LoginViewTests.u.username})
-        m_send_auth_code.assert_called_once_with(LoginViewTests.u, f"http://testserver{reverse('noauth:code')}")
+        m_send_auth_code.assert_called_once_with(LoginViewTests.u, f"http://testserver{reverse('noauth:code')}", None)
         self.assertRedirects(response, reverse("noauth:code") + f"?email={LoginViewTests.u.username}")
 
     @patch("noauth.models.AuthCode.send_auth_code")
     def test_posting_a_user_who_has_received_an_auth_code_returns_error(self, m_send_auth_code):
         m_send_auth_code.return_value = False
         response = self.client.post(self.view_url, {"email": LoginViewTests.u.username})
-        m_send_auth_code.assert_called_once_with(LoginViewTests.u, f"http://testserver{reverse('noauth:code')}")
+        m_send_auth_code.assert_called_once_with(LoginViewTests.u, f"http://testserver{reverse('noauth:code')}", None)
         assert_that(response.context["form"].errors, has_key("__all__"))
         assert_that(
             response.context["form"].errors["__all__"],

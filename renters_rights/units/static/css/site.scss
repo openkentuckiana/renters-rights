@@ -186,7 +186,7 @@ nav.navigation ul li {
 }
 
 ul.messages {
-    position: absolute;
+    position: fixed;
     z-index: 100;
     bottom: 5px;
     left: 50%;
@@ -281,6 +281,8 @@ h2 {
 
         .unit-info {
             max-width: 500px;
+            min-width: 250px;
+            margin-right: 30px;
         }
 
         .address-info {
@@ -336,4 +338,53 @@ h2 {
     margin: 15px 0 5px 0;
     background-color: $primary-color-7;
     font-size: 125%;
+}
+
+.unit-delete {
+    max-width: 500px;
+    background-color: $neutral-color-1;
+    border-top: 3px solid $red-5;
+
+    em {
+
+        font-weight: bold;
+    }
+
+    h2 {
+        font-size: 130%;
+        padding: 10px 20px 0 20px;
+    }
+
+    p {
+        margin: 10px 20px 10px 20px;
+        color: $neutral-color-6;
+    }
+
+    #buttons {
+        display: flex;
+        justify-content: flex-end;
+        background-color: $neutral-color-2;
+        padding: 5px 20px 5px 20px;
+
+        #unit-delete-cancel {
+            margin: 7px 15px 0 0;
+        }
+
+        #unit-delete-cancel a {
+            color: $neutral-color-6;
+            font-size: 105%;
+        }
+
+        #unit-delete-submit {
+            font-size: 120%;
+            white-space: nowrap;
+            display: inline-block;
+            color: $red-7;
+            text-decoration: none;
+            background-color: $red-2;
+            padding: 5px 15px 5px 15px;
+            border-radius: 5px;
+            border-color: $red-2;
+        }
+    }
 }

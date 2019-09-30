@@ -5,6 +5,7 @@
 {% block content %}
 
 <h3>Log In</h3>
+<p>{% trans "Enter your email address and we will send you a log in code." %}</p>
 <form method="post" >
     {% csrf_token %}
     {{ form }}

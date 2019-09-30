@@ -124,7 +124,7 @@ class UnitImageModelTests(UnitBaseTestCase):
             image=self.get_image_file(size=(20, 20)), unit=UnitImageModelTests.unit, owner=UnitImageModelTests.u
         )
         assert_that(default_storage.exists(image.image.path), equal_to(True))
-        assert_that(image.thumbnail, equal_to(settings.MEDIA_URL + image.image.name.replace(".jpg", "-10.jpg")))
+        assert_that(image.thumbnail, equal_to(settings.MEDIA_URL + image.image.name.replace(".jpg", "-5.jpg")))
 
     @override_settings(UNIT_IMAGE_MIN_HEIGHT_AND_WIDTH=10)
     @override_settings(UNIT_IMAGE_MAX_HEIGHT_AND_WIDTH=20)

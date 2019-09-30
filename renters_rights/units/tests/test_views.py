@@ -378,3 +378,28 @@ class UnitAddDocumentsFormViewPostTests(TransactionTestCase):
         self.assertContains(response, "Please select at least one image.")
         unit.refresh_from_db()
         assert_that(unit.unitimage_set.all(), has_length(0))
+
+
+class UnitDeleteViewTests(UnitBaseTestCase):
+    def test_get_returns_form(self):
+        u = User.objects.create(is_active=True, username="eleanor2@shellstrop.com")
+        unit = Unit.objects.create(unit_address_1="u", owner=u)
+
+        c = Client()
+        c.force_login(u)
+
+        response = c.get(reverse("unit-delete", args=[unit.slug]))
+        assert_that(response.status_code, equal_to(200))
+        self.assertContains(response, "Are you sure you want to delete this unit?")
+
+    def test_post_deletes_unit(self):
+        u = User.objects.create(is_active=True, username="eleanor2@shellstrop.com")
+        unit = Unit.objects.create(unit_address_1="u", owner=u)
+
+        c = Client()
+        c.force_login(u)
+
+        assert_that(Unit.objects.filter(id=unit.id).count(), equal_to(1))
+        response = c.post(reverse("unit-delete", args=[unit.slug]))
+        self.assertRedirects(response, reverse("unit-list"))
+        assert_that(Unit.objects.filter(id=unit.id).count(), equal_to(0))

@@ -45,7 +45,7 @@
                     <a href="{% url 'unit-add-move-out-pictures' u.slug %}">{% trans 'Add Move-out Pictures' %}</a><br>
                 </div>
                 <a href="{% url 'unit-detail' u.slug %}" class="unit-edit">{% trans 'Edit Details' %}</a><br>
-                <a href="{% url 'unit-detail' u.slug %}" class="unit-delete">{% trans 'Delete' %}</a><br>
+                <a href="{% url 'unit-delete' u.slug %}" class="unit-delete">{% trans 'Delete' %}</a><br>
             </div>
         </div>
     {% empty %}

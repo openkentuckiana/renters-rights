@@ -7,7 +7,7 @@ from .models import AuthCode, User
 
 @admin.register(AuthCode)
 class AuthCodeAdmin(admin.ModelAdmin):
-    pass
+    readonly_fields = ("code", "next_page", "timestamp", "user")
 
 
 @admin.register(User)

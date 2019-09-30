@@ -89,7 +89,7 @@ class UnitImage(UserOwnedModel):
 
     @property
     def thumbnail(self):
-        return default_storage.url(f"{self.image.name.split('.')[0]}-{self.thumbnail_sizes[0]}.jpg")
+        return default_storage.url(f"{self.image.name.split('.')[0]}-{self.thumbnail_sizes[-1]}.jpg")
 
     @property
     def thumbnail_internal(self):

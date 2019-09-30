@@ -40,18 +40,19 @@ class AuthCode(BaseModel):
         return f"{self.user.username} - {self.code}"
 
     @classmethod
-    def send_auth_code(cls, user, code_uri):
+    def send_auth_code(cls, user, code_uri, next_page=None):
         """
         Send an auth code to a user via email.
         :param user: The user to whom the auth code should be sent.
         :param code_uri: The full URI for the code page.
+        :param next_page: The page the user should be redirected to after login.
         :return: True if an auth code was created and sent to the user. False if a new auth code wasn't created
         (a previous code exists and was created within the TTL).
         """
         template = "log-in-email.txt"
         html_template = "log-in-email.html"
 
-        auth_code = cls._create_code_for_user(user)
+        auth_code = cls._create_code_for_user(user, next_page)
         if not auth_code:
             return False
         else:
@@ -97,6 +98,7 @@ class AuthCode(BaseModel):
             return None
 
         next_page = next_page or "/"
+        next_page = next_page.replace("://", "")
 
         valid_timestamp_start = timezone.now() - datetime.timedelta(
             minutes=getattr(settings, "NOAUTH_CODE_TTL_MINUTES", DEFAULT_CODE_TTL_MINUTES)
