@@ -33,7 +33,10 @@ class CodeView(View):
         email = normalize_email(self.request.GET.get("email"))
         code = self.request.GET.get("code")
 
-        form = self.form_class({"email": email, "code": code}, initial={"email": email, "code": code})
+        if email and code:
+            form = self.form_class({"email": email, "code": code}, initial={"email": email, "code": code})
+        else:
+            form = self.form_class(initial={"email": email, "code": code})
 
         if email and code and form.is_valid():
             auth_code = self._validate_and_get_auth_code(email, code)
@@ -90,7 +93,7 @@ class LogInView(FormView):
         if not user:
             user = self.create_user(email)
 
-        if AuthCode.send_auth_code(user, self.request.build_absolute_uri(reverse("noauth:code"))):
+        if AuthCode.send_auth_code(user, self.request.build_absolute_uri(reverse("noauth:code")), self.request.GET.get("next")):
             self.success_url += f"?email={user.username}"
             return super().form_valid(form)
         else:

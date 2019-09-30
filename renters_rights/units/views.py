@@ -4,14 +4,15 @@ from concurrent.futures.thread import ThreadPoolExecutor
 
 import boto3
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.http import HttpResponseBadRequest, JsonResponse
+from django.http import HttpResponseBadRequest, HttpResponseRedirect, JsonResponse
 from django.shortcuts import redirect, render
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, DetailView, FormView, ListView, View
+from django.views.generic import CreateView, DetailView, FormView, ListView, TemplateView, View
 
 from lib.views import ProtectedView
 from units.forms import UnitAddImageForm, UnitForm
@@ -57,6 +58,18 @@ class UnitCreate(CreateView, ProtectedView):
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super().form_valid(form)
+
+
+class UnitDeleteView(ProtectedView):
+    def get(self, request, *args, **kwargs):
+        unit = Unit.objects.get_for_user(self.request.user, slug=self.kwargs["slug"])
+        return render(request, "units/unit_delete.html", {"unit": unit})
+
+    def post(self, request, *args, **kwargs):
+        unit = Unit.objects.get_for_user(self.request.user, slug=self.kwargs["slug"])
+        unit.delete()
+        messages.add_message(request, messages.SUCCESS, _("Unit successfully deleted."))
+        return HttpResponseRedirect(reverse("unit-list"))
 
 
 class UnitAddImagesFormViewBase(FormView):

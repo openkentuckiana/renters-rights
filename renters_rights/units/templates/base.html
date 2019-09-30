@@ -9,20 +9,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js" type="text/javascript"></script>
-    <title>Renters Rights</title>
+    <title>Renters' Haven</title>
     <link rel="stylesheet" type="text/css" href="{% sass_src 'css/site.scss' %}">
   </head>
   <body>
         <nav class="navigation">
             <ul class="nav-left">
-                <li><a href="{% url 'homepage' %}">Home</a></li>
+                <li><a href="{% url 'homepage' %}">Home (Logo)</a></li>
                 <li><a href="{% url 'unit-list' %}" class="{% active_link 'unit-list' %}">{% trans "Rental Units" %}</a></li>
                 <li><a href="{% url 'documents:document-list' %}" class="{% active_link 'documents:document-list' %}">
                 {% trans "Documents & Letters" %}</a></li>
             </ul>
             <ul class="nav-right">
                 {% if user.is_authenticated %}
-                    <li><a href="{% url 'homepage' %}" class="{% active_link 'homepage' %}">{% trans "Account Details" %}</a></li>
+                    <li><a href="" class="{% active_link 'noauth:log-in' %}">{% trans "Account Details" %}</a></li>
                     <li><a href="{% url 'noauth:log-out' %}" class="{% active_link 'noauth:log-out' %}">{% trans "Log Out" %}</a></li>
                 {% else %}
                     <li><a href="{% url 'noauth:log-in' %}" class="{% active_link 'noauth:log-in' %}">{% trans "Log In" %}</a></li>
