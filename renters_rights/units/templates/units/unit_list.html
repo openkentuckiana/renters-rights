@@ -5,21 +5,21 @@
 
 {% block content %}
 
-<h2>{% trans 'Your rental units' %}</h2>
+<h1>{% trans 'Your rental units' %}</h1>
 
 <div class="units">
     {% for u in unit_list %}
-
-        <h3><a href="{% url 'unit-detail' u.slug %}">{{ u.unit_address_1 }}</a></h3>
-
         <div class="unit">
             <div class="unit-info">
-                <div class="address-info">
-                    {% field_name model 'unit_city' %}: {{ u.unit_city }}<br>
-                    {% field_name model 'unit_state' %}: {{ u.unit_state }}<br>
-                    {% field_name model 'unit_zip_code' %}: {{ u.unit_zip_code }}<br>
-                </div>
-
+                <h3><a href="{% url 'unit-detail' u.slug %}">{{ u.unit_address_1 }}</a></h3>
+<!--            <a href="{% url 'unit-detail' u.slug %}" class="unit-edit">{% trans 'Edit Details' %}</a>-->
+                {% if u.unit_city or u.unit_state or u.unit_zip_code %}
+                    <div class="address-info">
+                        {% field_name model 'unit_city' %}: {{ u.unit_city }}<br>
+                        {% field_name model 'unit_state' %}: {{ u.unit_state }}<br>
+                        {% field_name model 'unit_zip_code' %}: {{ u.unit_zip_code }}<br>
+                    </div>
+                {% endif %}
                 {% if u.pictures %}
                     <h4>{% trans 'Pictures' %}</h4>
                     <div class="images">
@@ -44,8 +44,8 @@
                     <a href="{% url 'unit-add-move-in-pictures' u.slug %}">{% trans 'Add Move-in Pictures' %}</a><br>
                     <a href="{% url 'unit-add-move-out-pictures' u.slug %}">{% trans 'Add Move-out Pictures' %}</a><br>
                 </div>
-                <a href="{% url 'unit-detail' u.slug %}" class="unit-edit">{% trans 'Edit Details' %}</a><br>
-                <a href="{% url 'unit-delete' u.slug %}" class="unit-delete">{% trans 'Delete' %}</a><br>
+
+<!--                <a href="{% url 'unit-delete' u.slug %}" class="unit-delete">{% trans 'Delete' %}</a><br>-->
             </div>
         </div>
     {% empty %}
@@ -53,6 +53,6 @@
     {% endfor %}
 </div>
 
-<a href="/unit/new/" class="new-unit-button">Add new unit</a>
+<a href="{% url 'unit-create' %}" class="new-unit-button">Add new unit</a>
 
 {% endblock %}

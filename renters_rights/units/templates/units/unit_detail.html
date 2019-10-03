@@ -1,9 +1,103 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
 
-<div>
-    {{ object.unit_address_1 }}
-</div>
+<h1>{% trans 'Unit information' %}</h1>
+
+    <a class="button" href="{% url 'unit-list' %}">{% trans '← All units' %}</a>
+
+    <div class="unit">
+        <h3>{{ object.unit_address_1 }}</h3>
+
+            <div class="unit-info">
+                <h4>{% trans 'Your unit' %}</h4>
+                {{ object.unit_address_1 }}<br>
+                {% if object.unit_address_2 %}
+                    {{ object.unit_address_2 }}<br>
+                {% endif %}
+                {% if object.unit_city and object.unit_state %}
+                    {{ object.unit_city }}, {{ object.unit_state }}
+                {% endif %}
+                {{ object.unit_zip_code }}
+            </div>
+
+            <div class="landlord-info">
+                <h4>{% trans 'Landlord info' %}</h4>
+                {% if object.landlord_address_1 %}
+                    {{ object.landlord_address_1 }}<br>
+                {% endif %}
+                {% if object.landlord_address_2 %}
+                    {{ object.landlord_address_2 }}<br>
+                {% endif %}
+                {% if object.landlord_city and object.landlord_state %}
+                    {{ object.landlord_city }}, {{ object.landlord_state }}
+                {% endif %}
+                {{ object.landlord_zip_code }}
+                {% if object.landlord_phone_number %}
+                    <br>{{ object.landlord_phone_number }}
+                {% endif %}
+
+                {% if not object.has_landlord_into %}
+                    {% trans 'You have not provided any landlord info' %}
+                {% endif %}
+            </div>
+
+            <div class="lease-info">
+                <h4>{% trans 'Lease info' %}</h4>
+
+                {% if object.lease_start_date %}
+                    {% trans 'Lease start date' %}<br>
+                    {{ object.lease_start_date|date:"SHORT_DATE_FORMAT" }}<br>
+                {% endif %}
+
+                {% if object.lease_end_date %}
+                    {% trans 'Lease end date' %}<br>
+                    {{ object.lease_end_date|date:"SHORT_DATE_FORMAT" }}<br>
+                {% endif %}
+
+
+                {% if object.lease_end_date %}
+                    {% trans 'Rent due date' %}<br>
+                    {{ object.rent_due_date|date:"SHORT_DATE_FORMAT" }}<br>
+                {% endif %}
+
+                {% if not object.has_lease_into %}
+                    {% trans 'You have not provided any lease info' %}
+                {% endif %}
+            </div>
+
+        <div class="images">
+            <h4>{% trans 'Move-In Pictures' %}</h4>
+            <div class="images">
+                {% for i in object.move_in_pictures %}
+                    <img src="{{ i.thumbnail }}" alt="Move-in picture uploaded {{ i.upload_time }}">
+                {% empty %}
+                    {% trans 'You have not uploaded any move-in pictures' %}
+                {% endfor %}
+            </div>
+
+            <h4>{% trans 'Move-Out Pictures' %}</h4>
+            <div class="images">
+                {% for i in object.move_out_pictures %}
+                    <img src="{{ i.thumbnail }}" alt="Move-out picture uploaded {{ i.upload_time }}">
+                {% empty %}
+                    {% trans 'You have not uploaded any move-out pictures' %}
+                {% endfor %}
+            </div>
+
+            <h4>{% trans 'Documents' %}</h4>
+            <div class="images">
+                {% for i in object.documents %}
+                    <img src="{{ i.thumbnail }}" alt="Document uploaded {{ i.upload_time }}">
+                {% empty %}
+                    {% trans 'You have not uploaded any documents' %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <a class="button" href="{% url 'unit-delete' object.slug %}">{% trans 'Edit' %}</a><br>
+        <a class="button delete" href="{% url 'unit-delete' object.slug %}" class="unit-delete">{% trans 'Delete' %}</a><br>
+    </div>
 
 {% endblock %}
