@@ -209,8 +209,8 @@ html {
 }
 
 body {
-//   font-family: "Cabin", Sans-Serif;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  //   font-family: "Cabin", Sans-Serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 400;
   line-height: 1.45;
   color: $neutral-color-7;
@@ -228,7 +228,7 @@ h2,
 h3,
 h4,
 h5 {
-//   font-family: "Roboto Condensed", Sans-Serif;
+  //   font-family: "Roboto Condensed", Sans-Serif;
   font-weight: 700;
   margin: 1rem 0 1rem;
   line-height: 1.15;
@@ -261,6 +261,11 @@ small,
   font-size: 0.8em;
 }
 
+nav.toggle-show-bg {
+  height: 210px;
+  transition: 0.2s ease-in-out;
+}
+
 nav {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   //     box-shadow: 0 4px 6px 0 $neutral-color-2;
@@ -272,15 +277,60 @@ nav {
   width: 100%;
   font-weight: 400;
   display: flex;
-  justify-content: space-between;
+  //   justify-content: space-between;
   padding: 10px;
-  // 	margin-right: 10px;
   text-transform: uppercase;
-  // 	font-weight: bold;
   background-color: $primary-color-7;
   padding-top: 25px;
-  height: 40px;
+  min-height: 35px;
   letter-spacing: 1px;
+  white-space: nowrap;
+  height: 40px;
+  overflow: hidden;
+
+  #logo {
+    margin-right: 25px;
+    @include md {
+      padding-right: 25px;
+      align-self: flex-start;
+      display: initial;
+      position: absolute;
+      cursor: pointer;
+    }
+  }
+
+  .toggle {
+    display: none;
+
+    @include md {
+      margin-top: -5px;
+      fill: $neutral-color-2;
+      margin-left: -25px;
+      align-self: flex-end;
+      display: initial;
+      position: absolute;
+      cursor: pointer;
+    }
+  }
+
+  @include lg {
+    font-size: 14px;
+    height: 35px;
+  }
+
+  @include md {
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+
+    ul:first-of-type {
+      margin-top: 20px;
+    }
+
+    ul:last-of-type {
+      margin-bottom: 20px;
+    }
+  }
 
   a {
     color: $neutral-color-1;
@@ -297,8 +347,27 @@ nav {
     text-decoration: none;
   }
 
-  .nav-right {
+  .nav-items {
     margin-right: 20px;
+    @include md {
+      margin-right: 0;
+      display: none;
+    }
+
+    ul:first-child {
+      border: 1px solid red;
+    }
+  }
+
+  .nav-right {
+    margin-left: auto;
+    @include md {
+      margin-left: 0;
+    }
+  }
+
+  .toggle-show {
+    display: block;
   }
 
   ul {
@@ -313,6 +382,13 @@ nav {
 
   ul li {
     display: inline-block;
+    text-align: center;
+
+    @include md {
+      display: block;
+      width: 100%;
+      margin-top: 20px;
+    }
   }
 }
 
@@ -397,20 +473,30 @@ h2 {
 }
 
 .units {
-  //     border: 1px solid $neutral-color-3;
-  //     background-color: $neutral-color-1;
   border-radius: 7px;
 
-  //     .unit:not(:last-child) {
-  //         border-bottom: 1px solid $neutral-color-3;
-  //     }
   .unit {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 
+    @include md {
+      flex-direction: column;
+      .unit-actions {
+        margin-bottom: 15px;
+      }
+    }
+
     .images img {
       width: 100px;
+
+      @include md {
+        width: 90px;
+      }
+
+      @include sm {
+        width: 75px;
+      }
     }
   }
 }
@@ -447,6 +533,10 @@ h2 {
     @include md {
       width: 90px;
     }
+
+    @include sm {
+      width: 75px;
+    }
   }
 
   .unit-actions {
@@ -481,17 +571,10 @@ h2 {
   .unit-actions a.unit-delete {
     background-color: $red-5;
   }
-
-  @include md {
-    flex-direction: column;
-    .unit-actions {
-      margin-bottom: 15px;
-    }
-  }
 }
 
 .unit-form {
-    min-width: 600px;
+  min-width: 600px;
 }
 
 button,
@@ -568,26 +651,30 @@ table th {
 }
 
 form table {
-    th {
-        font-weight: bold;
-        display: block;
-    }
+  th {
+    font-weight: bold;
+    display: block;
+  }
 
-    td {
-        padding: 5px;
-    }
+  td {
+    padding: 5px;
+  }
 
-    td input {
-        font-size: 16px;
-        line-height: 30px;
-        border-radius: 3px;
-        transition: border-color 0.3s ease-in-out;
-        border: 1px solid #aaa;
-    }
+  td input {
+    font-size: 16px;
+    line-height: 30px;
+    border-radius: 3px;
+    transition: border-color 0.3s ease-in-out;
+    border: 1px solid #aaa;
+  }
 
-    td input[required] {
-        border: 1px solid black;
-    }
+  td input[required] {
+    border: 1px solid black;
+  }
 
-    margin-bottom: 2em;
+  margin-bottom: 2em;
+}
+
+#djDebugToolbarHandle {
+  margin-top: 50px !important;
 }
