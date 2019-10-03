@@ -39,7 +39,7 @@ def str_to_int(value):
 
 
 SITE_NAME = get_env_variable("SITE_NAME", "Renters' Haven")
-SITE_URL = get_env_variable("SITE_URL", "https://rr.com/")
+SITE_URL = get_env_variable("SITE_URL", "https://landlord/")
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -168,7 +168,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 LOCALE_PATHS = [os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "locale"))]
 
 # User registration
-DEFAULT_FROM_EMAIL = get_env_variable("DEFAULT_FROM_EMAIL", "admin@rr.com")
+DEFAULT_FROM_EMAIL = get_env_variable("DEFAULT_FROM_EMAIL", "no-reply@renterhaven.com")
 AUTH_USER_MODEL = "noauth.User"
 NOAUTH_CODE_TTL_MINUTES = 10
 

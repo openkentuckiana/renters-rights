@@ -6,7 +6,7 @@
 
 <form method="post" >
     {% csrf_token %}
-    <a href="" onclick="if (document.referrer.indexOf(window.location.host) !== -1) { history.go(-1); return false; } else { window.location.href = '/'; }">{% trans "Cancel" %}</a>
+    <a href="{% url 'homepage' %}" onclick="goBack();">{% trans "Cancel" %}</a>
     <button>{% trans "Log Out" %}</button>
 </form>
 

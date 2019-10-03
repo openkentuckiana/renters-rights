@@ -18,8 +18,8 @@
     <form method="post">
         <div id="buttons">
             {% csrf_token %}
-            <div id="unit-delete-cancel"><a href="{% url 'unit-list' %}">{% trans "Cancel" %}</a></div>
-            <button id="unit-delete-submit">{% trans "Delete" %}</button>
+            <div id="unit-delete-cancel"><a href="{% url 'unit-list' %}" onclick="goBack();">{% trans "Cancel" %}</a></div>
+            <button class="delete">{% trans "Delete" %}</button>
         </div>
     </form>
 </div>

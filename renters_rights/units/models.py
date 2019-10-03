@@ -13,6 +13,7 @@ from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
+from django.db.models import EmailField
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from django.utils.text import slugify
@@ -57,6 +58,7 @@ class Unit(UserOwnedModel):
     landlord_state = USStateField(_("Landlord State"), blank=True)
     landlord_zip_code = USZipCodeField(_("Landlord ZIP Code"), blank=True)
     landlord_phone_number = PhoneNumberField(_("Landlord Phone Number"), blank=True)
+    landlord_email = EmailField(_("Landlord Email"), blank=True)
 
     # Lease info
     lease_start_date = models.DateField(_("Lease Start Start Date"), blank=True, null=True)
@@ -69,8 +71,29 @@ class Unit(UserOwnedModel):
     def pictures(self):
         return self.unitimage_set.filter(image_type__in=(MOVE_IN_PICTURE, MOVE_OUT_PICTURE)).order_by("-created_at")
 
+    def move_in_pictures(self):
+        return self.unitimage_set.filter(image_type__in=(MOVE_IN_PICTURE)).order_by("-created_at")
+
+    def move_out_pictures(self):
+        return self.unitimage_set.filter(image_type__in=(MOVE_OUT_PICTURE)).order_by("-created_at")
+
     def documents(self):
         return self.unitimage_set.filter(image_type=DOCUMENT).order_by("-created_at")
+
+    def has_landlord_into(self):
+        return (
+            self.landlord_name
+            or self.landlord_address_1
+            or self.landlord_address_2
+            or self.landlord_city
+            or self.landlord_state
+            or self.landlord_zip_code
+            or self.landlord_phone_number
+            or self.landlord_email
+        )
+
+    def has_lease_info(self):
+        return self.lease_start_date or self.lease_end_date or self.rent_due_date
 
     def save(self, *args, **kwargs):
         self.slug = f"{slugify(self.unit_address_1)[:45]}-{''.join(choices(string.ascii_lowercase + string.digits, k=10))}"
