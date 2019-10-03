@@ -4,7 +4,7 @@
 {% block content %}
 
 <h1>{% trans 'Add new unit' %}</h1>
-<div>
+<div class="unit unit-form">
     <form method="post" enctype="multipart/form-data" id="unit_form">
         {% csrf_token %}
         <table id="unit_form_table">

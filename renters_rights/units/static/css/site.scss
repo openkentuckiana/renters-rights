@@ -209,8 +209,9 @@ html {
 }
 
 body {
-  font-family: "Cabin", Sans-Serif;
-  font-weight: 300;
+//   font-family: "Cabin", Sans-Serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 400;
   line-height: 1.45;
   color: $neutral-color-7;
 }
@@ -227,10 +228,9 @@ h2,
 h3,
 h4,
 h5 {
-  font-family: "Roboto Condensed", Sans-Serif;
+//   font-family: "Roboto Condensed", Sans-Serif;
   font-weight: 700;
   margin: 1rem 0 1rem;
-  //   font-family: 'Poppins', sans-serif;
   line-height: 1.15;
 }
 
@@ -490,6 +490,10 @@ h2 {
   }
 }
 
+.unit-form {
+    min-width: 600px;
+}
+
 button,
 .button {
   white-space: nowrap;
@@ -561,4 +565,29 @@ button,
 
 table th {
   text-align: left;
+}
+
+form table {
+    th {
+        font-weight: bold;
+        display: block;
+    }
+
+    td {
+        padding: 5px;
+    }
+
+    td input {
+        font-size: 16px;
+        line-height: 30px;
+        border-radius: 3px;
+        transition: border-color 0.3s ease-in-out;
+        border: 1px solid #aaa;
+    }
+
+    td input[required] {
+        border: 1px solid black;
+    }
+
+    margin-bottom: 2em;
 }

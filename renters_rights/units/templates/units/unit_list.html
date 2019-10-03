@@ -53,6 +53,6 @@
     {% endfor %}
 </div>
 
-<a href="/unit/new/" class="new-unit-button">Add new unit</a>
+<a href="{% url 'unit-create' %}" class="new-unit-button">Add new unit</a>
 
 {% endblock %}
