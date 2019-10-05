@@ -1,7 +1,7 @@
 from django.conf import settings
-from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.flatpages import views
 from django.urls import include, path
 
 admin.site.site_header = "Renters' Haven Administration"
@@ -11,6 +11,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("auth/", include("noauth.urls")),
     path("documents/", include("documents.urls")),
+    path("<path:url>", views.flatpage),
 ]
 
 if settings.DEBUG:

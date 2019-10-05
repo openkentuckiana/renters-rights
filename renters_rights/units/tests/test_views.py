@@ -10,7 +10,7 @@ from hamcrest import assert_that, contains, contains_inanyorder, equal_to, has_l
 from PIL import Image
 
 from noauth.models import User
-from units.models import MOVE_IN_PICTURE, Unit, UnitImage
+from units.models import DOCUMENT, MOVE_IN_PICTURE, MOVE_OUT_PICTURE, Unit, UnitImage
 from units.tests import UnitBaseTestCase
 
 
@@ -45,7 +45,10 @@ class UnitViewTests(UnitBaseTestCase):
             image=self.get_image_file(size=(200, 200)), image_type=MOVE_IN_PICTURE, unit=unit2, owner=UnitViewTests.u
         )
         i2 = UnitImage.objects.create(
-            image=self.get_image_file(size=(200, 200)), image_type=MOVE_IN_PICTURE, unit=unit2, owner=UnitViewTests.u
+            image=self.get_image_file(size=(200, 200)), image_type=MOVE_OUT_PICTURE, unit=unit2, owner=UnitViewTests.u
+        )
+        i3 = UnitImage.objects.create(
+            image=self.get_image_file(size=(200, 200)), image_type=DOCUMENT, unit=unit2, owner=UnitViewTests.u
         )
 
         c = Client()
@@ -55,6 +58,7 @@ class UnitViewTests(UnitBaseTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, i1.thumbnail)
         self.assertContains(response, i2.thumbnail)
+        self.assertContains(response, i3.thumbnail)
         self.assertContains(response, UnitViewTests.unit.unit_address_1)
         self.assertContains(response, unit2.unit_address_1)
         assert_that(response.context["unit_list"], contains_inanyorder(UnitViewTests.unit, unit2))
@@ -82,6 +86,35 @@ class UnitViewTests(UnitBaseTestCase):
         response = c.get(reverse("unit-detail", args=[self.unit.slug]))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, UnitViewTests.unit.unit_address_1)
+
+    def test_detail_view_returns_expected_unit_with_images(self):
+        i1 = UnitImage.objects.create(
+            image=self.get_image_file(size=(200, 200)),
+            image_type=MOVE_IN_PICTURE,
+            unit=UnitViewTests.unit,
+            owner=UnitViewTests.u,
+        )
+        i2 = UnitImage.objects.create(
+            image=self.get_image_file(size=(200, 200)),
+            image_type=MOVE_OUT_PICTURE,
+            unit=UnitViewTests.unit,
+            owner=UnitViewTests.u,
+        )
+        i3 = UnitImage.objects.create(
+            image=self.get_image_file(size=(200, 200)), image_type=DOCUMENT, unit=UnitViewTests.unit, owner=UnitViewTests.u
+        )
+
+        c = Client()
+        c.force_login(UnitViewTests.u)
+        response = c.get(reverse("unit-detail", args=[self.unit.slug]))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, UnitViewTests.unit.unit_address_1)
+        self.assertContains(response, i1.thumbnail)
+        self.assertContains(response, "Move-in picture uploaded")
+        self.assertContains(response, i2.thumbnail)
+        self.assertContains(response, "Move-out picture uploaded")
+        self.assertContains(response, i3.thumbnail)
+        self.assertContains(response, "Document uploaded")
 
     def test_create_view_requires_login(self):
         view_url = reverse("unit-create")
@@ -195,6 +228,21 @@ class UnitViewTests(UnitBaseTestCase):
 
 
 class UnitAddDocumentsFormViewGetTests(UnitBaseTestCase):
+    def test_unit_add_documents_requires_login(self):
+        view_url = reverse("unit-add-documents", args=[UnitAddDocumentsFormViewGetTests.unit.slug])
+        response = self.client.get(view_url)
+        self.assertRedirects(response, f"{reverse('noauth:log-in')}?next={view_url}")
+
+    def test_unit_add_move_in_pictures_requires_login(self):
+        view_url = reverse("unit-add-move-in-pictures", args=[UnitAddDocumentsFormViewGetTests.unit.slug])
+        response = self.client.get(view_url)
+        self.assertRedirects(response, f"{reverse('noauth:log-in')}?next={view_url}")
+
+    def test_unit_add_move_out_pictures_requires_login(self):
+        view_url = reverse("unit-add-move-out-pictures", args=[UnitAddDocumentsFormViewGetTests.unit.slug])
+        response = self.client.get(view_url)
+        self.assertRedirects(response, f"{reverse('noauth:log-in')}?next={view_url}")
+
     def test_unit_add_documents_form_valid(self):
         c = Client()
         c.force_login(UnitAddDocumentsFormViewGetTests.u)
@@ -215,6 +263,24 @@ class UnitAddDocumentsFormViewGetTests(UnitBaseTestCase):
 
         response = c.get(reverse("unit-add-move-out-pictures", args=[UnitAddDocumentsFormViewGetTests.unit.slug]))
         self.assertContains(response, "Move-out Pictures:")
+
+    @override_settings(UNIT_IMAGE_MIN_HEIGHT_AND_WIDTH=10)
+    @override_settings(UNIT_IMAGE_MAX_HEIGHT_AND_WIDTH=20)
+    @override_settings(UNIT_IMAGE_SIZES=[5, 10, 20])
+    @override_settings(MAX_DOCUMENTS_PER_UNIT=1)
+    def test_unit_add_documents_page_will_not_allow_add_if_aready_at_doc_limit(self):
+        c = Client()
+        c.force_login(UnitAddDocumentsFormViewGetTests.u)
+
+        UnitImage.objects.create(
+            image=UnitBaseTestCase.get_image_file(),
+            unit=UnitAddDocumentsFormViewGetTests.unit,
+            owner=UnitAddDocumentsFormViewGetTests.u,
+        )
+
+        response = c.get(reverse("unit-add-documents", args=[UnitAddDocumentsFormViewGetTests.unit.slug]))
+        self.assertContains(response, "Go back")
+        self.assertContains(response, "You have uploaded 1 of 1 allowed images")
 
 
 class UnitAddDocumentsFormViewPostTests(TransactionTestCase):

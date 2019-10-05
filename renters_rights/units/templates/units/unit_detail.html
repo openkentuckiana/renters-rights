@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load i18n %}
 
+{% block title %}Unit at {{ object.unit_address_1 }}{% endblock title %}
+
 {% block content %}
 
 <h1>{% trans 'Unit information' %}</h1>

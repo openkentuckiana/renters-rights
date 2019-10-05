@@ -1,28 +1,50 @@
 {% extends "base.html" %}
 {% load i18n %}
 
+{% block title %}Add Image/Document - {{ form.unit.unit_address_1 }}{% endblock title %}
+
 {% block content %}
 
-<div>
-    <form method="post" enctype="multipart/form-data" id="unit_form">
-        {% csrf_token %}
-        <table id="unit_form_table">
-            {{ form.as_table }}
-        </table>
-        <button id="unit_form_submit">{% trans "Submit" %}</button>
-        <a href="{% url 'unit-list' %}">{% trans "Cancel" %}</a>
-    </form>
-    <span id="status"></span>
+<div id="unit-add-image">
+    <h2>{% trans 'Add' %} {{form.label}}</h2>
+
+    {% if form.max_images > form.current_image_count %}
+        <form method="post" enctype="multipart/form-data" id="unit-add-image-form">
+            {% csrf_token %}
+            <table id="unit-form-table">
+                {{ form.as_table }}
+            </table>
+            <span id="multi-instructions">{% trans 'To select multiple pictures, hold down the Ctrl or Command (⌘) key when clicking files' %}</span>
+            <span id="remaining">{% trans 'You have uploaded'%} {{form.current_image_count}} {% trans 'of'%} {{form.max_images}} {% trans 'allowed images' %}.</span>
+            <button id="unit-form-submit">{% trans "Submit" %}</button>
+            <a href="{% url 'unit-list' %}">{% trans "Cancel" %}</a>
+        </form>
+        <progress id="status-bar"></progress>
+        <span id="status"></span>
+    {% else %}
+        <span id="remaining-error">{% trans 'You have uploaded'%} {{form.current_image_count}} {% trans 'of'%} {{form.max_images}} {% trans 'allowed images' %}.</span>
+        <a href="{% url 'unit-list' %}" onclick="goBack();" class="button">{% trans "Go back" %}</a>
+    {% endif %}
+
+
 </div>
 <script src="https://cdn.jsdelivr.net/npm/screw-filereader@1.4.3/index.min.js"></script>
 <script type="text/javascript">
 
-const form_submit = document.getElementById("unit_form_submit");
+const form_submit = document.getElementById("unit-form-submit");
+const statusBar = document.getElementById("status-bar");
 const status = document.getElementById("status");
+
+let uploadedFiles = 0;
+let resizedFiles = 0;
+let imageCount = 0;
 
 var resize = function(file) {
     return new Promise(function(resolve, reject) {
         file.image().then(img => {
+            resizedFiles++;
+            statusBar.value = resizedFiles + uploadedFiles;
+            status.innerHTML = "Resizing image " + resizedFiles + " of " + imageCount;
             const canvas = document.createElement('canvas')
             const ctx = canvas.getContext('2d')
             const maxWidth = 1500
@@ -73,6 +95,9 @@ var getSignatures = function(files) {
 
 var uploadFile = function(file) {
     return new Promise(function(resolve, reject) {
+        uploadedFiles++;
+        statusBar.value = resizedFiles + uploadedFiles;
+        status.innerHTML = "Uploading image " + uploadedFiles + " of " + imageCount;
         var x = new XMLHttpRequest();
 
         x.onreadystatechange = function() {
@@ -97,13 +122,15 @@ var uploadFile = function(file) {
 }
 
 var submitForm = function(uploadedFiles) {
-    status.innerHTML = "Processing...";
+    statusBar.removeAttribute("max");
+    statusBar.removeAttribute("value");
+    status.innerHTML = "Processing images, please wait...";
 
     var x = new XMLHttpRequest();
 
     x.onreadystatechange = function () {
         if (x.readyState === 4 && x.status === 400) {
-            const formTable = document.getElementById("unit_form_table");
+            const formTable = document.getElementById("unit-form-table");
             formTable.innerHTML = x.responseText;
             status.innerHTML = "";
             return false;
@@ -113,7 +140,7 @@ var submitForm = function(uploadedFiles) {
         }
     }
 
-    const formData = new FormData(document.getElementById("unit_form"));
+    const formData = new FormData(document.getElementById("unit-add-image-form"));
     formData.delete("images");
     formData.delete("s3_images");
     formData.append("s3_images", uploadedFiles.map(f => f.name).join(","))
@@ -131,22 +158,26 @@ form_submit.onclick = function(event) {
     const images = Array.from(imagesInput.files);
 
     if (images.length == 0 || (images.length + {{form.current_image_count}}) > {{form.max_images}}) {
-        const form = document.getElementById("unit_form")
+        const form = document.getElementById("unit-add-image-form")
         form.submit();
         return;
     }
 
-    status.innerHTML = "Resizing images.";
+    imageCount = images.length;
+    statusBar.max = imageCount * 2;
+    statusBar.style.display = "block";
+
     Promise.all(images.map(resize))
         .then(resizedFiles => getSignatures(resizedFiles))
         .then(resizedFiles => {
-            status.innerHTML = "Uploading images.";
             Promise.all(resizedFiles.map(f => uploadFile(f)))
                 .then(uploadedFiles => {
                     form_submit.disabled = submitForm(uploadedFiles);
             })
         })
 }
+
+
 </script>
 
 {% endblock %}

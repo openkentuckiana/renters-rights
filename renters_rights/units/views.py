@@ -72,7 +72,7 @@ class UnitDeleteView(ProtectedView):
         return HttpResponseRedirect(reverse("unit-list"))
 
 
-class UnitAddImagesFormViewBase(FormView):
+class UnitAddImagesFormViewBase(FormView, ProtectedView):
     template_name = "units/unit_add_image.html"
     form_class = UnitAddImageForm
     image_type = None

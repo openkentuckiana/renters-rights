@@ -72,10 +72,10 @@ class Unit(UserOwnedModel):
         return self.unitimage_set.filter(image_type__in=(MOVE_IN_PICTURE, MOVE_OUT_PICTURE)).order_by("-created_at")
 
     def move_in_pictures(self):
-        return self.unitimage_set.filter(image_type__in=(MOVE_IN_PICTURE)).order_by("-created_at")
+        return self.unitimage_set.filter(image_type=MOVE_IN_PICTURE).order_by("-created_at")
 
     def move_out_pictures(self):
-        return self.unitimage_set.filter(image_type__in=(MOVE_OUT_PICTURE)).order_by("-created_at")
+        return self.unitimage_set.filter(image_type=MOVE_OUT_PICTURE).order_by("-created_at")
 
     def documents(self):
         return self.unitimage_set.filter(image_type=DOCUMENT).order_by("-created_at")

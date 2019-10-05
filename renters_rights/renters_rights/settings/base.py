@@ -40,6 +40,7 @@ def str_to_int(value):
 
 SITE_NAME = get_env_variable("SITE_NAME", "Renters' Haven")
 SITE_URL = get_env_variable("SITE_URL", "https://landlord/")
+SITE_ID = 1
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -68,6 +69,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.gis",
+    "django.contrib.sites",
+    "django.contrib.flatpages",
     "localflavor",
     "modeltranslation",
     "maintenance_mode",
@@ -90,6 +93,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "maintenance_mode.middleware.MaintenanceModeMiddleware",
     "units.middleware.TurbolinksMiddleware",
+    "django.contrib.flatpages.middleware.FlatpageFallbackMiddleware",
 ]
 
 ROOT_URLCONF = "renters_rights.urls"
