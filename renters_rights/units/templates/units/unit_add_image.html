@@ -9,18 +9,20 @@
     <h2>{% trans 'Add' %} {{form.label}}</h2>
 
     {% if form.max_images > form.current_image_count %}
-        <form method="post" enctype="multipart/form-data" id="unit-add-image-form">
-            {% csrf_token %}
-            <table id="unit-form-table">
-                {{ form.as_table }}
-            </table>
-            <span id="multi-instructions">{% trans 'To select multiple pictures, hold down the Ctrl or Command (⌘) key when clicking files' %}</span>
-            <span id="remaining">{% trans 'You have uploaded'%} {{form.current_image_count}} {% trans 'of'%} {{form.max_images}} {% trans 'allowed images' %}.</span>
-            <button id="unit-form-submit">{% trans "Submit" %}</button>
-            <a href="{% url 'unit-list' %}">{% trans "Cancel" %}</a>
-        </form>
-        <progress id="status-bar"></progress>
-        <span id="status"></span>
+        <div class="unit">
+            <form method="post" enctype="multipart/form-data" id="unit-add-image-form">
+                {% csrf_token %}
+                <table id="unit-form-table">
+                    {{ form.as_table }}
+                </table>
+                <span id="multi-instructions">{% trans 'To select multiple pictures, hold down the Ctrl or Command (⌘) key when clicking files' %}</span>
+                <span id="remaining">{% trans 'You have uploaded'%} {{form.current_image_count}} {% trans 'of'%} {{form.max_images}} {% trans 'allowed images' %}.</span>
+                <button id="unit-form-submit">{% trans "Submit" %}</button>
+                <a href="{% url 'unit-list' %}">{% trans "Cancel" %}</a>
+            </form>
+            <progress id="status-bar"></progress>
+            <span id="status"></span>
+        </div>
     {% else %}
         <span id="remaining-error">{% trans 'You have uploaded'%} {{form.current_image_count}} {% trans 'of'%} {{form.max_images}} {% trans 'allowed images' %}.</span>
         <a href="{% url 'unit-list' %}" onclick="goBack();" class="button">{% trans "Go back" %}</a>
@@ -96,13 +98,13 @@ var getSignatures = function(files) {
 var uploadFile = function(file) {
     return new Promise(function(resolve, reject) {
         uploadedFiles++;
-        statusBar.value = resizedFiles + uploadedFiles;
         status.innerHTML = "Uploading image " + uploadedFiles + " of " + imageCount;
         var x = new XMLHttpRequest();
 
         x.onreadystatechange = function() {
             if(x.readyState === 4) {
                 if(x.status === 200 || x.status === 204) {
+                    statusBar.value = resizedFiles + uploadedFiles;
                     resolve(file);
                 } else {
                     reject(x.response);
@@ -122,7 +124,6 @@ var uploadFile = function(file) {
 }
 
 var submitForm = function(uploadedFiles) {
-    statusBar.removeAttribute("max");
     statusBar.removeAttribute("value");
     status.innerHTML = "Processing images, please wait...";
 

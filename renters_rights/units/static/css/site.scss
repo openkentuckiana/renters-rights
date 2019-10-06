@@ -173,10 +173,17 @@ $green-3: #78d8a1;
 $green-2: #aaedc2;
 $green-1: #e4fcec;
 
+$screen-tiny-min: 374px;
 $screen-sm-min: 576px;
 $screen-md-min: 768px;
 $screen-lg-min: 992px;
 $screen-xl-min: 1200px;
+
+@mixin tiny {
+  @media (max-width: #{$screen-tiny-min}) {
+    @content;
+  }
+}
 
 @mixin sm {
   @media (max-width: #{$screen-sm-min}) {
@@ -206,6 +213,10 @@ $screen-xl-min: 1200px;
 
 html {
   font-size: 16px;
+
+  @include tiny {
+    font-size: 80%;
+  }
 }
 
 body {
@@ -214,6 +225,7 @@ body {
   font-weight: 400;
   line-height: 1.45;
   color: $neutral-color-7;
+  padding: 10px;
 }
 
 a {
@@ -575,6 +587,9 @@ h2 {
 
 .unit-form {
   min-width: 600px;
+  @include md {
+    min-width: 300px;
+  }
 }
 
 button,
@@ -660,6 +675,12 @@ form table {
     padding: 5px;
   }
 
+  @include tiny {
+    td {
+      display: block;
+    }
+  }
+
   td input {
     font-size: 16px;
     line-height: 30px;
@@ -667,12 +688,6 @@ form table {
     transition: border-color 0.3s ease-in-out;
     border: 1px solid #aaa;
     padding-left: 5px;
-  }
-
-  td input[type=file] {
-    border: none;
-    padding-top: 0;
-    line-height: 16px;
   }
 
   td input[required] {
@@ -687,44 +702,85 @@ form table {
 }
 
 #unit-add-image {
-    #status-bar {
-        display: none;
+  .unit {
+    @include tiny {
+      padding: 0;
     }
+  }
 
-    progress {
-        -webkit-appearance: none;
-    }
+  td input[type="file"] {
+    border: none;
+    padding-top: 0;
+    line-height: 16px;
+  }
 
-    progress::-webkit-progress-bar  {
-        background-color: $neutral-color-4;
-        border-radius: 50px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+  @include md {
+    td {
+      display: block;
+      margin-left: -18px;
     }
+  }
 
-    progress::-webkit-progress-value {
-        background-color: $primary-color-5;
-        border-radius: 50px;
-        box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.4);
-    }
+  #status-bar {
+    display: none;
+  }
 
-    #remaining {
-        display: block;
-        font-size: 90%;
-        margin-top: -10px;
-        margin-bottom: 20px;
-    }
+  // Would be cool to style, but this is pretty hacky
+  //     progress {
+  //         -webkit-appearance: none;
+  //         -moz-appearance: none;
+  //         appearance: none;
+  //     }
+  //
+  //     progress::-webkit-progress-bar {
+  //
+  //
+  //         border-radius: 2px;
+  //         background-size: 35px 20px, 100% 100%, 100% 100%;
+  //     }
+  //
+  // //     progress::-webkit-progress-bar  {
+  // //         background-color: $neutral-color-4;
+  // //         border-radius: 50px;
+  // //         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+  // //     }
+  //
+  //     progress::-webkit-progress-value {
+  //         background:
+  //            -webkit-linear-gradient(-45deg,
+  //                                    transparent 33%, rgba(0, 0, 0, .1) 33%,
+  //                                    rgba(0,0, 0, .1) 66%, transparent 66%),
+  //            -webkit-linear-gradient(left, $primary-color-5, $primary-color-5);
+  //         background-size: 100% 100%;
+  //         -webkit-animation: animateStripes 5s infinite;
+  //         animation: animateStripes 5s infinite;
+  //         -webkit-animation-direction: normal;
+  //         animation-direction: normal
+  //     }
+  //
+  //     @keyframes animateStripes {
+  //        from { background-position: -100% 0; }
+  // 	    to { background-position: 100% 0; }
+  //     }
 
-    #remaining-error {
-        display: block;
-        font-size: 120%;
-        margin-bottom: 20px;
-    }
+  #remaining {
+    display: block;
+    font-size: 90%;
+    margin-top: -10px;
+    margin-bottom: 20px;
+  }
 
-    #multi-instructions {
-        display: block;
-        font-style: italic;
-        font-size: 80%;
-        margin-top: -30px;
-        margin-bottom: 20px;
-    }
+  #remaining-error {
+    display: block;
+    font-size: 120%;
+    margin-bottom: 20px;
+  }
+
+  #multi-instructions {
+    display: block;
+    font-style: italic;
+    font-size: 80%;
+    margin-top: -30px;
+    margin-bottom: 20px;
+  }
 }
