@@ -104,7 +104,7 @@ var uploadFile = function(file) {
                 if(x.status === 200 || x.status === 204) {
                     uploadedFiles++;
                     statusBar.value = resizedFiles + uploadedFiles;
-                    status.innerHTML = "Uploading image " + uploadedFiles + " of " + imageCount;
+                    status.innerHTML = "Uploaded image " + uploadedFiles + " of " + imageCount;
                     resolve(file);
                 } else {
                     reject(x.response);
@@ -171,7 +171,7 @@ form_submit.onclick = function(event) {
     Promise.all(images.map(resize))
         .then(resizedFiles => getSignatures(resizedFiles))
         .then(resizedFiles => {
-            status.innerHTML = "Uploading image 1 of " + imageCount;
+            status.innerHTML = "{% trans 'Starting upload' %}";
             Promise.all(resizedFiles.map(f => uploadFile(f)))
                 .then(uploadedFiles => {
                     form_submit.disabled = submitForm(uploadedFiles);
