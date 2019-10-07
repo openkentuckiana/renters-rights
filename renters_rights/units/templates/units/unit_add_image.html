@@ -27,8 +27,6 @@
         <span id="remaining-error">{% trans 'You have uploaded'%} {{form.current_image_count}} {% trans 'of'%} {{form.max_images}} {% trans 'allowed images' %}.</span>
         <a href="{% url 'unit-list' %}" onclick="goBack();" class="button">{% trans "Go back" %}</a>
     {% endif %}
-
-
 </div>
 <script src="https://cdn.jsdelivr.net/npm/screw-filereader@1.4.3/index.min.js"></script>
 <script type="text/javascript">

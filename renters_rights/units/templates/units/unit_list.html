@@ -42,9 +42,9 @@
             </div>
             <div class="unit-actions">
                 <div class="unit-upload-images">
-                    <a href="{% url 'unit-add-documents' u.slug %}">{% trans 'Add Documents' %}</a><br>
-                    <a href="{% url 'unit-add-move-in-pictures' u.slug %}">{% trans 'Add Move-in Pictures' %}</a><br>
-                    <a href="{% url 'unit-add-move-out-pictures' u.slug %}">{% trans 'Add Move-out Pictures' %}</a><br>
+                    <a href="{% url 'unit-add-documents' u.slug %}" class="button">{% trans 'Add Documents' %}</a><br>
+                    <a href="{% url 'unit-add-move-in-pictures' u.slug %}" class="button">{% trans 'Add Move-in Pictures' %}</a><br>
+                    <a href="{% url 'unit-add-move-out-pictures' u.slug %}" class="button">{% trans 'Add Move-out Pictures' %}</a><br>
                 </div>
 
 <!--                <a href="{% url 'unit-delete' u.slug %}" class="unit-delete">{% trans 'Delete' %}</a><br>-->
@@ -55,6 +55,6 @@
     {% endfor %}
 </div>
 
-<a href="{% url 'unit-create' %}" class="new-unit-button">Add new unit</a>
+<a href="{% url 'unit-create' %}" class="button new-unit-button">Add new unit</a>
 
 {% endblock %}

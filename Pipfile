@@ -27,6 +27,8 @@ django-active-link = "*"
 libsass = "*"
 django-compressor = "*"
 django-sass-processor = "*"
+python-binary-memcached = "*"
+django-bmemcached = "*"
 
 [dev-packages]
 black = "==19.3b0"

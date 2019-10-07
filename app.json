@@ -75,7 +75,7 @@
   },
   "addons": [
     {
-      "plan": "heroku-redis:hobby-dev"
+      "plan": "memcachedcloud:30"
     },
     {
       "plan": "heroku-postgresql:hobby-dev"

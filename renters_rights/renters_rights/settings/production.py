@@ -45,8 +45,17 @@ SERVER_EMAIL = EMAIL_HOST_USER
 ########## END EMAIL CONFIGURATION
 
 ########## CACHE CONFIGURATION
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#caches
-CACHES = {"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
+CACHES = {
+    "default": {
+        "BACKEND": "django_bmemcached.memcached.BMemcached",
+        "LOCATION": os.environ.get("MEMCACHEDCLOUD_SERVERS").split(","),
+        "TIMEOUT": get_env_variable("CACHE_TIMEOUT", 60 * 10),
+        "OPTIONS": {
+            "username": os.environ.get("MEMCACHEDCLOUD_USERNAME"),
+            "password": os.environ.get("MEMCACHEDCLOUD_PASSWORD"),
+        },
+    }
+}
 ########## END CACHE CONFIGURATION
 
 ########## SECRET CONFIGURATION

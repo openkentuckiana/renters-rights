@@ -1,4 +1,3 @@
-import datetime
 import logging
 import string
 import sys
@@ -8,6 +7,7 @@ from random import choices
 
 from django.conf import settings
 from django.contrib.postgres.fields import ArrayField
+from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
@@ -112,7 +112,12 @@ class UnitImage(UserOwnedModel):
 
     @property
     def thumbnail(self):
-        return default_storage.url(f"{self.image.name.split('.')[0]}-{self.thumbnail_sizes[-1]}.jpg")
+        cache_key = f"image-{self.id}"
+        thumb = cache.get(cache_key)
+        if not thumb:
+            thumb = default_storage.url(f"{self.image.name.split('.')[0]}-{self.thumbnail_sizes[-1]}.jpg")
+            cache.add(cache_key, thumb)
+        return thumb
 
     @property
     def thumbnail_internal(self):
