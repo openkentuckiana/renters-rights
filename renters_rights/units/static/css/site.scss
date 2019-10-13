@@ -301,6 +301,10 @@ nav {
   overflow: hidden;
 
   #logo {
+    img {
+        margin-top: -10px;
+        height: 40px;
+    }
     margin-right: 25px;
     @include md {
       padding-right: 25px;
@@ -379,8 +383,13 @@ nav {
 
   ul {
     margin: 0;
+    margin-top: -2px;
     padding: 0;
     list-style: none;
+
+      @include lg {
+      margin-top: 0;
+  }
 
     li:not(:last-child) {
       margin-right: 20px;
@@ -404,19 +413,20 @@ nav {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  max-width: rem-calc(1000);
+  width: 95vw;
 
   .content {
+    max-width: 700px;
     flex-direction: column;
   }
 
-  @include tiny {
-      width: 275px;
-    }
-
-    @include md {
-      max-width: 350px;
-    }
+//   @include tiny {
+//       width: 275px;
+//     }
+//
+//     @include md {
+//       max-width: 350px;
+//     }
 }
 
 ul.messages {
@@ -515,7 +525,7 @@ h2 {
   }
 }
 
-.unit {
+.content-body {
   background-color: $neutral-color-1;
   border: $neutral-color-1;
   border-radius: 5px;
@@ -524,7 +534,9 @@ h2 {
   margin-top: 1em;
   margin-bottom: 1em;
   color: $neutral-color-6;
+}
 
+.unit {
   .unit-info {
     max-width: 500px;
     min-width: 250px;
@@ -690,7 +702,7 @@ form table {
     padding: 5px;
   }
 
-  @include tiny {
+  @include sm {
     td {
       display: block;
     }
@@ -742,6 +754,10 @@ form table {
 }
 
 #unit-add-image {
+  min-width: 600px;
+  @include md {
+    min-width: 250px;
+  }
   .unit {
     @include tiny {
       padding: 0;
@@ -831,4 +847,34 @@ form table {
     margin-top: -30px;
     margin-bottom: 20px;
   }
+}
+
+#log-in form {
+    table {
+        td {
+            display: block;
+            padding-left: 0;
+        }
+        margin-bottom: 5px;
+    }
+}
+
+.document-form-content {
+    min-width: 600px;
+    @include md {
+        min-width: 250px;
+    }
+
+    fieldset legend {
+        font-weight: 600;
+        font-size: 145%;
+        margin-bottom: 5px;
+    }
+}
+
+#log-in, #log-out {
+    min-width: 600px;
+    @include md {
+        min-width: 250px;
+    }
 }

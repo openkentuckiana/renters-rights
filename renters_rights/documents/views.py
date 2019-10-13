@@ -6,6 +6,7 @@ import pdfrw
 from django.http import HttpResponse
 from django.template import Context, Template
 from django.template.loader import render_to_string
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import FormView, ListView
 from weasyprint import HTML
 
@@ -38,6 +39,11 @@ class DocumentFormView(FormView, ProtectedView):
     template_name = "documents/document_form.html"
     form_class = DocumentForm
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form_name"] = DocumentTemplate.objects.get(id=self.kwargs["id"]).name
+        return context
+
     def get_form_kwargs(self):
         form_kwargs = super().get_form_kwargs()
         form_kwargs["document_template"] = DocumentTemplate.objects.get(id=self.kwargs["id"])
@@ -55,13 +61,18 @@ class DocumentFormView(FormView, ProtectedView):
         HTML(string=pdf_html).write_pdf(pdf)
 
         response = HttpResponse(pdf.getvalue(), content_type="application/pdf")
-        response["Content-Disposition"] = "attachment; filename=doc.pdf"
+        response["Content-Disposition"] = f"attachment; filename={document_template.file_name}.pdf"
         return response
 
 
 class PhotosDocumentFormView(FormView, ProtectedView):
     template_name = "documents/document_form.html"
     form_class = PhotosDocumentForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form_name"] = _("Date-verified Photo Report")
+        return context
 
     def get_form_kwargs(self):
         form_kwargs = super().get_form_kwargs()
@@ -76,13 +87,18 @@ class PhotosDocumentFormView(FormView, ProtectedView):
         HTML(string=pdf_html).write_pdf(pdf)
 
         response = HttpResponse(pdf.getvalue(), content_type="application/pdf")
-        response["Content-Disposition"] = "attachment; filename=doc.pdf"
+        response["Content-Disposition"] = "attachment; filename=PhotoReport.pdf"
         return response
 
 
 class SmallClaimsDocumentFormView(FormView, ProtectedView):
     template_name = "documents/document_form.html"
     form_class = SmallClaimsDocumentForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form_name"] = _("Small Claims Court Form")
+        return context
 
     def get_form_kwargs(self):
         form_kwargs = super().get_form_kwargs()

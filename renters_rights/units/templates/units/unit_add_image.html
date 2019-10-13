@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block title %}Add Image/Document - {{ form.unit.unit_address_1 }}{% endblock title %}
+{% block title %}{% trans 'Add Image/Document' %} - {{ form.unit.unit_address_1 }}{% endblock title %}
 
 {% block content %}
 
@@ -9,7 +9,7 @@
     <h2>{% trans 'Add' %} {{form.label}}</h2>
 
     {% if form.max_images > form.current_image_count %}
-        <div class="unit">
+        <div class="content-body">
             <form method="post" enctype="multipart/form-data" id="unit-add-image-form">
                 {% csrf_token %}
                 <table id="unit-form-table">

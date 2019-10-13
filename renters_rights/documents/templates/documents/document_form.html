@@ -4,10 +4,14 @@
 {% load model_strings %}
 {% load bound_field %}
 
+{% block title %}{{ form.name }}{{ form_name }}{% endblock title %}
+
 {% block content %}
 
-<div>
-    <form method="post" id="document_form">
+<h1>{{ form.name }}{{ form_name }}</h1>
+
+<div class="content-body document-form-content">
+    <form method="post" id="document-form">
         {% csrf_token %}
         {{ form.non_field_errors }}
 
@@ -94,7 +98,7 @@
                         {% endif %}
                     </td>
                 </tr>
-                <tr>
+                <tr class="sender-info">
                     <th>
                         <label for="{{ form.sender_address_1.id_for_label }}">{{form.sender_address_1.label}}</label>
                     </th>
@@ -112,7 +116,7 @@
                         {% endif %}
                     </td>
                 </tr>
-                <tr>
+                <tr class="sender-info">
                     <th>
                         <label for="{{ form.sender_address_2.id_for_label }}">{{form.sender_address_2.label}}</label>
                     </th>
@@ -130,7 +134,7 @@
                         {% endif %}
                     </td>
                 </tr>
-                <tr>
+                <tr class="sender-info">
                     <th>
                         <label for="{{ form.sender_city.id_for_label }}">{{form.sender_city.label}}</label>
                     </th>
@@ -148,7 +152,7 @@
                         {% endif %}
                     </td>
                 </tr>
-                <tr>
+                <tr class="sender-info">
                     <th>
                         <label for="{{ form.sender_state.id_for_label }}">{{form.sender_state.label}}</label>
                     </th>
@@ -166,7 +170,7 @@
                         {% endif %}
                     </td>
                 </tr>
-                <tr>
+                <tr class="sender-info">
                     <th>
                         <label for="{{ form.sender_zip_code.id_for_label }}">{{form.sender_zip_code.label}}</label>
                     </th>
@@ -253,10 +257,39 @@
         {% endif %}
 
 
-        <button>{% trans "Download PDF" %}</button>
+        <button id="download-pdf">{% trans "Download PDF" %}</button>
         <a href="{% url 'documents:document-list' %}">{% trans "Back to Documents" %}</a>
     </form>
     <span id="status"></span>
 </div>
+
+<script type="text/javascript">
+    const useUnitAddress = document.getElementById("id_use_unit_address");
+
+    useUnitAddress.addEventListener('change', (event) => {
+        if (event.target.checked) {
+            [].forEach.call(document.querySelectorAll('.sender-info'), function (e) {
+                e.style.display = 'none';
+            });
+        } else {
+            [].forEach.call(document.querySelectorAll('.sender-info'), function (e) {
+                e.style.display = 'table-row';
+            });
+        }
+    })
+
+    const documentForm = document.getElementById("document-form");
+    const downloadPdf = document.getElementById("download-pdf");
+
+    downloadPdf.onclick = function(event) {
+        for(var i=0; i < documentForm.elements.length; i++){
+            if(documentForm.elements[i].value === '' && documentForm.elements[i].hasAttribute('required')){
+                return;
+            }
+        }
+        downloadPdf.disabled = true;
+        documentForm.submit();
+    };
+</script>
 
 {% endblock %}

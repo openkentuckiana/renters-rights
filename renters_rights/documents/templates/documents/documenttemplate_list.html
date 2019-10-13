@@ -3,11 +3,29 @@
 {% load i18n %}
 {% load model_strings %}
 
+{% block title %}{% trans 'Letters and Forms' %}{% endblock title %}
+
 {% block content %}
 
-{% for d in document_list %}
-    <a href="{% url 'documents:document-form' d.id %}">{{ d.name }}</a><br>
-{% endfor %}
-    <a href="{% url 'documents:photos-document-form' %}">{% trans 'Photos Report'%}</a><br>
-    <a href="{% url 'documents:small-claims-document-form' %}">{% trans 'Small Claims Form'%}</a><br>
-{% endblock %}
+<h1>{% trans 'Letters and Forms' %}</h1>
+
+<p>{% trans "Select a letter or form you would like to create. We'll ask you for some information and then we'll generate a PDF for you to send to your landlord our the courts." %}</p>
+<div class="unit content-body">
+    {% for d in document_list %}
+        <div class="doc-name">
+            <a href="{% url 'documents:document-form' d.id %}">{{ d.name }}</a>
+        </div>
+        <p>
+            {% if d.description %} {{ d.description }} {% endif %}
+        </p>
+    {% endfor %}
+        <div class="doc-name">
+            <a href="{% url 'documents:photos-document-form' %}">{% trans 'Date-verified Photo Report'%}</a>
+        </div>
+        <p>{% trans 'Use this report to prove what your unit looked like at on a certain date. This can be usesful when you are trying to get your security deposit back.' %}</p>
+        <div class="doc-name">
+            <a href="{% url 'documents:small-claims-document-form' %}">{% trans 'Small Claims Court Form'%}</a>
+        </div>
+    <p>{% trans 'If you need to file a small claims suit in order to recover money from your landlord, we can pre-populate the small claims complaint form that you need to submit to the court.' %}</p>
+    {% endblock %}
+</div>
