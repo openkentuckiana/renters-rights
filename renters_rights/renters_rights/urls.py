@@ -10,7 +10,7 @@ urlpatterns = [
     path("", include("units.urls")),
     path("admin/", admin.site.urls),
     path("auth/", include("noauth.urls")),
-    path("documents/", include("documents.urls")),
+    path("letters-forms/", include("documents.urls")),
     path("<path:url>", views.flatpage),
 ]
 

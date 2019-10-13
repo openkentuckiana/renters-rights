@@ -1,8 +1,8 @@
 {% load i18n %} 
 
+<h3>{{ site_name }}</h3>
 {% trans "Hello"%},<br>
 <br>
-{% blocktrans %}Your code for logging into {{site_name}} is {{code}}.{% endblocktrans %}<br>
-{% blocktrans %}Please go to <a href="{{code_uri}}?code={{code}}&email={{email}}">{{code_uri}}</a> to log in.{% endblocktrans %}<br>
+{% blocktrans %}<a href="{{code_uri}}?code={{code}}&email={{email}}">Click here</a> to log into {{ site_name }}.{% endblocktrans %}<br>
+{% blocktrans %}If the link does not work, you can log in using this code: {{code}}.{% endblocktrans %}<br>
 <br>
-{% trans "Thanks for using the site!"%}

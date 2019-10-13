@@ -2,14 +2,28 @@
 
 {% load i18n %}
 
+{% block title %}{% trans 'Log In' %}{% endblock title %}
+
 {% block content %}
 
-<h3>Log In</h3>
-<p>{% trans "Enter your email address and we will send you a log in code." %}</p>
-<form method="post" >
-    {% csrf_token %}
-    {{ form }}
-<button>{% trans "Submit" %}</button>
-</form>
+
+<div id="log-in">
+    <h2>{% trans 'Log In' %}</h2>
+
+    <div class="content-body">
+        <p>{% trans 'Enter your email address and we will send you a link to use to log in.' %}<br>
+        {% trans 'No need to remember another username and password!' %}</p>
+
+        <form method="post" >
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            </table>
+            <div id="buttons">
+                <button>{% trans "Get Link" %}</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 {% endblock %}
