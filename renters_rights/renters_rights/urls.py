@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.contrib.flatpages import views
 from django.urls import include, path
 
-admin.site.site_header = "Renters' Haven Administration"
+admin.site.site_header = "Renter Haven Administration"
 
 urlpatterns = [
     path("", include("units.urls")),

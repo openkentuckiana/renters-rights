@@ -38,7 +38,7 @@ def str_to_int(value):
     return value if isinstance(value, int) else int(value)
 
 
-SITE_NAME = get_env_variable("SITE_NAME", "Renters' Haven")
+SITE_NAME = get_env_variable("SITE_NAME", "Renter Haven")
 SITE_URL = get_env_variable("SITE_URL", "https://landlord/")
 SITE_ID = 1
 
