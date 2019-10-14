@@ -1,13 +1,29 @@
+{% extends "base.html" %}
+
 {% load i18n %}
 
-<!doctype html>
-<html>
-    <body>
-        <form method="post">
+{% block title %}{% trans 'Log In' %}{% endblock title %}
+
+{% block content %}
+
+<div id="log-in">
+    <h2>{% trans 'Log In' %}</h2>
+
+    <div class="content-body">
+        <p>{% trans 'Check your email for a log in link' %}<br>
+        {% trans 'Follow the link to log in automatically or enter the code from the email below.' %}</p>
+
+        <form method="post" >
             {% csrf_token %}
-            {{ form }}
-	    <button>{% trans "Submit" %}</button>
+            <table>
+                {{ form.as_table }}
+            </table>
+            <div id="buttons">
+                <button>{% trans "Log In" %}</button>
+            </div>
         </form>
-    </body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js" type="text/javascript"></script>
-</html>
+    </div>
+</div>
+
+
+{% endblock %}
