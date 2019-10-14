@@ -3,6 +3,7 @@ import os
 import tempfile
 
 import pdfrw
+from django.conf import settings
 from django.http import HttpResponse
 from django.template import Context, Template
 from django.template.loader import render_to_string
@@ -80,7 +81,10 @@ class PhotosDocumentFormView(FormView, ProtectedView):
         return form_kwargs
 
     def form_valid(self, form):
-        context = {**form.cleaned_data, **{"user": self.request.user}}
+        context = {
+            **form.cleaned_data,
+            **{"user": self.request.user, "site_name": settings.SITE_NAME, "site_url": self.request.build_absolute_uri("/")},
+        }
         pdf_html = render_to_string("photo_report.html", context)
 
         pdf = io.BytesIO()
