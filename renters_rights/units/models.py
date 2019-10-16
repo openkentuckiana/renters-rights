@@ -1,3 +1,4 @@
+import datetime
 import logging
 import string
 import sys
@@ -96,7 +97,8 @@ class Unit(UserOwnedModel):
         return self.lease_start_date or self.lease_end_date or self.rent_due_date
 
     def save(self, *args, **kwargs):
-        self.slug = f"{slugify(self.unit_address_1)[:45]}-{''.join(choices(string.ascii_lowercase + string.digits, k=10))}"
+        if not self.slug:
+            self.slug = f"{slugify(self.unit_address_1)[:45]}-{''.join(choices(string.ascii_lowercase + string.digits, k=10))}"
         super().save(*args, **kwargs)
 
 
@@ -173,6 +175,8 @@ class UnitImage(UserOwnedModel):
                     output, "ImageField", f"{file_path}.jpg", "image/jpeg", sys.getsizeof(output), None
                 )
 
+        self.unit.modified_at = datetime.datetime.utcnow()
+        self.unit.save()
         super().save(*args, **kwargs)
 
 

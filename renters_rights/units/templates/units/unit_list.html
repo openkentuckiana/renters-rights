@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% load cache %}
 {% load i18n %}
 {% load model_strings %}
 
@@ -24,24 +25,27 @@
                         {% field_name model 'unit_zip_code' %}: {{ u.unit_zip_code }}<br>
                     </div>
                 {% endif %}
-                {% if u.pictures %}
-                    <h4>{% trans 'Pictures' %}</h4>
-                    <div class="images">
-                        {% for i in u.pictures %}
-                            <img src="{{ i.thumbnail }}" alt="Picture uploaded {{ i.upload_time }}">
-                        {% endfor %}
-                    </div>
-                {% endif %}
+                {% cache 86400 "unit_images_pictures_together_unit_" u.id u.modified_at %}
+                    {% if u.pictures %}
+                        <h4>{% trans 'Pictures' %}</h4>
+                        <div class="images">
+                            {% for i in u.pictures %}
+                                <img src="{{ i.thumbnail }}" alt="Picture uploaded {{ i.upload_time }}">
+                            {% endfor %}
+                        </div>
+                    {% endif %}
 
-                {% if u.documents %}
-                    <h4>{% trans 'Documents' %}</h4>
-                    <div class="images">
-                        {% for i in u.documents %}
-                            <img src="{{ i.thumbnail }}" alt="Document uploaded {{ i.upload_time }}">
-                        {% endfor %}
-                    </div>
-                {% endif %}
+                    {% if u.documents %}
+                        <h4>{% trans 'Documents' %}</h4>
+                        <div class="images">
+                            {% for i in u.documents %}
+                                <img src="{{ i.thumbnail }}" alt="Document uploaded {{ i.upload_time }}">
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endcache %}
             </div>
+
             <div class="unit-actions">
                 <div class="unit-upload-images">
                     <a href="{% url 'unit-add-documents' u.slug %}" class="button">{% trans 'Add Documents' %}</a><br>

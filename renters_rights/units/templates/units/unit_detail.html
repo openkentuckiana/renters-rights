@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+
+{% load cache %}
 {% load i18n %}
 
 {% block title %}Unit at {{ object.unit_address_1 }}{% endblock title %}
@@ -69,34 +71,36 @@
                 {% endif %}
             </div>
 
-        <div class="images">
-            <h4>{% trans 'Move-In Pictures' %}</h4>
+        {% cache 86400 "unit_images_pictures_by_type_unit_" object.id object.modified_at %}
             <div class="images">
-                {% for i in object.move_in_pictures %}
-                    <img src="{{ i.thumbnail }}" alt="Move-in picture uploaded {{ i.upload_time }}">
-                {% empty %}
-                    {% trans 'You have not uploaded any move-in pictures' %}
-                {% endfor %}
-            </div>
+                <h4>{% trans 'Move-In Pictures' %}</h4>
+                <div class="images">
+                    {% for i in object.move_in_pictures %}
+                        <img src="{{ i.thumbnail }}" alt="Move-in picture uploaded {{ i.upload_time }}">
+                    {% empty %}
+                        {% trans 'You have not uploaded any move-in pictures' %}
+                    {% endfor %}
+                </div>
 
-            <h4>{% trans 'Move-Out Pictures' %}</h4>
-            <div class="images">
-                {% for i in object.move_out_pictures %}
-                    <img src="{{ i.thumbnail }}" alt="Move-out picture uploaded {{ i.upload_time }}">
-                {% empty %}
-                    {% trans 'You have not uploaded any move-out pictures' %}
-                {% endfor %}
-            </div>
+                <h4>{% trans 'Move-Out Pictures' %}</h4>
+                <div class="images">
+                    {% for i in object.move_out_pictures %}
+                        <img src="{{ i.thumbnail }}" alt="Move-out picture uploaded {{ i.upload_time }}">
+                    {% empty %}
+                        {% trans 'You have not uploaded any move-out pictures' %}
+                    {% endfor %}
+                </div>
 
-            <h4>{% trans 'Documents' %}</h4>
-            <div class="images">
-                {% for i in object.documents %}
-                    <img src="{{ i.thumbnail }}" alt="Document uploaded {{ i.upload_time }}">
-                {% empty %}
-                    {% trans 'You have not uploaded any documents' %}
-                {% endfor %}
+                <h4>{% trans 'Documents' %}</h4>
+                <div class="images">
+                    {% for i in object.documents %}
+                        <img src="{{ i.thumbnail }}" alt="Document uploaded {{ i.upload_time }}">
+                    {% empty %}
+                        {% trans 'You have not uploaded any documents' %}
+                    {% endfor %}
+                </div>
             </div>
-        </div>
+        {% endcache %}
 
         <a class="button" href="{% url 'unit-delete' object.slug %}">{% trans 'Edit' %}</a><br>
         <a class="button delete" href="{% url 'unit-delete' object.slug %}" class="unit-delete">{% trans 'Delete' %}</a><br>
