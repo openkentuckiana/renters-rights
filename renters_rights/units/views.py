@@ -34,6 +34,7 @@ class UnitListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["model"] = self.model
+        context["CACHE_TIMEOUT"] = settings.CACHE_TIMEOUT
         return context
 
     def get_queryset(self):
@@ -45,6 +46,11 @@ class UnitListView(ListView):
 
 class UnitDetailView(DetailView, ProtectedView):
     model = Unit
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["CACHE_TIMEOUT"] = settings.CACHE_TIMEOUT
+        return context
 
     def get_queryset(self):
         return Unit.objects.for_user(self.request.user)
