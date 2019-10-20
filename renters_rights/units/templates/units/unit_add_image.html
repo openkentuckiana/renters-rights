@@ -10,13 +10,24 @@
 
     {% if form.max_images > form.current_image_count %}
         <div class="content-body">
-            <form method="post" enctype="multipart/form-data" id="unit-add-image-form">
+            <form method="post" enctype="multipart/form-data" id="unit-add-image-form" novalidate>
                 {% csrf_token %}
                 <table id="unit-form-table">
                     {{ form.as_table }}
                 </table>
                 <span id="multi-instructions">{% trans 'To select multiple pictures, hold down the Ctrl or Command (⌘) key when clicking files' %}</span>
                 <span id="remaining">{% trans 'You have uploaded'%} {{form.current_image_count}} {% trans 'of'%} {{form.max_images}} {% trans 'allowed images' %}.</span>
+                <p>
+                    {{form.upload_instructions}}
+                    <ul>
+                        {% for idea in form.upload_ideas %}
+                            <li>{{idea}}</li>
+                        {% endfor %}
+                    </ul>
+                </p>
+                {% if form.upload_instructions_footer %}
+                    <p>{{ form.upload_instructions_footer }}</p>
+                {% endif %}
                 <button id="unit-form-submit">{% trans "Submit" %}</button>
                 <a href="{% url 'unit-list' %}">{% trans "Cancel" %}</a>
             </form>

@@ -11,25 +11,29 @@
 <h1>{{ form.name }}{{ form_name }}</h1>
 
 <div class="content-body document-form-content">
-    <form method="post" id="document-form">
+    <form method="post" id="document-form" novalidate>
         {% csrf_token %}
         {{ form.non_field_errors }}
 
         <fieldset>
             <legend>{% trans "Select unit" %}</legend>
             <table>
+                {% if form.unit.errors %}
                 <tr>
+                    <td colspan="2">
+                        <ul class="errorlist">
+                            {% for error in form.unit.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                {% endif %}
+                <tr class="required">
                     <th>
                         <label for="{{ form.unit.id_for_label }}">{{form.unit.label}}</label>
                     </th>
                     <td>
-                        {% if form.unit.errors %}
-                            <ul>
-                                {% for error in form.unit.errors %}
-                                    <li>{{ error }}</li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
                         {{ form.unit }}
                         {% if form.unit.help_text %}
                             <br />{{ form.unit.help_text }}
@@ -43,13 +47,13 @@
             <legend>{% trans "Your current contact info" %}</legend>
             <table>
                 {% if form.sender_first_name %}
-                    <tr>
+                    <tr class="required">
                         <th>
                             <label for="{{ form.sender_first_name.id_for_label }}">{{form.sender_first_name.label}}</label>
                         </th>
                         <td>
                             {% if form.sender_first_name.errors %}
-                                <ul>
+                                <ul class="errorlist">
                                     {% for error in form.sender_first_name.errors %}
                                         <li>{{ error }}</li>
                                     {% endfor %}
@@ -61,13 +65,13 @@
                             {% endif %}
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="required">
                         <th>
                             <label for="{{ form.sender_last_name.id_for_label }}">{{form.sender_last_name.label}}</label>
                         </th>
                         <td>
                             {% if form.sender_last_name.errors %}
-                                <ul>
+                                <ul class="errorlist">
                                     {% for error in form.sender_last_name.errors %}
                                         <li>{{ error }}</li>
                                     {% endfor %}
@@ -80,13 +84,13 @@
                         </td>
                     </tr>
                 {% endif %}
-                <tr>
+                <tr class="required">
                     <th>
                         <label for="{{ form.use_unit_address.id_for_label }}">{{form.use_unit_address.label}}</label>
                     </th>
                     <td>
                         {% if form.use_unit_address.errors %}
-                            <ul>
+                            <ul class="errorlist">
                                 {% for error in form.use_unit_address.errors %}
                                     <li>{{ error }}</li>
                                 {% endfor %}
@@ -98,13 +102,13 @@
                         {% endif %}
                     </td>
                 </tr>
-                <tr class="sender-info">
+                <tr class="sender-info required">
                     <th>
                         <label for="{{ form.sender_address_1.id_for_label }}">{{form.sender_address_1.label}}</label>
                     </th>
                     <td>
                         {% if form.sender_address_1.errors %}
-                            <ul>
+                            <ul class="errorlist">
                                 {% for error in form.sender_address_1.errors %}
                                     <li>{{ error }}</li>
                                 {% endfor %}
@@ -116,13 +120,13 @@
                         {% endif %}
                     </td>
                 </tr>
-                <tr class="sender-info">
+                <tr class="sender-info required">
                     <th>
                         <label for="{{ form.sender_address_2.id_for_label }}">{{form.sender_address_2.label}}</label>
                     </th>
                     <td>
                         {% if form.sender_address_2.errors %}
-                            <ul>
+                            <ul class="errorlist">
                                 {% for error in form.sender_address_2.errors %}
                                     <li>{{ error }}</li>
                                 {% endfor %}
@@ -134,13 +138,13 @@
                         {% endif %}
                     </td>
                 </tr>
-                <tr class="sender-info">
+                <tr class="sender-info required">
                     <th>
                         <label for="{{ form.sender_city.id_for_label }}">{{form.sender_city.label}}</label>
                     </th>
                     <td>
                         {% if form.sender_city.errors %}
-                            <ul>
+                            <ul class="errorlist">
                                 {% for error in form.sender_city.errors %}
                                     <li>{{ error }}</li>
                                 {% endfor %}
@@ -152,13 +156,13 @@
                         {% endif %}
                     </td>
                 </tr>
-                <tr class="sender-info">
+                <tr class="sender-info required">
                     <th>
                         <label for="{{ form.sender_state.id_for_label }}">{{form.sender_state.label}}</label>
                     </th>
                     <td>
                         {% if form.sender_state.errors %}
-                            <ul>
+                            <ul class="errorlist">
                                 {% for error in form.sender_state.errors %}
                                     <li>{{ error }}</li>
                                 {% endfor %}
@@ -170,13 +174,13 @@
                         {% endif %}
                     </td>
                 </tr>
-                <tr class="sender-info">
+                <tr class="sender-info required">
                     <th>
                         <label for="{{ form.sender_zip_code.id_for_label }}">{{form.sender_zip_code.label}}</label>
                     </th>
                     <td>
                         {% if form.sender_zip_code.errors %}
-                            <ul>
+                            <ul class="errorlist">
                                 {% for error in form.sender_zip_code.errors %}
                                     <li>{{ error }}</li>
                                 {% endfor %}
@@ -194,7 +198,7 @@
                     </th>
                     <td>
                         {% if form.sender_email.errors %}
-                            <ul>
+                            <ul class="errorlist">
                                 {% for error in form.sender_email.errors %}
                                     <li>{{ error }}</li>
                                 {% endfor %}
@@ -212,7 +216,7 @@
                     </th>
                     <td>
                         {% if form.sender_phone.errors %}
-                            <ul>
+                            <ul class="errorlist">
                                 {% for error in form.sender_phone.errors %}
                                     <li>{{ error }}</li>
                                 {% endfor %}
@@ -233,13 +237,13 @@
 
                 <table>
                     {% for f in form.additional_fields %}
-                        <tr>
+                        <tr class="{% if f.field.required %}required{% endif %}">
                             <th>
                                 <label for="{{ f.id_for_label }}">{{f.label}}</label>
                             </th>
                             <td>
                                 {% if f.errors %}
-                                    <ul>
+                                    <ul class="errorlist">
                                         {% for error in f.errors %}
                                             <li>{{ error }}</li>
                                         {% endfor %}
@@ -266,11 +270,19 @@
 <script type="text/javascript">
     const useUnitAddress = document.getElementById("id_use_unit_address");
 
+    function hideSenderInfo() {
+        [].forEach.call(document.querySelectorAll('.sender-info'), function (e) {
+            e.style.display = 'none';
+        });
+    }
+
+    if(useUnitAddress.checked) {
+        hideSenderInfo();
+    }
+
     useUnitAddress.addEventListener('change', (event) => {
         if (event.target.checked) {
-            [].forEach.call(document.querySelectorAll('.sender-info'), function (e) {
-                e.style.display = 'none';
-            });
+            hideSenderInfo();
         } else {
             [].forEach.call(document.querySelectorAll('.sender-info'), function (e) {
                 e.style.display = 'table-row';

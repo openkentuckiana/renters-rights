@@ -17,6 +17,7 @@ from django.db import models
 from django.db.models import EmailField
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
+from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from localflavor.us.models import USStateField, USZipCodeField
@@ -39,7 +40,7 @@ def generate_file_path(instance, filename):
 
 class Unit(UserOwnedModel):
     """
-    Items that users are willing to give up.
+    Rental unit.
     """
 
     slug = models.SlugField(unique=True, max_length=60)
@@ -48,8 +49,8 @@ class Unit(UserOwnedModel):
     unit_address_1 = models.CharField(_("Unit Address 1"), max_length=100)
     unit_address_2 = models.CharField(_("Unit Address 2"), max_length=100, blank=True)
     unit_city = models.CharField(_("Unit City"), max_length=100, blank=True)
-    unit_state = USStateField(_("Unit State"), blank=True)
-    unit_zip_code = USZipCodeField(_("Unit ZIP Code"), blank=True)
+    unit_state = USStateField(_("Unit State"))
+    unit_zip_code = USZipCodeField(_("Unit ZIP Code"))
 
     # Landlord info
     landlord_name = models.CharField(_("Landlord Name"), max_length=100, blank=True)
@@ -68,6 +69,9 @@ class Unit(UserOwnedModel):
 
     def __str__(self):
         return f"{self.unit_address_1}"
+
+    def get_absolute_url(self):
+        return reverse("unit-detail", args=[self.slug])
 
     def pictures(self):
         return self.unitimage_set.filter(image_type__in=(MOVE_IN_PICTURE, MOVE_OUT_PICTURE)).order_by("-created_at")

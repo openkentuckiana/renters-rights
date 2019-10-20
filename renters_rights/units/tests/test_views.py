@@ -124,13 +124,9 @@ class UnitViewTests(UnitBaseTestCase):
     def test_create_view_creates_and_redirects_to_expected_url(self):
         c = Client()
         c.force_login(UnitViewTests.u)
-        response = c.post(reverse("unit-create"), {"unit_address_1": "my_address"})
-        self.assertRedirects(response, reverse("unit-list"))
-
-    def test_create_view_creates_and_redirects_to_expected_url(self):
-        c = Client()
-        c.force_login(UnitViewTests.u)
-        response = c.post(reverse("unit-create"), {"unit_address_1": "my_address"})
+        response = c.post(
+            reverse("unit-create"), {"unit_address_1": "my_address", "unit_state": "KY", "unit_zip_code": "40906"}
+        )
         self.assertRedirects(response, reverse("unit-list"))
         assert_that(Unit.objects.get(unit_address_1="my_address"), not_none())
 

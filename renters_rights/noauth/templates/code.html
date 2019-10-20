@@ -13,7 +13,7 @@
         <p>{% trans 'Check your email for a log in link' %}<br>
         {% trans 'Follow the link to log in automatically or enter the code from the email below.' %}</p>
 
-        <form method="post" >
+        <form method="post" novalidate>
             {% csrf_token %}
             <table>
                 {{ form.as_table }}

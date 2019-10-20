@@ -14,7 +14,7 @@
         <p>{% trans 'Enter your email address and we will send you a link to use to log in.' %}<br>
         {% trans 'No need to remember another username and password!' %}</p>
 
-        <form method="post" >
+        <form method="post" novalidate>
             {% csrf_token %}
             <table>
                 {{ form.as_table }}

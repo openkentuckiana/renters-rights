@@ -35,7 +35,7 @@ class DocumentFormTests(TestCase):
         assert_that(form.errors, has_key("sender_first_name"))
         assert_that(form.errors, has_key("sender_last_name"))
         assert_that(form.errors, has_key("unit"))
-        assert_that(form.errors, has_key("__all__"))
+        assert_that(form.errors, has_key("sender_address_1"))
 
         # Required field from document template
         assert_that(form.errors, has_key("field1"))
@@ -113,7 +113,7 @@ class SmallClaimsDocumentFormTests(TestCase):
         assert_that(form.errors, has_key("sender_first_name"))
         assert_that(form.errors, has_key("sender_last_name"))
         assert_that(form.errors, has_key("unit"))
-        assert_that(form.errors, has_key("__all__"))
+        assert_that(form.errors, has_key("sender_address_1"))
 
         # Required field from small claims form
         assert_that(form.errors, has_key("county"))
@@ -181,7 +181,7 @@ class PhotosDocumentFormTests(TestCase):
         assert_that(form.errors, has_key("sender_first_name"))
         assert_that(form.errors, has_key("sender_last_name"))
         assert_that(form.errors, has_key("unit"))
-        assert_that(form.errors, has_key("__all__"))
+        assert_that(form.errors, has_key("sender_address_1"))
 
     def test_form_requires_user_owned_unit(self):
         form = PhotosDocumentForm(data={"unit": PhotosDocumentFormTests.unit2.id}, user=PhotosDocumentFormTests.u)

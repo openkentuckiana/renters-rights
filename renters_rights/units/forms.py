@@ -1,7 +1,9 @@
 import logging
 
 from django import forms
+from django.conf import settings
 from django.utils.translation import gettext_lazy as _
+from localflavor.us.us_states import CONTIGUOUS_STATES
 
 from units.models import Unit
 
@@ -9,6 +11,9 @@ logger = logging.getLogger(__name__)
 
 
 class UnitForm(forms.ModelForm):
+    error_css_class = "error"
+    required_css_class = "required"
+
     class Meta:
         model = Unit
         fields = [
@@ -29,14 +34,58 @@ class UnitForm(forms.ModelForm):
             "rent_due_date",
         ]
 
+    @staticmethod
+    def _get_state_name(state_code):
+        try:
+            return next(s for s in CONTIGUOUS_STATES if s[0] == state_code)[1]
+        except Exception:
+            return None
+
+    def clean(self):
+        cleaned_data = super().clean()
+        state = cleaned_data.get("unit_state")
+        state_name = self._get_state_name(state)
+        zip_code = cleaned_data.get("unit_zip_code")
+
+        if self._get_state_name(state) not in settings.SUPPORTED_JURISDICTION_STATES:
+            raise forms.ValidationError({"unit_state": _("Sorry, but we do not support that state at this time")})
+
+        if "ALL" in settings.SUPPORTED_JURISDICTIONS[state_name]:
+            return
+
+        if zip_code not in settings.SUPPORTED_JURISDICTION_ZIP_CODES_BY_STATE[state_name]:
+            raise forms.ValidationError(
+                _(
+                    "Sorry, but we only support jurisdictions that have adopted the Uniform Residential Landlord Tenant Act. In %s, those jurisdictions are: %s"
+                    % (state_name, ", ".join(settings.SUPPORTED_JURISDICTIONS[state_name].keys()))
+                )
+            )
+
 
 class UnitAddImageForm(forms.Form):
-    def __init__(self, unit, label, max_images, current_image_count, *args, **kwargs):
+    error_css_class = "error"
+    required_css_class = "required"
+
+    def __init__(
+        self,
+        unit,
+        label,
+        max_images,
+        current_image_count,
+        upload_instructions,
+        upload_ideas,
+        upload_instructions_footer=None,
+        *args,
+        **kwargs
+    ):
         super().__init__(*args, **kwargs)
         self.unit = unit
         self.label = label
         self.max_images = max_images
         self.current_image_count = current_image_count
+        self.upload_instructions = upload_instructions
+        self.upload_ideas = upload_ideas
+        self.upload_instructions_footer = upload_instructions_footer
 
         self.fields["images"] = forms.ImageField(
             label=self.label, widget=forms.ClearableFileInput(attrs={"multiple": True}), required=False

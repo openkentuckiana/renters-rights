@@ -18,11 +18,19 @@
         <div class="unit content-body">
             <div class="unit-info">
                 <h3><a href="{% url 'unit-detail' u.slug %}">{{ u.unit_address_1 }}</a></h3>
-                {% if u.unit_city or u.unit_state or u.unit_zip_code %}
+                {% if u.unit_address_2 or u.unit_city or u.unit_state or u.unit_zip_code %}
                     <div class="address-info">
-                        {% field_name model 'unit_city' %}: {{ u.unit_city }}<br>
-                        {% field_name model 'unit_state' %}: {{ u.unit_state }}<br>
-                        {% field_name model 'unit_zip_code' %}: {{ u.unit_zip_code }}<br>
+                        {% if u.unit_address_2 %}
+                            {{ u.unit_address_2 }}<br>
+                        {% endif %}
+                        {% if u.unit_city and u.unit_state %}
+                            {{ u.unit_city }}, {{ u.unit_state }}
+                        {% elif u.unit_city %}
+                            {{ u.unit_city }}
+                        {% elif u.unit_state %}
+                            {{ u.unit_state }}
+                        {% endif %}
+                        {{ u.unit_zip_code }}
                     </div>
                 {% endif %}
                 {% cache 86400 "unit_images_pictures_together_unit_" u.id u.modified_at %}
