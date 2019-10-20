@@ -9,6 +9,7 @@ from .views import (
     UnitDeleteView,
     UnitDetailView,
     UnitListView,
+    UnitUpdate,
     sign_files,
 )
 
@@ -17,6 +18,7 @@ urlpatterns = [
     path("units/", UnitListView.as_view(), name="unit-list"),
     path("units/new/", UnitCreate.as_view(), name="unit-create"),
     path("units/delete/<slug:slug>/", UnitDeleteView.as_view(), name="unit-delete"),
+    path("units/edit/<slug:slug>/", UnitUpdate.as_view(), name="unit-edit"),
     path("units/<slug:slug>/add-documents/", UnitAddDocumentsFormView.as_view(), name="unit-add-documents"),
     path("units/<slug:slug>/add-move-in-pics/", UnitAddMoveInPicturesFormView.as_view(), name="unit-add-move-in-pictures"),
     path("units/<slug:slug>/add-move-out-pics/", UnitAddMoveOutPicturesFormView.as_view(), name="unit-add-move-out-pictures"),

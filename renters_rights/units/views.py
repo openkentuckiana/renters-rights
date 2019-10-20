@@ -12,7 +12,7 @@ from django.http import HttpResponseBadRequest, HttpResponseRedirect, JsonRespon
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, DetailView, FormView, ListView, TemplateView, View
+from django.views.generic import CreateView, DetailView, FormView, ListView, UpdateView, View
 
 from lib.views import ProtectedView
 from units.forms import UnitAddImageForm, UnitForm
@@ -54,6 +54,16 @@ class UnitCreate(CreateView, ProtectedView):
     template_name = "units/unit_form.html"
     form_class = UnitForm
     success_url = reverse_lazy("unit-list")
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
+
+class UnitUpdate(UpdateView, ProtectedView):
+    model = Unit
+    template_name = "units/unit_form.html"
+    form_class = UnitForm
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
@@ -127,6 +137,8 @@ class UnitAddDocumentsFormView(UnitAddImagesFormViewBase):
     def get_form_kwargs(self):
         form_kwargs = super().get_form_kwargs()
         form_kwargs["label"] = _("Documents")
+        form_kwargs["upload_instructions"] = _("Take pictures of important documents to save for later. For example:")
+        form_kwargs["upload_ideas"] = [_("Your lease"), _("An important letter from your landlord")]
         form_kwargs["max_images"] = settings.MAX_DOCUMENTS_PER_UNIT
         form_kwargs["current_image_count"] = UnitImage.objects.for_user(
             self.request.user, unit=form_kwargs["unit"], image_type=DOCUMENT
@@ -140,6 +152,16 @@ class UnitAddMoveInPicturesFormView(UnitAddImagesFormViewBase):
     def get_form_kwargs(self):
         form_kwargs = super().get_form_kwargs()
         form_kwargs["label"] = _("Move-in Pictures")
+        form_kwargs["upload_instructions"] = _("Take pictures of these places in your apartment:")
+        form_kwargs["upload_ideas"] = [
+            _("Kitchen"),
+            _("Kitchen appliances"),
+            _("Bathroom walls"),
+            _("Bathroom tub"),
+            _("Living room"),
+            _("Blinds/window coverings"),
+            _("Anything that's damaged"),
+        ]
         form_kwargs["max_images"] = settings.MAX_MOVE_IN_PICTURES_PER_UNIT
         form_kwargs["current_image_count"] = UnitImage.objects.for_user(
             self.request.user, unit=form_kwargs["unit"], image_type=MOVE_IN_PICTURE
@@ -153,6 +175,18 @@ class UnitAddMoveOutPicturesFormView(UnitAddImagesFormViewBase):
     def get_form_kwargs(self):
         form_kwargs = super().get_form_kwargs()
         form_kwargs["label"] = _("Move-out Pictures")
+        form_kwargs["upload_instructions"] = _("Take pictures of these places in your apartment:")
+        form_kwargs["upload_ideas"] = [
+            _("Kitchen"),
+            _("Kitchen appliances"),
+            _("Bathroom walls"),
+            _("Bathroom tub"),
+            _("Living room"),
+            _("Blinds/window coverings"),
+        ]
+        form_kwargs["upload_instructions_footer"] = _(
+            "Make sure you have good overall coverage of your unit in case your landlord claims damage."
+        )
         form_kwargs["max_images"] = settings.MAX_MOVE_OUT_PICTURES_PER_UNIT
         form_kwargs["current_image_count"] = UnitImage.objects.for_user(
             self.request.user, unit=form_kwargs["unit"], image_type=MOVE_OUT_PICTURE

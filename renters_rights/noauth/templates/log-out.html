@@ -12,7 +12,7 @@
     <div class="content-body">
         <p>{% trans 'Would you like to log out?' %}</p>
 
-        <form method="post" >
+        <form method="post">
             {% csrf_token %}
             <button>{% trans "Log Out" %}</button>
             <a href="{% url 'homepage' %}" onclick="goBack();">{% trans "Cancel" %}</a>

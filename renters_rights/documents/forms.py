@@ -65,10 +65,10 @@ class BaseDocumentForm(forms.Form):
         sender_zip_code = self.cleaned_data.get("sender_zip_code")
 
         if not use_unit_address and (not sender_address_1 or not sender_city or not sender_state or not sender_zip_code):
-            raise forms.ValidationError(_("Please enter sender information"))
+            raise forms.ValidationError({"sender_address_1": _("Please enter your contact information.")})
         elif use_unit_address:
             if not self.cleaned_data.get("unit"):
-                raise forms.ValidationError(_("Please select a unit"))
+                return  # error will be raised by unit field clean method
             self.cleaned_data["sender_address_1"] = self.cleaned_data["unit"].unit_address_1
             self.cleaned_data["sender_address_2"] = self.cleaned_data["unit"].unit_address_2
             self.cleaned_data["sender_city"] = self.cleaned_data["unit"].unit_city

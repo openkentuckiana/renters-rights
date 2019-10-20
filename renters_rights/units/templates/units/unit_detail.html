@@ -22,6 +22,10 @@
                 {% endif %}
                 {% if object.unit_city and object.unit_state %}
                     {{ object.unit_city }}, {{ object.unit_state }}
+                {% elif object.unit_city %}
+                    {{ object.unit_city }}
+                {% elif object.unit_state %}
+                    {{ object.unit_state }}
                 {% endif %}
                 {{ object.unit_zip_code }}
             </div>
@@ -36,6 +40,10 @@
                 {% endif %}
                 {% if object.landlord_city and object.landlord_state %}
                     {{ object.landlord_city }}, {{ object.landlord_state }}
+                {% elif object.landlord_city %}
+                    {{ object.landlord_city }}
+                {% elif object.landlord_state %}
+                    {{ object.landlord_state }}
                 {% endif %}
                 {{ object.landlord_zip_code }}
                 {% if object.landlord_phone_number %}
@@ -71,14 +79,16 @@
                 {% endif %}
             </div>
 
-        {% cache 86400 "unit_images_pictures_by_type_unit_" object.id object.modified_at %}
-            <div class="images">
+        {% cache 0 "unit_images_pictures_by_type_unit_" object.id object.modified_at %}
+            <div class="images unit-detail">
                 <h4>{% trans 'Move-In Pictures' %}</h4>
                 <div class="images">
                     {% for i in object.move_in_pictures %}
                         <img src="{{ i.thumbnail }}" alt="Move-in picture uploaded {{ i.upload_time }}">
                     {% empty %}
-                        {% trans 'You have not uploaded any move-in pictures' %}
+                        <p>{% trans 'Upload pictures when you move in to have proof of damage that existed when you moved in.' %}</p>
+                        <a href="{% url 'unit-add-move-in-pictures' object.slug %}" class="button">{% trans 'Upload' %}</a>
+                        <span class="upload-pictures-sub">{% trans "We'll give you ideas of what to upload" %}</span>
                     {% endfor %}
                 </div>
 
@@ -87,7 +97,9 @@
                     {% for i in object.move_out_pictures %}
                         <img src="{{ i.thumbnail }}" alt="Move-out picture uploaded {{ i.upload_time }}">
                     {% empty %}
-                        {% trans 'You have not uploaded any move-out pictures' %}
+                        <p>{% trans 'Upload pictures when you move out to document the condition of the unit when you left.' %}</p>
+                        <a href="{% url 'unit-add-move-out-pictures' object.slug %}" class="button">{% trans 'Upload' %}</a>
+                        <span class="upload-pictures-sub">{% trans "We'll give you ideas of what to upload" %}</span>
                     {% endfor %}
                 </div>
 
@@ -96,14 +108,15 @@
                     {% for i in object.documents %}
                         <img src="{{ i.thumbnail }}" alt="Document uploaded {{ i.upload_time }}">
                     {% empty %}
-                        {% trans 'You have not uploaded any documents' %}
+                        <p>{% trans 'Take pictures of your important documents like your lease.' %}</p>
+                        <a href="{% url 'unit-add-documents' object.slug %}" class="button">{% trans 'Add Documents' %}</a><br>
                     {% endfor %}
                 </div>
             </div>
         {% endcache %}
 
-        <a class="button" href="{% url 'unit-delete' object.slug %}">{% trans 'Edit' %}</a><br>
-        <a class="button delete" href="{% url 'unit-delete' object.slug %}" class="unit-delete">{% trans 'Delete' %}</a><br>
+        <a class="button" href="{% url 'unit-edit' object.slug %}">{% trans 'Edit Unit Info' %}</a><br>
+        <a class="button delete" href="{% url 'unit-delete' object.slug %}" class="unit-delete">{% trans 'Delete Unit' %}</a><br>
     </div>
 
 {% endblock %}
