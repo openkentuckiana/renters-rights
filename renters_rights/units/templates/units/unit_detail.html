@@ -79,7 +79,7 @@
                 {% endif %}
             </div>
 
-        {% cache 86400 "unit_images_pictures_by_type_unit_" object.id object.modified_at %}
+        {% cache "unit_images_pictures_by_type_unit_" object.id object.modified_at %}
             <div class="images unit-detail">
                 <h4>{% trans 'Move-In Pictures' %}</h4>
                 <div class="images">

@@ -33,7 +33,7 @@
                         {{ u.unit_zip_code }}
                     </div>
                 {% endif %}
-                {% cache 86400 "unit_images_pictures_together_unit_" u.id u.modified_at %}
+                {% cache "unit_images_pictures_together_unit_" u.id u.modified_at %}
                     {% if u.pictures %}
                         <h4>{% trans 'Pictures' %}</h4>
                         <div class="images">

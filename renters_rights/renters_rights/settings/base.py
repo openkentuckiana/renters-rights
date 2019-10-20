@@ -216,7 +216,9 @@ AWS_SECRET_ACCESS_KEY = get_env_variable("AWS_SECRET_ACCESS_KEY", "INVALID")
 AWS_UPLOAD_BUCKET_NAME = get_env_variable("AWS_UPLOAD_BUCKET_NAME", "renters-rights-uploads-test")
 AWS_STORAGE_BUCKET_NAME = get_env_variable("AWS_STORAGE_BUCKET_NAME", "renters-rights-test")
 
-CACHES = {"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
+CACHE_TIMEOUT = get_env_variable("CACHE_TIMEOUT", 86400)
+CACHES = {"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache", "TIMEOUT": CACHE_TIMEOUT}}
+AWS_QUERYSTRING_EXPIRE = CACHE_TIMEOUT + 30
 
 # APP SETTINGS
 
