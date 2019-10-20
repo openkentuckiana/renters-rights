@@ -47,6 +47,9 @@ class UnitForm(forms.ModelForm):
         state_name = self._get_state_name(state)
         zip_code = cleaned_data.get("unit_zip_code")
 
+        if not state or not zip_code:
+            return  # unit_state nad unit_zip_code being required fields will result in a required message if this isn't set
+
         if self._get_state_name(state) not in settings.SUPPORTED_JURISDICTION_STATES:
             raise forms.ValidationError({"unit_state": _("Sorry, but we do not support that state at this time")})
 

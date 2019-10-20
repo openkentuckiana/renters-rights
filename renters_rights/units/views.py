@@ -54,6 +54,8 @@ class UnitCreate(CreateView, ProtectedView):
     template_name = "units/unit_form.html"
     form_class = UnitForm
     success_url = reverse_lazy("unit-list")
+    # This can go away once we support multiple states. At that time, we should probably limit the list to states we support
+    initial = {"unit_state": "KY"}
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
