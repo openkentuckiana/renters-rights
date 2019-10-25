@@ -9,7 +9,7 @@ admin.site.site_header = "Renter Haven Administration"
 urlpatterns = [
     path("", include("units.urls")),
     path("admin/", admin.site.urls),
-    path("auth/", include("noauth.urls")),
+    path("account/", include("noauth.urls")),
     path("letters-forms/", include("documents.urls")),
     path("<path:url>", views.flatpage),
 ]

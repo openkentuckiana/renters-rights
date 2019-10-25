@@ -11,7 +11,9 @@ from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic.edit import FormView
 
-from .forms import CodeForm, LoginForm
+from lib.views import ProtectedView
+
+from .forms import CodeForm, LoginForm, UserProfileForm
 from .models import AuthCode, User
 
 
@@ -122,3 +124,47 @@ class LogOutView(View):
         messages.add_message(request, messages.SUCCESS, _("You have been logged out."))
         logout(request)
         return HttpResponseRedirect(reverse("homepage"))
+
+
+class UserProfileView(FormView, ProtectedView):
+    template_name = "account-details.html"
+    form_class = UserProfileForm
+    success_url = reverse_lazy("noauth:account-details")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["user"] = self.request.user
+        return context
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["original_email"] = self.request.user.username
+        return kwargs
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial["first_name"] = self.request.user.first_name
+        initial["last_name"] = self.request.user.last_name
+        initial["email"] = self.request.user.username
+        return initial
+
+    def form_valid(self, form):
+        user = self.request.user
+        email = form.cleaned_data.get("email")
+        if email:
+            previous_emails = user.previous_emails
+            previous_emails.append(user.username)
+
+            User.objects.filter(id=user.id).update(
+                first_name=form.cleaned_data["first_name"],
+                last_name=form.cleaned_data["last_name"],
+                username=form.cleaned_data.get("email") or user.username,
+                email=form.cleaned_data.get("email") or user.username,
+                previous_emails=previous_emails,
+            )
+        else:
+            User.objects.filter(id=user.id).update(
+                first_name=form.cleaned_data["first_name"], last_name=form.cleaned_data["last_name"]
+            )
+        messages.add_message(self.request, messages.SUCCESS, _("Your changes were saved."))
+        return super().form_valid(form)
