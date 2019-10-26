@@ -23,6 +23,9 @@ DEFAULT_CODE_TTL_MINUTES = 60
 class User(AbstractUser, BaseModel):
     code_last_sent = models.DateTimeField(blank=True, null=True)
     previous_emails = ArrayField(models.EmailField(), default=list)
+    pending_new_email = models.EmailField(blank=True, null=True)
+    pending_code = models.CharField(max_length=20, editable=False, blank=True, null=True)
+    pending_code_timestamp = models.DateTimeField(editable=False, blank=True, null=True)
 
     def __str__(self):
         return f"{self.username}"

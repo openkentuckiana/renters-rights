@@ -1,5 +1,10 @@
+import datetime
+
 from django import forms
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+
+from noauth.models import User
 
 
 class LoginForm(forms.Form):
@@ -30,3 +35,31 @@ class UserProfileForm(forms.Form):
 
         if email and email != self.original_email and email != confirm_email:
             raise forms.ValidationError({"confirm_email": _("Email addresses do not match.")})
+
+        if (
+            email
+            and email != self.original_email
+            and email == confirm_email
+            and User.objects.filter(username=email).count() > 0
+        ):
+            raise forms.ValidationError({"email": _("Email addresses already in use.")})
+
+
+class ConfirmUsernameChangeForm(forms.Form):
+    code = forms.CharField(label="Code", max_length=20)
+
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.user = user
+
+    def clean_code(self):
+        code = self.cleaned_data.get("code")
+
+        if not self.user.pending_code:
+            raise forms.ValidationError(_("You do not have a pending username change."))
+
+        if not self.user.pending_code == code.strip():
+            raise forms.ValidationError(_("The code you entered is invalid."))
+
+        if self.user.pending_code_timestamp and timezone.now() - self.user.pending_code_timestamp > datetime.timedelta(hours=1):
+            raise forms.ValidationError(_("Code is expired. Please confirm change within 1 hour."))

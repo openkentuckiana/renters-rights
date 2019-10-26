@@ -1,11 +1,15 @@
+import datetime
 import string
 from secrets import choice
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login, logout
+from django.core.mail import EmailMultiAlternatives
 from django.forms import ValidationError
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
+from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views import View
@@ -13,7 +17,7 @@ from django.views.generic.edit import FormView
 
 from lib.views import ProtectedView
 
-from .forms import CodeForm, LoginForm, UserProfileForm
+from .forms import CodeForm, ConfirmUsernameChangeForm, LoginForm, UserProfileForm
 from .models import AuthCode, User
 
 
@@ -150,21 +154,92 @@ class UserProfileView(FormView, ProtectedView):
 
     def form_valid(self, form):
         user = self.request.user
-        email = form.cleaned_data.get("email")
-        if email:
-            previous_emails = user.previous_emails
-            previous_emails.append(user.username)
+        new_username = form.cleaned_data.get("email")
+        current_username = user.username
+
+        if new_username and new_username != current_username:
+            code = AuthCode.generate_code()
 
             User.objects.filter(id=user.id).update(
                 first_name=form.cleaned_data["first_name"],
                 last_name=form.cleaned_data["last_name"],
-                username=form.cleaned_data.get("email") or user.username,
-                email=form.cleaned_data.get("email") or user.username,
-                previous_emails=previous_emails,
+                pending_new_email=new_username,
+                pending_code=code,
+                pending_code_timestamp=datetime.datetime.utcnow(),
             )
+
+            email_context = {
+                "confirmation_uri": self.request.build_absolute_uri(reverse("noauth:confirm-username-change")),
+                "code": code,
+                "old_username": current_username,
+                "new_username": new_username,
+                "site_name": settings.SITE_NAME,
+            }
+
+            template = "username-pending-change-email.txt"
+            html_template = "username-pending-change-email.html"
+
+            subject, to = (_(f"Your {settings.SITE_NAME} email has changed"), current_username)
+            msg = EmailMultiAlternatives(subject, render_to_string(template, email_context), None, [to])
+            msg.attach_alternative(render_to_string(html_template, email_context), "text/html")
+            msg.send()
+
+            messages.add_message(
+                self.request, messages.SUCCESS, _("Your changes were saved. Check your email to complete username change.")
+            )
+            self.success_url = reverse_lazy("noauth:confirm-username-change")
         else:
             User.objects.filter(id=user.id).update(
                 first_name=form.cleaned_data["first_name"], last_name=form.cleaned_data["last_name"]
             )
-        messages.add_message(self.request, messages.SUCCESS, _("Your changes were saved."))
+            messages.add_message(self.request, messages.SUCCESS, _("Your changes were saved."))
+        return super().form_valid(form)
+
+
+class ConfirmUsernameChangeView(FormView, ProtectedView):
+    template_name = "username-pending-change.html"
+    form_class = ConfirmUsernameChangeForm
+    success_url = reverse_lazy("noauth:account-details")
+
+    def get_form_kwargs(self):
+        form_kwargs = super().get_form_kwargs()
+        form_kwargs["user"] = self.request.user
+        return form_kwargs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["pending_new_email"] = self.request.user.pending_new_email
+        context["current_username"] = self.request.user.username
+        return context
+
+    def form_valid(self, form):
+        user = self.request.user
+
+        current_username = user.username
+        new_username = user.pending_new_email
+
+        email_context = {"new_username": new_username, "site_name": settings.SITE_NAME}
+
+        template = "username-changed-email.txt"
+        html_template = "username-changed-email.html"
+
+        subject, to = (_(f"Your {settings.SITE_NAME} email has changed"), current_username)
+        msg = EmailMultiAlternatives(subject, render_to_string(template, email_context), None, [to])
+        msg.attach_alternative(render_to_string(html_template, email_context), "text/html")
+        msg.send()
+
+        previous_emails = user.previous_emails
+        previous_emails.append(current_username)
+
+        User.objects.filter(id=user.id).update(
+            username=new_username,
+            email=new_username,
+            previous_emails=previous_emails,
+            pending_new_email=None,
+            pending_code=None,
+            pending_code_timestamp=None,
+        )
+
+        messages.add_message(self.request, messages.SUCCESS, _("Your username was changed."))
+
         return super().form_valid(form)

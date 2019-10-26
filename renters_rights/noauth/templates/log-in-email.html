@@ -1,8 +1,13 @@
-{% load i18n %} 
+{% extends "base-email.html" %}
 
-<h3>{{ site_name }}</h3>
-{% trans "Hello"%},<br>
-<br>
-{% blocktrans %}<a href="{{code_uri}}?code={{code}}&email={{email}}">Click here</a> to log into {{ site_name }}.{% endblocktrans %}<br>
-{% blocktrans %}If the link does not work, you can log in using this code: {{code}}.{% endblocktrans %}<br>
-<br>
+{% load i18n %}
+
+{% block content %}
+    <h3>{{ site_name }}</h3>
+    <p>
+        {% trans "Hello"%},<br>
+        <br>
+        {% blocktrans %}<a href="{{code_uri}}?code={{code}}&email={{email}}">Click here</a> to log into {{ site_name }}.{% endblocktrans %}<br>
+        {% blocktrans %}If the link does not work, you can log in using this code: {{code}}.{% endblocktrans %}<br>
+    </p>
+{% endblock %}
