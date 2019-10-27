@@ -20,6 +20,7 @@
                     {{ form.as_table }}
                 </table>
                 <div id="buttons">
+                    <div><a href="{% url 'noauth:account-details' %}" onclick="goBack();">{% trans "Cancel" %}</a></div>
                     <button>{% trans "Change Username" %}</button>
                 </div>
             </form>

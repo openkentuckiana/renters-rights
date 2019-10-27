@@ -1,4 +1,3 @@
-import datetime
 import string
 from secrets import choice
 
@@ -11,6 +10,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic.edit import FormView
@@ -142,7 +142,7 @@ class UserProfileView(FormView, ProtectedView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs["original_email"] = self.request.user.username
+        kwargs["original_username"] = self.request.user.username
         return kwargs
 
     def get_initial(self):
@@ -165,7 +165,7 @@ class UserProfileView(FormView, ProtectedView):
                 last_name=form.cleaned_data["last_name"],
                 pending_new_email=new_username,
                 pending_code=code,
-                pending_code_timestamp=datetime.datetime.utcnow(),
+                pending_code_timestamp=timezone.now(),
             )
 
             email_context = {
@@ -179,7 +179,7 @@ class UserProfileView(FormView, ProtectedView):
             template = "username-pending-change-email.txt"
             html_template = "username-pending-change-email.html"
 
-            subject, to = (_(f"Your {settings.SITE_NAME} email has changed"), current_username)
+            subject, to = (_(f"Your requested {settings.SITE_NAME} email change"), current_username)
             msg = EmailMultiAlternatives(subject, render_to_string(template, email_context), None, [to])
             msg.attach_alternative(render_to_string(html_template, email_context), "text/html")
             msg.send()
@@ -211,6 +211,11 @@ class ConfirmUsernameChangeView(FormView, ProtectedView):
         context["pending_new_email"] = self.request.user.pending_new_email
         context["current_username"] = self.request.user.username
         return context
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial["code"] = self.request.GET.get("code")
+        return initial
 
     def form_valid(self, form):
         user = self.request.user

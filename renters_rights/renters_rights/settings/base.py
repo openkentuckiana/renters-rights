@@ -169,7 +169,7 @@ LOCALE_PATHS = [os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "l
 # User registration
 DEFAULT_FROM_EMAIL = get_env_variable("DEFAULT_FROM_EMAIL", "no-reply@renterhaven.com")
 AUTH_USER_MODEL = "noauth.User"
-NOAUTH_CODE_TTL_MINUTES = 10
+NOAUTH_CODE_TTL_MINUTES = 30
 
 # Smallest size will be used to generate a square thumbnail.
 # Largest size will be used to resize original image.

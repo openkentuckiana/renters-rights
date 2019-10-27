@@ -1,6 +1,7 @@
 import datetime
 
 from django import forms
+from django.conf import settings
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -24,21 +25,21 @@ class UserProfileForm(forms.Form):
     )
     confirm_email = forms.CharField(label=_("Confirm Email"), required=False)
 
-    def __init__(self, original_email=None, *args, **kwargs):
+    def __init__(self, original_username=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.original_email = original_email
+        self.original_username = original_username
 
     def clean(self):
         super().clean()
         email = self.cleaned_data.get("email")
         confirm_email = self.cleaned_data.get("confirm_email")
 
-        if email and email != self.original_email and email != confirm_email:
+        if email and email != self.original_username and email != confirm_email:
             raise forms.ValidationError({"confirm_email": _("Email addresses do not match.")})
 
         if (
             email
-            and email != self.original_email
+            and email != self.original_username
             and email == confirm_email
             and User.objects.filter(username=email).count() > 0
         ):
@@ -46,7 +47,7 @@ class UserProfileForm(forms.Form):
 
 
 class ConfirmUsernameChangeForm(forms.Form):
-    code = forms.CharField(label="Code", max_length=20)
+    code = forms.CharField(label="Code", max_length=20, required=True)
 
     def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -61,5 +62,10 @@ class ConfirmUsernameChangeForm(forms.Form):
         if not self.user.pending_code == code.strip():
             raise forms.ValidationError(_("The code you entered is invalid."))
 
-        if self.user.pending_code_timestamp and timezone.now() - self.user.pending_code_timestamp > datetime.timedelta(hours=1):
-            raise forms.ValidationError(_("Code is expired. Please confirm change within 1 hour."))
+        if self.user.pending_code_timestamp and timezone.now() - self.user.pending_code_timestamp > datetime.timedelta(
+            minutes=settings.NOAUTH_CODE_TTL_MINUTES
+        ):
+            raise forms.ValidationError(
+                _("Code is expired. Please confirm change within %(minutes)s minutes.")
+                % {"minutes": settings.NOAUTH_CODE_TTL_MINUTES}
+            )

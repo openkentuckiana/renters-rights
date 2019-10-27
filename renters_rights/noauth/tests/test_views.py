@@ -1,13 +1,16 @@
 import datetime
 from unittest.mock import patch
 
+from django.conf import settings
+from django.core import mail
 from django.test import Client, override_settings
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.translation import gettext as _
 from freezegun import freeze_time
-from hamcrest import assert_that, contains, equal_to, has_key, none
+from hamcrest import assert_that, contains, contains_string, equal_to, has_key, is_not, none
 
-from noauth.forms import CodeForm
+from noauth.forms import CodeForm, ConfirmUsernameChangeForm, UserProfileForm
 from noauth.models import AuthCode, User
 from noauth.tests import UnitBaseTestCase
 from noauth.views import CodeView
@@ -166,3 +169,143 @@ class LogOutViewTests(UnitBaseTestCase):
         c.force_login(LogOutViewTests.u)
         response = c.post(self.view_url)
         self.assertRedirects(response, reverse("homepage"))
+
+
+class UserProfileViewTests(UnitBaseTestCase):
+    view_url = reverse("noauth:account-details")
+
+    def test_user_profile_view_requires_login(self):
+        response = self.client.get(self.view_url)
+        self.assertRedirects(response, f"{reverse('noauth:log-in')}?next={self.view_url}")
+
+    def test_get_returns_form_with_user_info_as_initial_values(self):
+        c = Client()
+        c.force_login(UserProfileViewTests.u)
+        response = c.get(self.view_url)
+        form = response.context["form"]
+        assert_that(form.initial, has_key("email"))
+        assert_that(form.initial["email"], equal_to(UserProfileViewTests.u.username))
+        assert_that(form.initial, has_key("first_name"))
+        assert_that(form.initial["first_name"], equal_to(UserProfileViewTests.u.first_name))
+        assert_that(form.initial, has_key("last_name"))
+        assert_that(form.initial["last_name"], equal_to(UserProfileViewTests.u.last_name))
+        self.assertTrue(isinstance(form, UserProfileForm))
+
+    def test_username_change(self):
+        """When a user submits a new username, the app should set the pending fields and send an email."""
+        user = UserProfileViewTests.u
+        original_username = user.username
+
+        c = Client()
+        c.force_login(user)
+        response = c.post(
+            self.view_url,
+            {
+                "first_name": "Tahani",
+                "last_name": "Al-Jamil",
+                "email": "tahani@goodplace.net",
+                "confirm_email": "tahani@goodplace.net",
+            },
+        )
+
+        user.refresh_from_db()
+
+        # Should be changed
+        assert_that(user.first_name, equal_to("Tahani"))
+        assert_that(user.last_name, equal_to("Al-Jamil"))
+
+        # Should not be changed yet
+        assert_that(user.username, equal_to(original_username))
+        assert_that(user.email, equal_to(original_username))
+
+        # Should be set to allow confirmation of username change
+        assert_that(user.pending_new_email, equal_to("tahani@goodplace.net"))
+        assert_that(user.pending_code, is_not(none()))
+        assert_that(user.pending_code_timestamp, is_not(none()))
+
+        assert_that(len(mail.outbox), equal_to(1))
+        assert_that(mail.outbox[0].subject, equal_to(_(f"Your requested {settings.SITE_NAME} email change")))
+        assert_that(mail.outbox[0].body, contains_string(user.pending_code))
+
+        self.assertRedirects(response, reverse("noauth:confirm-username-change"))
+
+    def test_non_username_change(self):
+        user = UserProfileViewTests.u
+        original_username = user.username
+
+        c = Client()
+        c.force_login(user)
+        response = c.post(self.view_url, {"first_name": "Tahani", "last_name": "Al-Jamil", "email": original_username})
+
+        user.refresh_from_db()
+
+        # Should be changed
+        assert_that(user.first_name, equal_to("Tahani"))
+        assert_that(user.last_name, equal_to("Al-Jamil"))
+
+        # Should not be changed
+        assert_that(user.username, equal_to(original_username))
+        assert_that(user.email, equal_to(original_username))
+
+        # Should not be set
+        assert_that(user.pending_new_email, none())
+        assert_that(user.pending_code, none())
+        assert_that(user.pending_code_timestamp, none())
+
+        assert_that(len(mail.outbox), equal_to(0))
+
+        self.assertRedirects(response, self.view_url)
+
+
+class ConfirmUsernameChangeViewTests(UnitBaseTestCase):
+    view_url = reverse("noauth:confirm-username-change")
+
+    def test_confirm_username_change_view_requires_login(self):
+        response = self.client.get(self.view_url)
+        self.assertRedirects(response, f"{reverse('noauth:log-in')}?next={self.view_url}")
+
+    def test_get_returns_blank_form(self):
+        c = Client()
+        c.force_login(ConfirmUsernameChangeViewTests.u)
+        response = c.get(self.view_url)
+        form = response.context["form"]
+        assert_that(form.initial, has_key("code"))
+        assert_that(form.initial["code"], none())
+        self.assertTrue(isinstance(form, ConfirmUsernameChangeForm))
+
+    def test_get_with_code_param_returns_populated_form(self):
+        c = Client()
+        c.force_login(ConfirmUsernameChangeViewTests.u)
+        response = c.get(f"{self.view_url}?code=1234")
+        form = response.context["form"]
+        assert_that(form.initial, has_key("code"))
+        assert_that(form.initial["code"], equal_to("1234"))
+        self.assertTrue(isinstance(form, ConfirmUsernameChangeForm))
+
+    def test_username_changed_with_valid_code(self):
+        user = ConfirmUsernameChangeViewTests.u
+
+        new_username = "tahani@goodplace.net"
+
+        User.objects.filter(id=user.id).update(
+            **{
+                "pending_new_email": new_username,
+                "pending_code": "1234",
+                "pending_code_timestamp": timezone.now() + datetime.timedelta(hours=1),
+            }
+        )
+
+        c = Client()
+        c.force_login(user)
+
+        response = c.post(self.view_url, {"code": "1234"})
+
+        user.refresh_from_db()
+
+        assert_that(user.username, equal_to(new_username))
+        assert_that(user.email, equal_to(new_username))
+        assert_that(user.pending_new_email, none())
+        assert_that(user.pending_code, none())
+        assert_that(user.pending_code_timestamp, none())
+
+        self.assertRedirects(response, reverse("noauth:account-details"))
