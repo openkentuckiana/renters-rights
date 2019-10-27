@@ -4,6 +4,7 @@ from secrets import choice
 
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
+from django.contrib.postgres.fields import ArrayField
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import EmailMultiAlternatives
 from django.db import models
@@ -21,6 +22,10 @@ DEFAULT_CODE_TTL_MINUTES = 60
 
 class User(AbstractUser, BaseModel):
     code_last_sent = models.DateTimeField(blank=True, null=True)
+    previous_emails = ArrayField(models.EmailField(), default=list)
+    pending_new_email = models.EmailField(blank=True, null=True)
+    pending_code = models.CharField(max_length=20, editable=False, blank=True, null=True)
+    pending_code_timestamp = models.DateTimeField(editable=False, blank=True, null=True)
 
     def __str__(self):
         return f"{self.username}"

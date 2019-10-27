@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans 'Account Details' %}{% endblock title %}
+
+{% block content %}
+
+
+<div id="log-in">
+    <h2>{% trans 'Account Details' %}</h2>
+
+    <div class="content-body">
+        <form method="post" novalidate>
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            </table>
+            <div id="buttons">
+                <button>{% trans "Save" %}</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

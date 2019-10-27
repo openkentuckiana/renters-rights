@@ -1,5 +1,10 @@
-{% load i18n %} 
-{% trans "Hello"%},
+{% extends "base-email.txt" %}
 
-{% blocktrans %}Your code for logging into {{site_uri}} is {{code}}.{% endblocktrans %}
-{% blocktrans %}Please go to {{code_uri}} to log in.{% endblocktrans %}
+{% load i18n %}
+
+{% block content %}
+    {% trans "Hello"%},
+
+    {% blocktrans %}Your code for logging into {{site_uri}} is {{code}}.{% endblocktrans %}
+    {% blocktrans %}Please go to {{code_uri}} to log in.{% endblocktrans %}
+{% endblock %}

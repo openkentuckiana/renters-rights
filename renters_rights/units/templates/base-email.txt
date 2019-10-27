@@ -1,0 +1,7 @@
+Renter Haven
+
+{% block content %}
+{% endblock content %}
+
+
+RenterHaven.com

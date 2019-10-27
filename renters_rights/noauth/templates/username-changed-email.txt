@@ -1,0 +1,10 @@
+{% extends "base-email.txt" %}
+
+{% load i18n %}
+
+{% block content %}
+    {% trans "Hi"%},
+
+    {% blocktrans %}We wanted to let you know that your email address for {{site_name}} has been changed to {{new_email}}{% endblocktrans %}
+    {% blocktrans %}You will need to log in using this address going forward.{% endblocktrans %}
+{% endblock %}

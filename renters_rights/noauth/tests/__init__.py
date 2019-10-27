@@ -9,4 +9,10 @@ class UnitBaseTestCase(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        cls.u = User.objects.create(is_active=True, username="eleanor@shellstrop.com")
+        cls.u = User.objects.create(
+            is_active=True,
+            first_name="Eleanor",
+            last_name="Shellstrop",
+            username="eleanor@shellstrop.com",
+            email="eleanor@shellstrop.com",
+        )
