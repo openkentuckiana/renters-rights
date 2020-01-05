@@ -1,0 +1,15 @@
+{% load i18n %}
+
+<h4>{% trans 'Documents' %}</h4>
+<div class="images">
+    {% for i in unit.documents %}
+        <img src="{{ i.thumbnail }}" alt="Document uploaded {{ i.upload_time }}" width="200" height="200">
+    {% empty %}
+        <p>{% trans 'Take pictures of your important documents like your lease.' %}</p>
+        {% if next %}
+            <a href="{% url 'unit-add-documents' unit.slug %}?next={{next}}" class="button">{% trans 'Add Documents' %}</a>
+        {% else %}
+            <a href="{% url 'unit-add-documents' unit.slug %}" class="button">{% trans 'Add Documents' %}</a>
+        {% endif %}
+    {% endfor %}
+</div>

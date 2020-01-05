@@ -1,19 +1,47 @@
 {% extends "base.html" %}
 
-{% block title %}Home{% endblock title %}
+{% load i18n %}
+
+{% block title %}{% trans 'Home' %}{% endblock title %}
 
 {% block content %}
 
-<div>
-    Logged-in home page.<br>
-    <br>
-    Need to include:<br>
-    <ul>
-        <li>Information about the app</li>
-        <li>Links to resources</li>
-        <li>Links to rental units</li>
-        <li>Links to docs</li>
-    </ul>
+<div id="">
+    <h2>{% trans 'Your Units' %}</h2>
+    {% if units %}
+        <p>
+            {% blocktrans count counter=num_units %}
+                It looks like you've already added {{ counter }} rental unit. Great!
+            {% plural %}
+                It looks like you've already added {{ counter }} rental units. Great!
+            {% endblocktrans %}
+            <br><br>
+            {% trans 'Here are your units' %}:<br>
+        </p>
+        {% for u in units %}
+            <h5><a href="{% url 'unit-detail' u.slug %}">{{ u }}</a></h5>
+        {% endfor %}
+        <p>
+            {% blocktrans %}
+            Be sure to fill out as many details as you have about the unit and your landlord so that we can help you create letters for you to send when you need to communicate with your landlord.
+            {% endblocktrans %}
+        </p>
+        <p>
+            {% if picture_count %}
+                {% blocktrans %}
+                You've added some pictures, which is great. Be sure you have pictures documenting what the unit looked like when you moved in, especially if there is any damage or things aren't working.
+                {% endblocktrans %}
+            {% else %}
+                {% blocktrans %}
+                Next, you should add some pictures to your units, especially when you move in or move out. Click on a unit above to add pictures.
+                {% endblocktrans %}
+            {% endif %}
+        </p>
+
+    {% endif %}
+
+    <h2>{% trans 'Create Letters' %}</h2>
+    <p></p>
 </div>
 
 {% endblock %}

@@ -14,7 +14,8 @@ from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DetailView, FormView, ListView, UpdateView, View
 
-from lib.views import ProtectedView
+from documents.models import DocumentTemplate
+from lib.views import ProtectedView, get_next
 from units.forms import UnitAddImageForm, UnitForm
 from units.models import DOCUMENT, MOVE_IN_PICTURE, MOVE_OUT_PICTURE, Unit, UnitImage
 
@@ -24,7 +25,32 @@ class IndexView(View):
         if not request.user.is_authenticated:
             return render(request, "index-logged-out.html")
 
-        return render(request, "index.html")
+        units = Unit.objects.for_user(self.request.user)
+        context = {
+            "units": units,
+            "num_units": len(units),
+            "allow_new_unit_creation": len(units) < settings.MAX_UNITS,
+            "picture_count": sum([u.unitimage_set.count() for u in units]),
+            "document_list": DocumentTemplate.objects.filter(include_on_get_started=True),
+        }
+
+        return render(request, "index.html", context=context)
+
+
+class GetStartedView(View):
+    def get(self, request):
+        context = {}
+        if self.request.user.is_authenticated:
+            units = Unit.objects.for_user(self.request.user)
+            context = {
+                "units": units,
+                "num_units": len(units),
+                "allow_new_unit_creation": len(units) < settings.MAX_UNITS,
+                "picture_count": sum([u.unitimage_set.count() for u in units]),
+                "document_list": DocumentTemplate.objects.filter(include_on_get_started=True),
+            }
+
+        return render(request, "get-started.html", context=context)
 
 
 class UnitListView(ListView):
@@ -34,6 +60,9 @@ class UnitListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["model"] = self.model
+        num_units = self.get_queryset().count()
+        context["num_units"] = num_units
+        context["allow_new_unit_creation"] = num_units < settings.MAX_UNITS
         context["CACHE_TIMEOUT"] = settings.CACHE_TIMEOUT
         return context
 
@@ -59,11 +88,24 @@ class UnitDetailView(DetailView, ProtectedView):
 class UnitCreate(CreateView, ProtectedView):
     template_name = "units/unit_form.html"
     form_class = UnitForm
-    success_url = reverse_lazy("unit-list")
     # This can go away once we support multiple states. At that time, we should probably limit the list to states we support
     initial = {"unit_state": "KY"}
 
+    def check_unit_limit(self):
+        if self.request.user.is_authenticated and Unit.objects.for_user(self.request.user).count() >= settings.MAX_UNITS:
+            messages.add_message(
+                self.request, messages.ERROR, _("You have added the maximum number of units. Please delete a unit to continue.")
+            )
+            return HttpResponseRedirect(reverse("unit-list"))
+
+    def get(self, request):
+        return self.check_unit_limit() or super().get(request)
+
+    def post(self, request):
+        return self.check_unit_limit() or super().post(request)
+
     def form_valid(self, form):
+        self.success_url = get_next(self.request, reverse_lazy("unit-list"))
         form.instance.owner = self.request.user
         return super().form_valid(form)
 
@@ -136,7 +178,7 @@ class UnitAddImagesFormViewBase(FormView, ProtectedView):
             for f in futures:
                 if f.exception():
                     raise f.exception()
-        return redirect(reverse_lazy("unit-list"))
+        return redirect(get_next(self.request, reverse_lazy("unit-list")))
 
 
 class UnitAddDocumentsFormView(UnitAddImagesFormViewBase):

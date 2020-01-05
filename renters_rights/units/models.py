@@ -65,7 +65,7 @@ class Unit(UserOwnedModel):
     # Lease info
     lease_start_date = models.DateField(_("Lease Start Start Date"), blank=True, null=True)
     lease_end_date = models.DateField(_("Lease Start End Date"), blank=True, null=True)
-    rent_due_date = models.PositiveIntegerField(_("Day Rent Date"), blank=True, null=True)
+    rent_due_date = models.PositiveIntegerField(_("Day Rent Due"), blank=True, null=True)
 
     def __str__(self):
         return f"{self.unit_address_1}"

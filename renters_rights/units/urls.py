@@ -1,6 +1,7 @@
 from django.urls import path
 
 from .views import (
+    GetStartedView,
     IndexView,
     UnitAddDocumentsFormView,
     UnitAddMoveInPicturesFormView,
@@ -15,6 +16,7 @@ from .views import (
 
 urlpatterns = [
     path("", IndexView.as_view(), name="homepage"),
+    path("get-started/", GetStartedView.as_view(), name="get-started"),
     path("units/", UnitListView.as_view(), name="unit-list"),
     path("units/new/", UnitCreate.as_view(), name="unit-create"),
     path("units/delete/<slug:slug>/", UnitDeleteView.as_view(), name="unit-delete"),

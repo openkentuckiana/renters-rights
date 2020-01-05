@@ -4,16 +4,18 @@ import tempfile
 
 import pdfrw
 from django.conf import settings
+from django.contrib import messages
 from django.http import HttpResponse
 from django.template import Context, Template
 from django.template.loader import render_to_string
+from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import FormView, ListView
 from weasyprint import HTML
 
 from documents.forms import DocumentForm, PhotosDocumentForm, SmallClaimsDocumentForm
 from documents.models import DocumentTemplate
-from lib.views import ProtectedView
+from lib.views import ProtectedView, get_next
 
 ANNOT_KEY = "/Annots"
 ANNOT_FIELD_KEY = "/T"
@@ -43,6 +45,7 @@ class DocumentFormView(FormView, ProtectedView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form_name"] = DocumentTemplate.objects.get(id=self.kwargs["id"]).name
+        context["next_page"] = get_next(self.request, reverse_lazy("documents:document-list"))
         return context
 
     def get_form_kwargs(self):
@@ -63,6 +66,7 @@ class DocumentFormView(FormView, ProtectedView):
 
         response = HttpResponse(pdf.getvalue(), content_type="application/pdf")
         response["Content-Disposition"] = f"attachment; filename={document_template.file_name}.pdf"
+        messages.add_message(self.request, messages.SUCCESS, _("File downloaded."))
         return response
 
 
@@ -73,6 +77,7 @@ class PhotosDocumentFormView(FormView, ProtectedView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form_name"] = _("Date-verified Photo Report")
+        context["next_page"] = get_next(self.request, reverse_lazy("documents:document-list"))
         return context
 
     def get_form_kwargs(self):
@@ -92,6 +97,7 @@ class PhotosDocumentFormView(FormView, ProtectedView):
 
         response = HttpResponse(pdf.getvalue(), content_type="application/pdf")
         response["Content-Disposition"] = "attachment; filename=PhotoReport.pdf"
+        messages.add_message(self.request, messages.SUCCESS, _("File downloaded."))
         return response
 
 
@@ -102,6 +108,7 @@ class SmallClaimsDocumentFormView(FormView, ProtectedView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form_name"] = _("Small Claims Court Form")
+        context["next_page"] = get_next(self.request, reverse_lazy("documents:document-list"))
         return context
 
     def get_form_kwargs(self):
@@ -156,4 +163,5 @@ class SmallClaimsDocumentFormView(FormView, ProtectedView):
 
             response = HttpResponse(fp.read(), content_type="application/pdf")
             response["Content-Disposition"] = "attachment; filename=SmallClaims.pdf"
+            messages.add_message(self.request, messages.SUCCESS, _("File downloaded."))
             return response

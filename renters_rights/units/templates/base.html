@@ -21,6 +21,7 @@
                 <i class=""><?xml version="1.0" ?><svg height="32px" id="Layer_1" style="enable-background:new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z"/></svg></i>
             </div>
             <ul class="nav-items nav-left">
+                <li><a href="{% url 'get-started' %}" class="{% active_link 'get-started' %}">{% trans "Get Started" %}</a></li>
                 <li><a href="{% url 'unit-list' %}" class="{% active_link 'unit-list' %}">{% trans "Rental Units" %}</a></li>
                 <li><a href="{% url 'documents:document-list' %}" class="{% active_link 'documents:document-list' %}">
                 {% trans "Letters & Forms" %}</a></li>
@@ -34,17 +35,25 @@
                 {% endif %}
             </ul>
         </nav>
-        <div class="container">
+        <div id="container">
             <div class="content">
                 {% block content %}
                 {% endblock content %}
             </div>
         </div>
+        <footer>
+            <ul>
+                <li>About</li>
+                <li>Privacy Policy</li>
+                <li>Terms of Service</li>
+                <li>Contact Us</li>
+            </ul>
+        </footer>
         <div class="message-container">
             {% if messages %}
             <ul class="messages">
                 {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
                 {% endfor %}
             </ul>
             {% endif %}

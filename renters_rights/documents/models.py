@@ -12,6 +12,7 @@ class DocumentTemplate(models.Model):
         "a Unit object named unit, and any fields that are related to this template."
     )
     description = models.TextField(help_text="A description of the document. This will be shown to users.", blank=True)
+    include_on_get_started = models.BooleanField(default=False)
 
     @property
     def file_name(self):
