@@ -3,7 +3,7 @@
 <h4>{% trans 'Documents' %}</h4>
 <div class="images">
     {% for i in unit.documents %}
-        <img src="{{ i.thumbnail }}" alt="Document uploaded {{ i.upload_time }}" width="200" height="200">
+        <img src="{{ i.thumbnail }}" alt="Document uploaded {{ i.upload_time }}" width="100px" height="100px">
     {% empty %}
         <p>{% trans 'Take pictures of your important documents like your lease.' %}</p>
         {% if next %}

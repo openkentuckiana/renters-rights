@@ -63,7 +63,6 @@ class CodeView(View):
             if auth_code:
                 login(request, auth_code.user)
                 messages.add_message(request, messages.SUCCESS, _("You have been logged in."))
-                auth_code.delete()
                 return redirect(auth_code.next_page)
 
             form.add_error(None, ValidationError(_("Invalid e-mail address or code."), code="invalid_email_or_code"))

@@ -577,13 +577,16 @@ h2 {
 
     .images img {
       width: 100px;
+      height: 100px;
 
       @include md {
         width: 90px;
+        height: 90px;
       }
 
       @include sm {
         width: 75px;
+        height: 75px;
       }
     }
   }
@@ -636,10 +639,12 @@ h2 {
 
     @include md {
       width: 90px;
+      height: 90px;
     }
 
     @include sm {
       width: 75px;
+      height: 75px;
     }
   }
 

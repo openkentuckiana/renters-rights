@@ -3,7 +3,7 @@
 <h4>{% trans 'Move-Out Pictures' %}</h4>
 <div class="images">
     {% for i in unit.move_out_pictures %}
-        <img src="{{ i.thumbnail }}" alt="Move-out picture uploaded {{ i.upload_time }}" width="200" height="200">
+        <img src="{{ i.thumbnail }}" alt="Move-out picture uploaded {{ i.upload_time }}" width="100px" height="100px">
     {% empty %}
         <p>{% trans 'Upload pictures when you move out to document the condition of the unit when you left.' %}</p>
         {% if next %}

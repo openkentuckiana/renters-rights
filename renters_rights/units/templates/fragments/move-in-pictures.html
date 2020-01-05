@@ -3,7 +3,7 @@
 <h4>{% trans 'Move-In Pictures' %}</h4>
 <div class="images">
     {% for i in unit.move_in_pictures %}
-        <img src="{{ i.thumbnail }}" alt="Move-in picture uploaded {{ i.upload_time }}" width="200" height="200">
+        <img src="{{ i.thumbnail }}" alt="Move-in picture uploaded {{ i.upload_time }}" width="100px" height="100px">
     {% empty %}
         <p>{% trans 'Upload pictures when you move in to have proof of damage that existed when you moved in.' %}</p>
         {% if next %}
