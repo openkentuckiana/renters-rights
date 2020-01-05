@@ -38,7 +38,7 @@
                         <h4>{% trans 'Pictures' %}</h4>
                         <div class="images">
                             {% for i in u.pictures %}
-                                <img src="{{ i.thumbnail }}" alt="Picture uploaded {{ i.upload_time }}">
+                                <img src="{{ i.thumbnail }}" alt="Picture uploaded {{ i.upload_time }}" width="100" height="100">
                             {% endfor %}
                         </div>
                     {% endif %}
@@ -47,7 +47,7 @@
                         <h4>{% trans 'Documents' %}</h4>
                         <div class="images">
                             {% for i in u.documents %}
-                                <img src="{{ i.thumbnail }}" alt="Document uploaded {{ i.upload_time }}">
+                                <img src="{{ i.thumbnail }}" alt="Document uploaded {{ i.upload_time }}" width="100" height="100">
                             {% endfor %}
                         </div>
                     {% endif %}
@@ -66,7 +66,12 @@
 </div>
 
 {% if unit_list %}
-    <a href="{% url 'unit-create' %}" class="button new-unit-button">Add another unit</a>
+    {% if allow_new_unit_creation %}
+        <a href="{% url 'unit-create' %}" class="button new-unit-button">{% trans 'Add another unit' %}</a>
+    {% else %}
+        <button class="button new-unit-button" disabled>{% trans 'Add another unit' %}</button><br>
+        <i>{% blocktrans %}You have created the maximum number of units {% endblocktrans %}&mdash; {{ num_units }}.</i>
+    {% endif %}
 {% else %}
     <a href="{% url 'unit-create' %}" class="button new-unit-button">Add your first unit</a>
 {% endif %}

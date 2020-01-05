@@ -16,7 +16,7 @@
         {{ form.non_field_errors }}
 
         <fieldset>
-            <legend>{% trans "Select unit" %}</legend>
+            <legend>{% trans "Which rental unit is this for?" %}</legend>
             <table>
                 {% if form.unit.errors %}
                 <tr>
@@ -30,9 +30,6 @@
                 </tr>
                 {% endif %}
                 <tr class="required">
-                    <th>
-                        <label for="{{ form.unit.id_for_label }}">{{form.unit.label}}</label>
-                    </th>
                     <td>
                         {{ form.unit }}
                         {% if form.unit.help_text %}
@@ -44,7 +41,7 @@
         </fieldset>
 
         <fieldset>
-            <legend>{% trans "Your current contact info" %}</legend>
+            <legend>{% trans "What is your current contact info?" %}</legend>
             <table>
                 {% if form.sender_first_name %}
                     <tr class="required">
@@ -268,7 +265,7 @@
 </div>
 
 <script type="text/javascript">
-    const useUnitAddress = document.getElementById("id_use_unit_address");
+    var useUnitAddress = document.getElementById("id_use_unit_address");
 
     function hideSenderInfo() {
         [].forEach.call(document.querySelectorAll('.sender-info'), function (e) {
@@ -290,8 +287,8 @@
         }
     })
 
-    const documentForm = document.getElementById("document-form");
-    const downloadPdf = document.getElementById("download-pdf");
+    var documentForm = document.getElementById("document-form");
+    var downloadPdf = document.getElementById("download-pdf");
 
     downloadPdf.onclick = function(event) {
         for(var i=0; i < documentForm.elements.length; i++){
@@ -299,8 +296,17 @@
                 return;
             }
         }
+
+        [].forEach.call(document.querySelectorAll('.errorlist'), function (e) {
+            e.style.display = 'none';
+        });
+
         downloadPdf.disabled = true;
         documentForm.submit();
+
+        setTimeout(function() {
+            window.location.href = '{{ next_page }}';
+        }, 5000);
     };
 </script>
 

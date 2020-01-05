@@ -81,37 +81,9 @@
 
         {% cache CACHE_TIMEOUT "unit_images_pictures_by_type_unit_" object.id object.modified_at %}
             <div class="images unit-detail">
-                <h4>{% trans 'Move-In Pictures' %}</h4>
-                <div class="images">
-                    {% for i in object.move_in_pictures %}
-                        <img src="{{ i.thumbnail }}" alt="Move-in picture uploaded {{ i.upload_time }}">
-                    {% empty %}
-                        <p>{% trans 'Upload pictures when you move in to have proof of damage that existed when you moved in.' %}</p>
-                        <a href="{% url 'unit-add-move-in-pictures' object.slug %}" class="button">{% trans 'Upload' %}</a>
-                        <span class="upload-pictures-sub">{% trans "We'll give you ideas of what to upload" %}</span>
-                    {% endfor %}
-                </div>
-
-                <h4>{% trans 'Move-Out Pictures' %}</h4>
-                <div class="images">
-                    {% for i in object.move_out_pictures %}
-                        <img src="{{ i.thumbnail }}" alt="Move-out picture uploaded {{ i.upload_time }}">
-                    {% empty %}
-                        <p>{% trans 'Upload pictures when you move out to document the condition of the unit when you left.' %}</p>
-                        <a href="{% url 'unit-add-move-out-pictures' object.slug %}" class="button">{% trans 'Upload' %}</a>
-                        <span class="upload-pictures-sub">{% trans "We'll give you ideas of what to upload" %}</span>
-                    {% endfor %}
-                </div>
-
-                <h4>{% trans 'Documents' %}</h4>
-                <div class="images">
-                    {% for i in object.documents %}
-                        <img src="{{ i.thumbnail }}" alt="Document uploaded {{ i.upload_time }}">
-                    {% empty %}
-                        <p>{% trans 'Take pictures of your important documents like your lease.' %}</p>
-                        <a href="{% url 'unit-add-documents' object.slug %}" class="button">{% trans 'Add Documents' %}</a><br>
-                    {% endfor %}
-                </div>
+                {% include "fragments/move-in-pictures.html" with unit=object %}
+                {% include "fragments/move-out-pictures.html" with unit=object %}
+                {% include "fragments/document-pictures.html" with unit=object %}
             </div>
         {% endcache %}
 

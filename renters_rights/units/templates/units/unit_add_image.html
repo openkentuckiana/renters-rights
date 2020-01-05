@@ -29,7 +29,7 @@
                     <p>{{ form.upload_instructions_footer }}</p>
                 {% endif %}
                 <button id="unit-form-submit">{% trans "Submit" %}</button>
-                <a href="{% url 'unit-list' %}">{% trans "Cancel" %}</a>
+                <a href="{% url 'unit-list' %}" onclick="goBack();">{% trans "Cancel" %}</a>
             </form>
             <progress id="status-bar"></progress>
             <span id="status"></span>
@@ -145,7 +145,7 @@ var submitForm = function(uploadedFiles) {
             status.innerHTML = "";
             return false;
         } else if (x.readyState === 4) {
-            window.location.href = '/units/';
+            window.location.href = x.responseURL;
             return true;
         }
     }
@@ -155,7 +155,7 @@ var submitForm = function(uploadedFiles) {
     formData.delete("s3_images");
     formData.append("s3_images", uploadedFiles.map(f => f.name).join(","))
 
-    x.open('POST', ".");
+    x.open('POST', window.location);
     x.setRequestHeader("X-Requested-With", "XMLHttpRequest");
     x.send(formData);
 }

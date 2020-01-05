@@ -9,9 +9,143 @@
 <div class="unit unit-form">
     <form method="post" enctype="multipart/form-data" id="unit_form" novalidate>
         {% csrf_token %}
-        <table id="unit_form_table">
-            {{ form.as_table }}
-        </table>
+        {{ form.non_field_errors }}
+        {{ form.source.errors }}
+        {{ form.source }}
+
+        <fieldset>
+            <legend>{% trans 'Unit Info' %}</legend>
+            <span class="description">{% trans "You only need to give us the street address and ZIP code to get started" %}</span>
+            <span class="description"></span>
+            <table class="unit-form-table">
+                <tr>
+                    <th>{{ form.unit_address_1.label_tag }}</th>
+                    <td>
+                      {{ form.unit_address_1.errors }}
+                      {{ form.unit_address_1 }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{ form.unit_address_2.label_tag }}</th>
+                    <td>
+                      {{ form.unit_address_2.errors }}
+                      {{ form.unit_address_2 }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{ form.unit_city.label_tag }}</th>
+                    <td>
+                      {{ form.unit_city.errors }}
+                      {{ form.unit_city }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{ form.unit_state.label_tag }}</th>
+                    <td>
+                      {{ form.unit_state.errors }}
+                      {{ form.unit_state }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{ form.unit_zip_code.label_tag }}</th>
+                    <td>
+                      {{ form.unit_zip_code.errors }}
+                      {{ form.unit_zip_code }}
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <fieldset>
+            <legend>{% trans 'Landlord Info' %}</legend>
+            <span class="description">{% trans "We'll use this information to generate letters to your landlord" %}</span>
+            <table class="unit-form-table">
+                <tr>
+                    <th>{{ form.landlord_name.label_tag }}</th>
+                    <td>
+                      {{ form.landlord_name.errors }}
+                      {{ form.landlord_name }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{ form.landlord_address_1.label_tag }}</th>
+                    <td>
+                      {{ form.landlord_address_1.errors }}
+                      {{ form.landlord_address_1 }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{ form.landlord_address_2.label_tag }}</th>
+                    <td>
+                      {{ form.landlord_address_2.errors }}
+                      {{ form.landlord_address_2 }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{ form.landlord_city.label_tag }}</th>
+                    <td>
+                      {{ form.landlord_city.errors }}
+                      {{ form.landlord_city }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{ form.landlord_state.label_tag }}</th>
+                    <td>
+                      {{ form.landlord_state.errors }}
+                      {{ form.landlord_state }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{ form.landlord_zip_code.label_tag }}</th>
+                    <td>
+                      {{ form.landlord_zip_code.errors }}
+                      {{ form.landlord_zip_code }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{ form.landlord_phone_number.label_tag }}</th>
+                    <td>
+                      {{ form.landlord_phone_number.errors }}
+                      {{ form.landlord_phone_number }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{ form.landlord_email.label_tag }}</th>
+                    <td>
+                      {{ form.landlord_email.errors }}
+                      {{ form.landlord_email }}
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <fieldset>
+            <legend>{% trans 'Lease Info' %}</legend>
+            <table class="unit-form-table">
+                <tr>
+                    <th>{{ form.lease_start_date.label_tag }}</th>
+                    <td>
+                      {{ form.lease_start_date.errors }}
+                      {{ form.lease_start_date }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{ form.lease_end_date.label_tag }}</th>
+                    <td>
+                      {{ form.lease_end_date.errors }}
+                      {{ form.lease_end_date }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{ form.rent_due_date.label_tag }}</th>
+                    <td>
+                      {{ form.rent_due_date.errors }}
+                      {{ form.rent_due_date }}
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
         <button id="unit_form_submit">{% trans "Submit" %}</button>
         <a href="{% url 'unit-list' %}">{% trans "Cancel" %}</a>
     </form>

@@ -1,0 +1,16 @@
+{% load i18n %}
+
+<h4>{% trans 'Move-In Pictures' %}</h4>
+<div class="images">
+    {% for i in unit.move_in_pictures %}
+        <img src="{{ i.thumbnail }}" alt="Move-in picture uploaded {{ i.upload_time }}" width="200" height="200">
+    {% empty %}
+        <p>{% trans 'Upload pictures when you move in to have proof of damage that existed when you moved in.' %}</p>
+        {% if next %}
+            <a href="{% url 'unit-add-move-in-pictures' unit.slug %}?next={{next}}" class="button">{% trans 'Upload' %}</a>
+        {% else %}
+            <a href="{% url 'unit-add-move-in-pictures' unit.slug %}" class="button">{% trans 'Upload' %}</a>
+        {% endif %}
+        <span class="upload-pictures-sub">{% trans "We'll give you ideas of what to upload" %}</span>
+    {% endfor %}
+</div>

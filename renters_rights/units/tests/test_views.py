@@ -130,6 +130,24 @@ class UnitViewTests(UnitBaseTestCase):
         self.assertRedirects(response, reverse("unit-list"))
         assert_that(Unit.objects.get(unit_address_1="my_address"), not_none())
 
+    @override_settings(MAX_UNITS=1)
+    def test_create_view_get_redirects_to_unit_list_if_maximum_units_created(self):
+        c = Client()
+        c.force_login(UnitViewTests.u)
+        response = c.get(reverse("unit-create"))
+        self.assertRedirects(response, reverse("unit-list"))
+        assert_that(Unit.objects.for_user(UnitViewTests.u).count(), equal_to(1))
+
+    @override_settings(MAX_UNITS=1)
+    def test_create_view_post_redirects_to_unit_list_without_creating_if_maximum_units_created(self):
+        c = Client()
+        c.force_login(UnitViewTests.u)
+        response = c.post(
+            reverse("unit-create"), {"unit_address_1": "my_address", "unit_state": "KY", "unit_zip_code": "40906"}
+        )
+        self.assertRedirects(response, reverse("unit-list"))
+        assert_that(Unit.objects.for_user(UnitViewTests.u).count(), equal_to(1))
+
     @freeze_time("2000-01-01")
     def test_sign_files(self):
         c = Client()

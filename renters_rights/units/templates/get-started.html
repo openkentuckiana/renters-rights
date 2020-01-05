@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans 'Get Started' %}{% endblock title %}
+
+{% block content %}
+
+<div id="get-started">
+    <h1>Get Started</h1>
+    <p></p>
+
+    {% if units %}
+
+        <h2>{% trans 'Step 1: Add a rental unit' %} <span class="check">&check;</span></h2>
+        <div class="content-body">
+            <p>
+                {% blocktrans count counter=num_units %}
+                    You have added {{ counter }} unit.
+                {% plural %}
+                    You have added {{ counter }} units.
+                {% endblocktrans %}
+            </p>
+            <ul>
+                {% for u in units %}
+                    <h5><a href="{% url 'unit-detail' u.slug %}">{{ u }}</a></h5>
+                {% endfor %}
+            </ul>
+            <p>
+                {% if allow_new_unit_creation %}
+                    <a href="{% url 'unit-create' %}?next=gs" class="button new-unit-button">{% trans 'Add another unit' %}</a>
+                {% else %}
+                    <i>{% blocktrans %}You have created the maximum number of units {% endblocktrans %}&mdash; {{ num_units }}.</i>
+                {% endif %}
+            </p>
+        </div>
+
+        <h2>{% trans 'Step 2: Add pictures' %} {% if picture_count %}<span class="check">&check;</span>{% endif%}</h2>
+        <div class="content-body">
+            <p>
+                {% blocktrans %}If you would like to generate a photo report to send to your landlord, you will need to upload some pictures.{% endblocktrans %}
+                {% for u in units %}
+                    <div class="unit">
+                        <h5>{{ u }}</h5>
+                        {% include "fragments/move-in-pictures.html" with unit=u next="gs" %}
+                        {% include "fragments/move-out-pictures.html" with unit=u next="gs" %}
+                    </div>
+                {% endfor %}
+            </p>
+        </div>
+
+        <h2>{% trans 'Step 3: Create letters' %}</h2>
+        <div class="content-body">
+            {% include 'fragments/document-list.html' with next="gs" %}
+        </div>
+
+    {% else %}
+
+        <h2>{% trans 'Step 1: Add a rental unit' %}</h2>
+        <div class="content-body">
+            <p>
+                <a href="{% url 'unit-create' %}?next=gs" class="button new-unit-button">Add your first unit</a>
+            </p>
+        </div>
+
+        <h2>{% trans 'Step 2: Add pictures' %}</h2>
+        <div class="content-body">
+            <p>
+                {% blocktrans %}If you would like to generate a photo report to send to your landlord, you will need to upload some pictures.{% endblocktrans %}
+            </p>
+        </div>
+
+        <h2>{% trans 'Step 3: Create letters' %}</h2>
+        <div class="content-body">
+            <p>
+                {% blocktrans %}After you have added a rental unit, you can generate letters to send to you landlord.{% endblocktrans %}
+            </p>
+        </div>
+
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -209,8 +209,6 @@ $screen-xl-min: 1200px;
   }
 }
 
-@import url("https://fonts.googleapis.com/css?family=Cabin|Roboto:400,700|Roboto+Condensed:400,700&display=swap");
-
 html {
   font-size: 16px;
 
@@ -226,6 +224,15 @@ body {
   line-height: 1.45;
   color: $neutral-color-7;
   padding: 10px;
+  position: relative;
+  margin: 0;
+  min-height: 95vh;
+  display: grid;
+  grid-template-areas: 'header header'
+                       'nav main'
+                       'footer footer';
+  grid-template-columns: minmax(auto, 12em) 5fr;
+  grid-template-rows: auto 1fr auto;
 }
 
 a {
@@ -240,7 +247,6 @@ h2,
 h3,
 h4,
 h5 {
-  //   font-family: "Roboto Condensed", Sans-Serif;
   font-weight: 700;
   margin: 1rem 0 1rem;
   line-height: 1.15;
@@ -266,6 +272,14 @@ h4 {
 
 h5 {
   font-size: 1.25em;
+}
+
+h6 {
+  font-size: 1em;
+}
+
+strong {
+  font-weight: 500;
 }
 
 small,
@@ -406,17 +420,77 @@ nav {
   }
 }
 
-.container {
+#container {
   margin-top: 80px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   width: 95vw;
+  margin-bottom: 6em;
 
   .content {
     max-width: 700px;
     flex-direction: column;
   }
+}
+
+footer {
+    grid-area: footer;
+    text-align: center;
+    ul li {
+        display: inline-block;
+        margin: 0 15px;
+    }
+}
+
+#index {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    .logo {
+        margin: 0 auto;
+        margin-bottom: 15px;
+        width: 35%;
+        min-width: 150px;
+        display: block;
+    }
+
+    .button {
+        margin-top: 5px;
+    }
+}
+
+#get-started {
+    h5 {
+        color: $neutral-color-7;
+        margin-bottom: 15px;
+    }
+
+    h4 {
+        font-size: 1em;
+        margin-bottom: 5px;
+    }
+
+    ul {
+        margin: 0;
+
+        h5 {
+            margin: 0 0 10px 0;
+        }
+    }
+
+    .unit {
+        border-bottom: 2px solid $neutral-color-2;
+    }
+
+    .unit:last-of-type {
+        border-bottom: 0;
+    }
+}
+
+.check {
+    color: green;
 }
 
 ul.messages {
@@ -524,6 +598,10 @@ h2 {
   margin-top: 1em;
   margin-bottom: 1em;
   color: $neutral-color-6;
+
+  p:last-of-type {
+    margin-bottom: 0;
+  }
 }
 
 .unit {
@@ -603,6 +681,22 @@ h2 {
   min-width: 600px;
   @include md {
     min-width: 250px;
+  }
+
+  fieldset legend {
+    font-weight: 700;
+    font-size: 1.25em;
+  }
+
+  fieldset .description {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 85%;
+    font-style: italic;
+  }
+
+  .unit-form-table th {
+    min-width: 200px;
   }
 }
 
