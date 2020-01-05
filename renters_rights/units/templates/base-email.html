@@ -109,10 +109,20 @@
 <body style="margin: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 1.45; color: #212934; padding: 10px;">
 
     <div class="container" style="padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; display: flex; flex-direction: column; justify-content: center; width: 95vw; margin: 10px;">
-        <img alt="Renter Haven Logo" width="150px" height="38px" border="0" style="margin: 0; padding: 0; font-size: 100%; font: inherit; vertical-align: baseline; border: 0; outline: none; text-decoration: none; display: block;" src="https://renters-rights-test.s3.amazonaws.com/logo-green.png"><br>
-        <div class="content" style="margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; margin-top: 10px; max-width: 700px; flex-direction: column; display: block; align-items: center;">
-            {% block content %}{% endblock content %}
-        </div>
+        <table border="0" width="100%">
+            <tr>
+                <td>
+                    <img alt="Renter Haven Logo" width="150px" height="38px" border="0" style="margin: 0; padding: 0; font-size: 100%; font: inherit; vertical-align: baseline; border: 0; outline: none; text-decoration: none; display: block;" src="https://renters-rights-public.s3.amazonaws.com/logo-green-400.png"><br>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="content" style="margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; margin-top: 10px; max-width: 700px; flex-direction: column; display: block; align-items: center;">
+                        {% block content %}{% endblock content %}
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
 
 </body>
