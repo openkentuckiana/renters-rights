@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Renter Haven\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-16 02:10+0000\n"
-"PO-Revision-Date: 2020-01-16 02:31\n"
+"POT-Creation-Date: 2020-01-16 02:28+0000\n"
+"PO-Revision-Date: 2020-01-16 03:27\n"
 "Last-Translator: lokalise.com\n"
 "Language-Team: lokalise.com\n"
 "Language: es\n"
@@ -510,6 +510,22 @@ msgstr ""
 msgid "Letters & Forms"
 msgstr ""
 
+#: units/templates/base.html:62
+msgid "About"
+msgstr ""
+
+#: units/templates/base.html:63
+msgid "Privacy Policy"
+msgstr ""
+
+#: units/templates/base.html:64
+msgid "Terms of Service"
+msgstr ""
+
+#: units/templates/base.html:65
+msgid "Contact Us"
+msgstr ""
+
 #: units/templates/fragments/document-pictures.html:3
 #: units/templates/units/unit_list.html:47 units/views.py:189
 msgid "Documents"
@@ -671,7 +687,9 @@ msgid "It looks like you've already added %(counter)s rental unit. Great!"
 msgid_plural ""
 "It looks like you've already added %(counter)s rental units. Great!"
 msgstr[0] ""
+"Parece que ya has agregado %(counter)s unidades de alquiler. ¡Excelente!"
 msgstr[1] ""
+"Parece que ya has agregado %(counter)s unidades de alquiler. ¡Excelente!"
 
 #: units/templates/index.html:19
 msgid "Here are your units"
