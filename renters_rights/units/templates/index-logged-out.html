@@ -13,23 +13,32 @@
 
     <h2>{% trans 'How we can help' %}</h2>
 
-    <h5>Moving Out</h5>
+    <h5>{% trans 'Moving Out' %}</h5>
     <p>
-        When you're ready to move out, we can help you write a letter to your landlord. We can also help you include pictures of the unit to show what it looked like when you left.<br>
+        {% blocktrans trimmed %}
+        When you're ready to move out, we can help you write a letter to your landlord. We can also help you include pictures of the unit to show what it looked like when you left.
+        {% endblocktrans %}<br>
         <a href="{% url 'get-started' %}" class="button">{% trans 'Get Started' %}</a><br>
     </p>
 
-    <h5>Moving In</h5>
+    <h5>{% trans 'Moving In' %}</h5>
     <p>
-        When you move in to an apartment, you should take pictures showing what the unit looked like when you moved in.<br>
+        {% blocktrans trimmed %}
+        When you move in to an apartment, you should take pictures showing what the unit looked like when you moved in.
+        {% endblocktrans %}<br>
         <a href="{% url 'get-started' %}" class="button">{% trans 'Get Started' %}</a><br>
     </p>
 
     <h2>{% trans 'Who are we?' %}</h2>
     <a href="https://codeforkentuckiana.org/"><img src="https://renters-rights-public.s3.amazonaws.com/cfk-logo-400.png" alt="Code for Kentuckiana logo" class="logo" width="25%"/></a>
-    <p>We are <a href="https://codeforkentuckiana.org/">Code for Kentuckiana</a>, a group of volunteers who are trying to find ways to make the area a better place for citizens.</p>
-    <p>Our backgrounds include social work, community organizing, computer programming, law, and more. You can read more about our organization on our <a href="https://codeforkentuckiana.org/about/">about page</a>.</p>
-    <p>We built Renter Haven because we were told by our partners at the <a href="https://www.kyequaljustice.org/">Kentucky Equal Justice Center</a> and <a href="http://www.metropolitanhousing.org/">The Metropolitan Housing Coalition</a> that an application like this one could be useful.</p>
+
+    {% with cfk_link='<a href="https://codeforkentuckiana.org/">Code for Kentuckiana</a>' kejc_link='<a href="https://www.kyequaljustice.org/">Kentucky Equal Justice Center</a>' mhc_link='<a href="http://www.metropolitanhousing.org/">The Metropolitan Housing Coalition</a>' about_link_open='<a href="https://codeforkentuckiana.org/about/">' about_link_close='</a>' %}
+
+    <p>{% blocktrans %}We are {{cfk_link}}, a group of volunteers who are trying to find ways to make the area a better place for citizens.{% endblocktrans %}</p>
+    <p>{% blocktrans %}Our backgrounds include social work, community organizing, computer programming, law, and more. You can read more about our organization on our {{about_link_open}}about page{{about_link_close}}.{% endblocktrans %}</p>
+    <p>{% blocktrans %}We built Renter Haven because we were told by our partners at the {{kejc_link}} and {{mhc_link}} that an application like this one could be useful.{% endblocktrans %}</p>
+
+    {% endwith %}
 </div>
 
 {% endblock %}

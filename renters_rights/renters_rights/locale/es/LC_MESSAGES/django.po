@@ -1,0 +1,597 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: lokalise.com\n"
+"Project-Id-Version: Renter Haven\n"
+"PO-Revision-Date: 2020-01-16 02:31\n"
+"Last-Translator: lokalise.com\n"
+"Language-Team: lokalise.com\n\n"
+"Language: es\n"
+
+msgid "Use unit address?"
+msgstr ""
+
+msgid "Address 1"
+msgstr ""
+
+msgid "Address 2"
+msgstr ""
+
+msgid "City"
+msgstr ""
+
+msgid "State"
+msgstr ""
+
+msgid "ZIP Code"
+msgstr ""
+
+msgid "Email Address"
+msgstr ""
+
+msgid "Phone Number"
+msgstr ""
+
+msgid "Your First Name"
+msgstr ""
+
+msgid "Your Last Name"
+msgstr ""
+
+msgid "Please enter your contact information."
+msgstr ""
+
+msgid "County where you are filing"
+msgstr ""
+
+msgid "Is your landlord a company?"
+msgstr ""
+
+msgid "How much are you asking for?"
+msgstr ""
+
+msgid "How much do you think court costs are (ex $50)?"
+msgstr ""
+
+msgid "Your claims against your landlord"
+msgstr ""
+
+msgid "Which rental unit is this for?"
+msgstr ""
+
+msgid "What is your current contact info?"
+msgstr ""
+
+msgid "Additional info"
+msgstr ""
+
+msgid "Download PDF"
+msgstr ""
+
+msgid "Back to Documents"
+msgstr ""
+
+msgid "Letters and Forms"
+msgstr ""
+
+msgid "Select a letter or form you would like to create. We'll ask you for some information and then we'll generate a PDF for you to send to your landlord our the courts."
+msgstr ""
+
+msgid "Date-verified Photo Report"
+msgstr ""
+
+msgid "Use this report to prove what your unit looked like at on a certain date. This can be usesful when you are trying to get your security deposit back."
+msgstr ""
+
+msgid "Small Claims Court Form"
+msgstr ""
+
+msgid "If you need to file a small claims suit in order to recover money from your landlord, we can pre-populate the small claims complaint form that you need to submit to the court."
+msgstr ""
+
+msgid "File downloaded."
+msgstr ""
+
+msgid "Personal info"
+msgstr ""
+
+msgid "Permissions"
+msgstr ""
+
+msgid "Important dates"
+msgstr ""
+
+msgid "First name"
+msgstr ""
+
+msgid "Last name"
+msgstr ""
+
+msgid "Email"
+msgstr ""
+
+msgid "If you change this, you will need to log in using your new address"
+msgstr ""
+
+msgid "Confirm Email"
+msgstr ""
+
+msgid "Email addresses do not match."
+msgstr ""
+
+msgid "Email addresses already in use."
+msgstr ""
+
+msgid "You do not have a pending username change."
+msgstr ""
+
+msgid "The code you entered is invalid."
+msgstr ""
+
+msgid "Code is expired. Please confirm change within %(minutes)s minutes."
+msgstr ""
+
+msgid "Your {settings.SITE_NAME} log in code"
+msgstr ""
+
+msgid "Account Details"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+msgid "Log In"
+msgstr ""
+
+msgid "Check your email for a log in link"
+msgstr ""
+
+msgid "Follow the link to log in automatically or enter the code from the email below."
+msgstr ""
+
+msgid "Hello"
+msgstr ""
+
+msgid "%(link_start)sClick here%(link_end)s to log into %(site_name)s."
+msgstr ""
+
+msgid "If the link does not work, you can log in using this code: %(code)s."
+msgstr ""
+
+msgid "Your code for logging into %(site_uri)s is %(code)s."
+msgstr ""
+
+msgid "Please go to %(code_uri)s to log in."
+msgstr ""
+
+msgid "Enter your email address and we will send you a link to use to log in."
+msgstr ""
+
+msgid "No need to remember another username and password!"
+msgstr ""
+
+msgid "Get Link"
+msgstr ""
+
+msgid "Log Out"
+msgstr ""
+
+msgid "Would you like to log out?"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Hi"
+msgstr ""
+
+msgid "You have successfully changed your username for %(site_name)s to %(new_username)s"
+msgstr ""
+
+msgid "You will need to log in using this username going forward."
+msgstr ""
+
+msgid "We wanted to let you know that your email address for %(site_name)s has been changed to %(new_email)s"
+msgstr ""
+
+msgid "You will need to log in using this address going forward."
+msgstr ""
+
+msgid "It looks like you requested a username change for your %(site_name)s account."
+msgstr ""
+
+msgid "You were previously using %(old_username)s to log in."
+msgstr ""
+
+msgid "If you would like to use %(new_username)s to log in to %(site_name)s,\n        <a href=\"%(confirmation_uri)s?code=%(code)s\">click here to confirm</a> the change."
+msgstr ""
+
+msgid "You may also enter this code to confirm the change: %(code)s."
+msgstr ""
+
+msgid "If you would like to use %(new_username)s to log in to %(site_name)s, follow this link to the change:"
+msgstr ""
+
+msgid "Change Username"
+msgstr ""
+
+msgid "Enter the code you received to change your username to"
+msgstr ""
+
+msgid "You have not requested a username change"
+msgstr ""
+
+msgid "Invalid e-mail address or code."
+msgstr ""
+
+msgid "Please check your inbox and spam folder for a previously-sent code."
+msgstr ""
+
+msgid "Your requested {settings.SITE_NAME} email change"
+msgstr ""
+
+msgid "You have been logged in."
+msgstr ""
+
+msgid "You have been logged out."
+msgstr ""
+
+msgid "Your changes were saved. Check your email to complete username change."
+msgstr ""
+
+msgid "Your changes were saved."
+msgstr ""
+
+msgid "Your {settings.SITE_NAME} email has changed"
+msgstr ""
+
+msgid "Your username was changed."
+msgstr ""
+
+msgid "English"
+msgstr ""
+
+msgid "Spanish"
+msgstr "Español"
+
+msgid "Sorry, but we do not support that state at this time"
+msgstr ""
+
+msgid "Sorry, but we only support jurisdictions that have adopted the Uniform Residential Landlord Tenant Act. In %(state)s, those jurisdictions are: %(jurisdictions)s"
+msgstr ""
+
+msgid "Please select at least one image."
+msgstr ""
+
+msgid "You may only upload a maximum of %(max_docs)d %(item_name)s."
+msgstr ""
+
+msgid "You may only upload a maximum of %(max_docs)d %(item_name)s. You already have %(current_image_count)d."
+msgstr ""
+
+msgid "Unit Address 1"
+msgstr ""
+
+msgid "Unit Address 2"
+msgstr ""
+
+msgid "Unit City"
+msgstr ""
+
+msgid "Unit State"
+msgstr ""
+
+msgid "Unit ZIP Code"
+msgstr ""
+
+msgid "Landlord Name"
+msgstr ""
+
+msgid "Landlord Address 1"
+msgstr ""
+
+msgid "Landlord Address 2"
+msgstr ""
+
+msgid "Landlord City"
+msgstr ""
+
+msgid "Landlord State"
+msgstr ""
+
+msgid "Landlord ZIP Code"
+msgstr ""
+
+msgid "Landlord Phone Number"
+msgstr ""
+
+msgid "Landlord Email"
+msgstr ""
+
+msgid "Lease Start Start Date"
+msgstr ""
+
+msgid "Lease Start End Date"
+msgstr ""
+
+msgid "Day Rent Due"
+msgstr ""
+
+msgid "Images must be over {min_size} pixels tall and wide. Please upload a larger image."
+msgstr ""
+
+msgid "Get Started"
+msgstr ""
+
+msgid "Rental Units"
+msgstr ""
+
+msgid "Letters & Forms"
+msgstr ""
+
+msgid "Documents"
+msgstr ""
+
+msgid "Take pictures of your important documents like your lease."
+msgstr ""
+
+msgid "Add Documents"
+msgstr ""
+
+msgid "Move-In Pictures"
+msgstr ""
+
+msgid "Upload pictures when you move in to have proof of damage that existed when you moved in."
+msgstr ""
+
+msgid "Upload"
+msgstr ""
+
+msgid "We'll give you ideas of what to upload"
+msgstr ""
+
+msgid "Move-Out Pictures"
+msgstr ""
+
+msgid "Upload pictures when you move out to document the condition of the unit when you left."
+msgstr ""
+
+msgid "Step 1: Add a rental unit"
+msgstr ""
+
+msgid "\n                    You have added %(counter)s unit.\n                "
+msgid_plural "\n                    You have added %(counter)s units.\n                "
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Add another unit"
+msgstr ""
+
+msgid "You have created the maximum number of units "
+msgstr ""
+
+msgid "Step 2: Add pictures"
+msgstr ""
+
+msgid "If you would like to generate a photo report to send to your landlord, you will need to upload some pictures."
+msgstr ""
+
+msgid "Step 3: Create letters"
+msgstr ""
+
+msgid "After you have added a rental unit, you can generate letters to send to you landlord."
+msgstr ""
+
+msgid "Home"
+msgstr ""
+
+msgid "How we can help"
+msgstr ""
+
+msgid "Moving Out"
+msgstr ""
+
+msgid "When you're ready to move out, we can help you write a letter to your landlord. We can also help you include pictures of the unit to show what it looked like when you left."
+msgstr ""
+
+msgid "Moving In"
+msgstr ""
+
+msgid "When you move in to an apartment, you should take pictures showing what the unit looked like when you moved in."
+msgstr ""
+
+msgid "Who are we?"
+msgstr ""
+
+msgid "We are %(cfk_link)s, a group of volunteers who are trying to find ways to make the area a better place for citizens."
+msgstr "Somos %(cfk_link)s, un grupo de voluntarios que están tratando de encontrar formas de hacer del área un lugar mejor para los ciudadanos."
+
+msgid "Our backgrounds include social work, community organizing, computer programming, law, and more. You can read more about our organization on our %(about_link_open)sabout page%(about_link_close)s."
+msgstr ""
+
+msgid "We built Renter Haven because we were told by our partners at the %(kejc_link)s and %(mhc_link)s that an application like this one could be useful."
+msgstr ""
+
+msgid "Your Units"
+msgstr ""
+
+msgid "It looks like you've already added %(counter)s rental unit. Great!"
+msgid_plural "It looks like you've already added %(counter)s rental units. Great!"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Here are your units"
+msgstr ""
+
+msgid "Be sure to fill out as many details as you have about the unit and your landlord so that we can help you create letters for you to send when you need to communicate with your landlord."
+msgstr ""
+
+msgid "You've added some pictures, which is great. Be sure you have pictures documenting what the unit looked like when you moved in, especially if there is any damage or things aren't working."
+msgstr ""
+
+msgid "Next, you should add some pictures to your units, especially when you move in or move out. Click on a unit above to add pictures."
+msgstr ""
+
+msgid "Create Letters"
+msgstr ""
+
+msgid "Add Image/Document"
+msgstr ""
+
+msgid "Add"
+msgstr ""
+
+msgid "To select multiple pictures, hold down the Ctrl or Command (⌘) key when clicking files"
+msgstr ""
+
+msgid "You have uploaded"
+msgstr ""
+
+msgid "of"
+msgstr ""
+
+msgid "allowed images"
+msgstr ""
+
+msgid "Submit"
+msgstr ""
+
+msgid "Go back"
+msgstr ""
+
+msgid "Starting upload"
+msgstr ""
+
+msgid "Delete rental unit"
+msgstr ""
+
+msgid "Are you sure you want to delete this unit?"
+msgstr ""
+
+msgid "This will delete any uploaded images associated with this unit, and the deletion can't be undone."
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "Unit information"
+msgstr ""
+
+msgid "← All units"
+msgstr ""
+
+msgid "Your unit"
+msgstr ""
+
+msgid "Landlord info"
+msgstr ""
+
+msgid "You have not provided any landlord info"
+msgstr ""
+
+msgid "Lease info"
+msgstr ""
+
+msgid "Lease start date"
+msgstr ""
+
+msgid "Lease end date"
+msgstr ""
+
+msgid "Rent due date"
+msgstr ""
+
+msgid "You have not provided any lease info"
+msgstr ""
+
+msgid "Edit Unit Info"
+msgstr ""
+
+msgid "Delete Unit"
+msgstr ""
+
+msgid "Add new unit"
+msgstr ""
+
+msgid "Unit Info"
+msgstr ""
+
+msgid "You only need to give us the street address and ZIP code to get started"
+msgstr ""
+
+msgid "Landlord Info"
+msgstr ""
+
+msgid "We'll use this information to generate letters to your landlord"
+msgstr ""
+
+msgid "Lease Info"
+msgstr ""
+
+msgid "Your rental units"
+msgstr ""
+
+msgid "Add information about your rental units and we can help you generate letters and forms to send to your landlord."
+msgstr ""
+
+msgid "Upload pictures of your unit to document the condition of your unit to help get your security deposit back."
+msgstr ""
+
+msgid "Pictures"
+msgstr ""
+
+msgid "Add Move-in Pictures"
+msgstr ""
+
+msgid "Add Move-out Pictures"
+msgstr ""
+
+msgid "You have added the maximum number of units. Please delete a unit to continue."
+msgstr ""
+
+msgid "Unit successfully deleted."
+msgstr ""
+
+msgid "Take pictures of important documents to save for later. For example:"
+msgstr ""
+
+msgid "Your lease"
+msgstr ""
+
+msgid "An important letter from your landlord"
+msgstr ""
+
+msgid "Move-in Pictures"
+msgstr ""
+
+msgid "Take pictures of these places in your apartment:"
+msgstr ""
+
+msgid "Kitchen"
+msgstr ""
+
+msgid "Kitchen appliances"
+msgstr ""
+
+msgid "Bathroom walls"
+msgstr ""
+
+msgid "Bathroom tub"
+msgstr ""
+
+msgid "Living room"
+msgstr ""
+
+msgid "Blinds/window coverings"
+msgstr ""
+
+msgid "Anything that's damaged"
+msgstr ""
+
+msgid "Move-out Pictures"
+msgstr ""
+
+msgid "Make sure you have good overall coverage of your unit in case your landlord claims damage."
+msgstr ""

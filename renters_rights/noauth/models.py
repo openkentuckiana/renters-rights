@@ -46,13 +46,16 @@ class AuthCode(BaseModel):
 
     @classmethod
     def send_auth_code(cls, user, code_uri, next_page=None):
-        """
-        Send an auth code to a user via email.
-        :param user: The user to whom the auth code should be sent.
-        :param code_uri: The full URI for the code page.
-        :param next_page: The page the user should be redirected to after login.
-        :return: True if an auth code was created and sent to the user. False if a new auth code wasn't created
-        (a previous code exists and was created within the TTL).
+        """Send an auth code to a user via email.
+
+        Args:
+          user: The user to whom the auth code should be sent.
+          code_uri: The full URI for the code page.
+          next_page: The page the user should be redirected to after login. (Default value = None)
+
+        Returns:
+          True if an auth code was created and sent to the user. False if a new auth code wasn't created
+          (a previous code exists and was created within the TTL).
         """
         template = "log-in-email.txt"
         html_template = "log-in-email.html"
@@ -76,12 +79,16 @@ class AuthCode(BaseModel):
 
     @classmethod
     def get_auth_code(cls, email, code):
-        """
-        Gets an auth code for a user, given an email address and code to verify.
+        """Gets an auth code for a user, given an email address and code to verify.
         Will not return auth codes created outside of the NOAUTH_CODE_TTL_MINUTES window.
-        :param email: The email to use when looking up the auth code.
-        :param code: The code to use when looking up the auth code.
-        :return: An auth code if one matching the parameters was found, otherwise None.
+
+        Args:
+          email: The email to use when looking up the auth code.
+          code: The code to use when looking up the auth code.
+
+        Returns:
+          An auth code if one matching the parameters was found, otherwise None.
+
         """
         try:
             valid_timestamp_start = timezone.now() - datetime.timedelta(
@@ -93,11 +100,15 @@ class AuthCode(BaseModel):
 
     @classmethod
     def _create_code_for_user(cls, user, next_page=None):
-        """
-        Creates an auth code for the given user.
-        :param user: The user that should be associated with the auth code.
-        :param next_page: The page the user should be redirected to after authenticating (optional, defaults to /).
-        :return: The new auth code or None if the user is inactive (disabled) or an auth code has been created within the TTL window.
+        """Creates an auth code for the given user.
+
+        Args:
+          user: The user that should be associated with the auth code.
+          next_page: The page the user should be redirected to after authenticating (optional, defaults to /).
+
+        Returns:
+          The new auth code or None if the user is inactive (disabled) or an auth code has been created within the TTL window.
+
         """
         if not user.is_active:
             return None

@@ -13,10 +13,18 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 
 from django.core.exceptions import ImproperlyConfigured
+from django.utils.translation import gettext_lazy as _
 
 
 def get_env_variable(var_name, default=None):
-    """Get the environment variable or return exception."""
+    """Get the environment variable or return exception.
+
+    Args:
+      var_name: the name of the the environment variable to read.
+      default: the value to return if the environment variable doesn't exit.
+
+    Returns: the environment variable value, or the default value.
+    """
     try:
         return os.environ[var_name]
     except KeyError:
@@ -86,6 +94,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -223,6 +232,9 @@ CACHES = {"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"
 AWS_QUERYSTRING_EXPIRE = CACHE_TIMEOUT + 30
 
 # APP SETTINGS
+
+
+LANGUAGES = [("es", _("Spanish")), ("en", _("English"))]
 
 # We support Uniform Residential Landlord Tenant Act (URLTA) jurisdictions in Kentucky
 # List from http://kyjustice.org/node/707

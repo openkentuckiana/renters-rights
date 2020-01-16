@@ -2,8 +2,7 @@ from django.http import HttpResponse, JsonResponse
 
 
 class AjaxableResponseMixin:
-    """
-    Mixin to add AJAX support to a form.
+    """Mixin to add AJAX support to a form.
     Must be used with an object-based FormView (e.g. CreateView)
     """
 

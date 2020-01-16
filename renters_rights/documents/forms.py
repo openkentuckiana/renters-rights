@@ -36,10 +36,10 @@ class BaseDocumentForm(forms.Form):
 
     @property
     def additional_fields(self):
-        """
-        Gets fields that are defined in addition to the base fields. Either by a subclass or a document template..
+        """Gets fields that are defined in addition to the base fields. Either by a subclass or a document template..
 
-        :return: A list of fields that have been added to the form's set of base fields.
+        Returns: A list of fields that have been added to the form's set of base fields.
+
         """
         static_fields = (
             "unit",

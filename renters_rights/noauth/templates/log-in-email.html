@@ -7,7 +7,9 @@
     <p>
         {% trans "Hello"%},<br>
         <br>
-        {% blocktrans %}<a href="{{code_uri}}?code={{code}}&email={{email}}">Click here</a> to log into {{ site_name }}.{% endblocktrans %}<br>
-        {% blocktrans %}If the link does not work, you can log in using this code: {{code}}.{% endblocktrans %}<br>
+        {% with link_start='<a href="{{code_uri}}?code={{code}}&email={{email}}">' link_end='</a>' %}
+            {% blocktrans %}{{link_start}}Click here{{link_end}} to log into {{ site_name }}.{% endblocktrans %}<br>
+            {% blocktrans %}If the link does not work, you can log in using this code: {{code}}.{% endblocktrans %}<br>
+        {% endwith %}
     </p>
 {% endblock %}

@@ -1,6 +1,5 @@
 class TurbolinksMiddleware(object):
-    """
-    Send the `Turbolinks-Location` header in response to a visit that was redirected,
+    """Send the `Turbolinks-Location` header in response to a visit that was redirected,
     and Turbolinks will replace the browser's topmost history entry.
     """
 

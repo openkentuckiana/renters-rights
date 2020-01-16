@@ -15,7 +15,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DetailView, FormView, ListView, UpdateView, View
 
 from documents.models import DocumentTemplate
-from lib.views import ProtectedView, get_next
+from lib.views import ProtectedView, get_next_page_from_request
 from units.forms import UnitAddImageForm, UnitForm
 from units.models import DOCUMENT, MOVE_IN_PICTURE, MOVE_OUT_PICTURE, Unit, UnitImage
 
@@ -105,7 +105,7 @@ class UnitCreate(CreateView, ProtectedView):
         return self.check_unit_limit() or super().post(request)
 
     def form_valid(self, form):
-        self.success_url = get_next(self.request, reverse_lazy("unit-list"))
+        self.success_url = get_next_page_from_request(self.request, reverse_lazy("unit-list"))
         form.instance.owner = self.request.user
         return super().form_valid(form)
 
@@ -178,7 +178,7 @@ class UnitAddImagesFormViewBase(FormView, ProtectedView):
             for f in futures:
                 if f.exception():
                     raise f.exception()
-        return redirect(get_next(self.request, reverse_lazy("unit-list")))
+        return redirect(get_next_page_from_request(self.request, reverse_lazy("unit-list")))
 
 
 class UnitAddDocumentsFormView(UnitAddImagesFormViewBase):

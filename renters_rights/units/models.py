@@ -34,14 +34,19 @@ MOVE_OUT_PICTURE = "MOP"
 
 
 def generate_file_path(instance, filename):
-    """Generates a file upload path."""
+    """Generates a file upload path.
+
+    Args:
+      instance: file instance.
+      filename: name of the file.
+
+    Returns: a path for uploading user images.
+    """
     return f"uploads/{instance.owner.slug}/{filename}"
 
 
 class Unit(UserOwnedModel):
-    """
-    Rental unit.
-    """
+    """Rental unit."""
 
     slug = models.SlugField(unique=True, max_length=60)
 
@@ -127,9 +132,9 @@ class UnitImage(UserOwnedModel):
 
     @property
     def thumbnail_internal(self):
-        """
-        Return a thumbnail URL suitable for use from within the application (e.g. in a PDF-generation script).
-        :return: A thumbnail URL that can be accessed from the application server.
+        """Gets a thumbnail that can accessed from the application server.
+
+        Returns: A thumbnail URL that can be accessed from the application server.
         """
         return default_storage.url(f"{self.image.name.split('.')[0]}-{self.thumbnail_sizes[0]}.jpg").replace("localhost", "s3")
 

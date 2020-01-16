@@ -59,8 +59,8 @@ class UnitForm(forms.ModelForm):
         if zip_code not in settings.SUPPORTED_JURISDICTION_ZIP_CODES_BY_STATE[state_name]:
             raise forms.ValidationError(
                 _(
-                    "Sorry, but we only support jurisdictions that have adopted the Uniform Residential Landlord Tenant Act. In %s, those jurisdictions are: %s"
-                    % (state_name, ", ".join(settings.SUPPORTED_JURISDICTIONS[state_name].keys()))
+                    "Sorry, but we only support jurisdictions that have adopted the Uniform Residential Landlord Tenant Act. In %(state)s, those jurisdictions are: %(jurisdictions)s"
+                    % {"state": state_name, "jurisdictions": ", ".join(settings.SUPPORTED_JURISDICTIONS[state_name].keys())}
                 )
             )
 

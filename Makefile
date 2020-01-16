@@ -71,6 +71,12 @@ testwithcoverage-codecov: build
 makemigrations:
 	@docker-compose run --rm app ./wait-for-it.sh db:5432 --timeout=60 -- python ./manage.py makemigrations
 
+makemessages:
+	@docker-compose run --rm app ./wait-for-it.sh db:5432 --timeout=60 -- python ./manage.py makemessages -l es
+
+compilemessage:
+	@docker-compose run --rm app ./wait-for-it.sh db:5432 --timeout=60 -- python ./manage.py compilemessages
+
 migrate:
 	@docker-compose run --rm app ./wait-for-it.sh db:5432 --timeout=60 -- python ./manage.py migrate
 

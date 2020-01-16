@@ -38,7 +38,7 @@ class AuthCodeModelTests(TestCase):
         self.assertFalse(AuthCode.send_auth_code(self.u, ""))
 
     @mock.patch("noauth.models.AuthCode._create_code_for_user")
-    def test_send_auth_code_returns_false_when_auth_code_not_created(self, m_create_code_for_user):
+    def test_send_auth_code(self, m_create_code_for_user):
         auth_code = AuthCode(code="123", user=self.u)
         m_create_code_for_user.return_value = auth_code
         self.assertTrue(AuthCode.send_auth_code(self.u, "http://site/code?code=123"))
