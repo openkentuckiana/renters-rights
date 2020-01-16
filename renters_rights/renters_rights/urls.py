@@ -7,6 +7,7 @@ from django.urls import include, path
 admin.site.site_header = "Renter Haven Administration"
 
 urlpatterns = [
+    path("i18n/", include("django.conf.urls.i18n")),
     path("", include("units.urls")),
     path("admin/", admin.site.urls),
     path("account/", include("noauth.urls")),
