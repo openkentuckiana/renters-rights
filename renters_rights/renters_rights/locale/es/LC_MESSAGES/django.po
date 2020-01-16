@@ -1,597 +1,929 @@
 msgid ""
 msgstr ""
+"Project-Id-Version: Renter Haven\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-16 02:10+0000\n"
+"PO-Revision-Date: 2020-01-16 02:31\n"
+"Last-Translator: lokalise.com\n"
+"Language-Team: lokalise.com\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: lokalise.com\n"
-"Project-Id-Version: Renter Haven\n"
-"PO-Revision-Date: 2020-01-16 02:31\n"
-"Last-Translator: lokalise.com\n"
-"Language-Team: lokalise.com\n\n"
-"Language: es\n"
+"\n"
 
+#: documents/forms.py:13
 msgid "Use unit address?"
 msgstr ""
 
+#: documents/forms.py:15
 msgid "Address 1"
 msgstr ""
 
+#: documents/forms.py:16
 msgid "Address 2"
 msgstr ""
 
+#: documents/forms.py:17
 msgid "City"
 msgstr ""
 
+#: documents/forms.py:18
 msgid "State"
 msgstr ""
 
+#: documents/forms.py:19
 msgid "ZIP Code"
 msgstr ""
 
+#: documents/forms.py:20
 msgid "Email Address"
 msgstr ""
 
+#: documents/forms.py:21
 msgid "Phone Number"
 msgstr ""
 
+#: documents/forms.py:27
 msgid "Your First Name"
 msgstr ""
 
+#: documents/forms.py:28
 msgid "Your Last Name"
 msgstr ""
 
+#: documents/forms.py:68
 msgid "Please enter your contact information."
 msgstr ""
 
+#: documents/forms.py:234
 msgid "County where you are filing"
 msgstr ""
 
+#: documents/forms.py:235
 msgid "Is your landlord a company?"
 msgstr ""
 
+#: documents/forms.py:236
 msgid "How much are you asking for?"
 msgstr ""
 
+#: documents/forms.py:237
 msgid "How much do you think court costs are (ex $50)?"
 msgstr ""
 
+#: documents/forms.py:238
 msgid "Your claims against your landlord"
 msgstr ""
 
+#: documents/templates/documents/document_form.html:19
 msgid "Which rental unit is this for?"
 msgstr ""
 
+#: documents/templates/documents/document_form.html:44
 msgid "What is your current contact info?"
 msgstr ""
 
+#: documents/templates/documents/document_form.html:233
 msgid "Additional info"
 msgstr ""
 
+#: documents/templates/documents/document_form.html:261
 msgid "Download PDF"
 msgstr ""
 
+#: documents/templates/documents/document_form.html:262
 msgid "Back to Documents"
 msgstr ""
 
+#: documents/templates/documents/documenttemplate_list.html:6
+#: documents/templates/documents/documenttemplate_list.html:10
 msgid "Letters and Forms"
 msgstr ""
 
-msgid "Select a letter or form you would like to create. We'll ask you for some information and then we'll generate a PDF for you to send to your landlord our the courts."
+#: documents/templates/documents/documenttemplate_list.html:12
+msgid ""
+"Select a letter or form you would like to create. We'll ask you for some "
+"information and then we'll generate a PDF for you to send to your landlord "
+"our the courts."
 msgstr ""
 
+#: documents/templates/fragments/document-list.html:12 documents/views.py:79
 msgid "Date-verified Photo Report"
 msgstr ""
 
-msgid "Use this report to prove what your unit looked like at on a certain date. This can be usesful when you are trying to get your security deposit back."
+#: documents/templates/fragments/document-list.html:14
+msgid ""
+"Use this report to prove what your unit looked like at on a certain date. "
+"This can be usesful when you are trying to get your security deposit back."
 msgstr ""
 
+#: documents/templates/fragments/document-list.html:16 documents/views.py:110
 msgid "Small Claims Court Form"
 msgstr ""
 
-msgid "If you need to file a small claims suit in order to recover money from your landlord, we can pre-populate the small claims complaint form that you need to submit to the court."
+#: documents/templates/fragments/document-list.html:18
+msgid ""
+"If you need to file a small claims suit in order to recover money from your "
+"landlord, we can pre-populate the small claims complaint form that you need "
+"to submit to the court."
 msgstr ""
 
+#: documents/views.py:69 documents/views.py:100 documents/views.py:166
 msgid "File downloaded."
 msgstr ""
 
+#: noauth/admin.py:17
 msgid "Personal info"
 msgstr ""
 
+#: noauth/admin.py:18
 msgid "Permissions"
 msgstr ""
 
+#: noauth/admin.py:19
 msgid "Important dates"
 msgstr ""
 
+#: noauth/forms.py:21
 msgid "First name"
 msgstr ""
 
+#: noauth/forms.py:22
 msgid "Last name"
 msgstr ""
 
+#: noauth/forms.py:24
 msgid "Email"
 msgstr ""
 
+#: noauth/forms.py:24
 msgid "If you change this, you will need to log in using your new address"
 msgstr ""
 
+#: noauth/forms.py:26
 msgid "Confirm Email"
 msgstr ""
 
+#: noauth/forms.py:38
 msgid "Email addresses do not match."
 msgstr ""
 
+#: noauth/forms.py:46
 msgid "Email addresses already in use."
 msgstr ""
 
+#: noauth/forms.py:60
 msgid "You do not have a pending username change."
 msgstr ""
 
+#: noauth/forms.py:63
 msgid "The code you entered is invalid."
 msgstr ""
 
+#: noauth/forms.py:69
+#, python-format
 msgid "Code is expired. Please confirm change within %(minutes)s minutes."
 msgstr ""
 
+#: noauth/models.py:74 noauth/tests/test_models.py:46
+#, python-brace-format
 msgid "Your {settings.SITE_NAME} log in code"
 msgstr ""
 
+#: noauth/templates/account-details.html:5
+#: noauth/templates/account-details.html:11 units/templates/base.html:31
 msgid "Account Details"
 msgstr ""
 
+#: noauth/templates/account-details.html:20
 msgid "Save"
 msgstr ""
 
+#: noauth/templates/code.html:5 noauth/templates/code.html:10
+#: noauth/templates/code.html:22 noauth/templates/log-in.html:5
+#: noauth/templates/log-in.html:11 units/templates/base.html:34
 msgid "Log In"
 msgstr ""
 
+#: noauth/templates/code.html:13
 msgid "Check your email for a log in link"
 msgstr ""
 
-msgid "Follow the link to log in automatically or enter the code from the email below."
+#: noauth/templates/code.html:14
+msgid ""
+"Follow the link to log in automatically or enter the code from the email "
+"below."
 msgstr ""
 
+#: noauth/templates/log-in-email.html:8 noauth/templates/log-in-email.txt:6
 msgid "Hello"
 msgstr ""
 
-msgid "%(link_start)sClick here%(link_end)s to log into %(site_name)s."
+#: noauth/templates/log-in-email.html:10
+#, python-format
+msgid ""
+"<a href=\"%(code_uri)s?code=%(code)s&email=%(email)s\">Click here</a> to log "
+"into %(site_name)s."
 msgstr ""
 
+#: noauth/templates/log-in-email.html:11
+#, python-format
 msgid "If the link does not work, you can log in using this code: %(code)s."
 msgstr ""
 
+#: noauth/templates/log-in-email.txt:8
+#, python-format
 msgid "Your code for logging into %(site_uri)s is %(code)s."
 msgstr ""
 
+#: noauth/templates/log-in-email.txt:9
+#, python-format
 msgid "Please go to %(code_uri)s to log in."
 msgstr ""
 
+#: noauth/templates/log-in.html:14
 msgid "Enter your email address and we will send you a link to use to log in."
 msgstr ""
 
+#: noauth/templates/log-in.html:15
 msgid "No need to remember another username and password!"
 msgstr ""
 
+#: noauth/templates/log-in.html:23
 msgid "Get Link"
 msgstr ""
 
+#: noauth/templates/log-out.html:5 noauth/templates/log-out.html:10
+#: noauth/templates/log-out.html:17 noauth/tests/test_views.py:165
+#: units/templates/base.html:32
 msgid "Log Out"
 msgstr ""
 
+#: noauth/templates/log-out.html:13
 msgid "Would you like to log out?"
 msgstr ""
 
+#: noauth/templates/log-out.html:18
+#: noauth/templates/username-pending-change.html:23
+#: noauth/tests/test_views.py:164 units/templates/units/unit_add_image.html:32
+#: units/templates/units/unit_delete.html:23
+#: units/templates/units/unit_form.html:150
 msgid "Cancel"
 msgstr ""
 
+#: noauth/templates/username-changed-email.html:7
+#: noauth/templates/username-changed-email.txt:6
+#: noauth/templates/username-pending-change-email.html:7
+#: noauth/templates/username-pending-change-email.txt:6
 msgid "Hi"
 msgstr ""
 
-msgid "You have successfully changed your username for %(site_name)s to %(new_username)s"
+#: noauth/templates/username-changed-email.html:9
+#, python-format
+msgid ""
+"You have successfully changed your username for %(site_name)s to "
+"%(new_username)s"
 msgstr ""
 
+#: noauth/templates/username-changed-email.html:10
 msgid "You will need to log in using this username going forward."
 msgstr ""
 
-msgid "We wanted to let you know that your email address for %(site_name)s has been changed to %(new_email)s"
+#: noauth/templates/username-changed-email.txt:8
+#, python-format
+msgid ""
+"We wanted to let you know that your email address for %(site_name)s has been "
+"changed to %(new_email)s"
 msgstr ""
 
+#: noauth/templates/username-changed-email.txt:9
 msgid "You will need to log in using this address going forward."
 msgstr ""
 
-msgid "It looks like you requested a username change for your %(site_name)s account."
+#: noauth/templates/username-pending-change-email.html:9
+#: noauth/templates/username-pending-change-email.txt:8
+#, python-format
+msgid ""
+"It looks like you requested a username change for your %(site_name)s account."
 msgstr ""
 
+#: noauth/templates/username-pending-change-email.html:10
+#: noauth/templates/username-pending-change-email.txt:9
+#, python-format
 msgid "You were previously using %(old_username)s to log in."
 msgstr ""
 
-msgid "If you would like to use %(new_username)s to log in to %(site_name)s,\n        <a href=\"%(confirmation_uri)s?code=%(code)s\">click here to confirm</a> the change."
+#: noauth/templates/username-pending-change-email.html:12
+#, python-format
+msgid ""
+"If you would like to use %(new_username)s to log in to %(site_name)s,\n"
+"        <a href=\"%(confirmation_uri)s?code=%(code)s\">click here to "
+"confirm</a> the change."
 msgstr ""
 
+#: noauth/templates/username-pending-change-email.html:14
+#: noauth/templates/username-pending-change-email.txt:14
+#, python-format
 msgid "You may also enter this code to confirm the change: %(code)s."
 msgstr ""
 
-msgid "If you would like to use %(new_username)s to log in to %(site_name)s, follow this link to the change:"
+#: noauth/templates/username-pending-change-email.txt:11
+#, python-format
+msgid ""
+"If you would like to use %(new_username)s to log in to %(site_name)s, follow "
+"this link to the change:"
 msgstr ""
 
+#: noauth/templates/username-pending-change.html:5
+#: noauth/templates/username-pending-change.html:10
+#: noauth/templates/username-pending-change.html:24
 msgid "Change Username"
 msgstr ""
 
+#: noauth/templates/username-pending-change.html:14
 msgid "Enter the code you received to change your username to"
 msgstr ""
 
+#: noauth/templates/username-pending-change.html:28
 msgid "You have not requested a username change"
 msgstr ""
 
+#: noauth/tests/test_views.py:56 noauth/tests/test_views.py:62
+#: noauth/views.py:52 noauth/views.py:67
 msgid "Invalid e-mail address or code."
 msgstr ""
 
+#: noauth/tests/test_views.py:155 noauth/views.py:128
 msgid "Please check your inbox and spam folder for a previously-sent code."
 msgstr ""
 
+#: noauth/tests/test_views.py:227 noauth/views.py:204
+#, python-brace-format
 msgid "Your requested {settings.SITE_NAME} email change"
 msgstr ""
 
+#: noauth/views.py:50 noauth/views.py:64
 msgid "You have been logged in."
 msgstr ""
 
+#: noauth/views.py:150
 msgid "You have been logged out."
 msgstr ""
 
+#: noauth/views.py:210
 msgid "Your changes were saved. Check your email to complete username change."
 msgstr ""
 
+#: noauth/views.py:217
 msgid "Your changes were saved."
 msgstr ""
 
+#: noauth/views.py:253
+#, python-brace-format
 msgid "Your {settings.SITE_NAME} email has changed"
 msgstr ""
 
+#: noauth/views.py:270
 msgid "Your username was changed."
 msgstr ""
 
+#: renters_rights/settings/base.py:205 renters_rights/settings/base.py:237
 msgid "English"
 msgstr ""
 
+#: renters_rights/settings/base.py:237
 msgid "Spanish"
 msgstr "Español"
 
+#: units/forms.py:54
 msgid "Sorry, but we do not support that state at this time"
 msgstr ""
 
-msgid "Sorry, but we only support jurisdictions that have adopted the Uniform Residential Landlord Tenant Act. In %(state)s, those jurisdictions are: %(jurisdictions)s"
+#: units/forms.py:62
+#, python-format
+msgid ""
+"Sorry, but we only support jurisdictions that have adopted the Uniform "
+"Residential Landlord Tenant Act. In %(state)s, those jurisdictions are: "
+"%(jurisdictions)s"
 msgstr ""
 
+#: units/forms.py:102
 msgid "Please select at least one image."
 msgstr ""
 
+#: units/forms.py:104
+#, python-format
 msgid "You may only upload a maximum of %(max_docs)d %(item_name)s."
 msgstr ""
 
-msgid "You may only upload a maximum of %(max_docs)d %(item_name)s. You already have %(current_image_count)d."
+#: units/forms.py:111
+#, python-format
+msgid ""
+"You may only upload a maximum of %(max_docs)d %(item_name)s. You already "
+"have %(current_image_count)d."
 msgstr ""
 
+#: units/models.py:54
 msgid "Unit Address 1"
 msgstr ""
 
+#: units/models.py:55
 msgid "Unit Address 2"
 msgstr ""
 
+#: units/models.py:56
 msgid "Unit City"
 msgstr ""
 
+#: units/models.py:57
 msgid "Unit State"
 msgstr ""
 
+#: units/models.py:58
 msgid "Unit ZIP Code"
 msgstr ""
 
+#: units/models.py:61
 msgid "Landlord Name"
 msgstr ""
 
+#: units/models.py:62
 msgid "Landlord Address 1"
 msgstr ""
 
+#: units/models.py:63
 msgid "Landlord Address 2"
 msgstr ""
 
+#: units/models.py:64
 msgid "Landlord City"
 msgstr ""
 
+#: units/models.py:65
 msgid "Landlord State"
 msgstr ""
 
+#: units/models.py:66
 msgid "Landlord ZIP Code"
 msgstr ""
 
+#: units/models.py:67
 msgid "Landlord Phone Number"
 msgstr ""
 
+#: units/models.py:68
 msgid "Landlord Email"
 msgstr ""
 
+#: units/models.py:71
 msgid "Lease Start Start Date"
 msgstr ""
 
+#: units/models.py:72
 msgid "Lease Start End Date"
 msgstr ""
 
+#: units/models.py:73
 msgid "Day Rent Due"
 msgstr ""
 
-msgid "Images must be over {min_size} pixels tall and wide. Please upload a larger image."
+#: units/models.py:151
+#, python-brace-format
+msgid ""
+"Images must be over {min_size} pixels tall and wide. Please upload a larger "
+"image."
 msgstr ""
 
+#: units/templates/base.html:24 units/templates/get-started.html:5
+#: units/templates/index-logged-out.html:21
+#: units/templates/index-logged-out.html:29
 msgid "Get Started"
 msgstr ""
 
+#: units/templates/base.html:25 units/templates/units/unit_list.html:7
 msgid "Rental Units"
 msgstr ""
 
+#: units/templates/base.html:27
 msgid "Letters & Forms"
 msgstr ""
 
+#: units/templates/fragments/document-pictures.html:3
+#: units/templates/units/unit_list.html:47 units/views.py:189
 msgid "Documents"
 msgstr ""
 
+#: units/templates/fragments/document-pictures.html:8
 msgid "Take pictures of your important documents like your lease."
 msgstr ""
 
+#: units/templates/fragments/document-pictures.html:10
+#: units/templates/fragments/document-pictures.html:12
+#: units/templates/units/unit_list.html:59
 msgid "Add Documents"
 msgstr ""
 
+#: units/templates/fragments/move-in-pictures.html:3
 msgid "Move-In Pictures"
 msgstr ""
 
-msgid "Upload pictures when you move in to have proof of damage that existed when you moved in."
+#: units/templates/fragments/move-in-pictures.html:8
+msgid ""
+"Upload pictures when you move in to have proof of damage that existed when "
+"you moved in."
 msgstr ""
 
+#: units/templates/fragments/move-in-pictures.html:10
+#: units/templates/fragments/move-in-pictures.html:12
+#: units/templates/fragments/move-out-pictures.html:10
+#: units/templates/fragments/move-out-pictures.html:12
 msgid "Upload"
 msgstr ""
 
+#: units/templates/fragments/move-in-pictures.html:14
+#: units/templates/fragments/move-out-pictures.html:14
 msgid "We'll give you ideas of what to upload"
 msgstr ""
 
+#: units/templates/fragments/move-out-pictures.html:3
 msgid "Move-Out Pictures"
 msgstr ""
 
-msgid "Upload pictures when you move out to document the condition of the unit when you left."
+#: units/templates/fragments/move-out-pictures.html:8
+msgid ""
+"Upload pictures when you move out to document the condition of the unit when "
+"you left."
 msgstr ""
 
+#: units/templates/get-started.html:15 units/templates/get-started.html:59
 msgid "Step 1: Add a rental unit"
 msgstr ""
 
-msgid "\n                    You have added %(counter)s unit.\n                "
-msgid_plural "\n                    You have added %(counter)s units.\n                "
+#: units/templates/get-started.html:18
+#, python-format
+msgid ""
+"\n"
+"                    You have added %(counter)s unit.\n"
+"                "
+msgid_plural ""
+"\n"
+"                    You have added %(counter)s units.\n"
+"                "
 msgstr[0] ""
 msgstr[1] ""
 
+#: units/templates/get-started.html:31 units/templates/units/unit_list.html:70
+#: units/templates/units/unit_list.html:72
 msgid "Add another unit"
 msgstr ""
 
+#: units/templates/get-started.html:33 units/templates/units/unit_list.html:73
 msgid "You have created the maximum number of units "
 msgstr ""
 
+#: units/templates/get-started.html:38 units/templates/get-started.html:66
 msgid "Step 2: Add pictures"
 msgstr ""
 
-msgid "If you would like to generate a photo report to send to your landlord, you will need to upload some pictures."
+#: units/templates/get-started.html:41 units/templates/get-started.html:69
+msgid ""
+"If you would like to generate a photo report to send to your landlord, you "
+"will need to upload some pictures."
 msgstr ""
 
+#: units/templates/get-started.html:52 units/templates/get-started.html:73
 msgid "Step 3: Create letters"
 msgstr ""
 
-msgid "After you have added a rental unit, you can generate letters to send to you landlord."
+#: units/templates/get-started.html:76
+msgid ""
+"After you have added a rental unit, you can generate letters to send to you "
+"landlord."
 msgstr ""
 
+#: units/templates/index-logged-out.html:5 units/templates/index.html:5
 msgid "Home"
 msgstr ""
 
+#: units/templates/index-logged-out.html:14
 msgid "How we can help"
 msgstr ""
 
+#: units/templates/index-logged-out.html:16
 msgid "Moving Out"
 msgstr ""
 
-msgid "When you're ready to move out, we can help you write a letter to your landlord. We can also help you include pictures of the unit to show what it looked like when you left."
+#: units/templates/index-logged-out.html:18
+msgid ""
+"When you're ready to move out, we can help you write a letter to your "
+"landlord. We can also help you include pictures of the unit to show what it "
+"looked like when you left."
 msgstr ""
 
+#: units/templates/index-logged-out.html:24
 msgid "Moving In"
 msgstr ""
 
-msgid "When you move in to an apartment, you should take pictures showing what the unit looked like when you moved in."
+#: units/templates/index-logged-out.html:26
+msgid ""
+"When you move in to an apartment, you should take pictures showing what the "
+"unit looked like when you moved in."
 msgstr ""
 
+#: units/templates/index-logged-out.html:32
 msgid "Who are we?"
 msgstr ""
 
-msgid "We are %(cfk_link)s, a group of volunteers who are trying to find ways to make the area a better place for citizens."
-msgstr "Somos %(cfk_link)s, un grupo de voluntarios que están tratando de encontrar formas de hacer del área un lugar mejor para los ciudadanos."
+#: units/templates/index-logged-out.html:37
+#, python-format
+msgid ""
+"We are %(cfk_link)s, a group of volunteers who are trying to find ways to "
+"make the area a better place for citizens."
+msgstr ""
+"Somos %(cfk_link)s, un grupo de voluntarios que están tratando de encontrar "
+"formas de hacer del área un lugar mejor para los ciudadanos."
 
-msgid "Our backgrounds include social work, community organizing, computer programming, law, and more. You can read more about our organization on our %(about_link_open)sabout page%(about_link_close)s."
+#: units/templates/index-logged-out.html:38
+#, python-format
+msgid ""
+"Our backgrounds include social work, community organizing, computer "
+"programming, law, and more. You can read more about our organization on our "
+"%(about_link_open)sabout page%(about_link_close)s."
 msgstr ""
 
-msgid "We built Renter Haven because we were told by our partners at the %(kejc_link)s and %(mhc_link)s that an application like this one could be useful."
+#: units/templates/index-logged-out.html:39
+#, python-format
+msgid ""
+"We built Renter Haven because we were told by our partners at the "
+"%(kejc_link)s and %(mhc_link)s that an application like this one could be "
+"useful."
 msgstr ""
 
+#: units/templates/index.html:10
 msgid "Your Units"
 msgstr ""
 
+#: units/templates/index.html:13
+#, python-format
 msgid "It looks like you've already added %(counter)s rental unit. Great!"
-msgid_plural "It looks like you've already added %(counter)s rental units. Great!"
+msgid_plural ""
+"It looks like you've already added %(counter)s rental units. Great!"
 msgstr[0] ""
 msgstr[1] ""
 
+#: units/templates/index.html:19
 msgid "Here are your units"
 msgstr ""
 
-msgid "Be sure to fill out as many details as you have about the unit and your landlord so that we can help you create letters for you to send when you need to communicate with your landlord."
+#: units/templates/index.html:25
+msgid ""
+"Be sure to fill out as many details as you have about the unit and your "
+"landlord so that we can help you create letters for you to send when you "
+"need to communicate with your landlord."
 msgstr ""
 
-msgid "You've added some pictures, which is great. Be sure you have pictures documenting what the unit looked like when you moved in, especially if there is any damage or things aren't working."
+#: units/templates/index.html:31
+msgid ""
+"You've added some pictures, which is great. Be sure you have pictures "
+"documenting what the unit looked like when you moved in, especially if there "
+"is any damage or things aren't working."
 msgstr ""
 
-msgid "Next, you should add some pictures to your units, especially when you move in or move out. Click on a unit above to add pictures."
+#: units/templates/index.html:35
+msgid ""
+"Next, you should add some pictures to your units, especially when you move "
+"in or move out. Click on a unit above to add pictures."
 msgstr ""
 
+#: units/templates/index.html:43
 msgid "Create Letters"
 msgstr ""
 
+#: units/templates/units/unit_add_image.html:4
 msgid "Add Image/Document"
 msgstr ""
 
+#: units/templates/units/unit_add_image.html:9
 msgid "Add"
 msgstr ""
 
-msgid "To select multiple pictures, hold down the Ctrl or Command (⌘) key when clicking files"
+#: units/templates/units/unit_add_image.html:18
+msgid ""
+"To select multiple pictures, hold down the Ctrl or Command (⌘) key when "
+"clicking files"
 msgstr ""
 
+#: units/templates/units/unit_add_image.html:19
+#: units/templates/units/unit_add_image.html:38
 msgid "You have uploaded"
 msgstr ""
 
+#: units/templates/units/unit_add_image.html:19
+#: units/templates/units/unit_add_image.html:38
 msgid "of"
 msgstr ""
 
+#: units/templates/units/unit_add_image.html:19
+#: units/templates/units/unit_add_image.html:38
 msgid "allowed images"
 msgstr ""
 
+#: units/templates/units/unit_add_image.html:31
+#: units/templates/units/unit_form.html:149
 msgid "Submit"
 msgstr ""
 
+#: units/templates/units/unit_add_image.html:39
 msgid "Go back"
 msgstr ""
 
+#: units/templates/units/unit_add_image.html:183
 msgid "Starting upload"
 msgstr ""
 
+#: units/templates/units/unit_delete.html:11
 msgid "Delete rental unit"
 msgstr ""
 
+#: units/templates/units/unit_delete.html:14
 msgid "Are you sure you want to delete this unit?"
 msgstr ""
 
-msgid "This will delete any uploaded images associated with this unit, and the deletion can't be undone."
+#: units/templates/units/unit_delete.html:18
+msgid ""
+"This will delete any uploaded images associated with this unit, and the "
+"deletion can't be undone."
 msgstr ""
 
+#: units/templates/units/unit_delete.html:24
 msgid "Delete"
 msgstr ""
 
+#: units/templates/units/unit_detail.html:10
 msgid "Unit information"
 msgstr ""
 
+#: units/templates/units/unit_detail.html:12
 msgid "← All units"
 msgstr ""
 
+#: units/templates/units/unit_detail.html:18
 msgid "Your unit"
 msgstr ""
 
+#: units/templates/units/unit_detail.html:34
 msgid "Landlord info"
 msgstr ""
 
+#: units/templates/units/unit_detail.html:54
 msgid "You have not provided any landlord info"
 msgstr ""
 
+#: units/templates/units/unit_detail.html:59
 msgid "Lease info"
 msgstr ""
 
+#: units/templates/units/unit_detail.html:62
 msgid "Lease start date"
 msgstr ""
 
+#: units/templates/units/unit_detail.html:67
 msgid "Lease end date"
 msgstr ""
 
+#: units/templates/units/unit_detail.html:73
 msgid "Rent due date"
 msgstr ""
 
+#: units/templates/units/unit_detail.html:78
 msgid "You have not provided any lease info"
 msgstr ""
 
+#: units/templates/units/unit_detail.html:90
 msgid "Edit Unit Info"
 msgstr ""
 
+#: units/templates/units/unit_detail.html:91
 msgid "Delete Unit"
 msgstr ""
 
+#: units/templates/units/unit_form.html:8
 msgid "Add new unit"
 msgstr ""
 
+#: units/templates/units/unit_form.html:17
 msgid "Unit Info"
 msgstr ""
 
+#: units/templates/units/unit_form.html:18
 msgid "You only need to give us the street address and ZIP code to get started"
 msgstr ""
 
+#: units/templates/units/unit_form.html:60
 msgid "Landlord Info"
 msgstr ""
 
+#: units/templates/units/unit_form.html:61
 msgid "We'll use this information to generate letters to your landlord"
 msgstr ""
 
+#: units/templates/units/unit_form.html:123
 msgid "Lease Info"
 msgstr ""
 
+#: units/templates/units/unit_list.html:11
 msgid "Your rental units"
 msgstr ""
 
-msgid "Add information about your rental units and we can help you generate letters and forms to send to your landlord."
+#: units/templates/units/unit_list.html:13
+msgid ""
+"Add information about your rental units and we can help you generate letters "
+"and forms to send to your landlord."
 msgstr ""
 
-msgid "Upload pictures of your unit to document the condition of your unit to help get your security deposit back."
+#: units/templates/units/unit_list.html:14
+msgid ""
+"Upload pictures of your unit to document the condition of your unit to help "
+"get your security deposit back."
 msgstr ""
 
+#: units/templates/units/unit_list.html:38
 msgid "Pictures"
 msgstr ""
 
+#: units/templates/units/unit_list.html:60
 msgid "Add Move-in Pictures"
 msgstr ""
 
+#: units/templates/units/unit_list.html:61
 msgid "Add Move-out Pictures"
 msgstr ""
 
-msgid "You have added the maximum number of units. Please delete a unit to continue."
+#: units/views.py:97
+msgid ""
+"You have added the maximum number of units. Please delete a unit to continue."
 msgstr ""
 
+#: units/views.py:131
 msgid "Unit successfully deleted."
 msgstr ""
 
+#: units/views.py:190
 msgid "Take pictures of important documents to save for later. For example:"
 msgstr ""
 
+#: units/views.py:191
 msgid "Your lease"
 msgstr ""
 
+#: units/views.py:191
 msgid "An important letter from your landlord"
 msgstr ""
 
+#: units/views.py:204
 msgid "Move-in Pictures"
 msgstr ""
 
+#: units/views.py:205 units/views.py:228
 msgid "Take pictures of these places in your apartment:"
 msgstr ""
 
+#: units/views.py:207 units/views.py:230
 msgid "Kitchen"
 msgstr ""
 
+#: units/views.py:208 units/views.py:231
 msgid "Kitchen appliances"
 msgstr ""
 
+#: units/views.py:209 units/views.py:232
 msgid "Bathroom walls"
 msgstr ""
 
+#: units/views.py:210 units/views.py:233
 msgid "Bathroom tub"
 msgstr ""
 
+#: units/views.py:211 units/views.py:234
 msgid "Living room"
 msgstr ""
 
+#: units/views.py:212 units/views.py:235
 msgid "Blinds/window coverings"
 msgstr ""
 
+#: units/views.py:213
 msgid "Anything that's damaged"
 msgstr ""
 
+#: units/views.py:227
 msgid "Move-out Pictures"
 msgstr ""
 
-msgid "Make sure you have good overall coverage of your unit in case your landlord claims damage."
+#: units/views.py:238
+msgid ""
+"Make sure you have good overall coverage of your unit in case your landlord "
+"claims damage."
 msgstr ""
