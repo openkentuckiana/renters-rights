@@ -16,7 +16,14 @@ from django.core.exceptions import ImproperlyConfigured
 
 
 def get_env_variable(var_name, default=None):
-    """Get the environment variable or return exception."""
+    """Get the environment variable or return exception.
+
+    Args:
+      var_name: the name of the the environment variable to read.
+      default: the value to return if the environment variable doesn't exit.
+
+    Returns: the environment variable value, or the default value.
+    """
     try:
         return os.environ[var_name]
     except KeyError:

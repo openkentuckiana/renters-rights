@@ -26,8 +26,7 @@ def normalize_email(email):
 
 
 class CodeView(View):
-    """
-    Handles the code form where the user enters their email address and code to authenticate.
+    """Handles the code form where the user enters their email address and code to authenticate.
     Accepts values either via querystring in a GET or in a form POST.
     """
 
@@ -63,7 +62,7 @@ class CodeView(View):
             if auth_code:
                 login(request, auth_code.user)
                 messages.add_message(request, messages.SUCCESS, _("You have been logged in."))
-                return redirect(auth_code.next_page)
+                return redirect(self._get_next_page_from_auth_code(auth_code))
 
             form.add_error(None, ValidationError(_("Invalid e-mail address or code."), code="invalid_email_or_code"))
 
@@ -71,11 +70,15 @@ class CodeView(View):
 
     @classmethod
     def _validate_and_get_auth_code(cls, email, code):
-        """
-        Validates an code and returns a URI to redirect to, if the code is valid.
-        :param email: The email address associated with the auth code.
-        :param code: The code associated with the auth code.
-        :return: A URI to redirect to if the code is valid, otherwise None.
+        """Validates an code and returns a URI to redirect to, if the code is valid.
+
+        Args:
+          email: The email address associated with the auth code.
+          code: The code associated with the auth code.
+
+        Returns:
+          A URI to redirect to if the code is valid, otherwise None.
+
         """
         auth_code = AuthCode.get_auth_code(email, code)
         if not auth_code:
@@ -83,11 +86,30 @@ class CodeView(View):
         auth_code.delete()
         return auth_code
 
+    @staticmethod
+    def _get_next_page_from_auth_code(auth_code: AuthCode):
+        """Gets the next page from an AuthCode object.
+        If the next page is a page that has a next=gs query string parameter, we should redirect to the getting
+        started page, rather than to the destination page. This happens when a user follows a link that requires
+        authentication from the getting started page. It makes more sense for the user to go back to the getting started
+        page, which will be populated with their data after logging in.
+
+        Args:
+          auth_code: the AuthCode object used to log a user in.
+
+        Returns: the next page a user should be redirected to.
+        """
+        if "?next=gs" in auth_code.next_page:
+            return reverse_lazy("get-started")
+
+        return auth_code.next_page
+
 
 class LogInView(FormView):
     """Handles the login form where users enter their email addresses to start the login process.
     After entering an email address, the user will be sent a log in link and code they can use to log in without a password.
-    If a user doesn't exist, a user is created."""
+    If a user doesn't exist, a user is created.
+    """
 
     template_name = "log-in.html"
     form_class = LoginForm

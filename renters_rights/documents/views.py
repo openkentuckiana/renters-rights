@@ -15,7 +15,7 @@ from weasyprint import HTML
 
 from documents.forms import DocumentForm, PhotosDocumentForm, SmallClaimsDocumentForm
 from documents.models import DocumentTemplate
-from lib.views import ProtectedView, get_next
+from lib.views import ProtectedView, get_next_page_from_request
 
 ANNOT_KEY = "/Annots"
 ANNOT_FIELD_KEY = "/T"
@@ -45,7 +45,7 @@ class DocumentFormView(FormView, ProtectedView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form_name"] = DocumentTemplate.objects.get(id=self.kwargs["id"]).name
-        context["next_page"] = get_next(self.request, reverse_lazy("documents:document-list"))
+        context["next_page"] = get_next_page_from_request(self.request, reverse_lazy("documents:document-list"))
         return context
 
     def get_form_kwargs(self):
@@ -77,7 +77,7 @@ class PhotosDocumentFormView(FormView, ProtectedView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form_name"] = _("Date-verified Photo Report")
-        context["next_page"] = get_next(self.request, reverse_lazy("documents:document-list"))
+        context["next_page"] = get_next_page_from_request(self.request, reverse_lazy("documents:document-list"))
         return context
 
     def get_form_kwargs(self):
@@ -108,7 +108,7 @@ class SmallClaimsDocumentFormView(FormView, ProtectedView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form_name"] = _("Small Claims Court Form")
-        context["next_page"] = get_next(self.request, reverse_lazy("documents:document-list"))
+        context["next_page"] = get_next_page_from_request(self.request, reverse_lazy("documents:document-list"))
         return context
 
     def get_form_kwargs(self):
