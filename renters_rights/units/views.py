@@ -47,7 +47,7 @@ class GetStartedView(View):
                 "num_units": len(units),
                 "allow_new_unit_creation": len(units) < settings.MAX_UNITS,
                 "picture_count": sum([u.unitimage_set.count() for u in units]),
-                "document_list": DocumentTemplate.objects,  # .filter(include_on_get_started=True),
+                "document_list": DocumentTemplate.objects.all(),  # .filter(include_on_get_started=True),
             }
 
         return render(request, "get-started.html", context=context)
