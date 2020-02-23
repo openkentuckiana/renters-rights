@@ -1,4 +1,5 @@
 import string
+import urllib
 from secrets import choice
 
 from django.conf import settings
@@ -121,12 +122,14 @@ class LogInView(FormView):
         if not user:
             user = self.create_user(email)
 
+        self.success_url += f"?email={urllib.parse.quote_plus(user.username)}"
         if AuthCode.send_auth_code(user, self.request.build_absolute_uri(reverse("noauth:code")), self.request.GET.get("next")):
-            self.success_url += f"?email={user.username}"
             return super().form_valid(form)
         else:
-            form.add_error(None, _("Please check your inbox and spam folder for a previously-sent code."))
-            return super().form_invalid(form)
+            messages.add_message(
+                self.request, messages.ERROR, _("Please check your inbox and spam folder for a previously-sent code.")
+            )
+            return HttpResponseRedirect(self.success_url)
 
     def create_user(self, email):
         # password should never be used by a user to log in. Just make it long and random.

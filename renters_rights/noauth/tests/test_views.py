@@ -145,14 +145,13 @@ class LoginViewTests(UnitBaseTestCase):
         self.assertRedirects(response, reverse("noauth:code") + f"?email={LoginViewTests.u.username}")
 
     @patch("noauth.models.AuthCode.send_auth_code")
-    def test_posting_a_user_who_has_received_an_auth_code_returns_error(self, m_send_auth_code):
+    def test_posting_a_user_who_has_received_an_auth_code_adds_message_and_redirects(self, m_send_auth_code):
         m_send_auth_code.return_value = False
         response = self.client.post(self.view_url, {"email": LoginViewTests.u.username})
         m_send_auth_code.assert_called_once_with(LoginViewTests.u, f"http://testserver{reverse('noauth:code')}", None)
-        assert_that(response.context["form"].errors, has_key("__all__"))
+        self.assertRedirects(response, reverse("noauth:code") + f"?email={LoginViewTests.u.username}")
         assert_that(
-            response.context["form"].errors["__all__"],
-            contains(_("Please check your inbox and spam folder for a previously-sent code.")),
+            response.context["messages"], contains(_("Please check your inbox and spam folder for a previously-sent code."))
         )
 
 
