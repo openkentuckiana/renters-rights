@@ -34,13 +34,44 @@ In order to facilite cross-platform development, Docker is used to build and run
  
 Source: [https://opensource.com/resources/what-docker](https://opensource.com/resources/what-docker)
 
-### Installing Docker
-Download the [Mac](https://store.docker.com/editions/community/docker-ce-desktop-mac) or [Windows](https://store.docker.com/editions/community/docker-ce-desktop-windows) installer and follow the installation insturctions.
+### Installing Dependencies
+
+#### Docker
+*Mac*  
+Download the [Mac](https://store.docker.com/editions/community/docker-ce-desktop-mac) installer, and follow instructions.
+
+*Windows*
+Download the [Windows](https://store.docker.com/editions/community/docker-ce-desktop-windows) installer and follow the installation insturctions.  Be sure to install docker-compose as well.
 
 Note that for Windows, Docker requires 64bit Windows 10 Pro, Enterprise, or Education, and Docker also requires that virtualization be enabled. Check out the [what to know before you install](https://docs.docker.com/docker-for-windows/install/#what-to-know-before-you-install) document for more info. It is completely possible to run Renters' Rights without Docker, and we can work on documentation and scripts to make that process easier if we have contributors who can't run Docker. Docker is just handy because it makes it so developers don't have to install or manage installations, and because it mimicks the production environment.
 
+*Linux*
+Follow instructions to install docker engine for your distro at the [Docker Installation](https://docs.docker.com/engine/install/) page.  Be sure to install docker-compose in addition to docker engine.  You'll also want to follow [Linux Post-Installation Instructions](https://docs.docker.com/engine/install/linux-postinstall/) as well.
+
+#### Make
+*Windows*
+Get [Make for Windows](http://gnuwin32.sourceforge.net/packages/make.htm).  An easy way is to get it from [Chocolatey](https://chocolatey.org/).  Once Chocolatey is installed:  `choco install make`
+
+*Linux*
+`sudo apt-get install make`
+
+### Cloning the Repo
+*Windows*
+Ensure that git will not modify line endings before cloning:  `git config --global core.autocrlf false`  Then clone as usual.  After cloning, take these steps to ensure that git will respect line-endings during future changes:  
+
+> // Run commands below in project directory, so that git will not attempt to mess with line endings within this project
+> git config core.eol lf 
+> git config core.autocrlf false
+
+*Mac/Linux*
+Clone as usual.
+
 ### Running the App
-Open a terminal (Terminal on Mac, Git Command Prompt on Windows), navigate to the Renters' Rights directory, and run this command: `make begin`.
+*Windows*
+Ensure that Docker is running with Linux containers, not Windows containers.  
+
+*All*
+Open a terminal, navigate to the Renters' Rights directory, and run this command: `make begin`.
 
 This command will start the application in debug mode along with a Postgres database instance. Each of these runs in its own container, which you'll see start. `make begin` will also set up the database by running [migrations](https://docs.djangoproject.com/en/2.1/topics/migrations/) and installing [fixtures](https://docs.djangoproject.com/en/2.1/howto/initial-data/#providing-data-with-fixtures).
 
