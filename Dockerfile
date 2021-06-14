@@ -25,7 +25,7 @@ RUN if [ "${NODE_ENV}" != "development" ]; then \
 
 CMD ["bash"]
 
-FROM python:3.9.5 as app
+FROM python:3.8 as app
 
 RUN apt-get update && \
 	apt-get install zlib1g-dev binutils libproj-dev gdal-bin libgeoip1 python-gdal -y && \
