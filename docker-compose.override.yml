@@ -5,7 +5,7 @@ services:
       target: webpack
       args:
         - "NODE_ENV=${NODE_ENV:-development}"
-    command: "yarn run watch"
+    command: bash -c "yarn run build && yarn run watch"
     depends_on:
       - app
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
