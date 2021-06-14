@@ -165,7 +165,6 @@ STATICFILES_FINDERS = [
 ]
 
 STATIC_URL = "/s/"
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "public")]
 STATIC_ROOT = os.path.join(BASE_DIR, "public_collected")
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
