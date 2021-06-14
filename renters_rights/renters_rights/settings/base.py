@@ -158,12 +158,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
-STATICFILES_FINDERS = [
-    "django.contrib.staticfiles.finders.FileSystemFinder",
-    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-]
-
 STATIC_URL = "/s/"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "public")]
 STATIC_ROOT = os.path.join(BASE_DIR, "public_collected")
@@ -228,8 +222,6 @@ CACHES = {"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"
 AWS_QUERYSTRING_EXPIRE = CACHE_TIMEOUT + 30
 
 # APP SETTINGS
-
-
 LANGUAGES = [("es", _("Spanish")), ("en", _("English"))]
 
 # We support Uniform Residential Landlord Tenant Act (URLTA) jurisdictions in Kentucky

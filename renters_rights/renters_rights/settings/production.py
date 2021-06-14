@@ -2,18 +2,15 @@
 
 from __future__ import absolute_import
 
-import django_heroku
-
 from .base import *
 
-django_heroku.settings(locals())
 DATABASES["default"]["ENGINE"] = "django.contrib.gis.db.backends.postgis"
 
 DEBUG = str_to_bool(os.environ.get("DJANGO_DEBUG", False))
 
 ########## HOST CONFIGURATION
 ALLOWED_HOSTS = get_env_variable("ALLOWED_HOSTS").split(",")
-SECURE_SSL_REDIRECT = get_env_variable("SECURE_SSL_REDIRECT", True)
+SECURE_SSL_REDIRECT = str_to_bool(get_env_variable("SECURE_SSL_REDIRECT", True))
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 ########## END HOST CONFIGURATION
 
