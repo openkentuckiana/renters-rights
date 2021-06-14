@@ -1,4 +1,31 @@
-FROM python:3.7
+FROM node:14.15.5-buster-slim AS webpack
+
+WORKDIR /app
+
+RUN apt-get update \
+  && apt-get install -y build-essential curl libpq-dev --no-install-recommends \
+  && rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man \
+  && apt-get clean \
+  && mkdir -p /node_modules && chown node:node -R /node_modules /app
+
+USER node
+
+COPY --chown=node:node ./renters_rights .
+
+WORKDIR /app/assets
+
+RUN yarn install
+
+ARG NODE_ENV="production"
+ENV NODE_ENV="${NODE_ENV}" \
+    USER="node"
+
+RUN if [ "${NODE_ENV}" != "development" ]; then \
+  yarn run build; else mkdir -p /app/public; fi
+
+CMD ["bash"]
+
+FROM python:3.9.5 as app
 
 RUN apt-get update && \
 	apt-get install zlib1g-dev binutils libproj-dev gdal-bin libgeoip1 python-gdal -y && \
@@ -20,8 +47,8 @@ RUN pipenv install --system --skip-lock $pipenv_arg
 ADD ./renters_rights/ /app
 
 ENV DJANGO_SETTINGS_MODULE=renters_rights.settings.base
-RUN python manage.py compilescss
-RUN python manage.py collectstatic --noinput --ignore=*.scss
+COPY --from=webpack /app/public/ /app/public/
+RUN python manage.py collectstatic --noinput
 
 ENV DJANGO_SETTINGS_MODULE=renters_rights.settings.production
 

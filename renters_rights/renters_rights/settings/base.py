@@ -51,10 +51,7 @@ SITE_URL = get_env_variable("SITE_URL", "https://landlord/")
 SITE_ID = 1
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
+BASE_DIR = os.path.dirname(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "7a9+m*y!4!951^c1ocyzp)bs51b(2*vc_==qh3^s%yx-ie*!@#"
@@ -87,7 +84,6 @@ INSTALLED_APPS = [
     "documents",
     "noauth",
     "active_link",
-    "sass_processor",
 ]
 
 MIDDLEWARE = [
@@ -164,13 +160,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATICFILES_FINDERS = [
-    "sass_processor.finders.CssFinder",
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
 STATIC_URL = "/s/"
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "public")]
+STATIC_ROOT = os.path.join(BASE_DIR, "public_collected")
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 LOCALE_PATHS = [os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "locale"))]

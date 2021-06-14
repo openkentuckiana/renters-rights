@@ -1,7 +1,6 @@
-version: "3.2"
 services:
   db:
-    image: mdillon/postgis:10
+    image: postgis/postgis:13-3.1-alpine
     environment:
       POSTGRES_DB: renters_rights
       POSTGRES_USER: postgres

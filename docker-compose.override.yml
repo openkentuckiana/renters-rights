@@ -1,0 +1,15 @@
+services:
+  webpack:
+    build:
+      context: .
+      target: webpack
+      args:
+        - "NODE_ENV=${NODE_ENV:-development}"
+    command: "yarn run watch"
+    depends_on:
+      - app
+    restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+    stop_grace_period: 3s
+    tty: true
+    volumes:
+      - ./renters_rights:/app

@@ -31,8 +31,8 @@ MEDIA_ROOT = "/tmp/"
 ########## S3 CONFIGURATION
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
-AWS_S3_ENDPOINT_URL = "http://s3:4572"  # Used by boto to connect from app container to s3 container
-AWS_S3_CUSTOM_DOMAIN = f"localhost:4572/{AWS_STORAGE_BUCKET_NAME}"  # used by django-storages to generate URLs for frontend
+AWS_S3_ENDPOINT_URL = "http://s3:4566"  # Used by boto to connect from app container to s3 container
+AWS_S3_CUSTOM_DOMAIN = f"localhost:4566/{AWS_STORAGE_BUCKET_NAME}"  # used by django-storages to generate URLs for frontend
 AWS_S3_SECURE_URLS = False  # Localstack s3 does not support SSL
 
 sleep = 1
@@ -54,5 +54,3 @@ while sleep < 30:
         time.sleep(sleep)
         sleep *= 2
 ########## END S3 CONFIGURATION
-
-SASS_PROCESSOR_ENABLED = True
