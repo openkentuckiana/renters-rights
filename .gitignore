@@ -84,8 +84,8 @@ renters_rights/.coverage
 renters_rights/htmlcov/
 
 .webpack_cache/
-renters_rights/public/*
-!renters_rights/public/.keep
-renters_rights/public_collected
+**/public/*
+!**/public/.keep
+**/public_collected
 
 .env*

@@ -16,12 +16,7 @@ WORKDIR /app/assets
 
 RUN yarn install
 
-ARG NODE_ENV="production"
-ENV NODE_ENV="${NODE_ENV}" \
-    USER="node"
-
-RUN if [ "${NODE_ENV}" != "development" ]; then \
-  yarn run build; else mkdir -p /app/public; fi
+RUN yarn run build
 
 CMD ["bash"]
 
@@ -47,7 +42,7 @@ RUN pipenv install --system --skip-lock $pipenv_arg
 ADD ./renters_rights/ /app
 
 ENV DJANGO_SETTINGS_MODULE=renters_rights.settings.base
-COPY --from=webpack /app/public/ /app/public/
+COPY --from=webpack /app/renters_rights/public/ /app/renters_rights/public/
 RUN python manage.py collectstatic --noinput
 
 ENV DJANGO_SETTINGS_MODULE=renters_rights.settings.production

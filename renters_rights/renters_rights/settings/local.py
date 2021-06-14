@@ -29,7 +29,7 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = "/tmp/"
 
 
-BASE_DIR = os.path.dirname(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir)))
+BASE_DIR = os.path.dirname(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)))))
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "public")]
 
 ########## S3 CONFIGURATION

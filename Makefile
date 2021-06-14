@@ -48,6 +48,11 @@ status:
 
 restart: stop start
 
+restart-app:
+	@docker-compose stop app
+	@docker-compose up -d
+	@echo "Ready at http://localhost/"
+
 clean: stop
 	@docker-compose rm --force
 	@docker-compose down --volumes
@@ -91,6 +96,9 @@ bash:
 
 tail:
 	@docker-compose logs -ft
+
+tail-app:
+	@docker-compose logs -ft app
 
 attach:
 	docker attach renters-rights_app_1

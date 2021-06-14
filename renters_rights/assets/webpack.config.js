@@ -55,7 +55,7 @@ module.exports = [
       __dirname + '/app/app.js'
     ],
     output: {
-      path: __dirname + '/../public',
+      path: __dirname + '/../renters_rights/public',
       filename: 'js/app.js',
       publicPath: '/'
     },
