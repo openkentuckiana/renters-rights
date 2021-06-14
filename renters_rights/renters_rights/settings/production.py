@@ -2,8 +2,11 @@
 
 from __future__ import absolute_import
 
+import django_heroku
+
 from .base import *
 
+django_heroku.settings(locals(), staticfiles=False)
 DATABASES["default"]["ENGINE"] = "django.contrib.gis.db.backends.postgis"
 
 DEBUG = str_to_bool(os.environ.get("DJANGO_DEBUG", False))
