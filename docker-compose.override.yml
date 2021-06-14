@@ -11,5 +11,7 @@ services:
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
     stop_grace_period: 3s
     tty: true
+    environment:
+      - NODE_ENV=development
     volumes:
       - ./renters_rights:/app

@@ -49,7 +49,7 @@ status:
 restart: stop start
 
 restart-app:
-	@docker-compose stop app
+	@docker-compose stop app webpack
 	@docker-compose up -d
 	@echo "Ready at http://localhost/"
 
