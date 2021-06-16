@@ -63,11 +63,6 @@ CACHES = {
 SECRET_KEY = get_env_variable("SECRET_KEY")
 ########## END SECRET CONFIGURATION
 
-########## STORAGE CONFIGURATION
-DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-AWS_DEFAULT_ACL = None
-########## END STORAGE CONFIGURATION
-
 if DEBUG:
     ########## TOOLBAR CONFIGURATION
     MIDDLEWARE += ("debug_toolbar.middleware.DebugToolbarMiddleware",)

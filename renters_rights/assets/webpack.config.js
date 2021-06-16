@@ -57,7 +57,7 @@ module.exports = [
     output: {
       path: __dirname + '/../renters_rights/public',
       filename: 'js/app.js',
-      publicPath: '/'
+      library: 'app'
     },
     resolve: {
       modules: [

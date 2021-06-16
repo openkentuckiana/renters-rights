@@ -1,0 +1,67 @@
+<!doctype html>
+
+{% load i18n %}
+{% load static %}
+{% load active_link_tags %}
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js" type="text/javascript"></script>
+    <title>Renter Haven - {% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/app.css' %}">
+    <script src="{% static 'js/app.js' %}"></script>
+  </head>
+  <body>
+  <div class="text-gray-500">
+      <div class="bg-gray-100 p-5 mb-0 flex flex-col sm:flex-row justify-between">
+          <div class="flex-none mb-5 sm:mb-0 w-48 lg:w-72">
+            <a href="/"><img src="{% static 'images/logo-green.png' %}"></a>
+          </div>
+          <div class="mt-2">
+                <form action="{% url 'set_language' %}" method="post" class="flex flex-row">{% csrf_token %}
+                    <input name="next" type="hidden" value="{{ redirect_to }}">
+                    <select name="language">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% get_language_info_list for LANGUAGES as languages %}
+                        {% for language in languages %}
+                            <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                                {{ language.name_local }} ({{ language.code }})
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="pl-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg></button>
+                </form>
+            </div>
+        </div>
+      <div>
+            {% block content %}
+            {% endblock content %}
+      </div>
+      <footer class="bg-green-50 p-5 mt-15 flex flex-col sm:flex-row justify-center items-center">
+            <div class="w-48 mb-5 sm:mb-0"><a href="https://codeforkentuckiana.org"><img src="{% static 'images/cfk-logo.png' %}" alt="Code for Kentuckiana logo"></a></div>
+            <ul class="flex text-center flex-col sm:flex-row justify-center text-black">
+                <li class="sm:ml-5 sm:mr-5">{% trans 'About' %}</li>
+                <li class="sm:ml-5 sm:mr-5">{% trans 'Privacy Policy' %}</li>
+                <li class="sm:ml-5 sm:mr-5">{% trans 'Terms of Service' %}</li>
+                <li class="sm:ml-5 sm:mr-5">{% trans 'Contact Us' %}</li>
+            </ul>
+      </footer>
+
+      <div class="message-container">
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+      </div>
+  </div>
+  <script defer src="{% static 'js/app.js' %}"></script>
+  </body>
+</html>

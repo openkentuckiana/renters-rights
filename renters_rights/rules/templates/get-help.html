@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans 'Home' %}{% endblock title %}
+
+{% block content %}
+    <div class="p-5">
+        <div class="pb-5">
+            <a href="{%url 'homepage' %}">{% trans 'Home' %}</a> > <span class="font-semibold">{%trans 'Get Help' %}</span>
+        </div>
+        <hr class="mb-5">
+
+        <h1 class="text-4xl lg:text-5xl leading-none font-extrabold tracking-tight text-gray-900 mb-8 sm:mb-4">{%trans 'Get Help' %}</h1>
+
+        <h2 class="text-3xl lg:text-4xl text-gray-900 mb-5 font-extrabold tracking-tight text-gray-900">
+        {% blocktrans %}If you need help figuring out whether your landlord is not following all of the rules{% endblocktrans %}
+        </h2>
+
+        <p class="prose mb-2">
+            {% blocktrans %}Your landlord must follow rules set by the City of Louisville. These rules exist to make sure rental properties are safe and healthy places to live.{% endblocktrans %}
+        </p>
+
+        <p class="prose">
+            {% blocktrans %}We can show you the rules your landlord should be following and help you get help if they are not.{% endblocktrans %}
+        </p>
+        <a href="{% url 'rules' %}" class="group max-w-sm border-green-600 border-2 rounded p-3 flex items-center justify-center mt-5 mb-5 hover:text-white hover:bg-green-600 no-underline text-black">
+            <span>{% blocktrans %}See the rules your landlord must follow{% endblocktrans %}</span>
+            <span class="pl-5 text-green-600 group-hover:text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </span>
+        </a>
+
+        <h2 class="text-3xl lg:text-4xl text-gray-900 mb-5 font-extrabold tracking-tight text-gray-900">
+        {% blocktrans %}If you know what rules your landlord is not following{% endblocktrans %}
+        </h2>
+
+        <p class="prose mb-2">
+            {% blocktrans %}If you know your landlord is not following the property codes, you can submit a request by following these steps:{% endblocktrans %}
+        </p>
+
+        <div class="flex items-top justify-left mb-3">
+            <div class="bg-green-50 text-black rounded-full w-10 h-10 flex items-center justify-center mr-2">1</div>
+            <div class="mt-2 text-gray-900">{% blocktrans %}Go to the city's 311 site{% endblocktrans %}: <a class="block lg:inline" href="http://iframe.publicstuff.com/#?client_id=1000113#picker-top">http://iframe.publicstuff.com/#?client_id=1000113#picker-top</a></div>
+        </div>
+
+        <div class="flex items-top justify-left mb-3">
+            <div class="bg-green-50 text-black rounded-full w-10 h-10 flex items-center justify-center mr-2">2</div>
+            <div class="mt-2 text-gray-900">{% blocktrans %}Search for and click "Property Maintenance Issue"{% endblocktrans %}: <img class="max-w-sm lg:max-w-lg shadow mt-2" src="{% static 'images/311-step1.jpg' %}" alt="Screenshot of 311 system, showing Property Maintenance menu item" /></div>
+        </div>
+
+        <div class="flex items-top justify-left mb-3">
+            <div class="bg-green-50 text-black rounded-full w-10 h-10 flex items-center justify-center mr-2">3</div>
+            <div class="mt-2 text-gray-900">{% blocktrans %}Search for and click "Interior Property Maintenance Issue"{% endblocktrans %}: <img class="max-w-sm lg:max-w-lg shadow mt-2" src="{% static 'images/311-step2.jpg' %}" alt="Screenshot of 311 system, showing Interior Property Maintenance submenu item" /></div>
+        </div>
+
+        <div class="flex items-top justify-left mb-3">
+            <div class="bg-green-50 text-black rounded-full w-10 h-10 flex items-center justify-center mr-2">4</div>
+            <div class="mt-2 text-gray-900">{% blocktrans %}Fill out the form, including pictures, if you have any{% endblocktrans %}</div>
+        </div>
+    </div>
+{% endblock %}

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from pathlib import Path
 
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import gettext_lazy as _
@@ -51,7 +52,7 @@ SITE_URL = get_env_variable("SITE_URL", "https://landlord/")
 SITE_ID = 1
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "7a9+m*y!4!951^c1ocyzp)bs51b(2*vc_==qh3^s%yx-ie*!@#"
@@ -80,8 +81,7 @@ INSTALLED_APPS = [
     "modeltranslation",
     "maintenance_mode",
     "phonenumber_field",
-    "units",
-    "documents",
+    "rules",
     "noauth",
     "active_link",
 ]
@@ -97,7 +97,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "maintenance_mode.middleware.MaintenanceModeMiddleware",
-    "units.middleware.TurbolinksMiddleware",
+    "rules.middleware.TurbolinksMiddleware",
     "django.contrib.flatpages.middleware.FlatpageFallbackMiddleware",
 ]
 
@@ -170,20 +170,13 @@ DEFAULT_FROM_EMAIL = get_env_variable("DEFAULT_FROM_EMAIL", "no-reply@renterhave
 AUTH_USER_MODEL = "noauth.User"
 NOAUTH_CODE_TTL_MINUTES = 30
 
-# Smallest size will be used to generate a square thumbnail.
-# Largest size will be used to resize original image.
-# Sizes in-between will be used to generate thumbnails.
-UNIT_IMAGE_SIZES = [200, 500, 1000]
-UNIT_IMAGE_MAX_HEIGHT_AND_WIDTH = UNIT_IMAGE_SIZES[-1]
-UNIT_IMAGE_MIN_HEIGHT_AND_WIDTH = UNIT_IMAGE_SIZES[0]
-
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "handlers": {"console": {"class": "logging.StreamHandler"}},
     "loggers": {
         "django": {"handlers": ["console"], "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"), "propagate": True},
-        "units": {"handlers": ["console"], "level": os.getenv("LOG_LEVEL", "INFO")},
+        "rules": {"handlers": ["console"], "level": os.getenv("LOG_LEVEL", "INFO")},
     },
 }
 
@@ -210,169 +203,9 @@ MAX_DOCUMENTS_PER_UNIT = os.getenv("MAX_DOCUMENTS_PER_UNIT", 5)
 MAX_MOVE_IN_PICTURES_PER_UNIT = os.getenv("MAX_MOVE_IN_PICTURES_PER_UNIT", 12)
 MAX_MOVE_OUT_PICTURES_PER_UNIT = os.getenv("MAX_MOVE_OUT_PICTURES_PER_UNIT", 12)
 
-AWS_S3_ENDPOINT_URL = None
-AWS_S3_CUSTOM_DOMAIN = None
-AWS_ACCESS_KEY_ID = get_env_variable("AWS_ACCESS_KEY_ID", "INVALID")
-AWS_SECRET_ACCESS_KEY = get_env_variable("AWS_SECRET_ACCESS_KEY", "INVALID")
-AWS_UPLOAD_BUCKET_NAME = get_env_variable("AWS_UPLOAD_BUCKET_NAME", "renters-rights-uploads-test")
-AWS_STORAGE_BUCKET_NAME = get_env_variable("AWS_STORAGE_BUCKET_NAME", "renters-rights-test")
-
 CACHE_TIMEOUT = get_env_variable("CACHE_TIMEOUT", 86400)
 CACHES = {"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache", "TIMEOUT": CACHE_TIMEOUT}}
 AWS_QUERYSTRING_EXPIRE = CACHE_TIMEOUT + 30
 
 # APP SETTINGS
 LANGUAGES = [("es", _("Spanish")), ("en", _("English"))]
-
-# We support Uniform Residential Landlord Tenant Act (URLTA) jurisdictions in Kentucky
-# List from http://kyjustice.org/node/707
-# Format of SUPPORTED_JURISDICTIONS is {"STATE_NAME": {"JURISDICTION": [ZIP_CODES]}}
-# STATE_NAME should be in str.title() format
-# A JURISDICTION of "ALL" can be used if URLTA has been adopted statewide
-SUPPORTED_JURISDICTIONS = {
-    "Kentucky": {
-        "Barbourville": [40906],
-        "Bellevue": [41073],
-        "Bromley": [41016, 41017],
-        "Covington": [41011, 41012, 41014, 41015, 41016, 41017, 41018, 41019],
-        "Dayton": [41073, 41074],
-        "Florence": [41022, 41042],
-        "Lexington-Fayette County": [
-            40502,
-            40503,
-            40504,
-            40505,
-            40506,
-            40507,
-            40508,
-            40509,
-            40510,
-            40511,
-            40512,
-            40513,
-            40514,
-            40515,
-            40516,
-            40517,
-            40522,
-            40523,
-            40524,
-            40526,
-            40533,
-            40536,
-            40544,
-            40546,
-            40550,
-            40555,
-            40574,
-            40575,
-            40576,
-            40577,
-            40578,
-            40579,
-            40580,
-            40581,
-            40582,
-            40583,
-            40588,
-            40591,
-            40598,
-        ],
-        "Georgetown": [40324],
-        "Louisville-Jefferson County": [
-            40018,
-            40023,
-            40025,
-            40027,
-            40041,
-            40059,
-            40118,
-            40201,
-            40202,
-            40203,
-            40204,
-            40205,
-            40206,
-            40207,
-            40208,
-            40209,
-            40210,
-            40211,
-            40212,
-            40213,
-            40214,
-            40215,
-            40216,
-            40217,
-            40218,
-            40219,
-            40220,
-            40221,
-            40222,
-            40223,
-            40224,
-            40225,
-            40228,
-            40229,
-            40231,
-            40232,
-            40233,
-            40241,
-            40242,
-            40243,
-            40245,
-            40250,
-            40251,
-            40252,
-            40253,
-            40255,
-            40256,
-            40257,
-            40258,
-            40259,
-            40261,
-            40266,
-            40268,
-            40269,
-            40270,
-            40272,
-            40280,
-            40281,
-            40282,
-            40283,
-            40285,
-            40287,
-            40289,
-            40290,
-            40291,
-            40292,
-            40293,
-            40294,
-            40295,
-            40296,
-            40297,
-            40298,
-            40299,
-        ],
-        "Ludlow": [41016],
-        "Melbourne": [41059],
-        "Newport": [41071, 41072],
-        "Oldham County": [40010, 40014, 40026, 40031, 40032, 40056, 40077],
-        "Pulaski County": [42501, 42502, 42503, 42518, 42519, 42533, 42544, 42553, 42558, 42564, 42567],
-        "Shelbyville": [40065, 40066],
-        "Silver Grove": [41085],
-        "Southgate": [41071],
-        "Taylor Mill": [41015],
-        "Woodlawn": [41071],
-    }
-}
-
-# next three variables shouldn't need to change even if SUPPORTED_JURISDICTIONS changes
-SUPPORTED_JURISDICTION_STATES = {s for s in SUPPORTED_JURISDICTIONS.keys()}
-SUPPORTED_JURISDICTION_NAMES_BY_STATE = {
-    state: list(jurisdictions.keys()) for state, jurisdictions in SUPPORTED_JURISDICTIONS.items()
-}
-SUPPORTED_JURISDICTION_ZIP_CODES_BY_STATE = {
-    state: [str(z) for z in [zip_list for j in list(jurisdictions.values()) for zip_list in j]]
-    for state, jurisdictions in SUPPORTED_JURISDICTIONS.items()
-}

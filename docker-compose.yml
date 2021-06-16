@@ -25,20 +25,8 @@ services:
       - main
     depends_on:
       - db
-      - s3
     ports:
       - "80:80"
-  s3:
-    image: localstack/localstack:latest
-    ports:
-      - '4563-4599:4563-4599'
-      - '8055:8080'
-    networks:
-      - main
-    environment:
-      - SERVICES=s3
-      - DEBUG=1
-      - DATA_DIR=/tmp/localstack/data
 
 networks:
   main:

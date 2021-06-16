@@ -8,10 +8,9 @@ admin.site.site_header = "Renter Haven Administration"
 
 urlpatterns = [
     path("i18n/", include("django.conf.urls.i18n")),
-    path("", include("units.urls")),
+    path("", include("rules.urls")),
     path("admin/", admin.site.urls),
     path("account/", include("noauth.urls")),
-    path("letters-forms/", include("documents.urls")),
     path("<path:url>", views.flatpage),
 ]
 
