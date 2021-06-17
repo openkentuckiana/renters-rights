@@ -22,9 +22,9 @@
 
         <h3 class="text-2xl lg:text-3xl leading-none font-extrabold tracking-tight text-gray-900 mb-5">{% trans 'Getting Help' %}</h3>
         <p class="prose mb-5">
-            {% blocktrans %}
-            If your landlord is not providing you with {{ rule.title|lower }}, you can submit a request to have the city come inspect the home you rent. The city can fine your landlord if they do not fix the problem.
-            {% endblocktrans %}
+
+            {% blocktrans %}If your landlord is not providing you with{% endblocktrans %} {{ rule.title|lower }}, {% blocktrans %}you can submit a request to have the city come inspect the home you rent. The city can fine your landlord if they do not fix the problem.{% endblocktrans %}
+
         </p>
 
         <div class="flex items-top justify-left mb-3">
