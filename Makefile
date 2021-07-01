@@ -77,7 +77,13 @@ makemigrations:
 	@docker-compose run --rm app ./wait-for-it.sh db:5432 --timeout=60 -- python ./manage.py makemigrations
 
 makemessages:
-	@docker-compose run --rm app ./wait-for-it.sh db:5432 --timeout=60 -- python ./manage.py makemessages -l es
+	@docker-compose run --rm app python ./manage.py makemessages -l es
+
+send-to-lokalize:
+	@docker run --rm -v $(CURDIR)/renters_rights/renters_rights/locale/es/LC_MESSAGES:/opt/src lokalise/lokalise-cli-2 lokalise2 --token=$(LOKALISE_TOKEN) --project-id=428991645db992094edb19.41349348 file upload --file "/opt/src/django.po" --lang-iso es --apply-tm --cleanup-mode
+
+get-from-lokalize:
+	@docker run --rm -v $(CURDIR)/renters_rights/renters_rights/locale/es/LC_MESSAGES:/opt/dest lokalise/lokalise-cli-2 lokalise2 --token=$(LOKALISE_TOKEN) --project-id=428991645db992094edb19.41349348 file download --format po --filter-langs es --directory-prefix "" --original-filenames=true --unzip-to /opt/dest
 
 compilemessage:
 	@docker-compose run --rm app ./wait-for-it.sh db:5432 --timeout=60 -- python ./manage.py compilemessages

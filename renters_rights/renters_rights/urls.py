@@ -10,7 +10,6 @@ urlpatterns = [
     path("i18n/", include("django.conf.urls.i18n")),
     path("", include("rules.urls")),
     path("admin/", admin.site.urls),
-    path("account/", include("noauth.urls")),
     path("<path:url>", views.flatpage),
 ]
 

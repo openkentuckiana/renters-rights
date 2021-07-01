@@ -15,15 +15,11 @@
         <h1 class="text-4xl lg:text-5xl leading-none font-extrabold tracking-tight text-gray-900 mb-8 sm:mb-4">{%trans 'Rules your landlord must follow' %}</h1>
 
         <p class="prose">
-            {% blocktranslate %}
-            Check out the various rules that your landlord must follow. We can help you submit a request to the city if any of the rules are not being followed.
-            {% endblocktranslate %}
+            {% blocktranslate %}Check out the various rules that your landlord must follow. We can help you submit a request to the city if any of the rules are not being followed.{% endblocktranslate %}
         </p>
 
         <p class="prose mt-5 font-bold">
-            {% blocktranslate %}
-            Click on any of the rules to learn more and to submit a request to the city.
-            {% endblocktranslate %}
+            {% blocktranslate %}Click on any of the rules to learn more and to submit a request to the city.{% endblocktranslate %}
         </p>
 
         {% regroup rules|dictsort:'rule_group.title' by rule_group.title as rule_group_list %}
