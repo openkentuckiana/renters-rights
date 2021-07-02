@@ -19,7 +19,8 @@ services:
     environment:
       - DJANGO_SETTINGS_MODULE=renters_rights.settings.local
       - PYTHONUNBUFFERED=1
-      - "TX_TOKEN=${TX_TOKEN:-NOT_SET}"
+    env_file:
+      .env
     volumes:
       - ./renters_rights:/app
     networks:
