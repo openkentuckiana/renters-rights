@@ -9,7 +9,7 @@ build:
       target: app
 release:
   command:
-    - ./heroku-release.sh
+    - ./manage.py migrate
   image: web
 run:
   web: gunicorn renters_rights.wsgi --log-file - --log-level debug
