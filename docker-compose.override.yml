@@ -4,11 +4,11 @@ services:
       context: .
       target: webpack
       args:
-        - NODE_ENV=${NODE_ENV:-development}
+        - "NODE_ENV=${NODE_ENV:-development}"
     command: bash -c "yarn run build && yarn run watch"
     depends_on:
       - app
-    restart: ${DOCKER_RESTART_POLICY:-unless-stopped}
+    restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
     stop_grace_period: 3s
     tty: true
     environment:
