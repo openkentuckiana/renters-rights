@@ -8,7 +8,15 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext as _
 from freezegun import freeze_time
-from hamcrest import assert_that, contains, contains_string, equal_to, has_key, is_not, none
+from hamcrest import (
+    assert_that,
+    contains,
+    contains_string,
+    equal_to,
+    has_key,
+    is_not,
+    none,
+)
 
 from noauth.forms import CodeForm, ConfirmUsernameChangeForm, UserProfileForm
 from noauth.models import AuthCode, User
