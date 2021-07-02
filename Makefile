@@ -33,7 +33,7 @@ help:
 	@echo ""
 	@echo "See contents of Makefile for more targets."
 
-begin: build makemigrations migrate fixtures start
+begin: build makemigrations migrate local-accounts fixtures start
 	git config core.hooksPath .githooks
 
 start:
@@ -77,15 +77,21 @@ makemigrations:
 	@docker-compose run --rm app ./wait-for-it.sh db:5432 --timeout=60 -- python ./manage.py makemigrations
 
 makemessages:
-	@docker-compose run --rm app python ./manage.py makemessages -l es
+	@docker-compose run --rm app python ./manage.py makemessages -l en
 
-send-to-lokalize:
-	@docker run --rm -v $(CURDIR)/renters_rights/renters_rights/locale/es/LC_MESSAGES:/opt/src lokalise/lokalise-cli-2 lokalise2 --token=$(LOKALISE_TOKEN) --project-id=428991645db992094edb19.41349348 file upload --file "/opt/src/django.po" --lang-iso es --apply-tm --cleanup-mode
+push-strings:  # Send strings to a third party for translation
+	@docker-compose run --rm app tx push --source
 
-get-from-lokalize:
-	@docker run --rm -v $(CURDIR)/renters_rights/renters_rights/locale/es/LC_MESSAGES:/opt/dest lokalise/lokalise-cli-2 lokalise2 --token=$(LOKALISE_TOKEN) --project-id=428991645db992094edb19.41349348 file download --format po --filter-langs es --directory-prefix "" --original-filenames=true --unzip-to /opt/dest
+pull-translations:  # Pull translations from a third party for use in app (should call compilemessages, import-fixture-translations, and fixtures after this step).
+	@docker-compose run --rm app tx pull --all
 
-compilemessage:
+export-fixture-strings:  # Export strings from fixtures to be translated and then later imported by import-fixture-translations
+	@docker-compose run --rm app python ./fixture-translations.py --export
+
+import-fixture-translations:  # Import translations received from third party into fixtures
+	@docker-compose run --rm app python ./fixture-translations.py --import
+
+compilemessages:
 	@docker-compose run --rm app ./wait-for-it.sh db:5432 --timeout=60 -- python ./manage.py compilemessages
 
 migrate:
@@ -93,6 +99,9 @@ migrate:
 
 fixtures:
 	@docker-compose run --rm app ./wait-for-it.sh db:5432 --timeout=60 -- ./load-all-fixtures.sh
+
+local-accounts:
+	@docker-compose run --rm app ./wait-for-it.sh db:5432 --timeout=60 -- ./manage.py loaddata noauth/fixtures/local.yaml
 
 flushdb:
 	@docker-compose run --rm app ./wait-for-it.sh db:5432 --timeout=60 -- python ./manage.py flush
@@ -113,7 +122,7 @@ bash-running:
 	docker exec -it renters-rights_app_1 bash
 
 format:
+	@docker-compose run --rm app isort --profile black .
 	@docker-compose run --rm app black . -l 128
-	@docker-compose run --rm app isort -rc --atomic .
 
 .PHONY: start stop status restart clean build test makemigrations migrate fixtures flushdb cli tail

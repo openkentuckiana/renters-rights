@@ -32,6 +32,7 @@ tramp
 
 # Mac
 .DS_Store
+*.icloud
 ._*
 
 # Windows

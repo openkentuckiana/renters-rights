@@ -1,763 +1,772 @@
-- model: rules.ordinance
-  pk: 1
-  fields:
+- fields:
     created_at: 2021-06-15 22:58:46.483809+00:00
+    legal_description: "(A)   General. All plumbing fixtures shall be properly installed\
+      \ and maintained in working order, and shall be kept free from obstructions,\
+      \ leaks and defects and be capable of performing the function for which such\
+      \ plumbing fixtures are designed. All plumbing fixtures shall be maintained\
+      \ in a safe, sanitary and functional condition.\r\n\r\n(B)   Plumbing system\
+      \ hazards. Where it is found that a plumbing system in a structure constitutes\
+      \ a hazard to the occupants or the structure by reason of inadequate service,\
+      \ inadequate venting, cross connection, backsiphonage, improper installation,\
+      \ deterioration or damage or for similar reasons, the Code Official shall require\
+      \ the defects to be corrected to eliminate the hazard."
+    legal_description_en: "(A)   General. All plumbing fixtures shall be properly\
+      \ installed and maintained in working order, and shall be kept free from obstructions,\
+      \ leaks and defects and be capable of performing the function for which such\
+      \ plumbing fixtures are designed. All plumbing fixtures shall be maintained\
+      \ in a safe, sanitary and functional condition.\r\n\r\n(B)   Plumbing system\
+      \ hazards. Where it is found that a plumbing system in a structure constitutes\
+      \ a hazard to the occupants or the structure by reason of inadequate service,\
+      \ inadequate venting, cross connection, backsiphonage, improper installation,\
+      \ deterioration or damage or for similar reasons, the Code Official shall require\
+      \ the defects to be corrected to eliminate the hazard."
+    legal_description_es: ''
     modified_at: 2021-06-16 01:24:41.799509+00:00
-    ordinance: § 156.153
+    ordinance: "\xA7 156.153"
     slug: 156-153
     title: PLUMBING SYSTEMS AND FIXTURES
-    legal_description: "(A)   General. All plumbing fixtures shall be properly installed
-      and maintained in working order, and shall be kept free from obstructions, leaks
-      and defects and be capable of performing the function for which such plumbing
-      fixtures are designed. All plumbing fixtures shall be maintained in a safe,
-      sanitary and functional condition.\r\n\r\n(B)   Plumbing system hazards. Where
-      it is found that a plumbing system in a structure constitutes a hazard to the
-      occupants or the structure by reason of inadequate service, inadequate venting,
-      cross connection, backsiphonage, improper installation, deterioration or damage
-      or for similar reasons, the Code Official shall require the defects to be corrected
-      to eliminate the hazard."
-    legal_description_es: ''
-    legal_description_en: "(A)   General. All plumbing fixtures shall be properly
-      installed and maintained in working order, and shall be kept free from obstructions,
-      leaks and defects and be capable of performing the function for which such plumbing
-      fixtures are designed. All plumbing fixtures shall be maintained in a safe,
-      sanitary and functional condition.\r\n\r\n(B)   Plumbing system hazards. Where
-      it is found that a plumbing system in a structure constitutes a hazard to the
-      occupants or the structure by reason of inadequate service, inadequate venting,
-      cross connection, backsiphonage, improper installation, deterioration or damage
-      or for similar reasons, the Code Official shall require the defects to be corrected
-      to eliminate the hazard."
     url: https://codelibrary.amlegal.com/codes/louisvillemetro/latest/loukymetro/0-0-0-16855
-- model: rules.ordinance
-  pk: 2
-  fields:
+  model: rules.ordinance
+  pk: 1
+- fields:
     created_at: 2021-06-15 22:58:55.550088+00:00
+    legal_description: "(A)   Privacy. Toilet rooms and bathrooms shall provide privacy\
+      \ and shall not constitute the only passageway to a hall or other space, or\
+      \ to the exterior. A door and interior locking device shall be provided for\
+      \ all common or shared bathrooms and toilet rooms in a multiple dwelling.\r\n\
+      \r\n(B)   Location. Toilet rooms and bathrooms serving hotel units, rooming\
+      \ units or dormitory units, shall have access by traversing not more than one\
+      \ flight of stairs and shall have access from a common hall or passageway."
+    legal_description_en: "(A)   Privacy. Toilet rooms and bathrooms shall provide\
+      \ privacy and shall not constitute the only passageway to a hall or other space,\
+      \ or to the exterior. A door and interior locking device shall be provided for\
+      \ all common or shared bathrooms and toilet rooms in a multiple dwelling.\r\n\
+      \r\n(B)   Location. Toilet rooms and bathrooms serving hotel units, rooming\
+      \ units or dormitory units, shall have access by traversing not more than one\
+      \ flight of stairs and shall have access from a common hall or passageway."
+    legal_description_es: ''
     modified_at: 2021-06-16 01:24:33.154118+00:00
-    ordinance: § 156.152
+    ordinance: "\xA7 156.152"
     slug: 156-152
     title: TOILET ROOMS
-    legal_description: "(A)   Privacy. Toilet rooms and bathrooms shall provide privacy
-      and shall not constitute the only passageway to a hall or other space, or to
-      the exterior. A door and interior locking device shall be provided for all common
-      or shared bathrooms and toilet rooms in a multiple dwelling.\r\n\r\n(B)   Location.
-      Toilet rooms and bathrooms serving hotel units, rooming units or dormitory units,
-      shall have access by traversing not more than one flight of stairs and shall
-      have access from a common hall or passageway."
-    legal_description_es: ''
-    legal_description_en: "(A)   Privacy. Toilet rooms and bathrooms shall provide
-      privacy and shall not constitute the only passageway to a hall or other space,
-      or to the exterior. A door and interior locking device shall be provided for
-      all common or shared bathrooms and toilet rooms in a multiple dwelling.\r\n\r\n(B)
-      \  Location. Toilet rooms and bathrooms serving hotel units, rooming units or
-      dormitory units, shall have access by traversing not more than one flight of
-      stairs and shall have access from a common hall or passageway."
     url: https://codelibrary.amlegal.com/codes/louisvillemetro/latest/loukymetro/0-0-0-16850
-- model: rules.ordinance
-  pk: 3
-  fields:
+  model: rules.ordinance
+  pk: 2
+- fields:
     created_at: 2021-06-16 01:10:11.388092+00:00
+    legal_description: "(A)   Dwelling units. Every dwelling unit shall contain its\
+      \ own bathtub or shower, lavatory, water closet and kitchen sink which shall\
+      \ be maintained in a sanitary, safe working condition. The lavatory shall be\
+      \ placed in the same room as the water closet or located in close proximity\
+      \ to the door leading directly into the room in which such water closet is located.\
+      \ A kitchen sink shall not be used as a substitute for the required lavatory.\r\
+      \n\r\n(B)   Rooming houses. At least one water closet, lavatory and bathtub\
+      \ or shower shall be supplied for each four rooming units.\r\n\r\n(C)   Hotels.\
+      \ Where private water closets, lavatories, and baths are not provided, one water\
+      \ closet, one lavatory and one bathtub or shower having access from a public\
+      \ hallway shall be provided for each ten occupants."
+    legal_description_en: "(A)   Dwelling units. Every dwelling unit shall contain\
+      \ its own bathtub or shower, lavatory, water closet and kitchen sink which shall\
+      \ be maintained in a sanitary, safe working condition. The lavatory shall be\
+      \ placed in the same room as the water closet or located in close proximity\
+      \ to the door leading directly into the room in which such water closet is located.\
+      \ A kitchen sink shall not be used as a substitute for the required lavatory.\r\
+      \n\r\n(B)   Rooming houses. At least one water closet, lavatory and bathtub\
+      \ or shower shall be supplied for each four rooming units.\r\n\r\n(C)   Hotels.\
+      \ Where private water closets, lavatories, and baths are not provided, one water\
+      \ closet, one lavatory and one bathtub or shower having access from a public\
+      \ hallway shall be provided for each ten occupants."
+    legal_description_es: ''
     modified_at: 2021-06-16 01:24:22.507566+00:00
-    ordinance: § 156.151
+    ordinance: "\xA7 156.151"
     slug: 156-151
     title: REQUIRED FACILITIES
-    legal_description: "(A)   Dwelling units. Every dwelling unit shall contain its
-      own bathtub or shower, lavatory, water closet and kitchen sink which shall be
-      maintained in a sanitary, safe working condition. The lavatory shall be placed
-      in the same room as the water closet or located in close proximity to the door
-      leading directly into the room in which such water closet is located. A kitchen
-      sink shall not be used as a substitute for the required lavatory.\r\n\r\n(B)
-      \  Rooming houses. At least one water closet, lavatory and bathtub or shower
-      shall be supplied for each four rooming units.\r\n\r\n(C)   Hotels. Where private
-      water closets, lavatories, and baths are not provided, one water closet, one
-      lavatory and one bathtub or shower having access from a public hallway shall
-      be provided for each ten occupants."
-    legal_description_es: ''
-    legal_description_en: "(A)   Dwelling units. Every dwelling unit shall contain
-      its own bathtub or shower, lavatory, water closet and kitchen sink which shall
-      be maintained in a sanitary, safe working condition. The lavatory shall be placed
-      in the same room as the water closet or located in close proximity to the door
-      leading directly into the room in which such water closet is located. A kitchen
-      sink shall not be used as a substitute for the required lavatory.\r\n\r\n(B)
-      \  Rooming houses. At least one water closet, lavatory and bathtub or shower
-      shall be supplied for each four rooming units.\r\n\r\n(C)   Hotels. Where private
-      water closets, lavatories, and baths are not provided, one water closet, one
-      lavatory and one bathtub or shower having access from a public hallway shall
-      be provided for each ten occupants."
     url: https://codelibrary.amlegal.com/codes/louisvillemetro/latest/loukymetro/0-0-0-16845
-- model: rules.ordinance
-  pk: 4
-  fields:
+  model: rules.ordinance
+  pk: 3
+- fields:
     created_at: 2021-06-16 01:11:55.742650+00:00
+    legal_description: "(A)   Habitable spaces. Every habitable space shall have at\
+      \ least one openable window. The total openable area of the window in every\
+      \ room shall be equal to at least 45% of the minimum glazed area required in\
+      \ \xA7 156.101(A). (Where rooms and spaces without openings to the outdoors\
+      \ are ventilated through an adjoining room, the unobstructed opening to the\
+      \ adjoining room shall be at least 8% of the floor area of the interior room\
+      \ or space, but not less than 25 square feet (2.33 (m2). The ventilation openings\
+      \ to the outdoors shall be based on a total floor area being ventilated.\r\n\
+      \r\n(B)   Bathrooms and toilet rooms. Every bathroom and toilet room shall comply\
+      \ with the ventilation requirements for habitable spaces as required by \xA7\
+      \ 156.102(A), except that a window shall not be required in such spaces equipped\
+      \ with a mechanical ventilation system. Air exhausted by a mechanical ventilation\
+      \ system from a bathroom or toilet room shall discharge to the outdoors and\
+      \ shall not be re-circulated.\r\n\r\n(C)   Cooking facilities. Unless approved\
+      \ through the certificate of occupancy, cooking shall not be permitted in any\
+      \ rooming unit or dormitory unit, and a cooking facility or appliance shall\
+      \ not be permitted to be present in a rooming unit or dormitory unit except\
+      \ where specifically approved in writing by the Code Official.\r\n\r\n(D)  \
+      \ Process ventilation. Where injurious, toxic, irritating or noxious fumes,\
+      \ gases, dusts or mists are generated, a local exhaust ventilation system shall\
+      \ be provided to remove the contaminating agent at the source. Air shall be\
+      \ exhausted to the exterior and not be recirculated to any space.\r\n\r\n(E)\
+      \   Clothes dryer-exhaust. Clothes dryer exhaust systems shall be independent\
+      \ of all other systems and shall be exhausted in accordance with the manufacturer's\
+      \ instructions."
+    legal_description_en: "(A)   Habitable spaces. Every habitable space shall have\
+      \ at least one openable window. The total openable area of the window in every\
+      \ room shall be equal to at least 45% of the minimum glazed area required in\
+      \ \xA7 156.101(A). (Where rooms and spaces without openings to the outdoors\
+      \ are ventilated through an adjoining room, the unobstructed opening to the\
+      \ adjoining room shall be at least 8% of the floor area of the interior room\
+      \ or space, but not less than 25 square feet (2.33 (m2). The ventilation openings\
+      \ to the outdoors shall be based on a total floor area being ventilated.\r\n\
+      \r\n(B)   Bathrooms and toilet rooms. Every bathroom and toilet room shall comply\
+      \ with the ventilation requirements for habitable spaces as required by \xA7\
+      \ 156.102(A), except that a window shall not be required in such spaces equipped\
+      \ with a mechanical ventilation system. Air exhausted by a mechanical ventilation\
+      \ system from a bathroom or toilet room shall discharge to the outdoors and\
+      \ shall not be re-circulated.\r\n\r\n(C)   Cooking facilities. Unless approved\
+      \ through the certificate of occupancy, cooking shall not be permitted in any\
+      \ rooming unit or dormitory unit, and a cooking facility or appliance shall\
+      \ not be permitted to be present in a rooming unit or dormitory unit except\
+      \ where specifically approved in writing by the Code Official.\r\n\r\n(D)  \
+      \ Process ventilation. Where injurious, toxic, irritating or noxious fumes,\
+      \ gases, dusts or mists are generated, a local exhaust ventilation system shall\
+      \ be provided to remove the contaminating agent at the source. Air shall be\
+      \ exhausted to the exterior and not be recirculated to any space.\r\n\r\n(E)\
+      \   Clothes dryer-exhaust. Clothes dryer exhaust systems shall be independent\
+      \ of all other systems and shall be exhausted in accordance with the manufacturer's\
+      \ instructions."
+    legal_description_es: ''
     modified_at: 2021-06-16 01:24:10.515522+00:00
-    ordinance: § 156.102
+    ordinance: "\xA7 156.102"
     slug: 156-102
     title: VENTILATION
-    legal_description: "(A)   Habitable spaces. Every habitable space shall have at
-      least one openable window. The total openable area of the window in every room
-      shall be equal to at least 45% of the minimum glazed area required in § 156.101(A).
-      (Where rooms and spaces without openings to the outdoors are ventilated through
-      an adjoining room, the unobstructed opening to the adjoining room shall be at
-      least 8% of the floor area of the interior room or space, but not less than
-      25 square feet (2.33 (m2). The ventilation openings to the outdoors shall be
-      based on a total floor area being ventilated.\r\n\r\n(B)   Bathrooms and toilet
-      rooms. Every bathroom and toilet room shall comply with the ventilation requirements
-      for habitable spaces as required by § 156.102(A), except that a window shall
-      not be required in such spaces equipped with a mechanical ventilation system.
-      Air exhausted by a mechanical ventilation system from a bathroom or toilet room
-      shall discharge to the outdoors and shall not be re-circulated.\r\n\r\n(C)   Cooking
-      facilities. Unless approved through the certificate of occupancy, cooking shall
-      not be permitted in any rooming unit or dormitory unit, and a cooking facility
-      or appliance shall not be permitted to be present in a rooming unit or dormitory
-      unit except where specifically approved in writing by the Code Official.\r\n\r\n(D)
-      \  Process ventilation. Where injurious, toxic, irritating or noxious fumes,
-      gases, dusts or mists are generated, a local exhaust ventilation system shall
-      be provided to remove the contaminating agent at the source. Air shall be exhausted
-      to the exterior and not be recirculated to any space.\r\n\r\n(E)   Clothes dryer-exhaust.
-      Clothes dryer exhaust systems shall be independent of all other systems and
-      shall be exhausted in accordance with the manufacturer's instructions."
-    legal_description_es: ''
-    legal_description_en: "(A)   Habitable spaces. Every habitable space shall have
-      at least one openable window. The total openable area of the window in every
-      room shall be equal to at least 45% of the minimum glazed area required in §
-      156.101(A). (Where rooms and spaces without openings to the outdoors are ventilated
-      through an adjoining room, the unobstructed opening to the adjoining room shall
-      be at least 8% of the floor area of the interior room or space, but not less
-      than 25 square feet (2.33 (m2). The ventilation openings to the outdoors shall
-      be based on a total floor area being ventilated.\r\n\r\n(B)   Bathrooms and
-      toilet rooms. Every bathroom and toilet room shall comply with the ventilation
-      requirements for habitable spaces as required by § 156.102(A), except that a
-      window shall not be required in such spaces equipped with a mechanical ventilation
-      system. Air exhausted by a mechanical ventilation system from a bathroom or
-      toilet room shall discharge to the outdoors and shall not be re-circulated.\r\n\r\n(C)
-      \  Cooking facilities. Unless approved through the certificate of occupancy,
-      cooking shall not be permitted in any rooming unit or dormitory unit, and a
-      cooking facility or appliance shall not be permitted to be present in a rooming
-      unit or dormitory unit except where specifically approved in writing by the
-      Code Official.\r\n\r\n(D)   Process ventilation. Where injurious, toxic, irritating
-      or noxious fumes, gases, dusts or mists are generated, a local exhaust ventilation
-      system shall be provided to remove the contaminating agent at the source. Air
-      shall be exhausted to the exterior and not be recirculated to any space.\r\n\r\n(E)
-      \  Clothes dryer-exhaust. Clothes dryer exhaust systems shall be independent
-      of all other systems and shall be exhausted in accordance with the manufacturer's
-      instructions."
     url: https://codelibrary.amlegal.com/codes/louisvillemetro/latest/loukymetro/0-0-0-16808
-- model: rules.ordinance
-  pk: 5
-  fields:
+  model: rules.ordinance
+  pk: 4
+- fields:
     created_at: 2021-06-16 01:20:39.053818+00:00
+    legal_description: "(A)   Habitable spaces. Every habitable space shall have at\
+      \ least one window of approved size facing directly to the outdoors or to a\
+      \ court. The minimum total glazed area for every habitable space shall be 8%\
+      \ of the floor area of such room. Wherever walls or other portions of a structure\
+      \ face a window of any room and such obstructions are located less than three\
+      \ feet (914 mm) from the window and extend to a level above that of the ceiling\
+      \ of the room, such window shall not be deemed to face directly to the outdoors\
+      \ nor to a court and shall not be included as contributing to the required minimum\
+      \ total window area for the room. (Where natural light for rooms or spaces without\
+      \ exterior glazing areas is provided through an adjoining room, the unobstructed\
+      \ opening to the adjoining room shall be at least 8% of the floor area of the\
+      \ interior room or space, not less than 25 square feet (2.33 m2). The exterior\
+      \ glazing area shall be based on the total floor area being served.)\r\n\r\n\
+      (B)   Common halls and stairways. Every common hall and stairway in residential\
+      \ occupancies, other than in one-and two- family dwellings, shall be lighted\
+      \ at all times with at least a 60-watt standard incandescent light bulb for\
+      \ each 200 square feet (19 m2) of floor area or equivalent illumination provided\
+      \ that the spacing between lights shall not be greater than 30 feet (9144 mm).\
+      \ In other than residential occupancies, means of egress, including exterior\
+      \ means of egress stairways shall be illuminated at all times the building space\
+      \ served by the means of egress is occupied with a minimum of one footcandle\
+      \ (11 lux) at floors, landings and treads.\r\n\r\n(C)   Other spaces. All other\
+      \ spaces shall be provided with natural or artificial light sufficient to permit\
+      \ the maintenance of sanitary conditions, and the safe occupancy of the space\
+      \ and utilization of the appliances, equipment and fixtures."
+    legal_description_en: "(A)   Habitable spaces. Every habitable space shall have\
+      \ at least one window of approved size facing directly to the outdoors or to\
+      \ a court. The minimum total glazed area for every habitable space shall be\
+      \ 8% of the floor area of such room. Wherever walls or other portions of a structure\
+      \ face a window of any room and such obstructions are located less than three\
+      \ feet (914 mm) from the window and extend to a level above that of the ceiling\
+      \ of the room, such window shall not be deemed to face directly to the outdoors\
+      \ nor to a court and shall not be included as contributing to the required minimum\
+      \ total window area for the room. (Where natural light for rooms or spaces without\
+      \ exterior glazing areas is provided through an adjoining room, the unobstructed\
+      \ opening to the adjoining room shall be at least 8% of the floor area of the\
+      \ interior room or space, not less than 25 square feet (2.33 m2). The exterior\
+      \ glazing area shall be based on the total floor area being served.)\r\n\r\n\
+      (B)   Common halls and stairways. Every common hall and stairway in residential\
+      \ occupancies, other than in one-and two- family dwellings, shall be lighted\
+      \ at all times with at least a 60-watt standard incandescent light bulb for\
+      \ each 200 square feet (19 m2) of floor area or equivalent illumination provided\
+      \ that the spacing between lights shall not be greater than 30 feet (9144 mm).\
+      \ In other than residential occupancies, means of egress, including exterior\
+      \ means of egress stairways shall be illuminated at all times the building space\
+      \ served by the means of egress is occupied with a minimum of one footcandle\
+      \ (11 lux) at floors, landings and treads.\r\n\r\n(C)   Other spaces. All other\
+      \ spaces shall be provided with natural or artificial light sufficient to permit\
+      \ the maintenance of sanitary conditions, and the safe occupancy of the space\
+      \ and utilization of the appliances, equipment and fixtures."
+    legal_description_es: ''
     modified_at: 2021-06-16 01:24:00.652594+00:00
-    ordinance: § 156.101
+    ordinance: "\xA7 156.101"
     slug: 156-101
     title: LIGHT
-    legal_description: "(A)   Habitable spaces. Every habitable space shall have at
-      least one window of approved size facing directly to the outdoors or to a court.
-      The minimum total glazed area for every habitable space shall be 8% of the floor
-      area of such room. Wherever walls or other portions of a structure face a window
-      of any room and such obstructions are located less than three feet (914 mm)
-      from the window and extend to a level above that of the ceiling of the room,
-      such window shall not be deemed to face directly to the outdoors nor to a court
-      and shall not be included as contributing to the required minimum total window
-      area for the room. (Where natural light for rooms or spaces without exterior
-      glazing areas is provided through an adjoining room, the unobstructed opening
-      to the adjoining room shall be at least 8% of the floor area of the interior
-      room or space, not less than 25 square feet (2.33 m2). The exterior glazing
-      area shall be based on the total floor area being served.)\r\n\r\n(B)   Common
-      halls and stairways. Every common hall and stairway in residential occupancies,
-      other than in one-and two- family dwellings, shall be lighted at all times with
-      at least a 60-watt standard incandescent light bulb for each 200 square feet
-      (19 m2) of floor area or equivalent illumination provided that the spacing between
-      lights shall not be greater than 30 feet (9144 mm). In other than residential
-      occupancies, means of egress, including exterior means of egress stairways shall
-      be illuminated at all times the building space served by the means of egress
-      is occupied with a minimum of one footcandle (11 lux) at floors, landings and
-      treads.\r\n\r\n(C)   Other spaces. All other spaces shall be provided with natural
-      or artificial light sufficient to permit the maintenance of sanitary conditions,
-      and the safe occupancy of the space and utilization of the appliances, equipment
-      and fixtures."
-    legal_description_es: ''
-    legal_description_en: "(A)   Habitable spaces. Every habitable space shall have
-      at least one window of approved size facing directly to the outdoors or to a
-      court. The minimum total glazed area for every habitable space shall be 8% of
-      the floor area of such room. Wherever walls or other portions of a structure
-      face a window of any room and such obstructions are located less than three
-      feet (914 mm) from the window and extend to a level above that of the ceiling
-      of the room, such window shall not be deemed to face directly to the outdoors
-      nor to a court and shall not be included as contributing to the required minimum
-      total window area for the room. (Where natural light for rooms or spaces without
-      exterior glazing areas is provided through an adjoining room, the unobstructed
-      opening to the adjoining room shall be at least 8% of the floor area of the
-      interior room or space, not less than 25 square feet (2.33 m2). The exterior
-      glazing area shall be based on the total floor area being served.)\r\n\r\n(B)
-      \  Common halls and stairways. Every common hall and stairway in residential
-      occupancies, other than in one-and two- family dwellings, shall be lighted at
-      all times with at least a 60-watt standard incandescent light bulb for each
-      200 square feet (19 m2) of floor area or equivalent illumination provided that
-      the spacing between lights shall not be greater than 30 feet (9144 mm). In other
-      than residential occupancies, means of egress, including exterior means of egress
-      stairways shall be illuminated at all times the building space served by the
-      means of egress is occupied with a minimum of one footcandle (11 lux) at floors,
-      landings and treads.\r\n\r\n(C)   Other spaces. All other spaces shall be provided
-      with natural or artificial light sufficient to permit the maintenance of sanitary
-      conditions, and the safe occupancy of the space and utilization of the appliances,
-      equipment and fixtures."
     url: https://codelibrary.amlegal.com/codes/louisvillemetro/latest/loukymetro/0-0-0-16802
-- model: rules.ordinance
-  pk: 6
-  fields:
+  model: rules.ordinance
+  pk: 5
+- fields:
     created_at: 2021-06-16 01:25:40.919249+00:00
+    legal_description: "(A)   General. Every sink, lavatory, bathtub or shower, drinking\
+      \ fountain, water closet or other plumbing fixture shall be properly connected\
+      \ to either a public water system or to an approved private water system. All\
+      \ kitchen sinks, lavatories, laundry facilities, bathtubs and showers shall\
+      \ be supplied with hot or tempered and cold running water in accordance with\
+      \ the Kentucky Plumbing Code.\r\n\r\n(B)   Contamination. The water supply shall\
+      \ be maintained free from contamination in an approved manner as identified\
+      \ by the Louisville Metro Public Health and Wellness Department, and all water\
+      \ inlets for plumbing fixtures shall be located above the flood-level rim of\
+      \ the fixture. Shampoo basin faucets, janitor sink faucets, and other hose bibs\
+      \ or faucets to which hoses are attached and left in place, shall be protected\
+      \ by an approved atmospheric-type vacuum breaker or an approved permanently\
+      \ attached hose connection vacuum breaker.\r\n\r\n(C)   Supply. The water supply\
+      \ system shall be installed and maintained to provide a supply of water to plumbing\
+      \ fixtures, devices and appurtenances in sufficient volume and at pressures\
+      \ adequate to enable the fixtures to function properly, safely, and free from\
+      \ defects and leaks.\r\n\r\n(D)   Water heating facilities. Water heating facilities\
+      \ shall be properly installed, maintained and capable of providing an adequate\
+      \ amount of water to be drawn at every required sink, lavatory, bathtub, shower\
+      \ and laundry facility at a temperature of not less than 120\xBA F. (49\xBA\
+      \ C.). A gas-burning water heater shall not be located in any bathroom, toilet\
+      \ room, bedroom or other occupied room normally kept closed, unless adequate\
+      \ combustion air is provided. An approved combination temperature and pressure-relief\
+      \ valve and relief valve discharge pipe shall be properly installed and maintained\
+      \ on water heaters."
+    legal_description_en: "(A)   General. Every sink, lavatory, bathtub or shower,\
+      \ drinking fountain, water closet or other plumbing fixture shall be properly\
+      \ connected to either a public water system or to an approved private water\
+      \ system. All kitchen sinks, lavatories, laundry facilities, bathtubs and showers\
+      \ shall be supplied with hot or tempered and cold running water in accordance\
+      \ with the Kentucky Plumbing Code.\r\n\r\n(B)   Contamination. The water supply\
+      \ shall be maintained free from contamination in an approved manner as identified\
+      \ by the Louisville Metro Public Health and Wellness Department, and all water\
+      \ inlets for plumbing fixtures shall be located above the flood-level rim of\
+      \ the fixture. Shampoo basin faucets, janitor sink faucets, and other hose bibs\
+      \ or faucets to which hoses are attached and left in place, shall be protected\
+      \ by an approved atmospheric-type vacuum breaker or an approved permanently\
+      \ attached hose connection vacuum breaker.\r\n\r\n(C)   Supply. The water supply\
+      \ system shall be installed and maintained to provide a supply of water to plumbing\
+      \ fixtures, devices and appurtenances in sufficient volume and at pressures\
+      \ adequate to enable the fixtures to function properly, safely, and free from\
+      \ defects and leaks.\r\n\r\n(D)   Water heating facilities. Water heating facilities\
+      \ shall be properly installed, maintained and capable of providing an adequate\
+      \ amount of water to be drawn at every required sink, lavatory, bathtub, shower\
+      \ and laundry facility at a temperature of not less than 120\xBA F. (49\xBA\
+      \ C.). A gas-burning water heater shall not be located in any bathroom, toilet\
+      \ room, bedroom or other occupied room normally kept closed, unless adequate\
+      \ combustion air is provided. An approved combination temperature and pressure-relief\
+      \ valve and relief valve discharge pipe shall be properly installed and maintained\
+      \ on water heaters."
+    legal_description_es: ''
     modified_at: 2021-06-16 01:25:40.919291+00:00
-    ordinance: § 156.154
+    ordinance: "\xA7 156.154"
     slug: 156-154
     title: WATER SYSTEM
-    legal_description: "(A)   General. Every sink, lavatory, bathtub or shower, drinking
-      fountain, water closet or other plumbing fixture shall be properly connected
-      to either a public water system or to an approved private water system. All
-      kitchen sinks, lavatories, laundry facilities, bathtubs and showers shall be
-      supplied with hot or tempered and cold running water in accordance with the
-      Kentucky Plumbing Code.\r\n\r\n(B)   Contamination. The water supply shall be
-      maintained free from contamination in an approved manner as identified by the
-      Louisville Metro Public Health and Wellness Department, and all water inlets
-      for plumbing fixtures shall be located above the flood-level rim of the fixture.
-      Shampoo basin faucets, janitor sink faucets, and other hose bibs or faucets
-      to which hoses are attached and left in place, shall be protected by an approved
-      atmospheric-type vacuum breaker or an approved permanently attached hose connection
-      vacuum breaker.\r\n\r\n(C)   Supply. The water supply system shall be installed
-      and maintained to provide a supply of water to plumbing fixtures, devices and
-      appurtenances in sufficient volume and at pressures adequate to enable the fixtures
-      to function properly, safely, and free from defects and leaks.\r\n\r\n(D)   Water
-      heating facilities. Water heating facilities shall be properly installed, maintained
-      and capable of providing an adequate amount of water to be drawn at every required
-      sink, lavatory, bathtub, shower and laundry facility at a temperature of not
-      less than 120º F. (49º C.). A gas-burning water heater shall not be located
-      in any bathroom, toilet room, bedroom or other occupied room normally kept closed,
-      unless adequate combustion air is provided. An approved combination temperature
-      and pressure-relief valve and relief valve discharge pipe shall be properly
-      installed and maintained on water heaters."
-    legal_description_es: ''
-    legal_description_en: "(A)   General. Every sink, lavatory, bathtub or shower,
-      drinking fountain, water closet or other plumbing fixture shall be properly
-      connected to either a public water system or to an approved private water system.
-      All kitchen sinks, lavatories, laundry facilities, bathtubs and showers shall
-      be supplied with hot or tempered and cold running water in accordance with the
-      Kentucky Plumbing Code.\r\n\r\n(B)   Contamination. The water supply shall be
-      maintained free from contamination in an approved manner as identified by the
-      Louisville Metro Public Health and Wellness Department, and all water inlets
-      for plumbing fixtures shall be located above the flood-level rim of the fixture.
-      Shampoo basin faucets, janitor sink faucets, and other hose bibs or faucets
-      to which hoses are attached and left in place, shall be protected by an approved
-      atmospheric-type vacuum breaker or an approved permanently attached hose connection
-      vacuum breaker.\r\n\r\n(C)   Supply. The water supply system shall be installed
-      and maintained to provide a supply of water to plumbing fixtures, devices and
-      appurtenances in sufficient volume and at pressures adequate to enable the fixtures
-      to function properly, safely, and free from defects and leaks.\r\n\r\n(D)   Water
-      heating facilities. Water heating facilities shall be properly installed, maintained
-      and capable of providing an adequate amount of water to be drawn at every required
-      sink, lavatory, bathtub, shower and laundry facility at a temperature of not
-      less than 120º F. (49º C.). A gas-burning water heater shall not be located
-      in any bathroom, toilet room, bedroom or other occupied room normally kept closed,
-      unless adequate combustion air is provided. An approved combination temperature
-      and pressure-relief valve and relief valve discharge pipe shall be properly
-      installed and maintained on water heaters."
     url: https://codelibrary.amlegal.com/codes/louisvillemetro/latest/loukymetro/0-0-0-16859
-- model: rules.ordinance
-  pk: 7
-  fields:
+  model: rules.ordinance
+  pk: 6
+- fields:
     created_at: 2021-06-16 01:28:15.464206+00:00
+    legal_description: "(A)   General.  The interior of a structure and equipment\
+      \ therein shall be maintained in good repair, structurally sound and in a sanitary\
+      \ condition. Occupants shall keep that part of the structure, which they occupy\
+      \ or control, in a clean and sanitary condition.  Every owner of a structure\
+      \ containing a rooming house, a hotel, a dormitory, two or more dwelling units\
+      \ or two or more nonresidential occupancies, shall maintain, in a clean and\
+      \ sanitary condition, the shared or public areas of the structure and exterior\
+      \ property.\r\n\r\n(B)   Structural members. All structural members shall be\
+      \ maintained structurally sound, and be capable of supporting the imposed loads.\r\
+      \n\r\n(C)   Interior surfaces. All interior surfaces, including windows and\
+      \ doors, shall be maintained in good, clean and sanitary condition. Peeling,\
+      \ chipping, flaking, or abraded paint shall be-repaired, removed, or covered.\
+      \ Cracked or loose plaster, decayed wood, and other defective surface conditions\
+      \ shall be corrected.\r\n      (1)   Lead-based paint. The owner must comply\
+      \ with federal and state statutes and standards and local statutes and standards\
+      \ for the abatement of existing lead base paint and the application of lead\
+      \ base paint.\r\n      (2)   Bathroom and kitchen floors and walls. Every toilet\
+      \ room, bathroom and kitchen floor surface shall be constructed and maintained\
+      \ so as to permit such floor to be kept in a clean and sanitary condition. Every\
+      \ toilet, bathroom and kitchen floor surface shall be composed of approved water-resistant\
+      \ materials and shall be substantially impervious to water damage; however,\
+      \ carpet will be allowed as a floor covering in these areas if areas were originally\
+      \ designed and approved for this type of floor covering and this floor covering\
+      \ has been used and maintained as to not cause a health or safety problem for\
+      \ the users of these areas. The walls of every bathroom, to a height of 48 inches\
+      \ if there is a tub and 72 inches if there is a shower, shall be constructed\
+      \ of water-repellant material in that area adjacent to the tub or shower, to\
+      \ prevent structural deterioration and any development of unsanitary conditions.\r\
+      \n      (3)   Free from dampness. In every building, basements and crawl spaces\
+      \ shall be maintained to prevent conditions conducive to decay or deterioration\
+      \ of the structure.\r\n\r\n(D)   Stairs and walking surfaces. Every stair, ramp,\
+      \ landing, balcony, porch, deck or other walking surface shall be maintained\
+      \ in sound condition and good repair.\r\n\r\n(E)   Handrails and guards. Every\
+      \ handrail and guard shall be firmly fastened and capable of supporting normally\
+      \ imposed loads and shall be maintained in good condition. Every interior flight\
+      \ of stairs having more than four risers, and every open portion of a stair,\
+      \ landing or balcony, which is more than 30 inches (762 mm) above the floor\
+      \ or grade below shall have guards. Handrails shall not be less than 30 inches\
+      \ (762 mm) no more than 42 inches (1067 mm) high, measured vertically above\
+      \ the nosing of the tread or above the finished floor of the landing, walking\
+      \ surfaces or grade. Guards shall not be less than 30 inches (762 mm) high above\
+      \ the floor of the landing, balcony or grade.\r\n\r\n(F)   Interior doors. Every\
+      \ interior door shall fit reasonably well within its frame and shall be capable\
+      \ of being opened and closed by being properly and securely attached to jambs,\
+      \ headers or tracks as intended by the manufacturer of the attachment hardware."
+    legal_description_en: "(A)   General.  The interior of a structure and equipment\
+      \ therein shall be maintained in good repair, structurally sound and in a sanitary\
+      \ condition. Occupants shall keep that part of the structure, which they occupy\
+      \ or control, in a clean and sanitary condition.  Every owner of a structure\
+      \ containing a rooming house, a hotel, a dormitory, two or more dwelling units\
+      \ or two or more nonresidential occupancies, shall maintain, in a clean and\
+      \ sanitary condition, the shared or public areas of the structure and exterior\
+      \ property.\r\n\r\n(B)   Structural members. All structural members shall be\
+      \ maintained structurally sound, and be capable of supporting the imposed loads.\r\
+      \n\r\n(C)   Interior surfaces. All interior surfaces, including windows and\
+      \ doors, shall be maintained in good, clean and sanitary condition. Peeling,\
+      \ chipping, flaking, or abraded paint shall be-repaired, removed, or covered.\
+      \ Cracked or loose plaster, decayed wood, and other defective surface conditions\
+      \ shall be corrected.\r\n      (1)   Lead-based paint. The owner must comply\
+      \ with federal and state statutes and standards and local statutes and standards\
+      \ for the abatement of existing lead base paint and the application of lead\
+      \ base paint.\r\n      (2)   Bathroom and kitchen floors and walls. Every toilet\
+      \ room, bathroom and kitchen floor surface shall be constructed and maintained\
+      \ so as to permit such floor to be kept in a clean and sanitary condition. Every\
+      \ toilet, bathroom and kitchen floor surface shall be composed of approved water-resistant\
+      \ materials and shall be substantially impervious to water damage; however,\
+      \ carpet will be allowed as a floor covering in these areas if areas were originally\
+      \ designed and approved for this type of floor covering and this floor covering\
+      \ has been used and maintained as to not cause a health or safety problem for\
+      \ the users of these areas. The walls of every bathroom, to a height of 48 inches\
+      \ if there is a tub and 72 inches if there is a shower, shall be constructed\
+      \ of water-repellant material in that area adjacent to the tub or shower, to\
+      \ prevent structural deterioration and any development of unsanitary conditions.\r\
+      \n      (3)   Free from dampness. In every building, basements and crawl spaces\
+      \ shall be maintained to prevent conditions conducive to decay or deterioration\
+      \ of the structure.\r\n\r\n(D)   Stairs and walking surfaces. Every stair, ramp,\
+      \ landing, balcony, porch, deck or other walking surface shall be maintained\
+      \ in sound condition and good repair.\r\n\r\n(E)   Handrails and guards. Every\
+      \ handrail and guard shall be firmly fastened and capable of supporting normally\
+      \ imposed loads and shall be maintained in good condition. Every interior flight\
+      \ of stairs having more than four risers, and every open portion of a stair,\
+      \ landing or balcony, which is more than 30 inches (762 mm) above the floor\
+      \ or grade below shall have guards. Handrails shall not be less than 30 inches\
+      \ (762 mm) no more than 42 inches (1067 mm) high, measured vertically above\
+      \ the nosing of the tread or above the finished floor of the landing, walking\
+      \ surfaces or grade. Guards shall not be less than 30 inches (762 mm) high above\
+      \ the floor of the landing, balcony or grade.\r\n\r\n(F)   Interior doors. Every\
+      \ interior door shall fit reasonably well within its frame and shall be capable\
+      \ of being opened and closed by being properly and securely attached to jambs,\
+      \ headers or tracks as intended by the manufacturer of the attachment hardware."
+    legal_description_es: ''
     modified_at: 2021-06-16 01:28:15.464308+00:00
-    ordinance: § 156.054
+    ordinance: "\xA7 156.054"
     slug: 156-054
     title: INTERIOR STRUCTURE
-    legal_description: "(A)   General.  The interior of a structure and equipment
-      therein shall be maintained in good repair, structurally sound and in a sanitary
-      condition. Occupants shall keep that part of the structure, which they occupy
-      or control, in a clean and sanitary condition.  Every owner of a structure containing
-      a rooming house, a hotel, a dormitory, two or more dwelling units or two or
-      more nonresidential occupancies, shall maintain, in a clean and sanitary condition,
-      the shared or public areas of the structure and exterior property.\r\n\r\n(B)
-      \  Structural members. All structural members shall be maintained structurally
-      sound, and be capable of supporting the imposed loads.\r\n\r\n(C)   Interior
-      surfaces. All interior surfaces, including windows and doors, shall be maintained
-      in good, clean and sanitary condition. Peeling, chipping, flaking, or abraded
-      paint shall be-repaired, removed, or covered. Cracked or loose plaster, decayed
-      wood, and other defective surface conditions shall be corrected.\r\n      (1)
-      \  Lead-based paint. The owner must comply with federal and state statutes and
-      standards and local statutes and standards for the abatement of existing lead
-      base paint and the application of lead base paint.\r\n      (2)   Bathroom and
-      kitchen floors and walls. Every toilet room, bathroom and kitchen floor surface
-      shall be constructed and maintained so as to permit such floor to be kept in
-      a clean and sanitary condition. Every toilet, bathroom and kitchen floor surface
-      shall be composed of approved water-resistant materials and shall be substantially
-      impervious to water damage; however, carpet will be allowed as a floor covering
-      in these areas if areas were originally designed and approved for this type
-      of floor covering and this floor covering has been used and maintained as to
-      not cause a health or safety problem for the users of these areas. The walls
-      of every bathroom, to a height of 48 inches if there is a tub and 72 inches
-      if there is a shower, shall be constructed of water-repellant material in that
-      area adjacent to the tub or shower, to prevent structural deterioration and
-      any development of unsanitary conditions.\r\n      (3)   Free from dampness.
-      In every building, basements and crawl spaces shall be maintained to prevent
-      conditions conducive to decay or deterioration of the structure.\r\n\r\n(D)
-      \  Stairs and walking surfaces. Every stair, ramp, landing, balcony, porch,
-      deck or other walking surface shall be maintained in sound condition and good
-      repair.\r\n\r\n(E)   Handrails and guards. Every handrail and guard shall be
-      firmly fastened and capable of supporting normally imposed loads and shall be
-      maintained in good condition. Every interior flight of stairs having more than
-      four risers, and every open portion of a stair, landing or balcony, which is
-      more than 30 inches (762 mm) above the floor or grade below shall have guards.
-      Handrails shall not be less than 30 inches (762 mm) no more than 42 inches (1067
-      mm) high, measured vertically above the nosing of the tread or above the finished
-      floor of the landing, walking surfaces or grade. Guards shall not be less than
-      30 inches (762 mm) high above the floor of the landing, balcony or grade.\r\n\r\n(F)
-      \  Interior doors. Every interior door shall fit reasonably well within its
-      frame and shall be capable of being opened and closed by being properly and
-      securely attached to jambs, headers or tracks as intended by the manufacturer
-      of the attachment hardware."
-    legal_description_es: ''
-    legal_description_en: "(A)   General.  The interior of a structure and equipment
-      therein shall be maintained in good repair, structurally sound and in a sanitary
-      condition. Occupants shall keep that part of the structure, which they occupy
-      or control, in a clean and sanitary condition.  Every owner of a structure containing
-      a rooming house, a hotel, a dormitory, two or more dwelling units or two or
-      more nonresidential occupancies, shall maintain, in a clean and sanitary condition,
-      the shared or public areas of the structure and exterior property.\r\n\r\n(B)
-      \  Structural members. All structural members shall be maintained structurally
-      sound, and be capable of supporting the imposed loads.\r\n\r\n(C)   Interior
-      surfaces. All interior surfaces, including windows and doors, shall be maintained
-      in good, clean and sanitary condition. Peeling, chipping, flaking, or abraded
-      paint shall be-repaired, removed, or covered. Cracked or loose plaster, decayed
-      wood, and other defective surface conditions shall be corrected.\r\n      (1)
-      \  Lead-based paint. The owner must comply with federal and state statutes and
-      standards and local statutes and standards for the abatement of existing lead
-      base paint and the application of lead base paint.\r\n      (2)   Bathroom and
-      kitchen floors and walls. Every toilet room, bathroom and kitchen floor surface
-      shall be constructed and maintained so as to permit such floor to be kept in
-      a clean and sanitary condition. Every toilet, bathroom and kitchen floor surface
-      shall be composed of approved water-resistant materials and shall be substantially
-      impervious to water damage; however, carpet will be allowed as a floor covering
-      in these areas if areas were originally designed and approved for this type
-      of floor covering and this floor covering has been used and maintained as to
-      not cause a health or safety problem for the users of these areas. The walls
-      of every bathroom, to a height of 48 inches if there is a tub and 72 inches
-      if there is a shower, shall be constructed of water-repellant material in that
-      area adjacent to the tub or shower, to prevent structural deterioration and
-      any development of unsanitary conditions.\r\n      (3)   Free from dampness.
-      In every building, basements and crawl spaces shall be maintained to prevent
-      conditions conducive to decay or deterioration of the structure.\r\n\r\n(D)
-      \  Stairs and walking surfaces. Every stair, ramp, landing, balcony, porch,
-      deck or other walking surface shall be maintained in sound condition and good
-      repair.\r\n\r\n(E)   Handrails and guards. Every handrail and guard shall be
-      firmly fastened and capable of supporting normally imposed loads and shall be
-      maintained in good condition. Every interior flight of stairs having more than
-      four risers, and every open portion of a stair, landing or balcony, which is
-      more than 30 inches (762 mm) above the floor or grade below shall have guards.
-      Handrails shall not be less than 30 inches (762 mm) no more than 42 inches (1067
-      mm) high, measured vertically above the nosing of the tread or above the finished
-      floor of the landing, walking surfaces or grade. Guards shall not be less than
-      30 inches (762 mm) high above the floor of the landing, balcony or grade.\r\n\r\n(F)
-      \  Interior doors. Every interior door shall fit reasonably well within its
-      frame and shall be capable of being opened and closed by being properly and
-      securely attached to jambs, headers or tracks as intended by the manufacturer
-      of the attachment hardware."
     url: https://codelibrary.amlegal.com/codes/louisvillemetro/latest/loukymetro/0-0-0-16740
-- model: rules.ordinance
-  pk: 8
-  fields:
+  model: rules.ordinance
+  pk: 7
+- fields:
     created_at: 2021-06-16 01:35:01.613278+00:00
+    legal_description: "(A)   General. The provisions of this subchapter shall govern\
+      \ the responsibilities of persons for the maintenance of structures, and the\
+      \ equipment and premises thereof. Every owner and occupant must fully comply\
+      \ with all the provisions of the Uniform Landlord Tenant Act/Ordinance. The\
+      \ occupant shall promptly notify the owner of any deficiencies and violations\
+      \ of this chapter.  All premises shall be kept and maintained free of any public\
+      \ nuisance.\r\n\r\n(B)   Sanitary condition.\r\n      (1)   Cleanliness.  Every\
+      \ occupant of a structure or part thereof shall keep that part of the structure\
+      \ or premises which that occupant occupies, controls, or uses in a clean, safe\
+      \ and sanitary condition, and in the case of a single-family structure, the\
+      \ owner shall keep the premises free of all weeds and prohibited plant growth,\
+      \ as defined in \xA7 156.052(D), to the center line of such street, easement\
+      \ or alley as are adjacent to or abut the premises.  Nothing in this section\
+      \ shall invalidate a lease provision.  The Metro Government hereby declares\
+      \ that plant growth in excess of the length permitted under \xA7 156.052(D)\
+      \ materially affects public health and safety and creates an emergency condition\
+      \ which allows a landlord to enter immediately upon the premises of a tenant\
+      \ as provided by \xA7 151.33(B) solely to remedy such condition.  Every owner\
+      \ of a dwelling containing two or more dwelling units shall maintain, in a clean,\
+      \ safe and sanitary condition, and free of all weeds and prohibited plant growth,\
+      \ as defined in \xA7 156.052(D), the shared or public areas of the dwelling\
+      \ and premises thereof to the center line of such street, easement or alley\
+      \ as are adjacent to or abut the premises. Any plant growth exceeding ten inches\
+      \ in height on land of three acres or more that abuts residential property,\
+      \ other than crops, trees, bushes, flowers or other ornamental plants, shall\
+      \ be at least 50 feet from the property line abutting the developed neighborhood.\r\
+      \n      (2)   Disposal of rubbish. Every occupant of a structure or part thereof\
+      \ shall dispose of all rubbish in a clean and sanitary manner by placing it\
+      \ in leak-proof approved containers, as required by \xA7 156.055.\r\n      (3)\
+      \   Disposal of garbage. Every occupant of a structure or part thereof shall\
+      \ dispose of garbage in a clean and sanitary manner by placing it in garbage\
+      \ disposal facilities, or if such facilities are not available, by securely\
+      \ wrapping such garbage and placing it in leak-proof approved containers, as\
+      \ required by \xA7 156.055.\r\n      (4)   Garbage storage facilities. Every\
+      \ dwelling unit shall be supplied with an approved garbage disposal facility,\
+      \ which shall be any adequate mechanical food waste grinder in each dwelling\
+      \ unit or leak-proof approved containers, as required by \xA7 156.055(E).  Such\
+      \ facilities shall be sufficient to meet the needs of the occupants.\r\n   \
+      \   (5)   Rubbish storage facilities. Every dwelling unit shall be supplied\
+      \ with leak-proof approved containers as required by \xA7 156.055(E) for storage\
+      \ of rubbish, and the occupant shall be responsible for the removal of such\
+      \ rubbish.\r\n      (6)   Food preparation. All spaces used or intended to be\
+      \ used for food preparation shall contain suitable space and approved equipment\
+      \ to store, prepare and serve food in a sanitary manner. There shall be adequate\
+      \ facilities and services for the sanitary disposal of food wastes and refuse,\
+      \ including facilities for temporary storage when necessary. Approved equipment\
+      \ shall consist of:\r\n         (a)   A listed or approved cooking stove or\
+      \ similar device designed for cooking food, properly installed with all necessary\
+      \ connections for safe, sanitary and efficient operation, and in proper working\
+      \ condition, to be supplied by the owner; provided, however, the owner may specify\
+      \ that this shall be the responsibility of the occupant if sufficient space\
+      \ and adequate connections are provided.\r\n         (b)   A refrigerator or\
+      \ similar device capable of the safe storage of food at temperatures less than\
+      \ 50\xBA F. but more than 3\xBA F. under ordinary maximum summer conditions,\
+      \ properly installed with all necessary connections for safe, sanitary and efficient\
+      \ operation, and in proper working condition, to be supplied by the owner; provided,\
+      \ however, the owner may specify that this shall be the responsibility of the\
+      \ occupant if sufficient space and adequate connections are provided.\r\n  \
+      \       (c) Cabinets or shelves of sound construction and easily cleanable,\
+      \ to be furnished by the owner, for the storage of eating, drinking, and cooking\
+      \ equipment and utensils, and of food that does not under ordinary summer conditions\
+      \ require refrigeration for safe keeping, to be supplied by the owner.\r\n \
+      \     (7)   Supplied fixtures and equipment. The owner or occupant of a structure\
+      \ or part thereof shall keep all equipment and fixtures therein clean and sanitary,\
+      \ and shall be responsible for the exercise of reasonable care in their proper\
+      \ use and operation. The owner shall maintain the supplied equipment and fixtures\
+      \ in good and proper operating condition.\r\n      (8)   Furnished by occupant.\
+      \ The equipment and fixtures furnished by the occupant of a structure shall\
+      \ be properly installed, and shall be maintained in good working condition,\
+      \ kept clean and sanitary, and free from defects, leaks or obstructions."
+    legal_description_en: "(A)   General. The provisions of this subchapter shall\
+      \ govern the responsibilities of persons for the maintenance of structures,\
+      \ and the equipment and premises thereof. Every owner and occupant must fully\
+      \ comply with all the provisions of the Uniform Landlord Tenant Act/Ordinance.\
+      \ The occupant shall promptly notify the owner of any deficiencies and violations\
+      \ of this chapter.  All premises shall be kept and maintained free of any public\
+      \ nuisance.\r\n\r\n(B)   Sanitary condition.\r\n      (1)   Cleanliness.  Every\
+      \ occupant of a structure or part thereof shall keep that part of the structure\
+      \ or premises which that occupant occupies, controls, or uses in a clean, safe\
+      \ and sanitary condition, and in the case of a single-family structure, the\
+      \ owner shall keep the premises free of all weeds and prohibited plant growth,\
+      \ as defined in \xA7 156.052(D), to the center line of such street, easement\
+      \ or alley as are adjacent to or abut the premises.  Nothing in this section\
+      \ shall invalidate a lease provision.  The Metro Government hereby declares\
+      \ that plant growth in excess of the length permitted under \xA7 156.052(D)\
+      \ materially affects public health and safety and creates an emergency condition\
+      \ which allows a landlord to enter immediately upon the premises of a tenant\
+      \ as provided by \xA7 151.33(B) solely to remedy such condition.  Every owner\
+      \ of a dwelling containing two or more dwelling units shall maintain, in a clean,\
+      \ safe and sanitary condition, and free of all weeds and prohibited plant growth,\
+      \ as defined in \xA7 156.052(D), the shared or public areas of the dwelling\
+      \ and premises thereof to the center line of such street, easement or alley\
+      \ as are adjacent to or abut the premises. Any plant growth exceeding ten inches\
+      \ in height on land of three acres or more that abuts residential property,\
+      \ other than crops, trees, bushes, flowers or other ornamental plants, shall\
+      \ be at least 50 feet from the property line abutting the developed neighborhood.\r\
+      \n      (2)   Disposal of rubbish. Every occupant of a structure or part thereof\
+      \ shall dispose of all rubbish in a clean and sanitary manner by placing it\
+      \ in leak-proof approved containers, as required by \xA7 156.055.\r\n      (3)\
+      \   Disposal of garbage. Every occupant of a structure or part thereof shall\
+      \ dispose of garbage in a clean and sanitary manner by placing it in garbage\
+      \ disposal facilities, or if such facilities are not available, by securely\
+      \ wrapping such garbage and placing it in leak-proof approved containers, as\
+      \ required by \xA7 156.055.\r\n      (4)   Garbage storage facilities. Every\
+      \ dwelling unit shall be supplied with an approved garbage disposal facility,\
+      \ which shall be any adequate mechanical food waste grinder in each dwelling\
+      \ unit or leak-proof approved containers, as required by \xA7 156.055(E).  Such\
+      \ facilities shall be sufficient to meet the needs of the occupants.\r\n   \
+      \   (5)   Rubbish storage facilities. Every dwelling unit shall be supplied\
+      \ with leak-proof approved containers as required by \xA7 156.055(E) for storage\
+      \ of rubbish, and the occupant shall be responsible for the removal of such\
+      \ rubbish.\r\n      (6)   Food preparation. All spaces used or intended to be\
+      \ used for food preparation shall contain suitable space and approved equipment\
+      \ to store, prepare and serve food in a sanitary manner. There shall be adequate\
+      \ facilities and services for the sanitary disposal of food wastes and refuse,\
+      \ including facilities for temporary storage when necessary. Approved equipment\
+      \ shall consist of:\r\n         (a)   A listed or approved cooking stove or\
+      \ similar device designed for cooking food, properly installed with all necessary\
+      \ connections for safe, sanitary and efficient operation, and in proper working\
+      \ condition, to be supplied by the owner; provided, however, the owner may specify\
+      \ that this shall be the responsibility of the occupant if sufficient space\
+      \ and adequate connections are provided.\r\n         (b)   A refrigerator or\
+      \ similar device capable of the safe storage of food at temperatures less than\
+      \ 50\xBA F. but more than 3\xBA F. under ordinary maximum summer conditions,\
+      \ properly installed with all necessary connections for safe, sanitary and efficient\
+      \ operation, and in proper working condition, to be supplied by the owner; provided,\
+      \ however, the owner may specify that this shall be the responsibility of the\
+      \ occupant if sufficient space and adequate connections are provided.\r\n  \
+      \       (c) Cabinets or shelves of sound construction and easily cleanable,\
+      \ to be furnished by the owner, for the storage of eating, drinking, and cooking\
+      \ equipment and utensils, and of food that does not under ordinary summer conditions\
+      \ require refrigeration for safe keeping, to be supplied by the owner.\r\n \
+      \     (7)   Supplied fixtures and equipment. The owner or occupant of a structure\
+      \ or part thereof shall keep all equipment and fixtures therein clean and sanitary,\
+      \ and shall be responsible for the exercise of reasonable care in their proper\
+      \ use and operation. The owner shall maintain the supplied equipment and fixtures\
+      \ in good and proper operating condition.\r\n      (8)   Furnished by occupant.\
+      \ The equipment and fixtures furnished by the occupant of a structure shall\
+      \ be properly installed, and shall be maintained in good working condition,\
+      \ kept clean and sanitary, and free from defects, leaks or obstructions."
+    legal_description_es: ''
     modified_at: 2021-06-16 01:35:01.613314+00:00
-    ordinance: § 156.051
+    ordinance: "\xA7 156.051"
     slug: 156-051
     title: RESPONSIBILITY OF PERSONS
-    legal_description: "(A)   General. The provisions of this subchapter shall govern
-      the responsibilities of persons for the maintenance of structures, and the equipment
-      and premises thereof. Every owner and occupant must fully comply with all the
-      provisions of the Uniform Landlord Tenant Act/Ordinance. The occupant shall
-      promptly notify the owner of any deficiencies and violations of this chapter.
-      \ All premises shall be kept and maintained free of any public nuisance.\r\n\r\n(B)
-      \  Sanitary condition.\r\n      (1)   Cleanliness.  Every occupant of a structure
-      or part thereof shall keep that part of the structure or premises which that
-      occupant occupies, controls, or uses in a clean, safe and sanitary condition,
-      and in the case of a single-family structure, the owner shall keep the premises
-      free of all weeds and prohibited plant growth, as defined in § 156.052(D), to
-      the center line of such street, easement or alley as are adjacent to or abut
-      the premises.  Nothing in this section shall invalidate a lease provision.  The
-      Metro Government hereby declares that plant growth in excess of the length permitted
-      under § 156.052(D) materially affects public health and safety and creates an
-      emergency condition which allows a landlord to enter immediately upon the premises
-      of a tenant as provided by § 151.33(B) solely to remedy such condition.  Every
-      owner of a dwelling containing two or more dwelling units shall maintain, in
-      a clean, safe and sanitary condition, and free of all weeds and prohibited plant
-      growth, as defined in § 156.052(D), the shared or public areas of the dwelling
-      and premises thereof to the center line of such street, easement or alley as
-      are adjacent to or abut the premises. Any plant growth exceeding ten inches
-      in height on land of three acres or more that abuts residential property, other
-      than crops, trees, bushes, flowers or other ornamental plants, shall be at least
-      50 feet from the property line abutting the developed neighborhood.\r\n      (2)
-      \  Disposal of rubbish. Every occupant of a structure or part thereof shall
-      dispose of all rubbish in a clean and sanitary manner by placing it in leak-proof
-      approved containers, as required by § 156.055.\r\n      (3)   Disposal of garbage.
-      Every occupant of a structure or part thereof shall dispose of garbage in a
-      clean and sanitary manner by placing it in garbage disposal facilities, or if
-      such facilities are not available, by securely wrapping such garbage and placing
-      it in leak-proof approved containers, as required by § 156.055.\r\n      (4)
-      \  Garbage storage facilities. Every dwelling unit shall be supplied with an
-      approved garbage disposal facility, which shall be any adequate mechanical food
-      waste grinder in each dwelling unit or leak-proof approved containers, as required
-      by § 156.055(E).  Such facilities shall be sufficient to meet the needs of the
-      occupants.\r\n      (5)   Rubbish storage facilities. Every dwelling unit shall
-      be supplied with leak-proof approved containers as required by § 156.055(E)
-      for storage of rubbish, and the occupant shall be responsible for the removal
-      of such rubbish.\r\n      (6)   Food preparation. All spaces used or intended
-      to be used for food preparation shall contain suitable space and approved equipment
-      to store, prepare and serve food in a sanitary manner. There shall be adequate
-      facilities and services for the sanitary disposal of food wastes and refuse,
-      including facilities for temporary storage when necessary. Approved equipment
-      shall consist of:\r\n         (a)   A listed or approved cooking stove or similar
-      device designed for cooking food, properly installed with all necessary connections
-      for safe, sanitary and efficient operation, and in proper working condition,
-      to be supplied by the owner; provided, however, the owner may specify that this
-      shall be the responsibility of the occupant if sufficient space and adequate
-      connections are provided.\r\n         (b)   A refrigerator or similar device
-      capable of the safe storage of food at temperatures less than 50º F. but more
-      than 3º F. under ordinary maximum summer conditions, properly installed with
-      all necessary connections for safe, sanitary and efficient operation, and in
-      proper working condition, to be supplied by the owner; provided, however, the
-      owner may specify that this shall be the responsibility of the occupant if sufficient
-      space and adequate connections are provided.\r\n         (c) Cabinets or shelves
-      of sound construction and easily cleanable, to be furnished by the owner, for
-      the storage of eating, drinking, and cooking equipment and utensils, and of
-      food that does not under ordinary summer conditions require refrigeration for
-      safe keeping, to be supplied by the owner.\r\n      (7)   Supplied fixtures
-      and equipment. The owner or occupant of a structure or part thereof shall keep
-      all equipment and fixtures therein clean and sanitary, and shall be responsible
-      for the exercise of reasonable care in their proper use and operation. The owner
-      shall maintain the supplied equipment and fixtures in good and proper operating
-      condition.\r\n      (8)   Furnished by occupant. The equipment and fixtures
-      furnished by the occupant of a structure shall be properly installed, and shall
-      be maintained in good working condition, kept clean and sanitary, and free from
-      defects, leaks or obstructions."
-    legal_description_es: ''
-    legal_description_en: "(A)   General. The provisions of this subchapter shall
-      govern the responsibilities of persons for the maintenance of structures, and
-      the equipment and premises thereof. Every owner and occupant must fully comply
-      with all the provisions of the Uniform Landlord Tenant Act/Ordinance. The occupant
-      shall promptly notify the owner of any deficiencies and violations of this chapter.
-      \ All premises shall be kept and maintained free of any public nuisance.\r\n\r\n(B)
-      \  Sanitary condition.\r\n      (1)   Cleanliness.  Every occupant of a structure
-      or part thereof shall keep that part of the structure or premises which that
-      occupant occupies, controls, or uses in a clean, safe and sanitary condition,
-      and in the case of a single-family structure, the owner shall keep the premises
-      free of all weeds and prohibited plant growth, as defined in § 156.052(D), to
-      the center line of such street, easement or alley as are adjacent to or abut
-      the premises.  Nothing in this section shall invalidate a lease provision.  The
-      Metro Government hereby declares that plant growth in excess of the length permitted
-      under § 156.052(D) materially affects public health and safety and creates an
-      emergency condition which allows a landlord to enter immediately upon the premises
-      of a tenant as provided by § 151.33(B) solely to remedy such condition.  Every
-      owner of a dwelling containing two or more dwelling units shall maintain, in
-      a clean, safe and sanitary condition, and free of all weeds and prohibited plant
-      growth, as defined in § 156.052(D), the shared or public areas of the dwelling
-      and premises thereof to the center line of such street, easement or alley as
-      are adjacent to or abut the premises. Any plant growth exceeding ten inches
-      in height on land of three acres or more that abuts residential property, other
-      than crops, trees, bushes, flowers or other ornamental plants, shall be at least
-      50 feet from the property line abutting the developed neighborhood.\r\n      (2)
-      \  Disposal of rubbish. Every occupant of a structure or part thereof shall
-      dispose of all rubbish in a clean and sanitary manner by placing it in leak-proof
-      approved containers, as required by § 156.055.\r\n      (3)   Disposal of garbage.
-      Every occupant of a structure or part thereof shall dispose of garbage in a
-      clean and sanitary manner by placing it in garbage disposal facilities, or if
-      such facilities are not available, by securely wrapping such garbage and placing
-      it in leak-proof approved containers, as required by § 156.055.\r\n      (4)
-      \  Garbage storage facilities. Every dwelling unit shall be supplied with an
-      approved garbage disposal facility, which shall be any adequate mechanical food
-      waste grinder in each dwelling unit or leak-proof approved containers, as required
-      by § 156.055(E).  Such facilities shall be sufficient to meet the needs of the
-      occupants.\r\n      (5)   Rubbish storage facilities. Every dwelling unit shall
-      be supplied with leak-proof approved containers as required by § 156.055(E)
-      for storage of rubbish, and the occupant shall be responsible for the removal
-      of such rubbish.\r\n      (6)   Food preparation. All spaces used or intended
-      to be used for food preparation shall contain suitable space and approved equipment
-      to store, prepare and serve food in a sanitary manner. There shall be adequate
-      facilities and services for the sanitary disposal of food wastes and refuse,
-      including facilities for temporary storage when necessary. Approved equipment
-      shall consist of:\r\n         (a)   A listed or approved cooking stove or similar
-      device designed for cooking food, properly installed with all necessary connections
-      for safe, sanitary and efficient operation, and in proper working condition,
-      to be supplied by the owner; provided, however, the owner may specify that this
-      shall be the responsibility of the occupant if sufficient space and adequate
-      connections are provided.\r\n         (b)   A refrigerator or similar device
-      capable of the safe storage of food at temperatures less than 50º F. but more
-      than 3º F. under ordinary maximum summer conditions, properly installed with
-      all necessary connections for safe, sanitary and efficient operation, and in
-      proper working condition, to be supplied by the owner; provided, however, the
-      owner may specify that this shall be the responsibility of the occupant if sufficient
-      space and adequate connections are provided.\r\n         (c) Cabinets or shelves
-      of sound construction and easily cleanable, to be furnished by the owner, for
-      the storage of eating, drinking, and cooking equipment and utensils, and of
-      food that does not under ordinary summer conditions require refrigeration for
-      safe keeping, to be supplied by the owner.\r\n      (7)   Supplied fixtures
-      and equipment. The owner or occupant of a structure or part thereof shall keep
-      all equipment and fixtures therein clean and sanitary, and shall be responsible
-      for the exercise of reasonable care in their proper use and operation. The owner
-      shall maintain the supplied equipment and fixtures in good and proper operating
-      condition.\r\n      (8)   Furnished by occupant. The equipment and fixtures
-      furnished by the occupant of a structure shall be properly installed, and shall
-      be maintained in good working condition, kept clean and sanitary, and free from
-      defects, leaks or obstructions."
     url: https://codelibrary.amlegal.com/codes/louisvillemetro/latest/loukymetro/0-0-0-16683
-
-- model: rules.rulegroup
-  pk: 1
-  fields:
+  model: rules.ordinance
+  pk: 8
+- fields:
     created_at: 2021-06-15 22:39:36.963696+00:00
     modified_at: 2021-06-15 22:39:36.963730+00:00
-    title: Bathroom
     slug: bathroom
-- model: rules.rulegroup
-  pk: 2
-  fields:
+    title: Bathroom
+  model: rules.rulegroup
+  pk: 1
+- fields:
     created_at: 2021-06-15 22:39:42.666353+00:00
     modified_at: 2021-06-15 22:39:42.666392+00:00
-    title: Kitchen
     slug: kitchen
-- model: rules.rulegroup
-  pk: 3
-  fields:
+    title: Kitchen
+  model: rules.rulegroup
+  pk: 2
+- fields:
     created_at: 2021-06-15 22:39:46.137662+00:00
     modified_at: 2021-06-15 22:39:46.137702+00:00
-    title: Water
     slug: water
-- model: rules.rulegroup
-  pk: 4
-  fields:
+    title: Water
+  model: rules.rulegroup
+  pk: 3
+- fields:
     created_at: 2021-06-15 22:39:49.452370+00:00
     modified_at: 2021-06-15 22:39:49.452406+00:00
-    title: Heat
     slug: heat
-- model: rules.rulegroup
-  pk: 5
-  fields:
+    title: Heat
+  model: rules.rulegroup
+  pk: 4
+- fields:
     created_at: 2021-06-15 22:39:53.092398+00:00
     modified_at: 2021-06-15 22:39:53.092435+00:00
-    title: Light & Ventilation
     slug: light-ventilation
-- model: rules.rulegroup
-  pk: 6
-  fields:
+    title: Light & Ventilation
+  model: rules.rulegroup
+  pk: 5
+- fields:
     created_at: 2021-06-15 22:39:56.179176+00:00
     modified_at: 2021-06-15 22:39:56.179215+00:00
-    title: Electricity
     slug: electricity
-- model: rules.rulegroup
-  pk: 7
-  fields:
+    title: Electricity
+  model: rules.rulegroup
+  pk: 6
+- fields:
     created_at: 2021-06-15 22:39:59.826683+00:00
     modified_at: 2021-06-15 22:39:59.826710+00:00
-    title: Fire Safety
     slug: fire-safety
-- model: rules.rulegroup
-  pk: 8
-  fields:
+    title: Fire Safety
+  model: rules.rulegroup
+  pk: 7
+- fields:
     created_at: 2021-06-15 22:40:02.743082+00:00
     modified_at: 2021-06-15 22:40:02.743116+00:00
-    title: Yard & Premises
     slug: yard-premises
-- model: rules.rulegroup
-  pk: 9
-  fields:
+    title: Yard & Premises
+  model: rules.rulegroup
+  pk: 8
+- fields:
     created_at: 2021-06-15 22:40:05.859813+00:00
     modified_at: 2021-06-15 22:40:05.859852+00:00
-    title: Over Crowding
     slug: over-crowding
-- model: rules.rulegroup
-  pk: 10
-  fields:
+    title: Over Crowding
+  model: rules.rulegroup
+  pk: 9
+- fields:
     created_at: 2021-06-15 22:40:08.955677+00:00
     modified_at: 2021-06-15 22:40:08.955714+00:00
-    title: Maintenance & Repairs
     slug: maintenance-repairs
-- model: rules.rulegroup
-  pk: 11
-  fields:
+    title: Maintenance & Repairs
+  model: rules.rulegroup
+  pk: 10
+- fields:
     created_at: 2021-06-15 22:40:12.582385+00:00
     modified_at: 2021-06-15 22:40:12.582420+00:00
-    title: Cleanliness
     slug: cleanliness
-- model: rules.rulegroup
-  pk: 12
-  fields:
+    title: Cleanliness
+  model: rules.rulegroup
+  pk: 11
+- fields:
     created_at: 2021-06-15 22:40:15.530038+00:00
     modified_at: 2021-06-15 22:41:28.027384+00:00
-    title: Foundation & Floors
     slug: foundation-floors
-- model: rules.rulegroup
-  pk: 13
-  fields:
+    title: Foundation & Floors
+  model: rules.rulegroup
+  pk: 12
+- fields:
     created_at: 2021-06-15 22:40:31.939017+00:00
     modified_at: 2021-06-15 22:40:31.939121+00:00
-    title: Illegally Parked & Stored Vehicles
     slug: illegally-parked-stored-vehicles
-- model: rules.rulegroup
-  pk: 14
-  fields:
+    title: Illegally Parked & Stored Vehicles
+  model: rules.rulegroup
+  pk: 13
+- fields:
     created_at: 2021-06-15 22:40:45.917206+00:00
     modified_at: 2021-06-15 22:40:45.917242+00:00
-    title: Stairs & Protective Railing
     slug: stairs-protective-railing
-
-- model: rules.rule
-  pk: 1
-  fields:
+    title: Stairs & Protective Railing
+  model: rules.rulegroup
+  pk: 14
+- fields:
     created_at: 2021-06-16 00:58:46.382343+00:00
     modified_at: 2021-06-16 04:28:55.606714+00:00
-    title: Private bathroom (a bathroom must have doors and walls)
-    title_es: null
-    title_en: Private bathroom (a bathroom must have doors and walls)
-    slug: private-bathroom
-    rule_group: 1
-    plain_description: null
-    plain_description_es: null
-    plain_description_en: null
     ordinance:
     - 2
     - 3
-- model: rules.rule
-  pk: 2
-  fields:
+    plain_description: null
+    plain_description_en: null
+    plain_description_es: null
+    rule_group: 1
+    slug: private-bathroom
+    title: Private bathroom (a bathroom must have doors and walls)
+    title_en: Private bathroom (a bathroom must have doors and walls)
+    title_es: null
+  model: rules.rule
+  pk: 1
+- fields:
     created_at: 2021-06-16 01:08:24.846805+00:00
     modified_at: 2021-06-16 04:28:31.738021+00:00
-    title: A toilet that flushes
-    title_es: null
-    title_en: A toilet that flushes
-    slug: toilet-flushes
-    rule_group: 1
-    plain_description: null
-    plain_description_es: null
-    plain_description_en: null
     ordinance:
     - 1
-- model: rules.rule
-  pk: 3
-  fields:
+    plain_description: null
+    plain_description_en: null
+    plain_description_es: null
+    rule_group: 1
+    slug: toilet-flushes
+    title: A toilet that flushes
+    title_en: A toilet that flushes
+    title_es: null
+  model: rules.rule
+  pk: 2
+- fields:
     created_at: 2021-06-16 01:10:22.490414+00:00
     modified_at: 2021-06-16 04:28:39.583477+00:00
-    title: A working bathtub or shower
-    title_es: null
-    title_en: A working bathtub or shower
-    slug: working-tub
-    rule_group: 1
-    plain_description: null
-    plain_description_es: null
-    plain_description_en: null
     ordinance:
     - 1
     - 3
-- model: rules.rule
-  pk: 4
-  fields:
+    plain_description: null
+    plain_description_en: null
+    plain_description_es: null
+    rule_group: 1
+    slug: working-tub
+    title: A working bathtub or shower
+    title_en: A working bathtub or shower
+    title_es: null
+  model: rules.rule
+  pk: 3
+- fields:
     created_at: 2021-06-16 01:12:36.794183+00:00
     modified_at: 2021-06-16 04:27:51.944310+00:00
-    title: Good lighting and ventilation
-    title_es: null
-    title_en: Good lighting and ventilation
-    slug: lighting-ventilation
-    rule_group: 1
-    plain_description: null
-    plain_description_es: null
-    plain_description_en: null
     ordinance:
     - 5
-- model: rules.rule
-  pk: 5
-  fields:
+    plain_description: null
+    plain_description_en: null
+    plain_description_es: null
+    rule_group: 1
+    slug: lighting-ventilation
+    title: Good lighting and ventilation
+    title_en: Good lighting and ventilation
+    title_es: null
+  model: rules.rule
+  pk: 4
+- fields:
     created_at: 2021-06-16 01:28:23.086022+00:00
     modified_at: 2021-06-16 04:28:14.060337+00:00
-    title: Flooring that is water resistant and not able to be damaged by water
-    title_es: null
-    title_en: Flooring that is water resistant and not able to be damaged by water
-    slug: bathroom-flooring
-    rule_group: 1
-    plain_description: null
-    plain_description_es: null
-    plain_description_en: null
     ordinance:
     - 7
-- model: rules.rule
-  pk: 6
-  fields:
+    plain_description: null
+    plain_description_en: null
+    plain_description_es: null
+    rule_group: 1
+    slug: bathroom-flooring
+    title: Flooring that is water resistant and not able to be damaged by water
+    title_en: Flooring that is water resistant and not able to be damaged by water
+    title_es: "Suelos que son resistentes al agua y que no pueden ser da\xF1ados por\
+      \ el agua."
+  model: rules.rule
+  pk: 5
+- fields:
     created_at: 2021-06-16 01:31:04.265039+00:00
     modified_at: 2021-06-16 04:24:38.732627+00:00
-    title: A kitchen sink with working hot and cold water
-    title_es: null
-    title_en: A kitchen sink with working hot and cold water
-    slug: kitchen-sink
-    rule_group: 2
-    plain_description: null
-    plain_description_es: null
-    plain_description_en: null
     ordinance:
     - 1
     - 3
     - 6
-- model: rules.rule
-  pk: 7
-  fields:
+    plain_description: null
+    plain_description_en: null
+    plain_description_es: null
+    rule_group: 2
+    slug: kitchen-sink
+    title: A kitchen sink with working hot and cold water
+    title_en: A kitchen sink with working hot and cold water
+    title_es: "Un fregadero de cocina con agua fr\xEDa y caliente."
+  model: rules.rule
+  pk: 6
+- fields:
     created_at: 2021-06-16 01:35:14.951248+00:00
     modified_at: 2021-06-16 04:24:43.053651+00:00
-    title: A stove (or space and connections for installation)
-    title_es: null
-    title_en: A stove (or space and connections for installation)
-    slug: stove
-    rule_group: 2
-    plain_description: null
-    plain_description_es: null
-    plain_description_en: null
     ordinance:
     - 8
-- model: rules.rule
-  pk: 8
-  fields:
+    plain_description: null
+    plain_description_en: null
+    plain_description_es: null
+    rule_group: 2
+    slug: stove
+    title: A stove (or space and connections for installation)
+    title_en: A stove (or space and connections for installation)
+    title_es: null
+  model: rules.rule
+  pk: 7
+- fields:
     created_at: 2021-06-16 01:35:36.399924+00:00
     modified_at: 2021-06-16 04:24:47.208425+00:00
+    ordinance:
+    - 8
+    plain_description: null
+    plain_description_en: null
+    plain_description_es: null
+    rule_group: 2
+    slug: refrigerator
     title: A refrigerator (or space and connections for installation) that can hold
       temperatures between 32 and 50 degrees F
-    title_es: null
     title_en: A refrigerator (or space and connections for installation) that can
       hold temperatures between 32 and 50 degrees F
-    slug: refrigerator
-    rule_group: 2
-    plain_description: null
-    plain_description_es: null
-    plain_description_en: null
-    ordinance:
-    - 8
-- model: rules.rule
-  pk: 9
-  fields:
+    title_es: null
+  model: rules.rule
+  pk: 8
+- fields:
     created_at: 2021-06-16 01:36:13.733785+00:00
     modified_at: 2021-06-16 04:24:53.726411+00:00
-    title: Cabinets and/or shelves for the storage of dishes, utensils and food
-    title_es: null
-    title_en: Cabinets and/or shelves for the storage of dishes, utensils and food
-    slug: cabinets
-    rule_group: 2
-    plain_description: null
-    plain_description_es: null
-    plain_description_en: null
     ordinance:
     - 8
-- model: rules.rule
-  pk: 10
-  fields:
+    plain_description: null
+    plain_description_en: null
+    plain_description_es: null
+    rule_group: 2
+    slug: cabinets
+    title: Cabinets and/or shelves for the storage of dishes, utensils and food
+    title_en: Cabinets and/or shelves for the storage of dishes, utensils and food
+    title_es: null
+  model: rules.rule
+  pk: 9
+- fields:
     created_at: 2021-06-16 01:36:43.870590+00:00
     modified_at: 2021-06-16 04:25:50.488352+00:00
-    title: Flooring that is water resistant and not able to be damaged by water
-    title_es: null
-    title_en: Flooring that is water resistant and not able to be damaged by water
-    slug: kitchen-floor
-    rule_group: 2
-    plain_description: null
-    plain_description_es: null
-    plain_description_en: null
     ordinance:
     - 7
+    plain_description: null
+    plain_description_en: null
+    plain_description_es: null
+    rule_group: 2
+    slug: kitchen-floor
+    title: Flooring that is water resistant and not able to be damaged by water
+    title_en: Flooring that is water resistant and not able to be damaged by water
+    title_es: "Suelos que son resistentes al agua y que no pueden ser da\xF1ados por\
+      \ el agua."
+  model: rules.rule
+  pk: 10

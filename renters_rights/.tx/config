@@ -1,0 +1,17 @@
+[main]
+host = https://www.transifex.com
+
+[renter-haven.django-po]
+file_filter = renters_rights/locale/<lang>/LC_MESSAGES/django.po
+minimum_perc = 0
+source_file = locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[renter-haven.fixtures-strings-yaml]
+file_filter = renters_rights/locale/<lang>/fix_strings.yaml
+minimum_perc = 0
+source_file = renters_rights/locale/en/fix_strings.yaml
+source_lang = en
+type = YAML_GENERIC
+

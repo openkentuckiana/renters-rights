@@ -186,6 +186,7 @@ PHONENUMBER_DEFAULT_FORMAT = "NATIONAL"
 
 gettext = lambda s: s
 LANGUAGES = (("en", gettext("English")),)
+MODELTRANSLATION_FALLBACK_LANGUAGES = ("en",)
 
 # HTTP Basic auth. Username and password must both be set to have an effect.
 # Good for test sites, pre-release, etc.

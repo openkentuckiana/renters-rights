@@ -1,6 +1,6 @@
 #!/bin/bash
 python -m pip install PyYaml
-./manage.py loaddata $(find . -type f -name '*.yaml' | grep fix | sed ':a;N;$!ba;s/\n/ /g')
+./manage.py loaddata $(find . -type f -name '*.yaml' | grep fixtures | grep -v local | sed ':a;N;$!ba;s/\n/ /g')
 
 # MIT License
 

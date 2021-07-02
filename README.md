@@ -9,19 +9,12 @@ About
 -----------------
 This application is built to help renters take advantage of their rights.
 It was created by [Code for Kentuckiana](https://codeforkentuckiana.org) in conjunction with partners from the [Metropolitan Housing Coalition](http://www.metropolitanhousing.org) and the [Kentucky Equal Justice Center](https://www.kyequaljustice.org).
+ 
+Contributing
+-----------------
+Thanks for taking the time to consider contributing to this project! There are a number of ways you can contribute to this project. Design, copywriting, translating, testing, and coding are just a few of the ways you can help. *You do not have to be a programmer to help out!* 
 
-The application will evolve to include additional features, but the initial version will support:
-
-* Uploading and storing documents, such as leases
-* Uploading and storing timestamp-verified images of rental unit conditions
-* Generation of a verified photo report (to provide third-party documentation of condition to landlords)
-* Generation of form letters (e.g. lease termination, request for repair, etc.)
-* Generation of Kentucky Small Claims Court complaints
-
-Some additional features that have been discussed:
-
-* Links to other renter resources, such as agencies and online tools
-* Email reminders about important events (e.g. rent due dates, lease termination dates, etc.)    
+For more info, please read [CONTRIBUTING](CONTRIBUTING.md).
 
 Getting up and running
 -----------------
