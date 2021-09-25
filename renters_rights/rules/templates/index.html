@@ -15,6 +15,21 @@ We will help you find problems that your landlord is required by law to fix, and
     </div>
 
     <div class="p-5">
+        <h2 class="text-2xl lg:text-4xl leading-none font-extrabold tracking-tight text-gray-900 mb-4 lg:mb-5 mt-6 lg:mt-8">
+            {% blocktrans %}How it Works{% endblocktrans %}
+        </h2>
+        <p class="prose">
+            {% blocktrans %}Learn about the process of requesting help from the city when your landlord isn't providing everything they're required to.{% endblocktrans %}
+        </p>
+        <a href="{% url 'how-it-works' %}" class="group max-w-sm border-green-600 border-2 rounded p-3 flex items-center justify-center mt-5 mb-5 hover:text-white hover:bg-green-600 no-underline text-black">
+            <span>{% blocktrans %}See how it works{% endblocktrans %}</span>
+            <span class="pl-5 text-green-600 group-hover:text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+</svg>
+            </span>
+        </a>
+
         <h2 class="text-2xl lg:text-4xl leading-none font-extrabold tracking-tight text-gray-900 mb-4 lg:mb-5 mt-4 lg:mt-8">
             {% blocktrans %}Rules your landlord must follow{% endblocktrans %}
         </h2>
@@ -41,6 +56,21 @@ We will help you find problems that your landlord is required by law to fix, and
         </p>
         <a href="{% url 'get-help' %}" class="group max-w-sm border-green-600 border-2 rounded p-3 flex items-center justify-center mt-5 mb-5 hover:text-white hover:bg-green-600 no-underline text-black">
             <span>{% blocktrans %}Learn how to report a rules violation{% endblocktrans %}</span>
+            <span class="pl-5 text-green-600 group-hover:text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+</svg>
+            </span>
+        </a>
+
+        <h2 class="text-2xl lg:text-4xl leading-none font-extrabold tracking-tight text-gray-900 mb-4 lg:mb-5 mt-6 lg:mt-8">
+            {% blocktrans %}Additional Resources{% endblocktrans %}
+        </h2>
+        <p class="prose">
+            {% blocktrans %}If you need help beyond what Renter Haven provides, we have a list of resources to help you find the right person or group to reach out to.{% endblocktrans %}
+        </p>
+        <a href="{% url 'resources' %}" class="group max-w-sm border-green-600 border-2 rounded p-3 flex items-center justify-center mt-5 mb-5 hover:text-white hover:bg-green-600 no-underline text-black">
+            <span>{% blocktrans %}View additional resources{% endblocktrans %}</span>
             <span class="pl-5 text-green-600 group-hover:text-white">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
