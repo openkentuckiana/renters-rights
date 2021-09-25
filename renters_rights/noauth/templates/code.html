@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans 'Log In' %}{% endblock title %}
+
+{% block content %}
+
+<div id="log-in">
+    <h2>{% trans 'Log In' %}</h2>
+
+    <div class="content-body">
+        <p>{% trans 'Check your email for a log in link' %}<br>
+        {% trans 'Follow the link to log in automatically or enter the code from the email below.' %}</p>
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            </table>
+            <div id="buttons">
+                <button>{% trans "Log In" %}</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

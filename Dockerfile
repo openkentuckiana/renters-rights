@@ -23,7 +23,7 @@ CMD ["bash"]
 FROM python:3.8 as app
 
 RUN apt-get update && \
-	apt-get install zlib1g-dev binutils libproj-dev gdal-bin libgeoip1 python-gdal -y && \
+	apt-get install zlib1g-dev binutils libproj-dev -y && \
 	apt-get install python3-pip git -y && \
 	apt-get install build-essential python3-dev python3-pip python3-setuptools python3-wheel python3-cffi libcairo2 libpango-1.0-0 libpangocairo-1.0-0 libgdk-pixbuf2.0-0 libffi-dev shared-mime-info gettext -y && \
 	pip3 install pipenv && \

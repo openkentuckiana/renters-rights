@@ -7,7 +7,7 @@ import django_heroku
 from .base import *
 
 django_heroku.settings(locals(), staticfiles=False)
-DATABASES["default"]["ENGINE"] = "django.contrib.gis.db.backends.postgis"
+DATABASES["default"]["ENGINE"] = "django.db.backends.postgresql"
 
 DEBUG = str_to_bool(os.environ.get("DJANGO_DEBUG", False))
 

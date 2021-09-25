@@ -74,7 +74,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django.contrib.gis",
     "django.contrib.sites",
     "django.contrib.flatpages",
     "localflavor",
@@ -126,7 +125,7 @@ WSGI_APPLICATION = "renters_rights.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.contrib.gis.db.backends.postgis",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": "renters_rights",
         "USER": "postgres",
         "PASSWORD": "pass",
