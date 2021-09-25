@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans 'Additional Resources' %}{% endblock title %}
+
+{% block content %}
+    <div class="p-5">
+        <div class="pb-5">
+            <a href="{%url 'homepage' %}">{% trans 'Home' %}</a> > <span class="font-semibold">{%trans 'Additional Resources' %}</span>
+        </div>
+        <hr class="mb-5">
+
+        <h1 class="text-4xl lg:text-5xl leading-none font-extrabold tracking-tight text-gray-900 mb-10 sm:mb-4">{%trans 'Additional Resourcess' %}</h1>
+
+        <p class="prose mb-2">
+            TO DO
+        </p>
+    </div>
+{% endblock %}

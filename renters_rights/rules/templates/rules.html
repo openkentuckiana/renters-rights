@@ -15,26 +15,33 @@
         <h1 class="text-4xl lg:text-5xl leading-none font-extrabold tracking-tight text-gray-900 mb-8 sm:mb-4">{%trans 'Rules your landlord must follow' %}</h1>
 
         <p class="prose">
-            {% blocktranslate %}Check out the various rules that your landlord must follow. We can help you submit a request to the city if any of the rules are not being followed.{% endblocktranslate %}
+            {% blocktranslate %}These are the things your landlord must provide by law. We can help you submit a request to the city if any of the rules are not being followed.{% endblocktranslate %}
         </p>
 
         <p class="prose mt-5 font-bold">
             {% blocktranslate %}Click on any of the rules to learn more and to submit a request to the city.{% endblocktranslate %}
         </p>
 
+        <p class="prose mt-5 font-bold">
+            {% blocktranslate %}If you have more than one thing to report, choose the most important. The inspector from the city can look at other problems while they are at your home.{% endblocktranslate %}
+        </p>
+
+        {% load cache %}
+        {% cache 86400 sidebar2 %}
         {% regroup rules|dictsort:'rule_group.title' by rule_group.title as rule_group_list %}
         {% for rule_group in rule_group_list %}
         <div class="max-w-lg lg:max-w-3xl">
             <h2 class="mt-5 text-2xl lg:text-4xl leading-none font-extrabold tracking-tight text-gray-900">
                 {{ rule_group.grouper }}
             </h2>
-            <div class="flex flex-col lg:flex-row">
+            <div class="flex flex-col md:flex-wrap md:flex-row">
                 {% for rule in rule_group.list %}
-                <a href="{% url 'rule' rule.slug %}" class="w-auto lg:w-1/3 min-h-full border-green-600 border-2 rounded p-3 mt-2 mr-2 flex items-top justify-left hover:text-white hover:bg-green-600 no-underline text-black">{{ rule }}</a>
+                <a href="{% url 'rule' rule.slug %}" class="w-72 md:w-56 min-h-full border-green-600 border-2 rounded p-3 mt-2 mr-2 flex items-top justify-left hover:text-white hover:bg-green-600 no-underline text-black">{{ rule }}</a>
                 {% endfor %}
             </div>
         </div>
         {% endfor %}
+        {% endcache %}
 
     </div>
 

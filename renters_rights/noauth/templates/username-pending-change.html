@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans 'Change Username' %}{% endblock title %}
+
+{% block content %}
+
+<div id="log-in">
+    <h2>{% trans 'Change Username' %}</h2>
+
+    <div class="content-body">
+        {% if pending_new_email %}
+            <p>{% trans 'Enter the code you received to change your username to' %} {{ pending_new_email }}.<br>
+            Or close this page to keep your current username, {{ current_username }}.</p>
+
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <table>
+                    {{ form.as_table }}
+                </table>
+                <div id="buttons">
+                    <div><a href="{% url 'noauth:account-details' %}" onclick="goBack();">{% trans "Cancel" %}</a></div>
+                    <button>{% trans "Change Username" %}</button>
+                </div>
+            </form>
+        {% else %}
+            {% trans 'You have not requested a username change' %}.
+        {% endif %}
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans 'How it Works' %}{% endblock title %}
+
+{% block content %}
+    <div class="p-5">
+        <div class="pb-5">
+            <a href="{%url 'homepage' %}">{% trans 'Home' %}</a> > <span class="font-semibold">{%trans 'How it Works' %}</span>
+        </div>
+        <hr class="mb-5">
+
+        <h1 class="text-4xl lg:text-5xl leading-none font-extrabold tracking-tight text-gray-900 mb-10 sm:mb-4">{%trans 'How it Works' %}</h1>
+
+        <p class="prose mb-2">
+            {% blocktrans %}The city's <a href="https://louisvilleky.gov/government/codes-regulations">Department of Codes & Regulations</a> can help you when your landlord isn't providing something they are required by law to provide.{% endblocktrans %}
+        </p>
+
+        <p class="prose mb-2">
+        {% blocktrans %}If you're not sure what a landlord must provide, check out our list of <a href="{{ rules_url }}">rules</a>.{% endblocktrans %}
+        </p>
+
+        <p class="prose mb-2">
+            {% blocktrans %}The process for getting help is outlined below.{% endblocktrans %}
+        </p>
+
+        <div class="my-20">
+            {% include "includes/the-process.html" %}
+        </div>
+    </div>
+{% endblock %}
