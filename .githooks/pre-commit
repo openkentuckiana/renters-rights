@@ -1,7 +1,6 @@
 #!/bin/sh
 
-docker-compose run --rm app isort --profile black .; iss=$?
-docker-compose run --rm app black . -l 128; bs=$?
+docker-compose run app black . -l 128; bs=$?
 
 if [[ $bs -eq 0 ]] && [[ iss -eq 0 ]]
 then

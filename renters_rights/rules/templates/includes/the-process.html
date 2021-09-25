@@ -1,0 +1,190 @@
+{% load i18n %} 
+
+{% url 'rules' as rules_url %} 
+{% url 'get-help' as get_help_url %}
+
+<div class="max-w-md flex justify-center flex-col">
+  <div class="max-w-md py-4 px-8 bg-gray-100 shadow-lg rounded-lg my-5">
+    <div class="flex justify-center md:justify-end -mt-16 mb-4 md:mb-0">
+      <div
+        class="
+          w-20
+          h-20
+          object-cover
+          rounded-full
+          border-2 border-green-900
+          text-4xl
+          flex
+          justify-center
+          align-center
+          items-center
+          bg-green-600
+          text-white
+        "
+      >
+        1
+      </div>
+    </div>
+    <div>
+      <h2 class="text-gray-800 text-3xl font-semibold">
+        {% blocktrans %}Find a problem{% endblocktrans %}
+      </h2>
+      <p class="mt-2 text-gray-600">
+        {% blocktrans %}You find a problem in the home that you rent. We have a
+        list of <a href="{{ rules_url }}">rules</a> your landlord must follow to
+        help you out.{% endblocktrans %}
+      </p>
+    </div>
+  </div>
+
+  <div class="max-w-md flex justify-center mb-10 md:mb-0">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-16 w-16"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M14.707 12.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l2.293-2.293a1 1 0 011.414 0z"
+        clip-rule="evenodd"
+      />
+    </svg>
+  </div>
+
+  <div class="max-w-md py-4 px-8 bg-gray-100 shadow-lg rounded-lg my-5">
+    <div class="flex justify-center md:justify-end -mt-16 mb-4 md:mb-0">
+      <div
+        class="
+          w-20
+          h-20
+          object-cover
+          rounded-full
+          border-2 border-green-900
+          text-4xl
+          flex
+          justify-center
+          align-center
+          items-center
+          bg-green-600
+          text-white
+        "
+      >
+        2
+      </div>
+    </div>
+    <div>
+      <h2 class="text-gray-800 text-3xl font-semibold">
+        {% blocktrans %}Report a problem{% endblocktrans %}
+      </h2>
+      <p class="mt-2 text-gray-600">
+        {% blocktrans %}You report the problem via the
+        <a href="{{ get_help_url }}">web</a> or by calling 311.{% endblocktrans %}
+      </p>
+    </div>
+  </div>
+
+  <div class="max-w-md flex justify-center mb-10 md:mb-0">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-16 w-16"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M14.707 12.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l2.293-2.293a1 1 0 011.414 0z"
+        clip-rule="evenodd"
+      />
+    </svg>
+  </div>
+
+  <div class="max-w-md py-4 px-8 bg-gray-100 shadow-lg rounded-lg my-5">
+    <div class="flex justify-center md:justify-end -mt-16 mb-4 md:mb-0">
+      <div
+        class="
+          w-20
+          h-20
+          object-cover
+          rounded-full
+          border-2 border-green-900
+          text-4xl
+          flex
+          justify-center
+          align-center
+          items-center
+          bg-green-600
+          text-white
+        "
+      >
+        3
+      </div>
+    </div>
+    <div>
+      <h2 class="text-gray-800 text-3xl font-semibold">
+        {% blocktrans %}Inspection{% endblocktrans %}
+      </h2>
+      <p class="mt-2 text-gray-600">
+        {% blocktrans %}An inspector from the city will come to your home to
+        look at the problem you reported.{% endblocktrans %}
+      </p>
+      <p class="mt-2 text-gray-600">
+        {% blocktrans %}Inspectons are scheduled based on the severity of the
+        problem. For example, a house without heat in the winter would probably
+        be inspected before a house with missing exterior paint.{% endblocktrans %}
+      </p>
+      <p class="mt-2 text-gray-600">
+        {% blocktrans %}Inspectors can request police escorts to come with them
+        if they feel unsafe.{% endblocktrans %}
+      </p>
+    </div>
+  </div>
+
+  <div class="max-w-md flex justify-center mb-10 md:mb-0">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-16 w-16"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M14.707 12.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l2.293-2.293a1 1 0 011.414 0z"
+        clip-rule="evenodd"
+      />
+    </svg>
+  </div>
+
+  <div class="max-w-md py-4 px-8 bg-gray-100 shadow-lg rounded-lg my-5">
+    <div class="flex justify-center md:justify-end -mt-16 mb-4 md:mb-0">
+      <div
+        class="
+          w-20
+          h-20
+          object-cover
+          rounded-full
+          border-2 border-green-900
+          text-4xl
+          flex
+          justify-center
+          align-center
+          items-center
+          bg-green-600
+          text-white
+        "
+      >
+        4
+      </div>
+    </div>
+    <div>
+      <h2 class="text-gray-800 text-3xl font-semibold">
+        {% blocktrans %}Resolution{% endblocktrans %}
+      </h2>
+      <p class="mt-2 text-gray-600">
+        {% blocktrans %}If the inspector agrees that there is a problem that
+        your landlord needs to fix, the city will make your landlord fix the
+        problem.{% endblocktrans %}
+      </p>
+    </div>
+  </div>
+</div>

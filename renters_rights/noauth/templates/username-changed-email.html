@@ -1,0 +1,12 @@
+{% extends "base-email.html" %}
+
+{% load i18n %}
+
+{% block content %}
+    <p>
+        {% trans "Hi"%},<br>
+        <br>
+        {% blocktrans %}You have successfully changed your username for {{site_name}} to {{new_username}}{% endblocktrans %}<br>
+        {% blocktrans %}You will need to log in using this username going forward.{% endblocktrans %}<br>
+    </p>
+{% endblock %}

@@ -11,9 +11,19 @@ class IndexView(View):
         return render(request, "index.html")
 
 
+class HowItWorksView(View):
+    def get(self, request):
+        return render(request, "how-it-works.html")
+
+
 class GetHelpView(View):
     def get(self, request):
         return render(request, "get-help.html")
+
+
+class ResourcesView(View):
+    def get(self, request):
+        return render(request, "resources.html")
 
 
 class RulesView(View):

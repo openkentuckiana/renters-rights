@@ -1,0 +1,16 @@
+{% extends "base-email.html" %}
+
+{% load i18n %}
+
+{% block content %}
+    <p>
+        {% trans "Hi"%},<br>
+        <br>
+        {% blocktrans %}It looks like you requested a username change for your {{site_name}} account.{% endblocktrans %}<br>
+        {% blocktrans %}You were previously using {{old_username}} to log in.{% endblocktrans %}<br>
+        <br>
+        {% blocktrans %}If you would like to use {{new_username}} to log in to {{site_name}},
+        <a href="{{confirmation_uri}}?code={{code}}">click here to confirm</a> the change.{% endblocktrans %}<br>
+        {% blocktrans %}You may also enter this code to confirm the change: {{code}}.{% endblocktrans %}
+    </p>
+{% endblock %}
