@@ -27,7 +27,7 @@
         </p>
 
         {% load cache %}
-        {% cache 86400 sidebar %}
+        {% cache 86400 sidebar2 %}
         {% regroup rules|dictsort:'rule_group.title' by rule_group.title as rule_group_list %}
         {% for rule_group in rule_group_list %}
         <div class="max-w-lg lg:max-w-3xl">
@@ -36,7 +36,7 @@
             </h2>
             <div class="flex flex-col md:flex-wrap md:flex-row">
                 {% for rule in rule_group.list %}
-                <a href="{% url 'rule' rule.slug %}" class="w-96 md:w-56 min-h-full border-green-600 border-2 rounded p-3 mt-2 mr-2 flex items-top justify-left hover:text-white hover:bg-green-600 no-underline text-black">{{ rule }}</a>
+                <a href="{% url 'rule' rule.slug %}" class="w-72 md:w-56 min-h-full border-green-600 border-2 rounded p-3 mt-2 mr-2 flex items-top justify-left hover:text-white hover:bg-green-600 no-underline text-black">{{ rule }}</a>
                 {% endfor %}
             </div>
         </div>
