@@ -5,9 +5,10 @@
 
 {% block title %}{% trans 'How it Works' %}{% endblock title %}
 
-{% url 'rules' as rules_url %} 
-
 {% block content %}
+
+    {% url 'rules' as rules_url %} 
+
     <div class="p-5">
         <div class="pb-5">
             <a href="{%url 'homepage' %}">{% trans 'Home' %}</a> > <span class="font-semibold">{%trans 'How it Works' %}</span>
